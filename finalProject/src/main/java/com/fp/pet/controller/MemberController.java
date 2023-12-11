@@ -3,6 +3,8 @@ package com.fp.pet.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DuplicateKeyException;
@@ -16,8 +18,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.fp.pet.service.MemberService;
 import com.fp.pet.domain.Member;
+import com.fp.pet.domain.SessionInfo;
+import com.fp.pet.service.MemberService;
 
 @Controller
 @RequestMapping(value="/member/*")
@@ -106,5 +109,33 @@ public class MemberController {
 		model.put("passed", p);
 		return model;
 	}
+	
+	// 패스워드 수정 폼
+		@GetMapping("updatePwd")
+		public String updatePwdForm() throws Exception{
+			
+			return ".member.updatePwd";
+		}
+		@PostMapping("updatePwd")
+		public String updateSubmit(
+				@RequestParam String userPwd,
+				HttpSession session,
+				Model model
+				) throws Exception{
+			
+			SessionInfo info = (SessionInfo) session.getAttribute("member");
+			Member dto = new Member();
+			dto.setUserId(info.getUserId());
+			dto.setUserPwd(userPwd);
+			
+			try {
+				service.updatePwd(dto);
+			} catch (Exception e) {
+				model.addAttribute("message","변경할 패스워드가 기존 패스워와 일치합니다");
+				return ".member.updatePwd";
+			}
+			
+			return "redirect:/";
+		}
 
 }
