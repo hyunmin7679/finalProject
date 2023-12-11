@@ -82,7 +82,7 @@ $(function(){
 				
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav ms-auto flex-nowrap">
-					<!-- 
+					<!--
 					<li class="nav-item">
 						<a class="nav-link" aria-current="page" href="${pageContext.request.contextPath}/">홈</a>
 					</li>
@@ -95,21 +95,17 @@ $(function(){
 					 
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							커뮤니티
+							Product
 						</a>
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<li><a class="dropdown-item" href="#">방명록</a></li>
-							<li><a class="dropdown-item" href="#">게시판</a></li>
-							<li><a class="dropdown-item" href="#">답변형 게시판</a></li>
-							<li><a class="dropdown-item" href="#">포토갤러리</a></li>
-							<li><hr class="dropdown-divider"></li>
-							<li><a class="dropdown-item" href="#">채팅</a></li>
+							<li><a class="dropdown-item" href="#">Dog</a></li>
+							<li><a class="dropdown-item" href="#">Cat</a></li>
 						</ul>
 					</li>
 	
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							강좌
+							menu
 						</a>
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 							<li><a class="dropdown-item" href="#">프로그래밍</a></li>
@@ -124,7 +120,7 @@ $(function(){
 					
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							고객센터
+							menu
 						</a>
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 							<li><a class="dropdown-item" href="#">자주하는질문</a></li>
@@ -137,7 +133,7 @@ $(function(){
 					
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							마이페이지
+							menu
 						</a>
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 							<li><a class="dropdown-item" href="#">일정관리</a></li>

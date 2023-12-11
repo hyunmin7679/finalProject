@@ -10,6 +10,57 @@
 	<title><tiles:insertAttribute name="title"/></title>
 	<link rel="icon" href="data:;base64,iVBORw0KGgo=">
 	
+	<!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com"  />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Icons. Uncomment required icon fonts -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrapTemp/assets/vendor/fonts/boxicons.css" />
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrapTemp/assets/vendor/css/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrapTemp/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrapTemp/assets/css/demo.css" />
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrapTemp/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+
+    <link rel="${pageContext.request.contextPath}/bootstrapTempstylesheet" href="${pageContext.request.contextPath}/bootstrapTemp/assets/vendor/libs/apex-charts/apex-charts.css" />
+
+    <!-- Page CSS -->
+
+    <!-- Helpers -->
+    <script src="${pageContext.request.contextPath}/bootstrapTemp/assets/vendor/js/helpers.js"></script>
+
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+    <script src="${pageContext.request.contextPath}/bootstrapTemp/assets/js/config.js"></script>
+    
+    
+    <script src="${pageContext.request.contextPath}/bootstrapTemp/assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="${pageContext.request.contextPath}/bootstrapTemp/assets/vendor/libs/popper/popper.js"></script>
+    <script src="${pageContext.request.contextPath}/bootstrapTemp/assets/vendor/js/bootstrap.js"></script>
+    <script src="${pageContext.request.contextPath}/bootstrapTemp/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+    <script src="${pageContext.request.contextPath}/bootstrapTemp/assets/vendor/js/menu.js"></script>
+    <!-- endbuild -->
+
+    <!-- Vendors JS -->
+    <script src="${pageContext.request.contextPath}/bootstrapTemp/assets/vendor/libs/apex-charts/apexcharts.js"></script>
+
+    <!-- Main JS -->
+    <script src="${pageContext.request.contextPath}/bootstrapTemp/assets/js/main.js"></script>
+
+    <!-- Page JS -->
+    <script src="${pageContext.request.contextPath}/bootstrapTemp/assets/js/dashboards-analytics.js"></script>
+    
+    
+    
+	<!--  
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendor/jquery/css/jquery-ui.min.css" type="text/css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.2/css/all.css">
 	
@@ -24,6 +75,7 @@
 	
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/util-jquery.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/menu2.js"></script>
+	-->
 </head>
 
 <body>
@@ -37,8 +89,9 @@
 	<div class="loader"></div>
 </div>
 
+<!-- 
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/jquery/js/jquery-ui.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/jquery/js/jquery.ui.datepicker-ko.js"></script>
-
+-->
 </body>
 </html>
