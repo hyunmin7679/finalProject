@@ -21,5 +21,12 @@ public class InquiryManageController {
 		model.addAttribute("sub","Notifications");
 		return ".admin.inquiryManage.list2";
 	}
+	
+	@RequestMapping(value = "users")
+	public String users(Model model) throws Exception {
+		model.addAttribute("left","UserControl");
+		model.addAttribute("sub","userlist");
+		return ".admin.inquiryManage.users";
+	}
 
 }

@@ -1516,6 +1516,8 @@
   content: "\ea17";
 }
 
+
+
 .bxs-car-wash:before {
   content: "\ea18";
 }
@@ -4087,6 +4089,11 @@
 .bx-cart-alt:before {
   content: "\ec9a";
 }
+
+.bx-star:before{
+  content: "\ab1a"
+}
+
 
 .bx-cast:before {
   content: "\ec9b";
