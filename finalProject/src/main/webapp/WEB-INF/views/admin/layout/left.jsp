@@ -74,7 +74,7 @@
 			</ul></li>
 			
 		<!-- 일반 관리 -->
-		<li class="menu-item" ${left=='csManage'? 'active':''}><a href="${pageContext.request.contextPath}/admin/inquiryManage/csManage"
+		<li class="menu-item ${left=='csManage'? 'active':''}" ><a href="${pageContext.request.contextPath}/admin/inquiryManage/csManage"
 			class="menu-link"> <i class='menu-icon tf-icons bx bx-cube-alt'></i>
 				<div data-i18n="csManage">일반 관리</div>
 		</a></li>
@@ -99,7 +99,7 @@
 		</a></li>
 			
 		<!-- 계정 관리 -->
-		<li class="menu-item ${left=='UserControl'? 'active open':''}"><a href="javascript:void(0);"
+		<li class="menu-item ${left=='adminAuthentication'? 'active open':''}"><a href="javascript:void(0);"
 			class="menu-link menu-toggle"> <i
 				class="menu-icon tf-icons bx bx-lock-open-alt"></i>
 				<div data-i18n="adminAuthentication">계정 관리</div>
