@@ -74,7 +74,7 @@ body {
 		
 		<div class="container2">
 			<div class="item2" >
-				<p> <strong>멋쟁이 정장 </strong></p>
+				<p style="padding-top: 30%"> <strong>멋쟁이 정장 </strong></p>
 				<p> 트루사루디의 멋쟁이 정장은 우리아이의</p>
 				<p> 개구지고 귀여운 모습을 선보여주고 있습니다 </p>
 			</div>
