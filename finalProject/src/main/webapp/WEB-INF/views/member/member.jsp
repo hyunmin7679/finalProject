@@ -3,8 +3,17 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <style type="text/css">
+ body { background:#FFF7F6; }
+ 
 .body-container {
-	max-width: 800px;
+    width: 1000px;
+    height: 100%;
+    position: center;
+    padding: 70px 50px 50px 70px;
+    border-radius: 40px 80px;
+    background: #fffff0;
+}
+
 }
 </style>
 
@@ -142,8 +151,8 @@ function userIdCheck() {
 }
 </script>
 
-<div class="container">
-	<div class="body-container">	
+<div class="body-container">
+	<div>	
 		<div class="body-title">
 			<h3><i class="bi bi-person-square"></i> ${mode=="member"?"회원가입":"정보수정"} </h3>
 		</div>
