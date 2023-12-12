@@ -6,6 +6,11 @@
 * { padding: 0; margin: 0; }
 *, *::after, *::before { box-sizing: border-box; }
 
+ .container {
+ 	max-width: 1000px; 
+ }
+
+
 body {
    font-family:"Malgun Gothic", "맑은 고딕", NanumGothic, 나눔고딕, 돋움, sans-serif;
    background: #fff7f6;
@@ -35,11 +40,11 @@ body {
 	.item2{align-items: center;}
 	.item22{align-self: flex-end; }
 	
-.item2 > p{text-align: center; vertical-align: middle; }
+	.item2 > p {text-align: center; vertical-align: middle; }
   
 </style>
 
-<div class="body-container">
+<div class="container">
     <div class="inner-page">
     	<div class="container1">
 	    	<div class="item1">
