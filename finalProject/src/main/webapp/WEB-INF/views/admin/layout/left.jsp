@@ -27,9 +27,9 @@
 			</li>
 			
 		<!-- 상품 관리 -->
-		<li class="menu-item"><a href="cards-basic.html"
+		<li class="menu-item ${left=='productManage'? 'active open':''}"><a href="${pageContext.request.contextPath}/admin/inquiryManage/productManage"
 			class="menu-link"> <i class='menu-icon tf-icons bx bx-cart-alt'></i>
-				<div data-i18n="Basic">상품 관리</div>
+				<div data-i18n="productManage">상품 관리</div>
 		
 		</a></li>
 		
@@ -51,39 +51,39 @@
 			</ul></li>
 		
 		<!-- 리뷰 관리 -->
-		<li class="menu-item"><a href="cards-basic.html"
+		<li class="menu-item ${left=='reviewManage'? 'active open':''}"><a href="${pageContext.request.contextPath}/admin/inquiryManage/reviewManage"
 			class="menu-link"> <i class='menu-icon tf-icons bx bx-star'></i>
-				<div data-i18n="Basic">리뷰 관리</div>
+				<div data-i18n="reviewManage">리뷰 관리</div>
 		</a></li>
 		
 		<!-- 회원 관리 -->
-		<li class="menu-item ${left=='UserControl'? 'active open':''}">
-		<li class="menu-item"><a href="javascript:void(0);"
+		<li class="menu-item ${left=='UserControl'? 'active open':''}"><a href="javascript:void(0);"
 			class="menu-link menu-toggle"> <i
 				class="menu-icon tf-icons bx bx-group"></i>
-				<div data-i18n="Authentications">회원 관리</div>
+				<div data-i18n="UserControl">회원 관리</div>
 		</a>
 			<ul class="menu-sub">
-				<li class="menu-item"><a href="${pageContext.request.contextPath}/admin/inquiryManage/users"
-					class="menu-link" target="_blank">
+				<li class="menu-item ${sub=='userlist'?'active':''}"><a href="${pageContext.request.contextPath}/admin/inquiryManage/users"
+					class="menu-link">
 						<div data-i18n="userlist">회원 리스트</div>
 				</a></li>
-				<li class="menu-item"><a href="${pageContext.request.contextPath}/admin/inquiryManage/usersinfo"
-					class="menu-link" target="_blank">
+				<li class="menu-item ${sub=='usersinfo'?'active':''}"><a href="${pageContext.request.contextPath}/admin/inquiryManage/usersinfo"
+					class="menu-link">
 						<div data-i18n="usersinfo">회원 상세</div>
 				</a></li>
 			</ul></li>
 			
 		<!-- 일반 관리 -->
-		<li class="menu-item"><a href="cards-basic.html"
+		<li class="menu-item" ${left=='csManage'? 'active':''}><a href="${pageContext.request.contextPath}/admin/inquiryManage/csManage"
 			class="menu-link"> <i class='menu-icon tf-icons bx bx-cube-alt'></i>
-				<div data-i18n="Basic">일반 관리</div>
+				<div data-i18n="csManage">일반 관리</div>
 		</a></li>
 		
 		<!-- 아이콘 관리 -->
-		<li class="menu-item"><a href="cards-basic.html"
-			class="menu-link"> <i class='menu-icon tf-icons bx bx-face'></i>
-				<div data-i18n="Basic">아이콘 관리</div>
+		<li class="menu-item ${left=='iconControl'? 'active':''}">
+			<a href="${pageContext.request.contextPath}/admin/inquiryManage/icons"class="menu-link"> 
+				<i class='menu-icon tf-icons bx bx-face'></i>
+				<div data-i18n="icons">아이콘 관리</div>
 		</a></li>
 		
 		<!-- 커뮤니티 관리 -->
@@ -99,19 +99,19 @@
 		</a></li>
 			
 		<!-- 계정 관리 -->
-		<li class="menu-item"><a href="javascript:void(0);"
+		<li class="menu-item ${left=='UserControl'? 'active open':''}"><a href="javascript:void(0);"
 			class="menu-link menu-toggle"> <i
 				class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-				<div data-i18n="Authentications">계정 관리</div>
+				<div data-i18n="adminAuthentication">계정 관리</div>
 		</a>
 			<ul class="menu-sub">
-				<li class="menu-item"><a href="auth-login-basic.html"
-					class="menu-link" target="_blank">
-						<div data-i18n="Basic">관리자 리스트</div>
+				<li class="menu-item"><a href="${pageContext.request.contextPath}/admin/inquiryManage/adminList"
+					class="menu-link">
+						<div data-i18n="adminList">관리자 리스트</div>
 				</a></li>
-				<li class="menu-item"><a href="auth-register-basic.html"
-					class="menu-link" target="_blank">
-						<div data-i18n="Basic">관리자 추가</div>
+				<li class="menu-item"><a href="${pageContext.request.contextPath}/admin/inquiryManage/adminAccount"
+					class="menu-link">
+						<div data-i18n="adminAccount">관리자 추가</div>
 				</a></li>
 			</ul></li>
 			
