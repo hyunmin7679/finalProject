@@ -6,6 +6,19 @@
 .body-container {
 	max-width: 800px;
 }
+#kakaoLogin .btnKakao {
+    margin-top: 10px;
+    height: 60px;
+    line-height: 60px;
+    background-color: #fee500;
+    background-size: 18px;
+    background-position: 15px;
+    color: #111;
+    font-size: 15px;
+    border-radius: 5px;
+    width: 100%;
+    display: block;
+}
 </style>
 
 <script type="text/javascript">
@@ -37,7 +50,17 @@ function sendLogin() {
             <div class="col-md-6 offset-md-3">
                 <div class="border mt-5 p-4">
                     <form name="loginForm" action="" method="post" class="row g-3">
-                        <h3 class="text-center"><i class="bi bi-lock"></i> 회원 로그인</h3>
+                        <img alt="My Image" src="${pageContext.request.contextPath}/resources/images/logo.png">
+                        <div id="kakaoLogin" class="contents ">
+						      <h2 class="title">로그인</h2>
+						      <p class="text">카카오로 간편하게 로그인하세요.</p>
+						      <div id="kakaoLogin" class="contents">
+						     	 <a class="btn btnKakao" href="#none" 
+						     	 onclick="#">
+						     	 <img src=""> 카카오로 시작하기</a>
+						     </div>
+						</div>
+						<div class="line_txt"><span class>OR</span></div>
                         <div class="col-12">
                             <label class="mb-1">아이디</label>
                             <input type="text" name="userId" class="form-control" placeholder="아이디">
