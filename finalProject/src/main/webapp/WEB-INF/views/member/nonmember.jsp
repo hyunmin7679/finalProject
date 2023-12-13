@@ -24,7 +24,7 @@
     position: center;
     padding: 70px 50px 50px 70px;
     border-radius: 40px 80px;
-    background: #fffff0;
+    background: #ffffff;
 }
 
 body {
@@ -34,7 +34,8 @@ body {
 
  p {padding-top: 20px;}
  img {width: 50px;}
- th {margin: 30px;}
+ th td {margin: 30px;}
+ input {border: none; margin: 20px auto; width: 100%}
 
 </style>
 
@@ -49,11 +50,10 @@ body {
 		</div>
 		
 		<div>
-			<table class="table table-sm">
+			<table class= "table table-sm">
 				<tr>
-					<th>주문자명</th>
 					<td>
-						<input type="text" name="name">
+						<input name="order_name" class="inputTypeText" placeholder="주문자명" type="text">
 					</td>
 				</tr>
 				<tr>
