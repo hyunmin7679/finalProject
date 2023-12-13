@@ -6,7 +6,8 @@
 .fixed-top { position: fixed; top: 0; left: 0; right: 0; }
 .header-top.topbar-scrolled { top: -37px; }
 header .navbar.navbar-scrolled { top: 0; padding: 15px; }
-header .navbar { padding: 5px 0; top: 37px; z-index: 997; }
+header .navbar { padding: 5px 0; top: 37px; z-index: 997;  background: #fff7f6; }
+header .header-top{ background: #fff7f6; }
 main { margin-top: 130px; }
 </style>
 
@@ -29,7 +30,7 @@ $(function(){
 });
 </script>
 
-	<div class="container-fluid bg-light header-top fixed-top">
+	<div class="container-fluid header-top fixed-top">
 		<div class="container">
 			<div class="row">
 			
@@ -105,44 +106,37 @@ $(function(){
 	
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							menu
-						</a>
-						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<li><a class="dropdown-item" href="#">프로그래밍</a></li>
-							<li><a class="dropdown-item" href="#">데이터베이스</a></li>
-							<li><a class="dropdown-item" href="#">웹 프로그래밍</a></li>
-							<li><a class="dropdown-item" href="#">데이터분석 및 AI</a></li>
-							<li><a class="dropdown-item" href="#">클라우드 및 기타</a></li>
-							<li><hr class="dropdown-divider"></li>
-							<li><a class="dropdown-item" href="#">질문과 답변</a></li>
-						</ul>
+		                     Community
+		                </a>
+		                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+		                	<li><a class="dropdown-item" href="#">나눔</a></li>
+							<li><a class="dropdown-item" href="#">상담</a></li>
+		                    <li><a class="dropdown-item" href="#">자유</a></li>
+		                    <li><a class="dropdown-item" href="#">산책로 추천</a></li>
+		                    <li><a class="dropdown-item" href="#">산책메이트</a></li>
+		                </ul>
+
 					</li>
 					
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							menu
+							Event
 						</a>
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<li><a class="dropdown-item" href="#">자주하는질문</a></li>
-							<li><a class="dropdown-item" href="#">공지사항</a></li>
-							<li><a class="dropdown-item" href="#">1:1문의</a></li>
-							<li><hr class="dropdown-divider"></li>
 							<li><a class="dropdown-item" href="#">이벤트</a></li>
-						</ul>
+	                    </ul>
+
 					</li>
 					
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							menu
+							Service Center
 						</a>
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<li><a class="dropdown-item" href="#">일정관리</a></li>
-							<li><a class="dropdown-item" href="#">사진첩</a></li>
-							<li><a class="dropdown-item" href="#">쪽지함</a></li>
-							<li><a class="dropdown-item" href="#">친구관리</a></li>
-							<li><a class="dropdown-item" href="#">메일</a></li>
-							<li><hr class="dropdown-divider"></li>
-							<li><a class="dropdown-item" href="#">정보수정</a></li>
+							<li><a class="dropdown-item" href="#">FAQ</a></li>
+		                    <li><a class="dropdown-item" href="#">공지사항</a></li>
+		                    <li><a class="dropdown-item" href="#">문의사항</a></li>
+
 						</ul>
 					</li>
 					

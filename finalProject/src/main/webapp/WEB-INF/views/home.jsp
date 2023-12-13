@@ -13,7 +13,7 @@
 
 body {
    font-family:"Malgun Gothic", "맑은 고딕", NanumGothic, 나눔고딕, 돋움, sans-serif;
-   background: #fff7f6;
+   background: #FBF8EF;
    
 }
 
@@ -47,27 +47,27 @@ body {
 	
 	.img {margin-top: 100px; width : 150px;}
 	img {margin: 10px;}
-	.footer {margin: 100px 0;}
+	.main {margin: 100px 0;}
 	
-	/* 구름움직이기 */
+	/* 이미지움직이기 */
 	.jb {
-                width: 100px;
-                height: 100px;
-                margin: 60px auto;
-                transition: all ease 1s;
-            }
-            .jb:hover {
-                transform: rotate( 45deg );
-            }
+         width: 100px;
+         height: 100px;
+         margin: 60px auto;
+         transition: all ease 1s;
+     }
+     .jb:hover {
+         transform: rotate( 45deg );
+     }
 
-            .jb:hover {
+    .jb:hover {
     transform: rotate( -45deg );
-                }
+    }
   
   
 </style>
 
-<div class="footer">
+<div class="main">
 <div class="container">
     <div class="inner-page">
     	<div class="container1">
