@@ -43,11 +43,11 @@ public class InquiryManageController {
 		return ".admin.inquiryManage.adminList";
 	}
 	
-	@RequestMapping(value = "adminAccount")
+	@RequestMapping(value = "adminMypage")
 	public String adminAccount(Model model) throws Exception {
 		model.addAttribute("left","adminAuthentication");
 		model.addAttribute("sub","adminAccount");
-		return ".admin.inquiryManage.adminAccount";
+		return ".admin.inquiryManage.adminMypage";
 	}
 	
 	
@@ -77,6 +77,32 @@ public class InquiryManageController {
     	model.addAttribute("left","csManage");
 		model.addAttribute("sub","csManage");
         return ".admin.inquiryManage.csManage";
+    }
+    
+    @RequestMapping(value = "communityManage")
+    public String communityManage(Model model) throws Exception {
+    	model.addAttribute("left","communityManage");
+		model.addAttribute("sub","communityManage");
+        return ".admin.inquiryManage.communityManage";
+    }
+    
+    @RequestMapping(value = "scheduleManage")
+    public String scheduleManage(Model model) throws Exception {
+    	model.addAttribute("left","scheduleManage");
+		model.addAttribute("sub","scheduleManage");
+        return ".admin.inquiryManage.scheduleManage";
+    }
+    
+    @RequestMapping(value = "couponManage")
+    public String couponManage(Model model) throws Exception {
+        model.addAttribute("left","couponManage");
+        model.addAttribute("sub","couponManage");
+        return ".admin.inquiryManage.couponManage";
+    }
+
+    @RequestMapping(value = "dpManage")
+    public String dpManage(Model model) throws Exception {
+        return ".admin.inquiryManage.dpManage";
     }
 	
 

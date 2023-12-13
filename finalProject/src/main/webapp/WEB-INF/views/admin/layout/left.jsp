@@ -35,20 +35,44 @@
 		
 		<!-- 주문 관리 -->
 		<li class="menu-item"><a href="javascript:void(0);"
-			class="menu-link menu-toggle"> <i
-				class="menu-icon tf-icons bx bx-credit-card"></i>
-				<div data-i18n="Authentications">주문 관리</div>
-		</a>
-			<ul class="menu-sub">
-				<li class="menu-item"><a href="auth-login-basic.html"
-					class="menu-link" target="_blank">
-						<div data-i18n="Basic">배송 관리</div>
-				</a></li>
-				<li class="menu-item"><a href="auth-register-basic.html"
-					class="menu-link" target="_blank">
-						<div data-i18n="Basic">교환/반품/취소</div>
-				</a></li>
-			</ul></li>
+            class="menu-link menu-toggle"> <i class="menu-icon tf-icons bx bx-credit-card"></i>
+                <div data-i18n="Authentications">주문 관리</div>
+        </a>
+            <ul class="menu-sub">
+            <li class="menu-item">
+                <a href="${pageContext.request.contextPath}/admin/inquiryManage/dpManage" class="menu-link">
+                        <div data-i18n="Basic">상품준비중 관리</div>
+                </a>
+                </li>
+
+                <li class="menu-item">
+                <a href="auth-login-basic.html" class="menu-link">
+                        <div data-i18n="Basic">배송준비중 관리</div>
+                </a>
+                </li>
+
+                <li class="menu-item">
+                <a href="auth-login-basic.html" class="menu-link">
+                        <div data-i18n="Basic">배송대기 관리</div>
+                </a>
+                </li>
+                <li class="menu-item">
+                <a href="auth-login-basic.html" class="menu-link">
+                        <div data-i18n="Basic">배송중 관리</div>
+                </a>
+                </li>
+                <li class="menu-item">
+                <a href="auth-login-basic.html" class="menu-link">
+                        <div data-i18n="Basic">배송완료 조회</div>
+                </a>
+                </li>
+                <li class="menu-item">
+                <a href="auth-register-basic.html" class="menu-link">
+                <div data-i18n="Basic">교환/반품/취소 관리</div>
+                </a>
+                </li>
+            </ul>
+        </li>
 		
 		<!-- 리뷰 관리 -->
 		<li class="menu-item ${left=='reviewManage'? 'active open':''}"><a href="${pageContext.request.contextPath}/admin/inquiryManage/reviewManage"
@@ -87,15 +111,21 @@
 		</a></li>
 		
 		<!-- 커뮤니티 관리 -->
-		<li class="menu-item"><a href="cards-basic.html"
+		<li class="menu-item ${left=='communityManage'? 'active':''}"><a href="${pageContext.request.contextPath}/admin/inquiryManage/communityManage"
 			class="menu-link"> <i class='menu-icon tf-icons bx bx-been-here'></i>
-				<div data-i18n="Basic">커뮤니티 관리</div>
+				<div data-i18n="communityManage">커뮤니티 관리</div>
 		</a></li>
 		
 		<!-- 쿠폰 관리 -->
-		<li class="menu-item"><a href="cards-basic.html"
-			class="menu-link"> <i class='menu-icon tf-icons bx bxs-discount'></i>
-				<div data-i18n="Basic">쿠폰 관리</div>
+		<li class="menu-item ${left=='couponManage'? 'active open':''}"><a href="${pageContext.request.contextPath}/admin/inquiryManage/couponManage"
+            class="menu-link"> <i class='menu-icon tf-icons bx bxs-discount'></i>
+                <div data-i18n="Basic">쿠폰 관리</div>
+        </a></li>
+		
+		<!-- 일정 관리 -->
+		<li class="menu-item ${left=='scheduleManage'? 'active':''}"><a href="${pageContext.request.contextPath}/admin/inquiryManage/scheduleManage"
+			class="menu-link"> <i class='menu-icon tf-icons bx bx-calendar'></i>
+				<div data-i18n="scheduleManage">일정 관리</div>
 		</a></li>
 			
 		<!-- 계정 관리 -->
@@ -105,13 +135,13 @@
 				<div data-i18n="adminAuthentication">계정 관리</div>
 		</a>
 			<ul class="menu-sub">
-				<li class="menu-item"><a href="${pageContext.request.contextPath}/admin/inquiryManage/adminList"
+				<li class="menu-item ${sub=='adminList'?'active':''}"><a href="${pageContext.request.contextPath}/admin/inquiryManage/adminList"
 					class="menu-link">
 						<div data-i18n="adminList">관리자 리스트</div>
 				</a></li>
-				<li class="menu-item"><a href="${pageContext.request.contextPath}/admin/inquiryManage/adminAccount"
+				<li class="menu-item ${sub=='adminAccount'?'active':''}"><a href="${pageContext.request.contextPath}/admin/inquiryManage/adminMypage"
 					class="menu-link">
-						<div data-i18n="adminAccount">관리자 추가</div>
+						<div data-i18n="adminAccount">마이페이지</div>
 				</a></li>
 			</ul></li>
 			

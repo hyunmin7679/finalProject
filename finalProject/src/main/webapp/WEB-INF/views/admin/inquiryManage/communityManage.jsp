@@ -472,98 +472,614 @@
           <div class="container-xxl flex-grow-1 container-p-y">
             
             
+<h4 class="py-3 mb-4"><span class="text-muted fw-light">UI Elements /</span> Cards Basic</h4>
 
-<h4 class="py-3 mb-4">
-  <span class="text-muted fw-light">eCommerce /</span> Product List
+<!-- Examples -->
+<div class="row mb-5">
+  <div class="col-md-6 col-lg-4 mb-3">
+    <div class="card h-100">
+      <img class="card-img-top" src="../../assets/img/elements/2.jpg" alt="Card image cap" />
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">
+          Some quick example text to build on the card title and make up the bulk of the card's content.
+        </p>
+        <a href="javascript:void(0)" class="btn btn-outline-primary">Go somewhere</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-lg-4 mb-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <h6 class="card-subtitle text-muted">Support card subtitle</h6>
+      </div>
+      <img class="img-fluid" src="../../assets/img/elements/13.jpg" alt="Card image cap" />
+      <div class="card-body">
+        <p class="card-text">Bear claw sesame snaps gummies chocolate.</p>
+        <a href="javascript:void(0);" class="card-link">Card link</a>
+        <a href="javascript:void(0);" class="card-link">Another link</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-lg-4 mb-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <h6 class="card-subtitle text-muted">Support card subtitle</h6>
+        <img class="img-fluid d-flex mx-auto my-4 rounded" src="../../assets/img/elements/4.jpg" alt="Card image cap" />
+        <p class="card-text">Bear claw sesame snaps gummies chocolate.</p>
+        <a href="javascript:void(0);" class="card-link">Card link</a>
+        <a href="javascript:void(0);" class="card-link">Another link</a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Examples -->
+
+<h4 class="py-3 mb-4"><span class="text-muted fw-light">UI Elements /</span> Cards Analytics
 </h4>
 
-<!-- Product List Widget -->
 
-<div class="card mb-4">
-  <div class="card-widget-separator-wrapper">
-    <div class="card-body card-widget-separator">
-      <div class="row gy-4 gy-sm-1">
-        <div class="col-sm-6 col-lg-3">
-          <div class="d-flex justify-content-between align-items-start card-widget-1 border-end pb-3 pb-sm-0">
-            <div>
-              <h6 class="mb-2">In-store Sales</h6>
-              <h4 class="mb-2">$5,345.43</h4>
-              <p class="mb-0"><span class="text-muted me-2">5k orders</span><span class="badge bg-label-success">+5.7%</span></p>
-            </div>
-            <div class="avatar me-sm-4">
-              <span class="avatar-initial rounded bg-label-secondary">
-                <i class="bx bx-store-alt bx-sm"></i>
-              </span>
-            </div>
-          </div>
-          <hr class="d-none d-sm-block d-lg-none me-4">
-        </div>
-        <div class="col-sm-6 col-lg-3">
-          <div class="d-flex justify-content-between align-items-start card-widget-2 border-end pb-3 pb-sm-0">
-            <div>
-              <h6 class="mb-2">Website Sales</h6>
-              <h4 class="mb-2">$674,347.12</h4>
-              <p class="mb-0"><span class="text-muted me-2">21k orders</span><span class="badge bg-label-success">+12.4%</span></p>
-            </div>
-            <div class="avatar me-lg-4">
-              <span class="avatar-initial rounded bg-label-secondary">
-                <i class="bx bx-laptop bx-sm"></i>
-              </span>
-            </div>
-          </div>
-          <hr class="d-none d-sm-block d-lg-none">
-        </div>
-        <div class="col-sm-6 col-lg-3">
-          <div class="d-flex justify-content-between align-items-start border-end pb-3 pb-sm-0 card-widget-3">
-            <div>
-              <h6 class="mb-2">Discount</h6>
-              <h4 class="mb-2">$14,235.12</h4>
-              <p class="mb-0 text-muted">6k orders</p>
-            </div>
-            <div class="avatar me-sm-4">
-              <span class="avatar-initial rounded bg-label-secondary">
-                <i class="bx bx-gift bx-sm"></i>
-              </span>
-            </div>
+<div class="row">
+  <!-- Customer Ratings -->
+  <div class="col-md-6 col-lg-4 mb-4">
+    <div class="card h-100">
+      <div class="card-header d-flex align-items-center justify-content-between">
+        <h5 class="card-title m-0 me-2">Customer Ratings</h5>
+        <div class="dropdown">
+          <button class="btn p-0" type="button" id="customerRatings" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="bx bx-dots-vertical-rounded"></i>
+          </button>
+          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="customerRatings">
+            <a class="dropdown-item" href="javascript:void(0);">Featured Ratings</a>
+            <a class="dropdown-item" href="javascript:void(0);">Based on Task</a>
+            <a class="dropdown-item" href="javascript:void(0);">See All</a>
           </div>
         </div>
-        <div class="col-sm-6 col-lg-3">
-          <div class="d-flex justify-content-between align-items-start">
+      </div>
+      <div class="card-body pb-0">
+        <div class="d-flex align-items-center gap-3 mb-3">
+          <h1 class="display-3 mb-0">4.0</h1>
+          <div class="ratings">
+            <i class="bx bxs-star bx-sm text-warning"></i>
+            <i class="bx bxs-star bx-sm text-warning"></i>
+            <i class="bx bxs-star bx-sm text-warning"></i>
+            <i class="bx bxs-star bx-sm text-warning"></i>
+            <i class="bx bxs-star bx-sm text-lighter"></i>
+          </div>
+        </div>
+        <div class="d-flex align-items-center">
+          <span class="badge bg-label-primary me-3">+5.0</span>
+          <span>Points from last month</span>
+        </div>
+      </div>
+      <div id="customerRatingsChart"></div>
+    </div>
+  </div>
+  <!--/ Customer Ratings -->
+
+  <!-- Sales Stats -->
+  <div class="col-md-6 col-lg-4 mb-4">
+    <div class="card h-100">
+      <div class="card-header d-flex align-items-center justify-content-between">
+        <h5 class="card-title m-0 me-2">Sales Stats</h5>
+        <div class="dropdown">
+          <button class="btn p-0" type="button" id="salesStatsID" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="bx bx-dots-vertical-rounded"></i>
+          </button>
+          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="salesStatsID">
+            <a class="dropdown-item" href="javascript:void(0);">Last 28 Days</a>
+            <a class="dropdown-item" href="javascript:void(0);">Last Month</a>
+            <a class="dropdown-item" href="javascript:void(0);">Last Year</a>
+          </div>
+        </div>
+      </div>
+      <div id="salesStats"></div>
+      <div class="card-body">
+        <div class="d-flex justify-content-around">
+          <div class="d-flex align-items-center lh-1 mb-3 mb-sm-0">
+            <span class="badge badge-dot bg-success me-2"></span> Conversion Ratio
+          </div>
+          <div class="d-flex align-items-center lh-1 mb-3 mb-sm-0">
+            <span class="badge badge-dot bg-label-secondary me-2"></span> Total requirements
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/ Sales Stats -->
+
+  <!-- Sales Analytics -->
+  <div class="col-md-6 col-lg-4 mb-4">
+    <div class="card h-100">
+      <div class="card-header d-flex align-items-start justify-content-between">
+        <div>
+          <h5 class="card-title m-0 me-2 mb-2">Sales Analytics</h5>
+          <span class="badge bg-label-success me-1">+42.6%</span> <span>Than last year</span>
+        </div>
+        <div class="dropdown">
+          <button class="btn btn-sm btn-label-primary dropdown-toggle" type="button" id="salesAnalyticsId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            2022
+          </button>
+          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="salesAnalyticsId">
+            <a class="dropdown-item" href="javascript:void(0);">2021</a>
+            <a class="dropdown-item" href="javascript:void(0);">2020</a>
+            <a class="dropdown-item" href="javascript:void(0);">2019</a>
+          </div>
+        </div>
+      </div>
+      <div class="card-body pb-0">
+        <div id="salesAnalyticsChart"></div>
+      </div>
+    </div>
+  </div>
+  <!--/ Sales Analytics -->
+
+  <!-- Overview & Sales Activity -->
+  <div class="col-md-6 col-lg-4 mb-4">
+    <div class="card h-100">
+      <div class="card-header">
+        <h5 class="card-title mb-0">Overview & Sales Activity</h5>
+        <small class="card-subtitle">Check out each column for more details</small>
+      </div>
+      <div id="salesActivityChart"></div>
+    </div>
+  </div>
+  <!--/ Overview & Sales Activity -->
+
+  <!-- Total Income -->
+  <div class="col-md-12 col-lg-8 mb-4">
+    <div class="card">
+      <div class="row row-bordered g-0">
+        <div class="col-md-8">
+          <div class="card-header">
+            <h5 class="card-title mb-0">Total Income</h5>
+            <small class="card-subtitle">Yearly report overview</small>
+          </div>
+          <div class="card-body">
+            <div id="totalIncomeChart"></div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card-header d-flex justify-content-between">
             <div>
-              <h6 class="mb-2">Affiliate</h6>
-              <h4 class="mb-2">$8,345.23</h4>
-              <p class="mb-0"><span class="text-muted me-2">150 orders</span><span class="badge bg-label-danger">-3.5%</span></p>
+              <h5 class="card-title mb-0">Report</h5>
+              <small class="card-subtitle">Monthly Avg. $45.578k</small>
             </div>
-            <div class="avatar">
-              <span class="avatar-initial rounded bg-label-secondary">
-                <i class="bx bx-wallet bx-sm"></i>
-              </span>
+            <div class="dropdown">
+              <button class="btn p-0" type="button" id="totalIncome" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="bx bx-dots-vertical-rounded"></i>
+              </button>
+              <div class="dropdown-menu dropdown-menu-end" aria-labelledby="totalIncome">
+                <a class="dropdown-item" href="javascript:void(0);">Last 28 Days</a>
+                <a class="dropdown-item" href="javascript:void(0);">Last Month</a>
+                <a class="dropdown-item" href="javascript:void(0);">Last Year</a>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="report-list">
+              <div class="report-list-item rounded-2 mb-3">
+                <div class="d-flex align-items-start">
+                  <div class="report-list-icon shadow-sm me-2">
+                    <img src="../../assets/svg/icons/paypal-icon.svg" width="22" height="22" alt="Paypal">
+                  </div>
+                  <div class="d-flex justify-content-between align-items-end w-100 flex-wrap gap-2">
+                    <div class="d-flex flex-column">
+                      <span>Income</span>
+                      <h5 class="mb-0">$42,845</h5>
+                    </div>
+                    <small class="text-success">+2.34k</small>
+                  </div>
+                </div>
+              </div>
+              <div class="report-list-item rounded-2 mb-3">
+                <div class="d-flex align-items-start">
+                  <div class="report-list-icon shadow-sm me-2">
+                    <img src="../../assets/svg/icons/shopping-bag-icon.svg" width="22" height="22" alt="Shopping Bag">
+                  </div>
+                  <div class="d-flex justify-content-between align-items-end w-100 flex-wrap gap-2">
+                    <div class="d-flex flex-column">
+                      <span>Expense</span>
+                      <h5 class="mb-0">$38,658</h5>
+                    </div>
+                    <small class="text-danger">-1.15k</small>
+                  </div>
+                </div>
+              </div>
+              <div class="report-list-item rounded-2">
+                <div class="d-flex align-items-start">
+                  <div class="report-list-icon shadow-sm me-2">
+                    <img src="../../assets/svg/icons/wallet-icon.svg" width="22" height="22" alt="Wallet">
+                  </div>
+                  <div class="d-flex justify-content-between align-items-end w-100 flex-wrap gap-2">
+                    <div class="d-flex flex-column">
+                      <span>Profit</span>
+                      <h5 class="mb-0">$18,220</h5>
+                    </div>
+                    <small class="text-success">+1.35k</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--/ Total Income -->
+  </div>
+  <!--/ Total Income -->
+</div>
+<div class="row">
+  <!-- Expense Overview -->
+  <div class="col-md-6 col-lg-4 mb-4">
+    <div class="card h-100">
+      <div class="card-header">
+        <ul class="nav nav-pills" role="tablist">
+          <li class="nav-item">
+            <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-tabs-line-card-income" aria-controls="navs-tabs-line-card-income" aria-selected="true">Income</button>
+          </li>
+          <li class="nav-item">
+            <button type="button" class="nav-link" role="tab">Expenses</button>
+          </li>
+          <li class="nav-item">
+            <button type="button" class="nav-link" role="tab">Profit</button>
+          </li>
+        </ul>
+      </div>
+      <div class="card-body px-0">
+        <div class="tab-content p-0">
+          <div class="tab-pane fade show active" id="navs-tabs-line-card-income" role="tabpanel">
+            <div class="d-flex px-4">
+              <div class="avatar flex-shrink-0 me-3">
+                <img src="../../assets/img/icons/unicons/wallet.png" alt="User">
+              </div>
+              <div>
+                <small class="text-muted d-block">Total Balance</small>
+                <div class="d-flex align-items-center">
+                  <h6 class="mb-0 me-1">$459.10</h6>
+                  <small class="text-success fw-medium">
+                    <i class='bx bx-chevron-up'></i>
+                    42.9%
+                  </small>
+                </div>
+              </div>
+            </div>
+            <div id="incomeChart"></div>
+            <div class="d-flex justify-content-center pt-3 gap-2">
+              <div class="flex-shrink-0">
+                <div id="expensesOfWeek"></div>
+              </div>
+              <div>
+                <p class="mb-n1 mt-1">Expenses This Week</p>
+                <small class="text-muted">$39 less than last week</small>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+  <!--/ Expense Overview -->
 
-<!-- Product List Table -->
-<div class="card">
-  <div class="card-header">
-    <h5 class="card-title">Filter</h5>
-    <div class="d-flex justify-content-between align-items-center row py-3 gap-3 gap-md-0">
-      <div class="col-md-4 product_status"><select id="ProductStatus" class="form-select text-capitalize"><option value="">Status</option><option value="Scheduled">Scheduled</option><option value="Publish">Publish</option><option value="Inactive">Inactive</option></select></div>
-      <div class="col-md-4 product_category"><select id="ProductCategory" class="form-select text-capitalize"><option value="">Category</option><option value="Household">Household</option><option value="Office">Office</option><option value="Electronics">Electronics</option><option value="Shoes">Shoes</option><option value="Accessories">Accessories</option><option value="Game">Game</option></select></div>
-      <div class="col-md-4 product_stock"><select id="ProductStock" class="form-select text-capitalize"><option value=""> Stock </option><option value="Out_of_Stock">Out of Stock</option><option value="In_Stock">In Stock</option></select></div>
+  <!-- Performance -->
+  <div class="col-md-6 col-lg-4 mb-4">
+    <div class="card h-100">
+      <div class="card-header d-flex align-items-center justify-content-between">
+        <h5 class="card-title m-0 me-2">Performance</h5>
+        <div class="dropdown">
+          <button class="btn p-0" type="button" id="performanceId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="bx bx-dots-vertical-rounded"></i>
+          </button>
+          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="performanceId">
+            <a class="dropdown-item" href="javascript:void(0);">Last 28 Days</a>
+            <a class="dropdown-item" href="javascript:void(0);">Last Month</a>
+            <a class="dropdown-item" href="javascript:void(0);">Last Year</a>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-6">
+            <small>Earnings: <span class="fw-medium">$846.17</span></small>
+          </div>
+          <div class="col-6">
+            <small>Sales: <span class="fw-medium">25.7M</span></small>
+          </div>
+        </div>
+      </div>
+      <div id="performanceChart"></div>
     </div>
   </div>
-  <div class="card-datatable table-responsive">
-    <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer"><div class="card-header d-flex border-top rounded-0 flex-wrap py-md-0"><div class="me-5 ms-n2 pe-5"><div id="DataTables_Table_0_filter" class="dataTables_filter"><label><input type="search" class="form-control" placeholder="Search Product" aria-controls="DataTables_Table_0"></label></div></div><div class="d-flex justify-content-start justify-content-md-end align-items-baseline"><div class="dt-action-buttons d-flex align-items-start align-items-md-center justify-content-sm-center mb-3 mb-sm-0"><div class="dataTables_length mt-0 mt-md-3 me-3" id="DataTables_Table_0_length"><label><select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="form-select"><option value="7">7</option><option value="10">10</option><option value="20">20</option><option value="50">50</option><option value="70">70</option><option value="100">100</option></select></label></div><div class="dt-buttons d-flex flex-wrap"> <button class="dt-button buttons-collection dropdown-toggle btn btn-label-secondary me-3" tabindex="0" aria-controls="DataTables_Table_0" type="button" aria-haspopup="dialog" aria-expanded="false"><span><i class="bx bx-export me-1"></i>Export</span><span class="dt-down-arrow">▼</span></button> <button class="dt-button add-new btn btn-primary" tabindex="0" aria-controls="DataTables_Table_0" type="button"><span><i class="bx bx-plus me-0 me-sm-1"></i><span class="d-none d-sm-inline-block">Add Product</span></span></button> </div></div></div></div><table class="datatables-products table border-top dataTable no-footer dtr-column collapsed" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info" style="width: 1154px;">
-      <thead>
-        <tr><th class="control sorting_disabled" rowspan="1" colspan="1" style="width: 6px;" aria-label=""></th><th class="sorting_disabled dt-checkboxes-cell dt-checkboxes-select-all" rowspan="1" colspan="1" style="width: 19px;" data-col="1" aria-label=""><input type="checkbox" class="form-check-input"></th><th class="sorting sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 419px;" aria-label="product: activate to sort column descending" aria-sort="ascending">product</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 132px;" aria-label="category: activate to sort column ascending">category</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 57px;" aria-label="stock">stock</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 48px;" aria-label="sku: activate to sort column ascending">sku</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 78px;" aria-label="price: activate to sort column ascending">price</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 37px;" aria-label="qty: activate to sort column ascending">qty</th><th class="sorting dtr-hidden" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 0px; display: none;" aria-label="status: activate to sort column ascending">status</th><th class="sorting_disabled dtr-hidden" rowspan="1" colspan="1" style="width: 0px; display: none;" aria-label="Actions">Actions</th></tr>
-      </thead><tbody><tr class="odd"><td class="control" tabindex="0" style=""></td><td class="  dt-checkboxes-cell"><input type="checkbox" class="dt-checkboxes form-check-input"></td><td class="sorting_1"><div class="d-flex justify-content-start align-items-center product-name"><div class="avatar-wrapper"><div class="avatar avatar me-2 rounded-2 bg-label-secondary"><img src="../../assets/img/ecommerce-images/product-9.png" alt="Product-9" class="rounded-2"></div></div><div class="d-flex flex-column"><h6 class="text-body text-nowrap mb-0">Air Jordan</h6><small class="text-muted text-truncate d-none d-sm-block">Air Jordan is a line of basketball shoes produced by Nike</small></div></div></td><td><span class="text-truncate d-flex align-items-center"><span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-info me-2"><i class="bx bx-walk"></i></span>Shoes</span></td><td><span class="text-truncate"><label class="switch switch-primary switch-sm"><input type="checkbox" class="switch-input" id="switch"><span class="switch-toggle-slider"><span class="switch-off"></span></span></label><span class="d-none">Out_of_Stock</span></span></td><td><span>31063</span></td><td><span>$125</span></td><td><span>942</span></td><td class="dtr-hidden" style="display: none;"><span class="badge bg-label-danger" text-capitalized="">Inactive</span></td><td class="dtr-hidden" style="display: none;"><div class="d-inline-block text-nowrap"><button class="btn btn-sm btn-icon"><i class="bx bx-edit"></i></button><button class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded me-2"></i></button><div class="dropdown-menu dropdown-menu-end m-0"><a href="javascript:0;" class="dropdown-item">View</a><a href="javascript:0;" class="dropdown-item">Suspend</a></div></div></td></tr><tr class="even"><td class="control" tabindex="0" style=""></td><td class="  dt-checkboxes-cell"><input type="checkbox" class="dt-checkboxes form-check-input"></td><td class="sorting_1"><div class="d-flex justify-content-start align-items-center product-name"><div class="avatar-wrapper"><div class="avatar avatar me-2 rounded-2 bg-label-secondary"><img src="../../assets/img/ecommerce-images/product-13.png" alt="Product-13" class="rounded-2"></div></div><div class="d-flex flex-column"><h6 class="text-body text-nowrap mb-0">Amazon Fire TV</h6><small class="text-muted text-truncate d-none d-sm-block">4K UHD smart TV, stream live TV without cable</small></div></div></td><td><span class="text-truncate d-flex align-items-center"><span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-primary me-2"><i class="bx bx-mobile-alt"></i></span>Electronics</span></td><td><span class="text-truncate"><label class="switch switch-primary switch-sm"><input type="checkbox" class="switch-input" id="switch"><span class="switch-toggle-slider"><span class="switch-off"></span></span></label><span class="d-none">Out_of_Stock</span></span></td><td><span>5829</span></td><td><span>$263.49</span></td><td><span>587</span></td><td class="dtr-hidden" style="display: none;"><span class="badge bg-label-warning" text-capitalized="">Scheduled</span></td><td class="dtr-hidden" style="display: none;"><div class="d-inline-block text-nowrap"><button class="btn btn-sm btn-icon"><i class="bx bx-edit"></i></button><button class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded me-2"></i></button><div class="dropdown-menu dropdown-menu-end m-0"><a href="javascript:0;" class="dropdown-item">View</a><a href="javascript:0;" class="dropdown-item">Suspend</a></div></div></td></tr><tr class="odd"><td class="control" tabindex="0" style=""></td><td class="  dt-checkboxes-cell"><input type="checkbox" class="dt-checkboxes form-check-input"></td><td class="sorting_1"><div class="d-flex justify-content-start align-items-center product-name"><div class="avatar-wrapper"><div class="avatar avatar me-2 rounded-2 bg-label-secondary"><img src="../../assets/img/ecommerce-images/product-15.png" alt="Product-15" class="rounded-2"></div></div><div class="d-flex flex-column"><h6 class="text-body text-nowrap mb-0">Apple iPad</h6><small class="text-muted text-truncate d-none d-sm-block">10.2-inch Retina Display, 64GB</small></div></div></td><td><span class="text-truncate d-flex align-items-center"><span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-primary me-2"><i class="bx bx-mobile-alt"></i></span>Electronics</span></td><td><span class="text-truncate"><label class="switch switch-primary switch-sm"><input type="checkbox" class="switch-input" checked=""><span class="switch-toggle-slider"><span class="switch-on"></span></span></label><span class="d-none">In_Stock</span></span></td><td><span>35946</span></td><td><span>$248.39</span></td><td><span>468</span></td><td class="dtr-hidden" style="display: none;"><span class="badge bg-label-success" text-capitalized="">Publish</span></td><td class="dtr-hidden" style="display: none;"><div class="d-inline-block text-nowrap"><button class="btn btn-sm btn-icon"><i class="bx bx-edit"></i></button><button class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded me-2"></i></button><div class="dropdown-menu dropdown-menu-end m-0"><a href="javascript:0;" class="dropdown-item">View</a><a href="javascript:0;" class="dropdown-item">Suspend</a></div></div></td></tr><tr class="even"><td class="control" tabindex="0" style=""></td><td class="  dt-checkboxes-cell"><input type="checkbox" class="dt-checkboxes form-check-input"></td><td class="sorting_1"><div class="d-flex justify-content-start align-items-center product-name"><div class="avatar-wrapper"><div class="avatar avatar me-2 rounded-2 bg-label-secondary"><img src="../../assets/img/ecommerce-images/product-5.png" alt="Product-5" class="rounded-2"></div></div><div class="d-flex flex-column"><h6 class="text-body text-nowrap mb-0">Apple Watch Series 7</h6><small class="text-muted text-truncate d-none d-sm-block">Starlight Aluminum Case with Starlight Sport Band.</small></div></div></td><td><span class="text-truncate d-flex align-items-center"><span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-secondary me-2"><i class="bx bxs-watch"></i></span>Accessories</span></td><td><span class="text-truncate"><label class="switch switch-primary switch-sm"><input type="checkbox" class="switch-input" id="switch"><span class="switch-toggle-slider"><span class="switch-off"></span></span></label><span class="d-none">Out_of_Stock</span></span></td><td><span>46658</span></td><td><span>$799</span></td><td><span>851</span></td><td class="dtr-hidden" style="display: none;"><span class="badge bg-label-warning" text-capitalized="">Scheduled</span></td><td class="dtr-hidden" style="display: none;"><div class="d-inline-block text-nowrap"><button class="btn btn-sm btn-icon"><i class="bx bx-edit"></i></button><button class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded me-2"></i></button><div class="dropdown-menu dropdown-menu-end m-0"><a href="javascript:0;" class="dropdown-item">View</a><a href="javascript:0;" class="dropdown-item">Suspend</a></div></div></td></tr><tr class="odd"><td class="control" tabindex="0" style=""></td><td class="  dt-checkboxes-cell"><input type="checkbox" class="dt-checkboxes form-check-input"></td><td class="sorting_1"><div class="d-flex justify-content-start align-items-center product-name"><div class="avatar-wrapper"><div class="avatar avatar me-2 rounded-2 bg-label-secondary"><img src="../../assets/img/ecommerce-images/product-16.png" alt="Product-16" class="rounded-2"></div></div><div class="d-flex flex-column"><h6 class="text-body text-nowrap mb-0">BANGE Anti Theft Backpack</h6><small class="text-muted text-truncate d-none d-sm-block">Smart Business Laptop Fits 15.6 Inch Notebook</small></div></div></td><td><span class="text-truncate d-flex align-items-center"><span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-secondary me-2"><i class="bx bxs-watch"></i></span>Accessories</span></td><td><span class="text-truncate"><label class="switch switch-primary switch-sm"><input type="checkbox" class="switch-input" checked=""><span class="switch-toggle-slider"><span class="switch-on"></span></span></label><span class="d-none">In_Stock</span></span></td><td><span>41867</span></td><td><span>$79.99</span></td><td><span>519</span></td><td class="dtr-hidden" style="display: none;"><span class="badge bg-label-danger" text-capitalized="">Inactive</span></td><td class="dtr-hidden" style="display: none;"><div class="d-inline-block text-nowrap"><button class="btn btn-sm btn-icon"><i class="bx bx-edit"></i></button><button class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded me-2"></i></button><div class="dropdown-menu dropdown-menu-end m-0"><a href="javascript:0;" class="dropdown-item">View</a><a href="javascript:0;" class="dropdown-item">Suspend</a></div></div></td></tr><tr class="even"><td class="control" tabindex="0" style=""></td><td class="  dt-checkboxes-cell"><input type="checkbox" class="dt-checkboxes form-check-input"></td><td class="sorting_1"><div class="d-flex justify-content-start align-items-center product-name"><div class="avatar-wrapper"><div class="avatar avatar me-2 rounded-2 bg-label-secondary"><img src="../../assets/img/ecommerce-images/product-18.png" alt="Product-18" class="rounded-2"></div></div><div class="d-flex flex-column"><h6 class="text-body text-nowrap mb-0">Canon EOS Rebel T7</h6><small class="text-muted text-truncate d-none d-sm-block">18-55mm Lens | Built-in Wi-Fi | 24.1 MP CMOS Sensor</small></div></div></td><td><span class="text-truncate d-flex align-items-center"><span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-primary me-2"><i class="bx bx-mobile-alt"></i></span>Electronics</span></td><td><span class="text-truncate"><label class="switch switch-primary switch-sm"><input type="checkbox" class="switch-input" checked=""><span class="switch-toggle-slider"><span class="switch-on"></span></span></label><span class="d-none">In_Stock</span></span></td><td><span>63474</span></td><td><span>$399</span></td><td><span>810</span></td><td class="dtr-hidden" style="display: none;"><span class="badge bg-label-warning" text-capitalized="">Scheduled</span></td><td class="dtr-hidden" style="display: none;"><div class="d-inline-block text-nowrap"><button class="btn btn-sm btn-icon"><i class="bx bx-edit"></i></button><button class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded me-2"></i></button><div class="dropdown-menu dropdown-menu-end m-0"><a href="javascript:0;" class="dropdown-item">View</a><a href="javascript:0;" class="dropdown-item">Suspend</a></div></div></td></tr><tr class="odd"><td class="control" tabindex="0" style=""></td><td class="  dt-checkboxes-cell"><input type="checkbox" class="dt-checkboxes form-check-input"></td><td class="sorting_1"><div class="d-flex justify-content-start align-items-center product-name"><div class="avatar-wrapper"><div class="avatar avatar me-2 rounded-2 bg-label-secondary"><img src="../../assets/img/ecommerce-images/product-3.png" alt="Product-3" class="rounded-2"></div></div><div class="d-flex flex-column"><h6 class="text-body text-nowrap mb-0">Dohioue Wall Clock</h6><small class="text-muted text-truncate d-none d-sm-block">Modern 10 Inch Battery Operated Wall Clocks</small></div></div></td><td><span class="text-truncate d-flex align-items-center"><span class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-warning me-2"><i class="bx bx-home-alt"></i></span>Household</span></td><td><span class="text-truncate"><label class="switch switch-primary switch-sm"><input type="checkbox" class="switch-input" id="switch"><span class="switch-toggle-slider"><span class="switch-off"></span></span></label><span class="d-none">Out_of_Stock</span></span></td><td><span>29540</span></td><td><span>$16.34</span></td><td><span>804</span></td><td class="dtr-hidden" style="display: none;"><span class="badge bg-label-success" text-capitalized="">Publish</span></td><td class="dtr-hidden" style="display: none;"><div class="d-inline-block text-nowrap"><button class="btn btn-sm btn-icon"><i class="bx bx-edit"></i></button><button class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded me-2"></i></button><div class="dropdown-menu dropdown-menu-end m-0"><a href="javascript:0;" class="dropdown-item">View</a><a href="javascript:0;" class="dropdown-item">Suspend</a></div></div></td></tr></tbody>
-    </table><div class="row mx-2"><div class="col-sm-12 col-md-6"><div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Displaying 1 to 7 of 100 entries</div></div><div class="col-sm-12 col-md-6"><div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous"><a aria-controls="DataTables_Table_0" aria-disabled="true" role="link" data-dt-idx="previous" tabindex="0" class="page-link">Previous</a></li><li class="paginate_button page-item active"><a href="#" aria-controls="DataTables_Table_0" role="link" aria-current="page" data-dt-idx="0" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" role="link" data-dt-idx="1" tabindex="0" class="page-link">2</a></li><li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" role="link" data-dt-idx="2" tabindex="0" class="page-link">3</a></li><li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" role="link" data-dt-idx="3" tabindex="0" class="page-link">4</a></li><li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" role="link" data-dt-idx="4" tabindex="0" class="page-link">5</a></li><li class="paginate_button page-item disabled" id="DataTables_Table_0_ellipsis"><a aria-controls="DataTables_Table_0" aria-disabled="true" role="link" data-dt-idx="ellipsis" tabindex="0" class="page-link">…</a></li><li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" role="link" data-dt-idx="14" tabindex="0" class="page-link">15</a></li><li class="paginate_button page-item next" id="DataTables_Table_0_next"><a href="#" aria-controls="DataTables_Table_0" role="link" data-dt-idx="next" tabindex="0" class="page-link">Next</a></li></ul></div></div></div></div>
+  <!--/ Performance -->
+
+  <!-- Total Balance -->
+  <div class="col-md-6 col-lg-4 mb-4">
+    <div class="card h-100">
+      <div class="card-header d-flex align-items-center justify-content-between">
+        <h5 class="card-title m-0 me-2">Total Balance</h5>
+        <div class="dropdown">
+          <button class="btn p-0" type="button" id="totalBalance" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="bx bx-dots-vertical-rounded"></i>
+          </button>
+          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="totalBalance">
+            <a class="dropdown-item" href="javascript:void(0);">Last 28 Days</a>
+            <a class="dropdown-item" href="javascript:void(0);">Last Month</a>
+            <a class="dropdown-item" href="javascript:void(0);">Last Year</a>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="d-flex justify-content-start">
+          <div class="d-flex pe-4">
+            <div class="me-3">
+              <span class="badge bg-label-warning p-2"><i class="bx bx-wallet text-warning"></i></span>
+            </div>
+            <div>
+              <h6 class="mb-0">$2.54k</h6>
+              <small>Wallet</small>
+            </div>
+          </div>
+          <div class="d-flex">
+            <div class="me-3">
+              <span class="badge bg-label-secondary p-2"><i class="bx bx-dollar text-secondary"></i></span>
+            </div>
+            <div>
+              <h6 class="mb-0">$4.2k</h6>
+              <small>Paypal</small>
+            </div>
+          </div>
+        </div>
+        <div id="totalBalanceChart" class="border-bottom mb-3"></div>
+        <div class="d-flex justify-content-between">
+          <small class="text-muted">You have done <span class="fw-medium">57.6%</span> more sales.<br>Check your new badge in your profile.</small>
+          <div>
+            <span class="badge bg-label-warning p-2"><i class="bx bx-chevron-right text-warning"></i></span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+  <!--/ Total Balance -->
+
+  <!-- Session Overview -->
+  <div class="col-12 col-lg-6 col-xxl-5 order-lg-0 order-1 mb-4">
+    <div class="card h-100">
+      <div class="card-header d-flex align-items-center justify-content-between">
+        <h5 class="card-title m-0 me-2">Session Overview</h5>
+        <div class="dropdown">
+          <button class="btn p-0" type="button" id="sessionOverview" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="bx bx-dots-vertical-rounded"></i>
+          </button>
+          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="sessionOverview">
+            <a class="dropdown-item" href="javascript:void(0);">Last 28 Days</a>
+            <a class="dropdown-item" href="javascript:void(0);">Last Month</a>
+            <a class="dropdown-item" href="javascript:void(0);">Last Year</a>
+          </div>
+        </div>
+      </div>
+      <div class="card-body row gap-md-0 gap-4">
+        <div class="col-md-5">
+          <h1 class="mb-0 text-nowrap">32,754</h1>
+          <small class="text-success">
+            +0.7645%
+          </small>
+
+          <div id="sessionOverviewChart" class="ms-n3"></div>
+        </div>
+        <div class="col-md-7 d-flex flex-column justify-content-between">
+          <div class="d-flex justify-content-between">
+            <div class="d-flex flex-column">
+              <small class="text-muted">Today</small>
+              <span class="fw-medium">+ $340</span>
+            </div>
+            <div class="d-flex flex-column">
+              <small class="text-muted">Last Week</small>
+              <span class="fw-medium">+ $680</span>
+            </div>
+            <div class="d-flex flex-column">
+              <small class="text-muted">Today</small>
+              <span class="fw-medium">+ $3,540</span>
+            </div>
+          </div>
+          <div class="progress-wrapper mb-4">
+            <div class="mb-3">
+              <small class="text-muted">Effective Return</small>
+              <div class="d-flex align-items-center">
+                <div class="progress w-100 me-2" style="height:8px">
+                  <div class="progress-bar bg-primary" style="width: 74%" role="progressbar" aria-valuenow="74" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <small class="text-muted">74%</small>
+              </div>
+            </div>
+            <div>
+              <small class="text-muted">Invalid Session</small>
+              <div class="d-flex align-items-center">
+                <div class="progress w-100 me-2" style=" height:8px">
+                  <div class="progress-bar bg-primary" style="width: 40%" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <small class="text-muted">40%</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/ Session Overview -->
+
+  <!-- Total Revenue -->
+  <div class="col-12 col-xxl-7 order-xxl-0 order-1 mb-4">
+    <div class="card">
+      <div class="row row-bordered g-0">
+        <div class="col-md-8">
+          <h5 class="card-header m-0 me-2 pb-2">Total Revenue</h5>
+          <div id="totalRevenueChart" class="px-2"></div>
+        </div>
+        <div class="col-md-4">
+          <div class="card-body">
+            <div class="text-center">
+              <div class="dropdown">
+                <button class="btn btn-sm btn-label-primary dropdown-toggle" type="button" id="growthReportId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  2022
+                </button>
+                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="growthReportId">
+                  <a class="dropdown-item" href="javascript:void(0);">2021</a>
+                  <a class="dropdown-item" href="javascript:void(0);">2020</a>
+                  <a class="dropdown-item" href="javascript:void(0);">2019</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="growthChart"></div>
+          <div class="text-center fw-medium pt-3 mb-2">62% Company Growth</div>
+
+          <div class="d-flex p-4 gap-3 justify-content-between">
+            <div class="d-flex">
+              <div class="me-2">
+                <span class="badge bg-label-primary p-2"><i class="bx bx-dollar text-primary"></i></span>
+              </div>
+              <div class="d-flex flex-column">
+                <small>2022</small>
+                <h6 class="mb-0">$32.5k</h6>
+              </div>
+            </div>
+            <div class="d-flex">
+              <div class="me-2">
+                <span class="badge bg-label-info p-2"><i class="bx bx-wallet text-info"></i></span>
+              </div>
+              <div class="d-flex flex-column">
+                <small>2021</small>
+                <h6 class="mb-0">$41.2k</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/ Total Revenue -->
+
+  <!-- Score -->
+  <div class="col-md-6 col-xxl-4 mb-4">
+    <div class="card h-100">
+      <div class="card-header text-center">
+        <small class="card-subtitle mb-2">Your score is</small>
+        <h5 class="card-title mb-0 mt-1">Awesome</h5>
+      </div>
+      <div class="card-body">
+        <div id="scoreChart"></div>
+
+        <div class="d-flex flex-column align-items-center mt-2">
+          <small class="text-muted">Your score is based on the last</small>
+          <small class="fw-medium">287 Transactions</small>
+          <a href="javascript:void(0)" class="btn btn-sm btn-primary mt-2" role="button">View My Account</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/ Score -->
+
+  <!-- Courses-->
+  <div class="col-12 col-xl-8 mb-4">
+    <div class="card h-100">
+      <div class="card-header d-flex align-items-center justify-content-between">
+        <h5 class="card-title m-0 me-2">Topic you are interested in</h5>
+        <div class="dropdown">
+          <button class="btn p-0" type="button" id="topic" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="bx bx-dots-vertical-rounded"></i>
+          </button>
+          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="topic">
+            <a class="dropdown-item" href="javascript:void(0);">Highest Views</a>
+            <a class="dropdown-item" href="javascript:void(0);">See All</a>
+          </div>
+        </div>
+      </div>
+      <div class="card-body row g-3">
+        <div class="col-md-6">
+          <div id="horizontalBarChart"></div>
+        </div>
+        <div class="col-md-6 d-flex justify-content-around align-items-center">
+          <div>
+            <div class="d-flex align-items-baseline">
+              <span class="text-primary me-2"><i class='bx bxs-circle'></i></span>
+              <div>
+                <p class="mb-2">UI Design</p>
+                <h5>35%</h5>
+              </div>
+            </div>
+            <div class="d-flex align-items-baseline my-3">
+              <span class="text-success me-2"><i class='bx bxs-circle'></i></span>
+              <div>
+                <p class="mb-2">Music</p>
+                <h5>14%</h5>
+              </div>
+            </div>
+            <div class="d-flex align-items-baseline">
+              <span class="text-danger me-2"><i class='bx bxs-circle'></i></span>
+              <div>
+                <p class="mb-2">React</p>
+                <h5>10%</h5>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="d-flex align-items-baseline">
+              <span class="text-info me-2"><i class='bx bxs-circle'></i></span>
+              <div>
+                <p class="mb-2">UX Design</p>
+                <h5>20%</h5>
+              </div>
+            </div>
+            <div class="d-flex align-items-baseline my-3">
+              <span class="text-secondary me-2"><i class='bx bxs-circle'></i></span>
+              <div>
+                <p class="mb-2">Animation</p>
+                <h5>12%</h5>
+              </div>
+            </div>
+            <div class="d-flex align-items-baseline">
+              <span class="text-warning me-2"><i class='bx bxs-circle'></i></span>
+              <div>
+                <p class="mb-2">SEO</p>
+                <h5>9%</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /Courses-->
+
+  <!-- Reasons for delivery exceptions -->
+  <div class="col-md-6 col-xxl-4 mb-4 order-4">
+    <div class="card h-100">
+      <div class="card-header d-flex align-items-center justify-content-between">
+        <div class="card-title mb-0">
+          <h5 class="m-0 me-2">Reasons for delivery exceptions</h5>
+        </div>
+        <div class="dropdown">
+          <button class="btn p-0" type="button" id="deliveryExceptions" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="bx bx-dots-vertical-rounded"></i>
+          </button>
+          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="deliveryExceptions">
+            <a class="dropdown-item" href="javascript:void(0);">Select All</a>
+            <a class="dropdown-item" href="javascript:void(0);">Refresh</a>
+            <a class="dropdown-item" href="javascript:void(0);">Share</a>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div id="deliveryExceptionsChart"></div>
+      </div>
+    </div>
+  </div>
+  <!--/ Reasons for delivery exceptions -->
 </div>
+
 
           </div>
           <!-- / Content -->
@@ -598,4 +1114,6 @@
 
           
           <div class="content-backdrop fade"></div>
-        </div>   
+        </div>
+        <!-- Content wrapper -->
+      
