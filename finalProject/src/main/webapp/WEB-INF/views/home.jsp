@@ -37,17 +37,41 @@ body {
 	.item111{width: 15%; }
 	
 	.container2{display: flex; justify-content: center;}
+	.container3{display: flex; justify-content: center; margin-top: 50px;}
+	
 	.item2{align-items: center;}
 	.item22{align-self: flex-end; }
+	.item33{text-align: right; }
 	
 	.item2 > p {text-align: center; vertical-align: middle; }
+	
+	.img {margin-top: 100px; width : 150px;}
+	img {margin: 10px;}
+	.footer {margin: 100px 0;}
+	
+	/* 구름움직이기 */
+	.jb {
+                width: 100px;
+                height: 100px;
+                margin: 60px auto;
+                transition: all ease 1s;
+            }
+            .jb:hover {
+                transform: rotate( 45deg );
+            }
+
+            .jb:hover {
+    transform: rotate( -45deg );
+                }
+  
   
 </style>
 
+<div class="footer">
 <div class="container">
     <div class="inner-page">
     	<div class="container1">
-	    	<div class="item1">
+	    	<div class="item1 jb">
 				<img src="${pageContext.request.contextPath}/resources/images/star.jpg" width="100px;" class="img1">
 			</div>
 			<div class="item11">
@@ -55,9 +79,14 @@ body {
 				<h1>EVERY PET</h1>
 				<h2>DESERVES</h2>
 				<h3>THE BEST</h3>
-				
 			</div>
-			<div class="item111">
+			
+				
+			
+			
+			<div class="item111 img jb">
+                <img src="${pageContext.request.contextPath}/resources/images/cloud.png">
+            
 			</div>
 		</div>
 		
@@ -72,21 +101,57 @@ body {
 			</strong></pre>
 		</div>
 		
+		<div>
+			<div>
+				<img src="${pageContext.request.contextPath}/resources/images/1.jpg" style="margin-right: 30%; margin-left :10%;">
+				<img src="${pageContext.request.contextPath}/resources/images/2.jpg">
+			</div>
+
+		</div>
+		
 		<div class="container2">
 			<div class="item2" >
-				<p style="padding-top: 30%"> <strong>멋쟁이 정장 </strong></p>
+				<p style="padding-top: 30%;"><strong>멋쟁이 정장 </strong></p>
+				
 				<p> 트루사루디의 멋쟁이 정장은 우리아이의</p>
 				<p> 개구지고 귀여운 모습을 선보여주고 있습니다 </p>
+				<img class="item111" src="${pageContext.request.contextPath}/resources/images/6.png" style=" width: 100px; text-align: right;">
 			</div>
+			
 			<div class="item22">
+			</div>
+			
+			<div>
 				<img src="${pageContext.request.contextPath}/resources/images/main_photo.jpg">
 			</div>
 		</div>
+
+			<div class="item33">		
+				<img src="${pageContext.request.contextPath}/resources/images/5.png">
+			</div>	
+		    <div class="item2">
+				<img src="${pageContext.request.contextPath}/resources/images/3.png">
+			</div>
 		
-		
-		
-		
-		
+			<div class="container3">
+				<div>
+					<img src="${pageContext.request.contextPath}/resources/images/cat.png">
+				</div>
+				<div class="item2" >
+					<p style="padding-top: 30%;"><strong>우아한 목걸이 </strong></p>
+					
+					<p> 세련되고 독창적이며, 계절마다 제안하는 </p>
+	
+					<p> 상상력과 영감은 최적의 스타일리쉬를 제공합니다.</p>
+					<img src="${pageContext.request.contextPath}/resources/images/7.png" style=" width: 100px; text-align: right;">
+			</div>
+			
+			<div class="item22">
+			</div>
+			
+		</div>
+
 		
     </div>
+</div>
 </div>
