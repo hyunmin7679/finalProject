@@ -14,12 +14,13 @@
 * { padding: 0; margin: 0; }
 *, *::after, *::before { box-sizing: border-box; }
 
- .container {
- 	max-width: 800px; 
+ .main .container {
+ 	max-width: 1000px; 
  }
+
  
 .body-container {
-    width: 1000px;
+    width: 800px;
     height: 100%;
     position: center;
     padding: 70px 50px 50px 70px;
@@ -35,7 +36,8 @@ body {
  p {padding-top: 20px;}
  img {width: 50px;}
  th td {margin: 30px;}
- input {border: none; margin: 20px auto; width: 100%}
+ input {border: none; margin: 30px auto; width: 100%}
+ .table-center { margin: 20px auto;}
 
 </style>
 
@@ -43,35 +45,40 @@ body {
 </head>
 <body>
 
+  <div>	
 	<div class="container body-container">
-		<div>
+		<div class="">
 			<h2><img src="${pageContext.request.contextPath}/resources/images/pet.png"> 비회원 주문조회</h2>
 			<p> 비회원의 경우, 주문번호로 주문조회가 가능합니다. </p>
 		</div>
 		
-		<div>
+		<div class="table-center">
 			<table class= "table table-sm">
 				<tr>
 					<td>
-						<input name="order_name" class="inputTypeText" placeholder="주문자명" type="text">
+						<input placeholder="주문자명" type="text" name="orderName" class="inputTypeText">
 					</td>
 				</tr>
 				<tr>
-					<th>주문번호</th>
 					<td>
-						<input type="text" name="orderNum">
+						<input placeholder="주문번호" type="text" name="orderNum">
 					</td>
 				</tr>
 				<tr>
-					<th>비밀번호</th>
 					<td>
-						<input type="password" name="pwd">
+						<input placeholder="비밀번호" type="password" name="orderPwd">
 					</td>
 				</tr>
 			</table>
+			
+			<div class="d-grid gap-2 col-6 mx-auto mt-5">
+				<button class="btn btn-outline-dark" type="button" >비회원 주문조회</button>
+			</div>
+				
 		</div>
 		
 	</div>
+</div>	
 	
 	
 
