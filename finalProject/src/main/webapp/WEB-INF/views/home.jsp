@@ -13,7 +13,7 @@
 
 body {
    font-family:"Malgun Gothic", "맑은 고딕", NanumGothic, 나눔고딕, 돋움, sans-serif;
-   background: #FBF8EF;
+   background: #fff7f6;
    
 }
 

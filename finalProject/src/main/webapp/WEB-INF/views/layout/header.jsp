@@ -6,8 +6,8 @@
 .fixed-top { position: fixed; top: 0; left: 0; right: 0; }
 .header-top.topbar-scrolled { top: -37px; }
 header .navbar.navbar-scrolled { top: 0; padding: 15px; }
-header .navbar { padding: 5px 0; top: 37px; z-index: 997;  background: #fff7f6; }
-header .header-top{ background: #fff7f6; }
+header .navbar { padding: 5px 0; top: 37px; z-index: 997;  background: #fff; }
+header .header-top{ background: #fff; }
 main { margin-top: 130px; }
 </style>
 
@@ -139,6 +139,22 @@ $(function(){
 
 						</ul>
 					</li>
+					
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+		                	MyPage
+		                </a>
+	                	<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+		                    <li><a class="dropdown-item" href="#">회원정보</a></li>
+		                    <li><a class="dropdown-item" href="#">내활동</a></li>
+		                    <li><a class="dropdown-item" href="#">장바구니</a></li>
+		                    <li><a class="dropdown-item" href="#">위시리스트</a></li>
+		                    <li><a class="dropdown-item" href="#">주문내역</a></li>
+		                    <li><a class="dropdown-item" href="#">친구목록</a></li>
+		                    <li><a class="dropdown-item" href="#">포인트/쿠폰</a></li>
+		                    <li><a class="dropdown-item" href="#">배송지관리</a></li>
+	                  	</ul>
+		             </li>
 					
 				</ul>
 			</div>
