@@ -99,8 +99,8 @@ $(function(){
 							Product
 						</a>
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<li><a class="dropdown-item" href="#">Dog</a></li>
-							<li><a class="dropdown-item" href="#">Cat</a></li>
+							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/dog/main">Dog</a></li>
+							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/cat/main">Cat</a></li>
 						</ul>
 					</li>
 	
