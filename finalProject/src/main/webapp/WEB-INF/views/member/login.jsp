@@ -19,6 +19,19 @@
     width: 100%;
     display: block;
 }
+.btnlogin {
+    margin-top: 10px;
+    height: 60px;
+    line-height: 60px;
+    background-color: #113f89;
+    background-size: 18px;
+    background-position: 15px;
+    color: #fff;
+    font-size: 15px;
+    border-radius: 5px;
+    width: 100%;
+    display: block;
+}
 </style>
 
 <script type="text/javascript">
@@ -48,7 +61,7 @@ function sendLogin() {
 
         <div class="row">
             <div class="col-md-6 offset-md-3">
-                <div class="border mt-5 p-4">
+                <div class="mt-5 p-4">
                     <form name="loginForm" action="" method="post" class="row g-3">
                         <img alt="My Image" src="${pageContext.request.contextPath}/resources/images/logo.png">
                         <div id="kakaoLogin" class="contents ">
@@ -77,7 +90,7 @@ function sendLogin() {
                             </div>
                         </div>
                         <div class="col-12">
-                            <button type="button" class="btn btn-primary float-end" onclick="sendLogin();">&nbsp;Login&nbsp;<i class="bi bi-check2"></i></button>
+                            <button type="button" class="btn btnlogin float-end" onclick="sendLogin();">&nbsp;로그인&nbsp;<i class="bi bi-check2"></i></button>
                         </div>
                     </form>
                     <hr class="mt-4">

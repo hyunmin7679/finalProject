@@ -6,8 +6,8 @@
 .fixed-top { position: fixed; top: 0; left: 0; right: 0; }
 .header-top.topbar-scrolled { top: -37px; }
 header .navbar.navbar-scrolled { top: 0; padding: 15px; }
-header .navbar { padding: 15px 0; top: 37px; z-index: 997; }
-main { margin-top: 115px; }
+header .navbar { padding: 5px 0; top: 37px; z-index: 997; }
+main { margin-top: 130px; }
 </style>
 
 <script type="text/javascript">
@@ -75,7 +75,7 @@ $(function(){
 	
 	<nav class="navbar navbar-expand-lg navbar-light fixed-top">
 		<div class="container">
-			<a class="navbar-brand" href="${pageContext.request.contextPath}/"><i class="bi bi-app-indicator"></i></a>
+			<a class="navbar-brand" href="${pageContext.request.contextPath}/"><img style="width: 150px; height: auto;"  alt="My Image" src="${pageContext.request.contextPath}/resources/images/logo.png"></a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
