@@ -6,7 +6,8 @@
 body {
 	font-family:"Malgun Gothic", "맑은 고딕", NanumGothic, 나눔고딕, 돋움, sans-serif;
 	font-size: 14px;
-	color: #222;
+	   background: #fff7f6;
+
 }
 
 h1, h2, h3, h4, h5, h6 {
