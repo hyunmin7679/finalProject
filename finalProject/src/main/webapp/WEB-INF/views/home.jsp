@@ -48,6 +48,22 @@ body {
 	.img {margin-top: 100px; width : 150px;}
 	img {margin: 10px;}
 	.footer {margin: 100px 0;}
+	
+	/* 구름움직이기 */
+	.jb {
+                width: 100px;
+                height: 100px;
+                margin: 60px auto;
+                transition: all ease 1s;
+            }
+            .jb:hover {
+                transform: rotate( 45deg );
+            }
+
+            .jb:hover {
+    transform: rotate( -45deg );
+                }
+  
   
 </style>
 
@@ -55,7 +71,7 @@ body {
 <div class="container">
     <div class="inner-page">
     	<div class="container1">
-	    	<div class="item1">
+	    	<div class="item1 jb">
 				<img src="${pageContext.request.contextPath}/resources/images/star.jpg" width="100px;" class="img1">
 			</div>
 			<div class="item11">
@@ -64,10 +80,13 @@ body {
 				<h2>DESERVES</h2>
 				<h3>THE BEST</h3>
 			</div>
-			<div class="img">
-				<img src="${pageContext.request.contextPath}/resources/images/cloud.png">
-			</div>
-			<div class="item111">
+			
+				
+			
+			
+			<div class="item111 img jb">
+                <img src="${pageContext.request.contextPath}/resources/images/cloud.png">
+            
 			</div>
 		</div>
 		
@@ -96,7 +115,7 @@ body {
 				
 				<p> 트루사루디의 멋쟁이 정장은 우리아이의</p>
 				<p> 개구지고 귀여운 모습을 선보여주고 있습니다 </p>
-				<img src="${pageContext.request.contextPath}/resources/images/6.png" style=" width: 100px; text-align: right;">
+				<img class="item111" src="${pageContext.request.contextPath}/resources/images/6.png" style=" width: 100px; text-align: right;">
 			</div>
 			
 			<div class="item22">
