@@ -196,7 +196,7 @@ function init() {
         img.style.width = "100px";
         img.style.height = "100px";
 
-        img.style.position = "absolute";
+        img.style.position = "fixed";
         img.style.left = (x - 32) + "px"; // 이미지 중심을 클릭한 위치로 이동
         img.style.top = (y - 32) + "px"; // 이미지 중심을 클릭한 위치로 이동
 
