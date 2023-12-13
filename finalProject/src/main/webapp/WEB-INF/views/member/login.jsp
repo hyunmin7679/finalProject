@@ -8,8 +8,8 @@
 }
 #kakaoLogin .btnKakao {
     margin-top: 10px;
-    height: 60px;
-    line-height: 60px;
+    height: 40px;
+    line-height: 30px;
     background-color: #fee500;
     background-size: 18px;
     background-position: 15px;
@@ -21,8 +21,7 @@
 }
 .btnlogin {
     margin-top: 10px;
-    height: 60px;
-    line-height: 60px;
+    height: 40px;
     background-color: #113f89;
     background-size: 18px;
     background-position: 15px;
@@ -91,6 +90,10 @@ function sendLogin() {
                         </div>
                         <div class="col-12">
                             <button type="button" class="btn btnlogin float-end" onclick="sendLogin();">&nbsp;로그인&nbsp;<i class="bi bi-check2"></i></button>
+                        </div>
+                        <br>
+                        <div class="col-12">
+                            <button type="button" class="btn float-end" onclick="sendLogin();">&nbsp;비회원 주문조회&nbsp;</button>
                         </div>
                     </form>
                     <hr class="mt-4">
