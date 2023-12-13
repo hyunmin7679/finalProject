@@ -93,7 +93,7 @@ function sendLogin() {
                         </div>
                         <br>
                         <div class="col-12">
-                            <button type="button" class="btn float-end" onclick="sendLogin();">&nbsp;비회원 주문조회&nbsp;</button>
+                            <button type="button" class="btn float-end" onclick="location.href='${pageContext.request.contextPath}/member/nonmember'">&nbsp;비회원 주문조회&nbsp;</button>
                         </div>
                     </form>
                     <hr class="mt-4">

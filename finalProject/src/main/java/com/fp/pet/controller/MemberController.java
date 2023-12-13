@@ -137,5 +137,12 @@ public class MemberController {
 			
 			return "redirect:/";
 		}
+		
+		// 비회원 주문조회
+		@GetMapping("nonmember")
+		public String nonmemberForm () {
+			
+			return ".member.nonmember";
+		}
 
 }
