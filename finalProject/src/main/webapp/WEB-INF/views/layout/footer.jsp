@@ -13,7 +13,7 @@
 	background-color: #003166;
 }
 
-.img {float: left; width: 300px; padding-left: 20px; margin: 0}
+.img {float: left; width: 400px; padding-left: 20px; margin: 0}
 .pre  {color: white; text-align: left; font-size: 12px;}
 .a {margin: 30px; color: white;}
 .color {color: white; text-align: center}
