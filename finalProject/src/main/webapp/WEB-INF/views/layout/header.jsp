@@ -76,7 +76,7 @@ $(function(){
 	
 	<nav class="navbar navbar-expand-lg navbar-light fixed-top">
 		<div class="container">
-			<a class="navbar-brand" href="${pageContext.request.contextPath}/"><img style="width: 150px; height: auto;"  alt="My Image" src="${pageContext.request.contextPath}/resources/images/logo.png"></a>
+			<a class="navbar-brand" href="${pageContext.request.contextPath}/"><img style="width: 300px; height: auto;"  alt="My Image" src="${pageContext.request.contextPath}/resources/images/logo.png"></a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
@@ -99,8 +99,8 @@ $(function(){
 							Product
 						</a>
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/dog/main">Dog</a></li>
-							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/cat/main">Cat</a></li>
+							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/dog">Dog</a></li>
+							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/cat">Cat</a></li>
 						</ul>
 					</li>
 	

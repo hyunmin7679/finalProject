@@ -45,11 +45,27 @@ $(function(){
 		<h2>${productUrl}</h2>
 		<div class="row mt-1">
 				<div class="col-md-4 col-lg-3 mt-4">
-					<div class="border rounded product-item" data-productNum="1">
+					<div class="border rounded product-item" data-productNum="1"  style="background-color: #fff;">
 						<img class="thumbnail-img" src="${pageContext.request.contextPath}/resources/images/logo.png">
 						<div class="p-2">
 							<div class="text-truncate fw-semibold pb-1">
 								애착인형 쓰페샤루
+							</div>
+							<div class="pb-1">
+							  		<label class="fs-5 pe-2 text-danger">10%</label>
+							  	<label class="fs-5 pe-2 fw-semibold"><fmt:formatNumber value="450"/>원</label>
+							  		<label class="fs-6 fw-light text-decoration-line-through"><fmt:formatNumber value="500"/>원</label>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-md-4 col-lg-3 mt-4">
+					<div class="border rounded product-item" data-productNum="1"  style="background-color: #fff;">
+						<img class="thumbnail-img" src="${pageContext.request.contextPath}/resources/images/logo.png">
+						<div class="p-2">
+							<div class="text-truncate fw-semibold pb-1">
+								애착인형 하이브리드
 							</div>
 							<div class="pb-1">
 							  		<label class="fs-5 pe-2 text-danger">10%</label>
