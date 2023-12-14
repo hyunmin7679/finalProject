@@ -13,19 +13,19 @@
 	background-color: #003166;
 }
 
-img {float: left; width: 300px; padding-left: 20px;}
-pre  {color: white; text-align: left; font-size: 12px;}
-a {margin: 30px;}
+.img {float: left; width: 300px; padding-left: 20px; margin: 0}
+.pre  {color: white; text-align: left; font-size: 12px;}
+.a {margin: 30px; color: white;}
 .color {color: white; text-align: center}
-
 </style>
 
 <div class="boay-container">
   	<div>
-  		<img src="${pageContext.request.contextPath}/resources/images/logo.png">
+  		<img class="img"  src="${pageContext.request.contextPath}/resources/images/logo.png">
   	</div>
+  	<div>
 	<div>
-		<pre>
+		<pre class="pre">
        	디디피(DDP Co., Ltd.)
        	주소 : 서울특별시 마포구 테OO로44길 8, 2층
        	사업자등록번호 : 304-81-00000
@@ -37,14 +37,15 @@ a {margin: 30px;}
        	</pre> 
    </div> 
    	<div class="color">
-   		<a class="text-reset" href="#">NOTICE</a>
-   		<a class="text-reset" href="#">Q & A</a>
-   		<a class="text-reset" href="#">F & A</a>
-   		<a class="text-reset" href="#">EVENT</a>
-   		<a class="text-reset" href="#">이용약관</a>
-   		<a class="text-reset" href="#">제휴제안</a>
-   		<a class="text-reset" href="#">개인정보취급방침</a>
-   		<a class="text-reset" href="#">고객센터</a>
+   		<a class="a" href="#">NOTICE</a>
+   		<a class="a" href="#">Q & A</a>
+   		<a class="a" href="#">F & A</a>
+   		<a class="a" href="#">EVENT</a>
+   		<a class="a" href="#">이용약관</a>
+   		<a class="a" href="#">제휴제안</a>
+   		<a class="a" href="#">개인정보취급방침</a>
+   		<a class="a" href="#">고객센터</a>
+   	</div>
    	</div>
 </div>
 
