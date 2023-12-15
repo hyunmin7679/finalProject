@@ -10,18 +10,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/product/*")
 public class ProductController {
 
-	@RequestMapping("{productUrl}")
+	@RequestMapping("{productUrl}/main")
 	public String main(@PathVariable String productUrl, Model model)throws Exception{
 		
 		model.addAttribute("productUrl",productUrl);
-		
 		return ".product.main";
 	}
 	
-	@GetMapping("/{productUrl}/{productNum}")
-	public String buyRequest(@PathVariable String productUrl, @PathVariable String productNum, Model model) throws Exception{
+	@GetMapping("/buy/{productNum}")
+	public String buyRequest(@PathVariable String productNum, Model model) throws Exception{
 		
-		
+		model.addAttribute("productNum",productNum);
 		return ".product.buy";
 	}
 	

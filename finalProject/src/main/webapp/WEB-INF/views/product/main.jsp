@@ -33,7 +33,7 @@ $(function(){
 $(function(){
 	$(".product-item").click(function(){
 		let productNum = $(this).attr("data-productNum");
-		let url = "${pageContext.request.contextPath}/product/"+productNum;
+		let url = "${pageContext.request.contextPath}/product/buy/"+productNum;
 		location.href = url;
 	});
 });
