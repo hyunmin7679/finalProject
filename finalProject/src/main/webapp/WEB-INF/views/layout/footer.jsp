@@ -9,7 +9,7 @@
 	margin-top: 200px;
 	padding: 70px;
 	background: #fff;
-	height: 350px;
+	height: 300px;
 	background-color: #003166;
 }
 
@@ -29,7 +29,7 @@
        	디디피(DDP Co., Ltd.)
        	주소 : 서울특별시 마포구 테OO로44길 8, 2층
        	사업자등록번호 : 304-81-00000
-       	통신판매업 신고번호 : 2020-서울강남-01687
+       	통신판매업 신고번호 : 2000-서울강남-01600
        	대표 : 김도훈ㅣ개인정보보호책임자 : 김현민
        	이메일 : ddppet@gmail.com
        	고객센터 번호 : 1644-0000

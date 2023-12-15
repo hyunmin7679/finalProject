@@ -9,8 +9,6 @@ header .navbar.navbar-scrolled { top: 0; padding: 15px; }
 header .navbar { padding: 5px 0; top: 37px; z-index: 997;  background: #fff; }
 header .header-top{ background: #fff; }
 main { margin-top: 130px; }
-li{ padding-left: 5px; padding-right: 5px;}
-
 </style>
 
 <script type="text/javascript">
@@ -72,63 +70,36 @@ $(function(){
 	
 	<nav class="navbar navbar-expand-lg navbar-light fixed-top">
 		<div class="container">
-			<a class="navbar-brand" href="${pageContext.request.contextPath}/"><img style="width: 250px; height: 60px;"  alt="logo" src="${pageContext.request.contextPath}/resources/images/logo.png"></a>
+			<a class="navbar-brand" href="${pageContext.request.contextPath}/"><img style="width: 150px; height: auto;"  alt="My Image" src="${pageContext.request.contextPath}/resources/images/logo.png"></a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 				
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav ms-auto flex-nowrap">
+					<!--
+					<li class="nav-item">
+						<a class="nav-link" aria-current="page" href="${pageContext.request.contextPath}/">홈</a>
+					</li>
+					 -->
+					 <!-- 
+					<li class="nav-item">
+						<a class="nav-link" href="#">가볼만한곳</a>
+					</li>
+					 -->
 					 
 					<li class="nav-item dropdown">
-						<a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							사료
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							Product
 						</a>
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/dog">건식사료</a></li>
-							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/cat">습식사료</a></li>
-							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/cat">우유/분유</a></li>
-							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/cat">고양이사료</a></li>
+							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/dog/main">Dog</a></li>
+							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/cat/main">Cat</a></li>
 						</ul>
 					</li>
+	
 					<li class="nav-item dropdown">
-						<a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							간식
-						</a>
-						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/dog">강아지껌</a></li>
-							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/cat">육포/사시미</a></li>
-							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/cat">수제간식</a></li>
-							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/cat">비스켓/스낵</a></li>
-							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/cat">캔/파우치</a></li>
-							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/cat">고양이간식</a></li>
-						</ul>
-					</li>
-					<li class="nav-item dropdown">
-						<a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							용품
-						</a>
-						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/dog">위생/배변</a></li>
-							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/cat">건강관리</a></li>
-							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/cat">장난감</a></li>
-							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/cat">미용/목욕</a></li>
-							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/cat">하우스</a></li>
-							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/cat">급식기/급수기</a></li>
-							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/cat">의류/액세서리</a></li>
-							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/cat">목줄/가슴줄</a></li>
-						</ul>
-					</li>
-					
-					<li class="nav-item dropdown">
-						<a class="nav-link" href="#" id="navbarDropdown" style="none" >
-		                     |
-		                </a>
-					
-					
-					<li class="nav-item dropdown">
-						
-						<a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 		                     Community
 		                </a>
 		                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -142,7 +113,7 @@ $(function(){
 					</li>
 					
 					<li class="nav-item dropdown">
-						<a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 							Event
 						</a>
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -152,7 +123,7 @@ $(function(){
 					</li>
 					
 					<li class="nav-item dropdown">
-						<a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 							Service Center
 						</a>
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -164,7 +135,7 @@ $(function(){
 					</li>
 					
 					<li class="nav-item dropdown">
-						<a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 		                	MyPage
 		                </a>
 	                	<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
