@@ -137,7 +137,6 @@ $(function(){
 		                	<li><a class="dropdown-item" href="#">나눔</a></li>
 							<li><a class="dropdown-item" href="#">상담</a></li>
 		                    <li><a class="dropdown-item" href="#">자유</a></li>
-		                    <li><a class="dropdown-item" href="#">산책로 추천</a></li>
 		                    <li><a class="dropdown-item" href="#">산책메이트</a></li>
 		                </ul>
 
