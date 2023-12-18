@@ -40,6 +40,8 @@
 	</div>
 	
 	
+	
+	
 	<!-- 신상 아이템 (포이치로 돌리면 될듯) -->
 	<div class="container body-container">
     	<div class="inner-page">
@@ -70,7 +72,9 @@
 		</div>
 	</div>
 	
-	
+	<div style="margin-bottom: 100px; margin-top: 100px;">
+		<img alt="웹배너1" src="${pageContext.request.contextPath}/resources/images/웹배너1.PNG" width="100%" height="180px;">
+	</div>
 
 		<div class="body-container">
 			<div style="float: left;">
