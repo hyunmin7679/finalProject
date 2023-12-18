@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 
+
 <!-- / Navbar -->
 
 
@@ -39,7 +40,7 @@
         </thead>
         <tbody>
           <tr>
-            <td style="width: 6%; text-align: center;"> <span class="fw-medium">검색어</span></td>
+            <td style="width: 6%; text-align: center;"><span class="fw-medium">검색어</span></td>
             <td colspan="4" >
            
             <div class="d-flex justify-content-between align-items-center row gap-md-0">
@@ -79,7 +80,7 @@
             
           </tr>
           <tr>
-            <td style="text-align: center;"><span class="fw-medium">상품</span></td>	
+            <td style="text-align: center;"> <span class="fw-medium">상품</span></td>
              <td colspan="4" >
            
             <div class="d-flex justify-content-between align-items-center row gap-md-0">
@@ -98,8 +99,7 @@
           </tr>
         </tbody>
       </table>
-      	<div class="text-center pb-0 pt-3"><button class="btn btn-secondary" style="width: 100px;">검색</button> </div>    </div>
-      
+           <div class="text-center pb-0 pt-3"><button class="btn btn-secondary" style="width: 100px;">검색</button> </div>    </div>
     </div>
   </div>
 </div>
@@ -115,11 +115,12 @@
 					<div class="card-header d-flex align-items-center justify-content-between">
 						<div class="dropdown">
 							<button class="btn btn-secondary p-2 m-0" type="button" id="routeVehicles">
-								배송준비중 처리
+								배송완료 처리
 							</button>
+							
 							<button class="btn btn-label-dark p-2 m-0" type="button" id="routeVehicles">
-								배송보류 처리
-							</button>
+								배송준비중 처리
+							</button> 
 						</div>
 					</div>
 					<div class="card-datatable"  >
@@ -144,7 +145,8 @@
 												aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
 												style="width: 154px;"
 												aria-label="location: activate to sort column descending"
-												aria-sort="ascending">주문일자<div>(결제일)</div></th>
+												aria-sort="ascending">주문일자
+												<div>(결제일)</div></th>
 											<th class="sorting" tabindex="0"
 												aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
 												style="width: 247px;"
@@ -155,15 +157,17 @@
 												style="width: 247px;"
 												aria-label="starting route: activate to sort column ascending">주문자
 												</th>
+												<th class="sorting" tabindex="0"
+												aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+												style="width: 245px;"
+												aria-label="ending route: activate to sort column ascending">배송일자
+												</th>
 											<th class="sorting" tabindex="0"
 												aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
 												style="width: 245px;"
 												aria-label="ending route: activate to sort column ascending">운송장번호
 												</th>
-											<th class="sorting" tabindex="0"
-												aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-												style="width: 217px;"
-												aria-label="warnings: activate to sort column ascending">배송비</th>
+										
 											<th class="w-20 sorting" tabindex="0"
 												aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
 												style="width: 280px;"
@@ -197,19 +201,10 @@
 											<td><div class="text-body">9910091151</div></td>	
 											<td><div class="text-body">김현민</div></td>
 											<td>
-											<div class="text-body">
-											<select id="ProductStatus" class="form-select text-capitalize m-0 p-0" style="width: 100px; height: 30px;  font-size: 15px;">
-      											<option value="">자체배송</option>
-      											<option value="">CJ택배</option>
-      											<option value="">롯대택배</option>
-      										</select>
-      										</div>
-      										
-											<div class="text-body pt-2">
-												<input type="text" class="form-control m-0 p-0"  placeholder="송장번호"/>
-											</div>
+											<div class="m-0 p-0">2012-12-12 13:12:12</div>
 											</td>
-											<td><div class="text-body">2000원</div></td>
+											<td><div class="text-body">자체배송
+											12333333</div></td>
 											<td><div class="text-body">바나나/검정</div></td>
 											<td><div class="text-body text-center">1</div></td>
 											<td><div class="text-body">2000원</div></td>

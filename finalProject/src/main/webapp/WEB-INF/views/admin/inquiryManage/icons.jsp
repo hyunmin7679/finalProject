@@ -1,466 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar">
-  
-
-  
-
-  
-
-      
-      
-
-      
-      
-      <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0   d-xl-none ">
-        <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
-          <i class="bx bx-menu bx-sm"></i>
-        </a>
-      </div>
-      
-
-      <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-
-        
-
-        
-        <!-- Search -->
-        <div class="navbar-nav align-items-center">
-          <div class="nav-item navbar-search-wrapper mb-0">
-            <a class="nav-item nav-link search-toggler px-0" href="javascript:void(0);">
-              <i class="bx bx-search bx-sm"></i>
-              <span class="d-none d-md-inline-block text-muted">Search (Ctrl+/)</span>
-            </a>
-          </div>
-        </div>
-        <!-- /Search -->
-        
-
-
-        
-
-        <ul class="navbar-nav flex-row align-items-center ms-auto">
-          
-
-          
-
-          <!-- Language -->
-          <li class="nav-item dropdown-language dropdown me-2 me-xl-0">
-            <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-              <i class='bx bx-globe bx-sm'></i>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end">
-              <li>
-                <a class="dropdown-item" href="javascript:void(0);" data-language="en" data-text-direction="ltr">
-                  <span class="align-middle">English</span>
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="javascript:void(0);" data-language="fr" data-text-direction="ltr">
-                  <span class="align-middle">French</span>
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="javascript:void(0);" data-language="ar" data-text-direction="rtl">
-                  <span class="align-middle">Arabic</span>
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="javascript:void(0);" data-language="de" data-text-direction="ltr">
-                  <span class="align-middle">German</span>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <!-- /Language -->
-
-          <!-- Quick links  -->
-          <li class="nav-item dropdown-shortcuts navbar-dropdown dropdown me-2 me-xl-0">
-            <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
-              <i class='bx bx-grid-alt bx-sm'></i>
-            </a>
-            <div class="dropdown-menu dropdown-menu-end py-0">
-              <div class="dropdown-menu-header border-bottom">
-                <div class="dropdown-header d-flex align-items-center py-3">
-                  <h5 class="text-body mb-0 me-auto">Shortcuts</h5>
-                  <a href="javascript:void(0)" class="dropdown-shortcuts-add text-body" data-bs-toggle="tooltip" data-bs-placement="top" title="Add shortcuts"><i class="bx bx-sm bx-plus-circle"></i></a>
-                </div>
-              </div>
-              <div class="dropdown-shortcuts-list scrollable-container">
-                <div class="row row-bordered overflow-visible g-0">
-                  <div class="dropdown-shortcuts-item col">
-                    <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
-                      <i class="bx bx-calendar fs-4"></i>
-                    </span>
-                    <a href="app-calendar.html" class="stretched-link">Calendar</a>
-                    <small class="text-muted mb-0">Appointments</small>
-                  </div>
-                  <div class="dropdown-shortcuts-item col">
-                    <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
-                      <i class="bx bx-food-menu fs-4"></i>
-                    </span>
-                    <a href="app-invoice-list.html" class="stretched-link">Invoice App</a>
-                    <small class="text-muted mb-0">Manage Accounts</small>
-                  </div>
-                </div>
-                <div class="row row-bordered overflow-visible g-0">
-                  <div class="dropdown-shortcuts-item col">
-                    <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
-                      <i class="bx bx-user fs-4"></i>
-                    </span>
-                    <a href="app-user-list.html" class="stretched-link">User App</a>
-                    <small class="text-muted mb-0">Manage Users</small>
-                  </div>
-                  <div class="dropdown-shortcuts-item col">
-                    <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
-                      <i class="bx bx-check-shield fs-4"></i>
-                    </span>
-                    <a href="app-access-roles.html" class="stretched-link">Role Management</a>
-                    <small class="text-muted mb-0">Permission</small>
-                  </div>
-                </div>
-                <div class="row row-bordered overflow-visible g-0">
-                  <div class="dropdown-shortcuts-item col">
-                    <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
-                      <i class="bx bx-pie-chart-alt-2 fs-4"></i>
-                    </span>
-                    <a href="index.html" class="stretched-link">Dashboard</a>
-                    <small class="text-muted mb-0">User Profile</small>
-                  </div>
-                  <div class="dropdown-shortcuts-item col">
-                    <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
-                      <i class="bx bx-cog fs-4"></i>
-                    </span>
-                    <a href="pages-account-settings-account.html" class="stretched-link">Setting</a>
-                    <small class="text-muted mb-0">Account Settings</small>
-                  </div>
-                </div>
-                <div class="row row-bordered overflow-visible g-0">
-                  <div class="dropdown-shortcuts-item col">
-                    <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
-                      <i class="bx bx-help-circle fs-4"></i>
-                    </span>
-                    <a href="pages-faq.html" class="stretched-link">FAQs</a>
-                    <small class="text-muted mb-0">FAQs & Articles</small>
-                  </div>
-                  <div class="dropdown-shortcuts-item col">
-                    <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
-                      <i class="bx bx-window-open fs-4"></i>
-                    </span>
-                    <a href="modal-examples.html" class="stretched-link">Modals</a>
-                    <small class="text-muted mb-0">Useful Popups</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </li>
-          <!-- Quick links -->
-
-          
-          <!-- Style Switcher -->
-          <li class="nav-item dropdown-style-switcher dropdown me-2 me-xl-0">
-            <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-              <i class='bx bx-sm'></i>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end dropdown-styles">
-              <li>
-                <a class="dropdown-item" href="javascript:void(0);" data-theme="light">
-                  <span class="align-middle"><i class='bx bx-sun me-2'></i>Light</span>
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="javascript:void(0);" data-theme="dark">
-                  <span class="align-middle"><i class="bx bx-moon me-2"></i>Dark</span>
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="javascript:void(0);" data-theme="system">
-                  <span class="align-middle"><i class="bx bx-desktop me-2"></i>System</span>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <!-- / Style Switcher-->
-          
-
-          <!-- Notification -->
-          <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-1">
-            <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
-              <i class="bx bx-bell bx-sm"></i>
-              <span class="badge bg-danger rounded-pill badge-notifications">5</span>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end py-0">
-              <li class="dropdown-menu-header border-bottom">
-                <div class="dropdown-header d-flex align-items-center py-3">
-                  <h5 class="text-body mb-0 me-auto">Notification</h5>
-                  <a href="javascript:void(0)" class="dropdown-notifications-all text-body" data-bs-toggle="tooltip" data-bs-placement="top" title="Mark all as read"><i class="bx fs-4 bx-envelope-open"></i></a>
-                </div>
-              </li>
-              <li class="dropdown-notifications-list scrollable-container">
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item list-group-item-action dropdown-notifications-item">
-                    <div class="d-flex">
-                      <div class="flex-shrink-0 me-3">
-                        <div class="avatar">
-                          <img src="../../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle">
-                        </div>
-                      </div>
-                      <div class="flex-grow-1">
-                        <h6 class="mb-1">Congratulation Lettie 🎉</h6>
-                        <p class="mb-0">Won the monthly best seller gold badge</p>
-                        <small class="text-muted">1h ago</small>
-                      </div>
-                      <div class="flex-shrink-0 dropdown-notifications-actions">
-                        <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
-                        <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="list-group-item list-group-item-action dropdown-notifications-item">
-                    <div class="d-flex">
-                      <div class="flex-shrink-0 me-3">
-                        <div class="avatar">
-                          <span class="avatar-initial rounded-circle bg-label-danger">CF</span>
-                        </div>
-                      </div>
-                      <div class="flex-grow-1">
-                        <h6 class="mb-1">Charles Franklin</h6>
-                        <p class="mb-0">Accepted your connection</p>
-                        <small class="text-muted">12hr ago</small>
-                      </div>
-                      <div class="flex-shrink-0 dropdown-notifications-actions">
-                        <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
-                        <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
-                    <div class="d-flex">
-                      <div class="flex-shrink-0 me-3">
-                        <div class="avatar">
-                          <img src="../../assets/img/avatars/2.png" alt class="w-px-40 h-auto rounded-circle">
-                        </div>
-                      </div>
-                      <div class="flex-grow-1">
-                        <h6 class="mb-1">New Message ✉️</h6>
-                        <p class="mb-0">You have new message from Natalie</p>
-                        <small class="text-muted">1h ago</small>
-                      </div>
-                      <div class="flex-shrink-0 dropdown-notifications-actions">
-                        <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
-                        <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="list-group-item list-group-item-action dropdown-notifications-item">
-                    <div class="d-flex">
-                      <div class="flex-shrink-0 me-3">
-                        <div class="avatar">
-                          <span class="avatar-initial rounded-circle bg-label-success"><i class="bx bx-cart"></i></span>
-                        </div>
-                      </div>
-                      <div class="flex-grow-1">
-                        <h6 class="mb-1">Whoo! You have new order 🛒 </h6>
-                        <p class="mb-0">ACME Inc. made new order $1,154</p>
-                        <small class="text-muted">1 day ago</small>
-                      </div>
-                      <div class="flex-shrink-0 dropdown-notifications-actions">
-                        <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
-                        <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
-                    <div class="d-flex">
-                      <div class="flex-shrink-0 me-3">
-                        <div class="avatar">
-                          <img src="../../assets/img/avatars/9.png" alt class="w-px-40 h-auto rounded-circle">
-                        </div>
-                      </div>
-                      <div class="flex-grow-1">
-                        <h6 class="mb-1">Application has been approved 🚀 </h6>
-                        <p class="mb-0">Your ABC project application has been approved.</p>
-                        <small class="text-muted">2 days ago</small>
-                      </div>
-                      <div class="flex-shrink-0 dropdown-notifications-actions">
-                        <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
-                        <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
-                    <div class="d-flex">
-                      <div class="flex-shrink-0 me-3">
-                        <div class="avatar">
-                          <span class="avatar-initial rounded-circle bg-label-success"><i class="bx bx-pie-chart-alt"></i></span>
-                        </div>
-                      </div>
-                      <div class="flex-grow-1">
-                        <h6 class="mb-1">Monthly report is generated</h6>
-                        <p class="mb-0">July monthly financial report is generated </p>
-                        <small class="text-muted">3 days ago</small>
-                      </div>
-                      <div class="flex-shrink-0 dropdown-notifications-actions">
-                        <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
-                        <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
-                    <div class="d-flex">
-                      <div class="flex-shrink-0 me-3">
-                        <div class="avatar">
-                          <img src="../../assets/img/avatars/5.png" alt class="w-px-40 h-auto rounded-circle">
-                        </div>
-                      </div>
-                      <div class="flex-grow-1">
-                        <h6 class="mb-1">Send connection request</h6>
-                        <p class="mb-0">Peter sent you connection request</p>
-                        <small class="text-muted">4 days ago</small>
-                      </div>
-                      <div class="flex-shrink-0 dropdown-notifications-actions">
-                        <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
-                        <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="list-group-item list-group-item-action dropdown-notifications-item">
-                    <div class="d-flex">
-                      <div class="flex-shrink-0 me-3">
-                        <div class="avatar">
-                          <img src="../../assets/img/avatars/6.png" alt class="w-px-40 h-auto rounded-circle">
-                        </div>
-                      </div>
-                      <div class="flex-grow-1">
-                        <h6 class="mb-1">New message from Jane</h6>
-                        <p class="mb-0">Your have new message from Jane</p>
-                        <small class="text-muted">5 days ago</small>
-                      </div>
-                      <div class="flex-shrink-0 dropdown-notifications-actions">
-                        <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
-                        <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
-                    <div class="d-flex">
-                      <div class="flex-shrink-0 me-3">
-                        <div class="avatar">
-                          <span class="avatar-initial rounded-circle bg-label-warning"><i class="bx bx-error"></i></span>
-                        </div>
-                      </div>
-                      <div class="flex-grow-1">
-                        <h6 class="mb-1">CPU is running high</h6>
-                        <p class="mb-0">CPU Utilization Percent is currently at 88.63%,</p>
-                        <small class="text-muted">5 days ago</small>
-                      </div>
-                      <div class="flex-shrink-0 dropdown-notifications-actions">
-                        <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
-                        <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </li>
-              <li class="dropdown-menu-footer border-top p-3">
-                <button class="btn btn-primary text-uppercase w-100">view all notifications</button>
-              </li>
-            </ul>
-          </li>
-          <!--/ Notification -->
-          <!-- User -->
-          <li class="nav-item navbar-dropdown dropdown-user dropdown">
-            <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-              <div class="avatar avatar-online">
-                <img src="../../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle">
-              </div>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end">
-              <li>
-                <a class="dropdown-item" href="pages-account-settings-account.html">
-                  <div class="d-flex">
-                    <div class="flex-shrink-0 me-3">
-                      <div class="avatar avatar-online">
-                        <img src="../../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle">
-                      </div>
-                    </div>
-                    <div class="flex-grow-1">
-                      <span class="fw-medium d-block">John Doe</span>
-                      <small class="text-muted">Admin</small>
-                    </div>
-                  </div>
-                </a>
-              </li>
-              <li>
-                <div class="dropdown-divider"></div>
-              </li>
-              <li>
-                <a class="dropdown-item" href="pages-profile-user.html">
-                  <i class="bx bx-user me-2"></i>
-                  <span class="align-middle">My Profile</span>
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="pages-account-settings-account.html">
-                  <i class="bx bx-cog me-2"></i>
-                  <span class="align-middle">Settings</span>
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="pages-account-settings-billing.html">
-                  <span class="d-flex align-items-center align-middle">
-                    <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                    <span class="flex-grow-1 align-middle">Billing</span>
-                    <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                  </span>
-                </a>
-              </li>
-              <li>
-                <div class="dropdown-divider"></div>
-              </li>
-              <li>
-                <a class="dropdown-item" href="pages-faq.html">
-                  <i class="bx bx-help-circle me-2"></i>
-                  <span class="align-middle">FAQ</span>
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="pages-pricing.html">
-                  <i class="bx bx-dollar me-2"></i>
-                  <span class="align-middle">Pricing</span>
-                </a>
-              </li>
-              <li>
-                <div class="dropdown-divider"></div>
-              </li>
-              <li>
-                <a class="dropdown-item" href="auth-login-cover.html" target="_blank">
-                  <i class="bx bx-power-off me-2"></i>
-                  <span class="align-middle">Log Out</span>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <!--/ User -->
-          
-
-        </ul>
-      </div>
-
-      
-      <!-- Search Small Screens -->
-      <div class="navbar-search-wrapper search-input-wrapper  d-none">
-        <input type="text" class="form-control search-input container-xxl border-0" placeholder="Search..." aria-label="Search...">
-        <i class="bx bx-x bx-sm search-toggler cursor-pointer"></i>
-      </div>
-      
-      
-  </nav>
-  
-
-  
-<!-- / Navbar -->
 
       
 
@@ -473,140 +13,189 @@
             
             
 <h4 class="py-3 mb-4">
-  <span class="text-muted fw-light">Icons /</span> Box Icons
+  &nbsp;&nbsp;아이콘 관리
 </h4>
 
 
-
+<div style="height: 50px;">
+	<div class="d-flex justify-content-center mx-auto gap-3 float-end">
+	<button class="btn btn-danger">아이콘 삭제</button>
+  <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editUser"> + 아이콘 추가</button>
+</div>
+</div>
 <!-- Icon container -->
-<div class="d-flex flex-wrap" id="icons-container">
-  <div class="card icon-card cursor-pointer text-center  mb-4 mx-2">
-    <div class="card-body"> <i class="bx bxl-adobe mb-2"></i>
-      <p class="icon-name text-capitalize text-truncate mb-0">adobe</p>
+<div class="card" style="margin-top: 30px; background-color: white;">
+	<div class=" card-datable">
+  <div class="d-flex flex-wrap mt-4 ms-3 me-2" id="icons-container" style="border: none; float: left;">
+   <div class="card icon-card cursor-pointer text-center  mb-4 mx-2" style="background-color: white; border: 0;">
+  	<input type="checkbox" style="align-self: flex-end;">
+    <img style="border: none; width: 50px; height: 50px;" src="../../bootstrapTemp/assets/img/avatars/cat.gif" class="img-fluid" alt="FAQ Image" data-app-light-img="illustrations/sitting-girl-with-laptop-light.png" data-app-dark-img="illustrations/sitting-girl-with-laptop-dark.png">
+    <p style="padding-bottom: 0; margin-bottom: 0;"></p>
     </div>
   </div>
-  <div class="card icon-card cursor-pointer text-center  mb-4 mx-2">
-    <div class="card-body"> <i class="bx bxl-algolia mb-2"></i>
-      <p class="icon-name text-capitalize text-truncate mb-0">algolia</p>
+  <div class="d-flex flex-wrap mt-4 ms-3 me-2" id="icons-container" style="border: none; float: left;">
+   <div class="card icon-card cursor-pointer text-center  mb-4 mx-2" style="background-color: white; border: 0;">
+  	<input type="checkbox" style="align-self: flex-end;">
+    <img style="border: none; width: 50px; height: 50px;" src="../../bootstrapTemp/assets/img/avatars/rdog.gif" class="img-fluid" alt="FAQ Image" data-app-light-img="illustrations/sitting-girl-with-laptop-light.png" data-app-dark-img="illustrations/sitting-girl-with-laptop-dark.png">
+    <p style="padding-bottom: 0; margin-bottom: 0;"></p>
     </div>
   </div>
-  <div class="card icon-card cursor-pointer text-center  mb-4 mx-2">
-    <div class="card-body"> <i class="bx bxl-audible mb-2"></i>
-      <p class="icon-name text-capitalize text-truncate mb-0">audible</p>
+  <div class="d-flex flex-wrap mt-4 ms-3 me-2" id="icons-container" style="border: none; float: left;">
+   <div class="card icon-card cursor-pointer text-center  mb-4 mx-2" style="background-color: white; border: 0;">
+  	<input type="checkbox" style="align-self: flex-end;">
+    <img style="border: none; width: 50px; height: 50px;" src="../../bootstrapTemp/assets/img/avatars/bulldog.gif" class="img-fluid" alt="FAQ Image" data-app-light-img="illustrations/sitting-girl-with-laptop-light.png" data-app-dark-img="illustrations/sitting-girl-with-laptop-dark.png">
+    <p style="padding-bottom: 0; margin-bottom: 0;"></p>
     </div>
   </div>
-  <div class="card icon-card cursor-pointer text-center  mb-4 mx-2">
-    <div class="card-body"> <i class="bx bxl-figma mb-2"></i>
-      <p class="icon-name text-capitalize text-truncate mb-0">figma</p>
+  <div class="d-flex flex-wrap mt-4 ms-3 me-2" id="icons-container" style="border: none; float: left;">
+   <div class="card icon-card cursor-pointer text-center  mb-4 mx-2" style="background-color: white; border: 0;">
+  	<input type="checkbox" style="align-self: flex-end;">
+    <img style="border: none; width: 50px; height: 50px;" src="../../bootstrapTemp/assets/img/avatars/wcat.gif" class="img-fluid" alt="FAQ Image" data-app-light-img="illustrations/sitting-girl-with-laptop-light.png" data-app-dark-img="illustrations/sitting-girl-with-laptop-dark.png">
+    <p style="padding-bottom: 0; margin-bottom: 0;"></p>
     </div>
   </div>
-  <div class="card icon-card cursor-pointer text-center  mb-4 mx-2">
-    <div class="card-body"> <i class="bx bxl-redbubble mb-2"></i>
-      <p class="icon-name text-capitalize text-truncate mb-0">redbubble</p>
+  <div class="d-flex flex-wrap mt-4 ms-3 me-2" id="icons-container" style="border: none; float: left;">
+   <div class="card icon-card cursor-pointer text-center  mb-4 mx-2" style="background-color: white; border: 0;">
+  	<input type="checkbox" style="align-self: flex-end;">
+    <img style="border: none; width: 50px; height: 50px;" src="../../bootstrapTemp/assets/img/avatars/hdog.gif" class="img-fluid" alt="FAQ Image" data-app-light-img="illustrations/sitting-girl-with-laptop-light.png" data-app-dark-img="illustrations/sitting-girl-with-laptop-dark.png">
+    <p style="padding-bottom: 0; margin-bottom: 0;"></p>
     </div>
   </div>
-  <div class="card icon-card cursor-pointer text-center  mb-4 mx-2">
-    <div class="card-body"> <i class="bx bxl-etsy mb-2"></i>
-      <p class="icon-name text-capitalize text-truncate mb-0">etsy</p>
+  <div class="d-flex flex-wrap mt-4 ms-3 me-2" id="icons-container" style="border: none; float: left;">
+   <div class="card icon-card cursor-pointer text-center  mb-4 mx-2" style="background-color: white; border: 0;">
+  	<input type="checkbox" style="align-self: flex-end;">
+    <img style="border: none; width: 50px; height: 50px;" src="../../bootstrapTemp/assets/img/avatars/bcat.gif" class="img-fluid" alt="FAQ Image" data-app-light-img="illustrations/sitting-girl-with-laptop-light.png" data-app-dark-img="illustrations/sitting-girl-with-laptop-dark.png">
+    <p style="padding-bottom: 0; margin-bottom: 0;"></p>
     </div>
   </div>
-  <div class="card icon-card cursor-pointer text-center  mb-4 mx-2">
-    <div class="card-body"> <i class="bx bxl-gitlab mb-2"></i>
-      <p class="icon-name text-capitalize text-truncate mb-0">gitlab</p>
+  <div class="d-flex flex-wrap mt-4 ms-3 me-2" id="icons-container" style="border: none; float: left;">
+   <div class="card icon-card cursor-pointer text-center  mb-4 mx-2" style="background-color: white; border: 0;">
+  	<input type="checkbox" style="align-self: flex-end;">
+    <img style="border: none; width: 50px; height: 50px;" src="../../bootstrapTemp/assets/img/avatars/rundog.gif" class="img-fluid" alt="FAQ Image" data-app-light-img="illustrations/sitting-girl-with-laptop-light.png" data-app-dark-img="illustrations/sitting-girl-with-laptop-dark.png">
+    <p style="padding-bottom: 0; margin-bottom: 0;"></p>
     </div>
   </div>
-  <div class="card icon-card cursor-pointer text-center  mb-4 mx-2">
-    <div class="card-body"> <i class="bx bxl-patreon mb-2"></i>
-      <p class="icon-name text-capitalize text-truncate mb-0">patreon</p>
+  <div class="d-flex flex-wrap mt-4 ms-3 me-2" id="icons-container" style="border: none; float: left;">
+   <div class="card icon-card cursor-pointer text-center  mb-4 mx-2" style="background-color: white; border: 0;">
+  	<input type="checkbox" style="align-self: flex-end;">
+    <img style="border: none; width: 50px; height: 50px;" src="../../bootstrapTemp/assets/img/avatars/fcat.gif" class="img-fluid" alt="FAQ Image" data-app-light-img="illustrations/sitting-girl-with-laptop-light.png" data-app-dark-img="illustrations/sitting-girl-with-laptop-dark.png">
+    <p style="padding-bottom: 0; margin-bottom: 0;"></p>
     </div>
   </div>
-  <div class="card icon-card cursor-pointer text-center  mb-4 mx-2">
-    <div class="card-body"> <i class="bx bxl-facebook-circle mb-2"></i>
-      <p class="icon-name text-capitalize text-truncate mb-0">facebook-circle</p>
+  <div class="d-flex flex-wrap mt-4 ms-3 me-2" id="icons-container" style="border: none; float: left;">
+   <div class="card icon-card cursor-pointer text-center  mb-4 mx-2" style="background-color: white; border: 0;">
+  	<input type="checkbox" style="align-self: flex-end;">
+    <img style="border: none; width: 50px; height: 50px;" src="../../bootstrapTemp/assets/img/avatars/sdog.gif" class="img-fluid" alt="FAQ Image" data-app-light-img="illustrations/sitting-girl-with-laptop-light.png" data-app-dark-img="illustrations/sitting-girl-with-laptop-dark.png">
+    <p style="padding-bottom: 0; margin-bottom: 0;"></p>
     </div>
   </div>
-  <div class="card icon-card cursor-pointer text-center  mb-4 mx-2">
-    <div class="card-body"> <i class="bx bxl-imdb mb-2"></i>
-      <p class="icon-name text-capitalize text-truncate mb-0">imdb</p>
+   <div class="d-flex flex-wrap mt-4 ms-3 me-2" id="icons-container" style="border: none; float: left;">
+   <div class="card icon-card cursor-pointer text-center  mb-4 mx-2" style="background-color: white; border: 0;">
+  	<input type="checkbox" style="align-self: flex-end;">
+    <img style="border: none; width: 50px; height: 50px;" src="../../bootstrapTemp/assets/img/avatars/cat.gif" class="img-fluid" alt="FAQ Image" data-app-light-img="illustrations/sitting-girl-with-laptop-light.png" data-app-dark-img="illustrations/sitting-girl-with-laptop-dark.png">
+    <p style="padding-bottom: 0; margin-bottom: 0;"></p>
     </div>
   </div>
-  <div class="card icon-card cursor-pointer text-center  mb-4 mx-2">
-    <div class="card-body"> <i class="bx bxl-jquery mb-2"></i>
-      <p class="icon-name text-capitalize text-truncate mb-0">jquery</p>
+  <div class="d-flex flex-wrap mt-4 ms-3 me-2" id="icons-container" style="border: none; float: left;">
+   <div class="card icon-card cursor-pointer text-center  mb-4 mx-2" style="background-color: white; border: 0;">
+  	<input type="checkbox" style="align-self: flex-end;">
+    <img style="border: none; width: 50px; height: 50px;" src="../../bootstrapTemp/assets/img/avatars/rdog.gif" class="img-fluid" alt="FAQ Image" data-app-light-img="illustrations/sitting-girl-with-laptop-light.png" data-app-dark-img="illustrations/sitting-girl-with-laptop-dark.png">
+    <p style="padding-bottom: 0; margin-bottom: 0;"></p>
     </div>
   </div>
-  <div class="card icon-card cursor-pointer text-center  mb-4 mx-2">
-    <div class="card-body"> <i class="bx bxl-pinterest-alt mb-2"></i>
-      <p class="icon-name text-capitalize text-truncate mb-0">pinterest-alt</p>
+  <div class="d-flex flex-wrap mt-4 ms-3 me-2" id="icons-container" style="border: none; float: left;">
+   <div class="card icon-card cursor-pointer text-center  mb-4 mx-2" style="background-color: white; border: 0;">
+  	<input type="checkbox" style="align-self: flex-end;">
+    <img style="border: none; width: 50px; height: 50px;" src="../../bootstrapTemp/assets/img/avatars/bulldog.gif" class="img-fluid" alt="FAQ Image" data-app-light-img="illustrations/sitting-girl-with-laptop-light.png" data-app-dark-img="illustrations/sitting-girl-with-laptop-dark.png">
+    <p style="padding-bottom: 0; margin-bottom: 0;"></p>
     </div>
   </div>
-  <div class="card icon-card cursor-pointer text-center  mb-4 mx-2">
-    <div class="card-body"> <i class="bx bxl-500px mb-2"></i>
-      <p class="icon-name text-capitalize text-truncate mb-0">500px</p>
+  <div class="d-flex flex-wrap mt-4 ms-3 me-2" id="icons-container" style="border: none; float: left;">
+   <div class="card icon-card cursor-pointer text-center  mb-4 mx-2" style="background-color: white; border: 0;">
+  	<input type="checkbox" style="align-self: flex-end;">
+    <img style="border: none; width: 50px; height: 50px;" src="../../bootstrapTemp/assets/img/avatars/wcat.gif" class="img-fluid" alt="FAQ Image" data-app-light-img="illustrations/sitting-girl-with-laptop-light.png" data-app-dark-img="illustrations/sitting-girl-with-laptop-dark.png">
+    <p style="padding-bottom: 0; margin-bottom: 0;"></p>
     </div>
   </div>
-  <div class="card icon-card cursor-pointer text-center  mb-4 mx-2">
-    <div class="card-body"> <i class="bx bxl-airbnb mb-2"></i>
-      <p class="icon-name text-capitalize text-truncate mb-0">airbnb</p>
+  <div class="d-flex flex-wrap mt-4 ms-3 me-2" id="icons-container" style="border: none; float: left;">
+   <div class="card icon-card cursor-pointer text-center  mb-4 mx-2" style="background-color: white; border: 0;">
+  	<input type="checkbox" style="align-self: flex-end;">
+    <img style="border: none; width: 50px; height: 50px;" src="../../bootstrapTemp/assets/img/avatars/hdog.gif" class="img-fluid" alt="FAQ Image" data-app-light-img="illustrations/sitting-girl-with-laptop-light.png" data-app-dark-img="illustrations/sitting-girl-with-laptop-dark.png">
+    <p style="padding-bottom: 0; margin-bottom: 0;"></p>
     </div>
   </div>
-  <div class="card icon-card cursor-pointer text-center  mb-4 mx-2">
-    <div class="card-body"> <i class="bx bxl-amazon mb-2"></i>
-      <p class="icon-name text-capitalize text-truncate mb-0">amazon</p>
+  <div class="d-flex flex-wrap mt-4 ms-3 me-2" id="icons-container" style="border: none; float: left;">
+   <div class="card icon-card cursor-pointer text-center  mb-4 mx-2" style="background-color: white; border: 0;">
+  	<input type="checkbox" style="align-self: flex-end;">
+    <img style="border: none; width: 50px; height: 50px;" src="../../bootstrapTemp/assets/img/avatars/bcat.gif" class="img-fluid" alt="FAQ Image" data-app-light-img="illustrations/sitting-girl-with-laptop-light.png" data-app-dark-img="illustrations/sitting-girl-with-laptop-dark.png">
+    <p style="padding-bottom: 0; margin-bottom: 0;"></p>
     </div>
   </div>
-  <div class="card icon-card cursor-pointer text-center  mb-4 mx-2">
-    <div class="card-body"> <i class="bx bxl-android mb-2"></i>
-      <p class="icon-name text-capitalize text-truncate mb-0">android</p>
+  <div class="d-flex flex-wrap mt-4 ms-3 me-2" id="icons-container" style="border: none; float: left;">
+   <div class="card icon-card cursor-pointer text-center  mb-4 mx-2" style="background-color: white; border: 0;">
+  	<input type="checkbox" style="align-self: flex-end;">
+    <img style="border: none; width: 50px; height: 50px;" src="../../bootstrapTemp/assets/img/avatars/rundog.gif" class="img-fluid" alt="FAQ Image" data-app-light-img="illustrations/sitting-girl-with-laptop-light.png" data-app-dark-img="illustrations/sitting-girl-with-laptop-dark.png">
+    <p style="padding-bottom: 0; margin-bottom: 0;"></p>
     </div>
   </div>
-  <div class="card icon-card cursor-pointer text-center  mb-4 mx-2">
-    <div class="card-body"> <i class="bx bxl-angular mb-2"></i>
-      <p class="icon-name text-capitalize text-truncate mb-0">angular</p>
+  <div class="d-flex flex-wrap mt-4 ms-3 me-2" id="icons-container" style="border: none; float: left;">
+   <div class="card icon-card cursor-pointer text-center  mb-4 mx-2" style="background-color: white; border: 0;">
+  	<input type="checkbox" style="align-self: flex-end;">
+    <img style="border: none; width: 50px; height: 50px;" src="../../bootstrapTemp/assets/img/avatars/fcat.gif" class="img-fluid" alt="FAQ Image" data-app-light-img="illustrations/sitting-girl-with-laptop-light.png" data-app-dark-img="illustrations/sitting-girl-with-laptop-dark.png">
+    <p style="padding-bottom: 0; margin-bottom: 0;"></p>
     </div>
   </div>
-  <div class="card icon-card cursor-pointer text-center  mb-4 mx-2">
-    <div class="card-body"> <i class="bx bxl-apple mb-2"></i>
-      <p class="icon-name text-capitalize text-truncate mb-0">apple</p>
+  <div class="d-flex flex-wrap mt-4 ms-3 me-2" id="icons-container" style="border: none; float: left;">
+   <div class="card icon-card cursor-pointer text-center  mb-4 mx-2" style="background-color: white; border: 0;">
+  	<input type="checkbox" style="align-self: flex-end;">
+    <img style="border: none; width: 50px; height: 50px;" src="../../bootstrapTemp/assets/img/avatars/sdog.gif" class="img-fluid" alt="FAQ Image" data-app-light-img="illustrations/sitting-girl-with-laptop-light.png" data-app-dark-img="illustrations/sitting-girl-with-laptop-dark.png">
+    <p style="padding-bottom: 0; margin-bottom: 0;"></p>
     </div>
   </div>
-  <div class="card icon-card cursor-pointer text-center  mb-4 mx-2">
-    <div class="card-body"> <i class="bx bxl-baidu mb-2"></i>
-      <p class="icon-name text-capitalize text-truncate mb-0">baidu</p>
-    </div>
-  </div>
-  <div class="card icon-card cursor-pointer text-center  mb-4 mx-2">
-    <div class="card-body"> <i class="bx bxl-behance mb-2"></i>
-      <p class="icon-name text-capitalize text-truncate mb-0">behance</p>
-    </div>
-  </div>
-  <div class="card icon-card cursor-pointer text-center  mb-4 mx-2">
-    <div class="card-body"> <i class="bx bxl-bing mb-2"></i>
-      <p class="icon-name text-capitalize text-truncate mb-0">bing</p>
-    </div>
-  </div>
-  <div class="card icon-card cursor-pointer text-center  mb-4 mx-2">
-    <div class="card-body"> <i class="bx bxl-bitcoin mb-2"></i>
-      <p class="icon-name text-capitalize text-truncate mb-0">bitcoin</p>
-    </div>
-  </div>
-  <div class="card icon-card cursor-pointer text-center  mb-4 mx-2">
-    <div class="card-body"> <i class="bx bxl-blogger mb-2"></i>
-      <p class="icon-name text-capitalize text-truncate mb-0">blogger</p>
-    </div>
-  </div>
-  <div class="card icon-card cursor-pointer text-center  mb-4 mx-2">
-    <div class="card-body"> <i class="bx bxl-bootstrap mb-2"></i>
-      <p class="icon-name text-capitalize text-truncate mb-0">bootstrap</p>
+ </div>
+ </div>
+  <div class="modal fade" id="editUser" tabindex="-1" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog modal-lg modal-simple modal-edit-user">
+    <div class="modal-content p-3 p-md-5">
+      <div class="modal-body">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="text-center mb-4">
+          <h3>아이콘 추가</h3>
+          <p>유저를 위한 아이콘을 추가하세요</p>
+        </div>
+        <form id="editUserForm" class="row g-3" onsubmit="return false">
+          <div class="col-12  mt-3" style="margin: auto;">
+            <input style="text-align: center;" type="text" id="modalEditUserFirstName" name="modalEditUserFirstName" class="form-control" placeholder="아이콘 이름">
+          </div>
+          <div class="col-12  mt-3">
+            <input style="text-align: center;" type="text" id="modalEditUserName" name="modalEditUserName" class="form-control" placeholder="가격">
+          </div>
+          <div class="col-12 mt-3">
+            <select id="modalEditUserStatus" name="modalEditUserStatus" class="form-select" aria-label="Default select example">
+              <option selected="" style="text-align: center;">카테고리</option>
+              <option value="1">강아지</option>
+              <option value="2">고양이</option>
+              <option value="3">기타</option>
+            </select>
+          </div>
+          <div class="col-12 mt-3" style="text-align: center;">
+          <img alt="이미지" src="../../bootstrapTemp/assets/img/avatars/blank.png" style="width: 100px; height: 100px;">
+          </div>
+
+          <div class="col-12 text-center">
+            <button type="submit" class="btn btn-secondary me-sm-3 me-1">확인</button>
+            <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </div>
+  
+
 
 <!-- Buttons -->
-<div class="d-flex justify-content-center mx-auto gap-3">
-  <a href="https://boxicons.com/" target="_blank" class="btn btn-primary">View All Icons</a>
-  <a href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/documentation//Icons.html" class="btn btn-primary" target="_blank">How to use icons?</a>
-</div>
+
 
           </div>
           <!-- / Content -->

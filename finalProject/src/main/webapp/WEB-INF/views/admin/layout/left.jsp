@@ -34,41 +34,66 @@
 		</a></li>
 		
 		<!-- 주문 관리 -->
-		<li class="menu-item"><a href="javascript:void(0);"
+		<li class="menu-item ${left=='productdpManage'? 'active open':''}"><a href="javascript:void(0);"
             class="menu-link menu-toggle"> <i class="menu-icon tf-icons bx bx-credit-card"></i>
                 <div data-i18n="Authentications">주문 관리</div>
         </a>
             <ul class="menu-sub">
-            <li class="menu-item">
-                <a href="${pageContext.request.contextPath}/admin/inquiryManage/dpManage" class="menu-link">
+              <li class="menu-item ${sub == 'allproductManage' ? 'active':''}">
+                <a href="${pageContext.request.contextPath}/admin/inquiryManage/allproductManage" class="menu-link">
+                        <div data-i18n="Basic">전체주문조회</div>
+                </a>
+                </li>
+            <li class="menu-item ${sub=='productdpManage'? 'active':''}">
+                <a href="${pageContext.request.contextPath}/admin/inquiryManage/productdpManage" class="menu-link">
                         <div data-i18n="Basic">상품준비중 관리</div>
                 </a>
                 </li>
 
-                <li class="menu-item">
-                <a href="auth-login-basic.html" class="menu-link">
+                <li class="menu-item ${sub=='dpManage'? 'active ':''}">
+                <a href="${pageContext.request.contextPath}/admin/inquiryManage/dpManage" class="menu-link">
                         <div data-i18n="Basic">배송준비중 관리</div>
                 </a>
                 </li>
-
-                <li class="menu-item">
-                <a href="auth-login-basic.html" class="menu-link">
-                        <div data-i18n="Basic">배송대기 관리</div>
-                </a>
-                </li>
-                <li class="menu-item">
-                <a href="auth-login-basic.html" class="menu-link">
+                <li class="menu-item ${sub=='dpingManage'? 'active ':''}">
+                <a href="${pageContext.request.contextPath}/admin/inquiryManage/dpingManage" class="menu-link">
                         <div data-i18n="Basic">배송중 관리</div>
                 </a>
                 </li>
-                <li class="menu-item">
-                <a href="auth-login-basic.html" class="menu-link">
+                <li class="menu-item ${sub=='dpEndManage'? 'active ':''}">
+                <a href="${pageContext.request.contextPath}/admin/inquiryManage/dpEndManage" class="menu-link">
                         <div data-i18n="Basic">배송완료 조회</div>
                 </a>
                 </li>
-                <li class="menu-item">
+               <!--  <li class="menu-item">
                 <a href="auth-register-basic.html" class="menu-link">
                 <div data-i18n="Basic">교환/반품/취소 관리</div>
+                </a>
+                </li> -->
+            </ul>
+        </li>
+        
+        
+        <!-- 취소/반품/교환 -->
+        <li class="menu-item ${left=='creProductManage'? 'active open':''}"><a href="javascript:void(0);"
+            class="menu-link menu-toggle"> <i class="menu-icon tf-icons bx bx-credit-card"></i>
+                <div data-i18n="Authentications">취소/반품/교환 관리</div>
+        </a>
+            <ul class="menu-sub">
+              	<li class="menu-item ${sub == 'cancleProduct' ? 'active':''}">
+                <a href="${pageContext.request.contextPath}/admin/inquiryManage/cancleProduct" class="menu-link">
+                        <div data-i18n="Basic">취소관리</div>
+                </a>
+                </li>
+            	<li class="menu-item menu-item ${sub == 'returnProduct' ? 'active':''}">
+                <a href="${pageContext.request.contextPath}/admin/inquiryManage/returnProduct" class="menu-link">
+                        <div data-i18n="Basic">반품 관리</div>
+                </a>
+                </li>
+
+                <li class="menu-item menu-item ${sub == 'exchangeProduct' ? 'active':''}">
+                <a href="${pageContext.request.contextPath}/admin/inquiryManage/exchangeProduct" class="menu-link">
+                        <div data-i18n="Basic">교환 관리</div>
                 </a>
                 </li>
             </ul>
@@ -114,7 +139,16 @@
 		<li class="menu-item ${left=='communityManage'? 'active':''}"><a href="${pageContext.request.contextPath}/admin/inquiryManage/communityManage"
 			class="menu-link"> <i class='menu-icon tf-icons bx bx-been-here'></i>
 				<div data-i18n="communityManage">커뮤니티 관리</div>
-		</a></li>
+		</a>
+		</li>
+		
+		<!-- 신고관리 -->
+		<li class="menu-item ${left=='reportManage'? 'active':''}"><a href="${pageContext.request.contextPath}/admin/inquiryManage/reportManage"
+			class="menu-link"> <i class='menu-icon tf-icons bx bx-info-circle'></i>
+				<div data-i18n="communityManage">신고 관리</div>
+		</a>
+		</li>
+		
 		
 		<!-- 쿠폰 관리 -->
 		<li class="menu-item ${left=='couponManage'? 'active open':''}"><a href="${pageContext.request.contextPath}/admin/inquiryManage/couponManage"

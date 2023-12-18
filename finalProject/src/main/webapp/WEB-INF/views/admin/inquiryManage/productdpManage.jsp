@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 
+
 <!-- / Navbar -->
 
 
@@ -24,7 +25,7 @@
 			<div class="col-12 order-5" >
 			<!-- @@@@@@@@@@@@@@@@@@@@@@@@@ -->
 			<div class="card-title mb-0 pb-3">
-							<h5 class="m-0 me-2">배송관리</h5>
+							<h5 class="m-0 me-2">상품주문관리</h5>
 			</div>
 			
 			<!-- Bordered Table -->
@@ -34,7 +35,7 @@
       <table class="table table-bordered" style="width: 1330px;">
         <thead>
           <tr class="text-center" style="background-color: gray;">
-            <th colspan="5">배송주문조회</th>
+            <th colspan="5">상품준비조회</th>
           </tr>
         </thead>
         <tbody>
@@ -57,7 +58,7 @@
             
           </tr>
           <tr>
-            <td style="text-align: center;"><span class="fw-medium">기간</span></td>
+            <td style="text-align: center;"> <span class="fw-medium">기간</span></td>
             <td colspan="4" >
            
             <div class="d-flex justify-content-between align-items-center row gap-md-0">
@@ -79,7 +80,7 @@
             
           </tr>
           <tr>
-            <td style="text-align: center;"><span class="fw-medium">상품</span></td>	
+            <td style="text-align: center;"><span class="fw-medium">상품</span></td>
              <td colspan="4" >
            
             <div class="d-flex justify-content-between align-items-center row gap-md-0">
@@ -98,9 +99,7 @@
           </tr>
         </tbody>
       </table>
-      	<div class="text-center pb-0 pt-3"><button class="btn btn-secondary" style="width: 100px;">검색</button> </div>    </div>
-      
-    </div>
+	<div class="text-center pb-0 pt-3"><button class="btn btn-secondary" style="width: 100px;">검색</button> </div>    </div>
   </div>
 </div>
 <!--/ Bordered Table -->
@@ -115,10 +114,10 @@
 					<div class="card-header d-flex align-items-center justify-content-between">
 						<div class="dropdown">
 							<button class="btn btn-secondary p-2 m-0" type="button" id="routeVehicles">
-								배송준비중 처리
+								배송중 처리
 							</button>
 							<button class="btn btn-label-dark p-2 m-0" type="button" id="routeVehicles">
-								배송보류 처리
+								상품준비중 처리
 							</button>
 						</div>
 					</div>
@@ -144,7 +143,8 @@
 												aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
 												style="width: 154px;"
 												aria-label="location: activate to sort column descending"
-												aria-sort="ascending">주문일자<div>(결제일)</div></th>
+												aria-sort="ascending">주문일자
+												<div>(결제일)</div></th>
 											<th class="sorting" tabindex="0"
 												aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
 												style="width: 247px;"
@@ -179,8 +179,12 @@
 												aria-label="progress: activate to sort column ascending">상품구매금액</th>
 												<th class="w-20 sorting" tabindex="0"
 												aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-												style="width: 240px;"
+												style="width: 280px;"
 												aria-label="progress: activate to sort column ascending">총결제금액</th>
+												<th class="w-20 sorting" tabindex="0"
+												aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+												style="width: 40px;"
+												aria-label="progress: activate to sort column ascending">메모</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -197,25 +201,38 @@
 											<td><div class="text-body">9910091151</div></td>	
 											<td><div class="text-body">김현민</div></td>
 											<td>
-											<div class="text-body">
-											<select id="ProductStatus" class="form-select text-capitalize m-0 p-0" style="width: 100px; height: 30px;  font-size: 15px;">
-      											<option value="">자체배송</option>
-      											<option value="">CJ택배</option>
-      											<option value="">롯대택배</option>
-      										</select>
-      										</div>
-      										
-											<div class="text-body pt-2">
-												<input type="text" class="form-control m-0 p-0"  placeholder="송장번호"/>
-											</div>
+											<div class="m-0 p-0"></div>
 											</td>
 											<td><div class="text-body">2000원</div></td>
 											<td><div class="text-body">바나나/검정</div></td>
 											<td><div class="text-body text-center">1</div></td>
 											<td><div class="text-body">2000원</div></td>
 											<td><div class="text-body">2000원</div></td>
+											<td><div class="text-body">
+											<button type="button" class="btn p-0 m-0" data-bs-toggle="modal" data-bs-target="#basicModal">
+									            <i class="menu-icon tf-icons bx bx-copy"></i>
+									          </button></div></td>
 										</tr>
-										
+										<!--  -->
+									<div class="modal fade" id="basicModal" tabindex="-1" style="display: none;" aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+											
+												<div class="modal-header">
+													<h4 class="modal-title" id="exampleModalLabel1">구매자 배송메시지</h4>
+													<button type="button" class="btn-close"
+														data-bs-dismiss="modal" aria-label="Close"></button>
+												</div>
+												
+												<div class="modal-body">
+													
+													<h6>배송메제시</h6>
+												</div>	
+												
+											</div>
+										</div>
+									</div>
+									<!--  -->
 										<!--  
 										<tr class="even">
 											<td class="  control" tabindex="0" style="display: none;"></td>

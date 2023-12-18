@@ -3,6 +3,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 
+
+
+
 <!-- / Navbar -->
 
 
@@ -24,7 +27,7 @@
 			<div class="col-12 order-5" >
 			<!-- @@@@@@@@@@@@@@@@@@@@@@@@@ -->
 			<div class="card-title mb-0 pb-3">
-							<h5 class="m-0 me-2">배송관리</h5>
+							<h5 class="m-0 me-2">배송완료조회</h5>
 			</div>
 			
 			<!-- Bordered Table -->
@@ -39,7 +42,7 @@
         </thead>
         <tbody>
           <tr>
-            <td style="width: 6%; text-align: center;"> <span class="fw-medium">검색어</span></td>
+            <td style="width: 6%; text-align: center;"><span class="fw-medium">검색어</span></td>
             <td colspan="4" >
            
             <div class="d-flex justify-content-between align-items-center row gap-md-0">
@@ -57,7 +60,7 @@
             
           </tr>
           <tr>
-            <td style="text-align: center;"><span class="fw-medium">기간</span></td>
+            <td style="text-align: center;"> <span class="fw-medium">기간</span></td>
             <td colspan="4" >
            
             <div class="d-flex justify-content-between align-items-center row gap-md-0">
@@ -79,7 +82,7 @@
             
           </tr>
           <tr>
-            <td style="text-align: center;"><span class="fw-medium">상품</span></td>	
+            <td style="text-align: center;"> <span class="fw-medium">상품</span></td>
              <td colspan="4" >
            
             <div class="d-flex justify-content-between align-items-center row gap-md-0">
@@ -98,7 +101,7 @@
           </tr>
         </tbody>
       </table>
-      	<div class="text-center pb-0 pt-3"><button class="btn btn-secondary" style="width: 100px;">검색</button> </div>    </div>
+            	<div class="text-center pb-0 pt-3"><button class="btn btn-secondary" style="width: 100px;">검색</button> </div>    </div>
       
     </div>
   </div>
@@ -114,12 +117,13 @@
 				<div class="card">
 					<div class="card-header d-flex align-items-center justify-content-between">
 						<div class="dropdown">
-							<button class="btn btn-secondary p-2 m-0" type="button" id="routeVehicles">
+							<!-- <button class="btn btn-secondary p-2 m-0" type="button" id="routeVehicles">
 								배송준비중 처리
 							</button>
 							<button class="btn btn-label-dark p-2 m-0" type="button" id="routeVehicles">
 								배송보류 처리
-							</button>
+							</button> -->
+							<div class="p-1 m-1"style="font-size: 15px; "><strong>배송완료</strong></div>
 						</div>
 					</div>
 					<div class="card-datatable"  >
@@ -196,19 +200,8 @@
 																		13:14:15)</div></td>	
 											<td><div class="text-body">9910091151</div></td>	
 											<td><div class="text-body">김현민</div></td>
-											<td>
-											<div class="text-body">
-											<select id="ProductStatus" class="form-select text-capitalize m-0 p-0" style="width: 100px; height: 30px;  font-size: 15px;">
-      											<option value="">자체배송</option>
-      											<option value="">CJ택배</option>
-      											<option value="">롯대택배</option>
-      										</select>
-      										</div>
-      										
-											<div class="text-body pt-2">
-												<input type="text" class="form-control m-0 p-0"  placeholder="송장번호"/>
-											</div>
-											</td>
+											<td><div class="text-body">자체배송
+											12333333</div></td>
 											<td><div class="text-body">2000원</div></td>
 											<td><div class="text-body">바나나/검정</div></td>
 											<td><div class="text-body text-center">1</div></td>

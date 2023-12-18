@@ -1,463 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar">
-  
-
-  
-
-  
-
-      
-      
-
-      
-      
-      <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0   d-xl-none ">
-        <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
-          <i class="bx bx-menu bx-sm"></i>
-        </a>
-      </div>
-      
-
-      <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-
-        
-
-        
-        <!-- Search -->
-        <div class="navbar-nav align-items-center">
-          <div class="nav-item navbar-search-wrapper mb-0">
-            <a class="nav-item nav-link search-toggler px-0" href="javascript:void(0);">
-              <i class="bx bx-search bx-sm"></i>
-              <span class="d-none d-md-inline-block text-muted">Search (Ctrl+/)</span>
-            </a>
-          </div>
-        </div>
-        <!-- /Search -->
-        
-
-
-        
-
-        <ul class="navbar-nav flex-row align-items-center ms-auto">
-          
-
-          
-
-          <!-- Language -->
-          <li class="nav-item dropdown-language dropdown me-2 me-xl-0">
-            <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-              <i class='bx bx-globe bx-sm'></i>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end">
-              <li>
-                <a class="dropdown-item" href="javascript:void(0);" data-language="en" data-text-direction="ltr">
-                  <span class="align-middle">English</span>
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="javascript:void(0);" data-language="fr" data-text-direction="ltr">
-                  <span class="align-middle">French</span>
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="javascript:void(0);" data-language="ar" data-text-direction="rtl">
-                  <span class="align-middle">Arabic</span>
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="javascript:void(0);" data-language="de" data-text-direction="ltr">
-                  <span class="align-middle">German</span>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <!-- /Language -->
-
-          <!-- Quick links  -->
-          <li class="nav-item dropdown-shortcuts navbar-dropdown dropdown me-2 me-xl-0">
-            <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
-              <i class='bx bx-grid-alt bx-sm'></i>
-            </a>
-            <div class="dropdown-menu dropdown-menu-end py-0">
-              <div class="dropdown-menu-header border-bottom">
-                <div class="dropdown-header d-flex align-items-center py-3">
-                  <h5 class="text-body mb-0 me-auto">Shortcuts</h5>
-                  <a href="javascript:void(0)" class="dropdown-shortcuts-add text-body" data-bs-toggle="tooltip" data-bs-placement="top" title="Add shortcuts"><i class="bx bx-sm bx-plus-circle"></i></a>
-                </div>
-              </div>
-              <div class="dropdown-shortcuts-list scrollable-container">
-                <div class="row row-bordered overflow-visible g-0">
-                  <div class="dropdown-shortcuts-item col">
-                    <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
-                      <i class="bx bx-calendar fs-4"></i>
-                    </span>
-                    <a href="app-calendar.html" class="stretched-link">Calendar</a>
-                    <small class="text-muted mb-0">Appointments</small>
-                  </div>
-                  <div class="dropdown-shortcuts-item col">
-                    <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
-                      <i class="bx bx-food-menu fs-4"></i>
-                    </span>
-                    <a href="app-invoice-list.html" class="stretched-link">Invoice App</a>
-                    <small class="text-muted mb-0">Manage Accounts</small>
-                  </div>
-                </div>
-                <div class="row row-bordered overflow-visible g-0">
-                  <div class="dropdown-shortcuts-item col">
-                    <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
-                      <i class="bx bx-user fs-4"></i>
-                    </span>
-                    <a href="app-user-list.html" class="stretched-link">User App</a>
-                    <small class="text-muted mb-0">Manage Users</small>
-                  </div>
-                  <div class="dropdown-shortcuts-item col">
-                    <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
-                      <i class="bx bx-check-shield fs-4"></i>
-                    </span>
-                    <a href="app-access-roles.html" class="stretched-link">Role Management</a>
-                    <small class="text-muted mb-0">Permission</small>
-                  </div>
-                </div>
-                <div class="row row-bordered overflow-visible g-0">
-                  <div class="dropdown-shortcuts-item col">
-                    <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
-                      <i class="bx bx-pie-chart-alt-2 fs-4"></i>
-                    </span>
-                    <a href="index.html" class="stretched-link">Dashboard</a>
-                    <small class="text-muted mb-0">User Profile</small>
-                  </div>
-                  <div class="dropdown-shortcuts-item col">
-                    <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
-                      <i class="bx bx-cog fs-4"></i>
-                    </span>
-                    <a href="pages-account-settings-account.html" class="stretched-link">Setting</a>
-                    <small class="text-muted mb-0">Account Settings</small>
-                  </div>
-                </div>
-                <div class="row row-bordered overflow-visible g-0">
-                  <div class="dropdown-shortcuts-item col">
-                    <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
-                      <i class="bx bx-help-circle fs-4"></i>
-                    </span>
-                    <a href="pages-faq.html" class="stretched-link">FAQs</a>
-                    <small class="text-muted mb-0">FAQs & Articles</small>
-                  </div>
-                  <div class="dropdown-shortcuts-item col">
-                    <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
-                      <i class="bx bx-window-open fs-4"></i>
-                    </span>
-                    <a href="modal-examples.html" class="stretched-link">Modals</a>
-                    <small class="text-muted mb-0">Useful Popups</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </li>
-          <!-- Quick links -->
-
-          
-          <!-- Style Switcher -->
-          <li class="nav-item dropdown-style-switcher dropdown me-2 me-xl-0">
-            <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-              <i class='bx bx-sm'></i>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end dropdown-styles">
-              <li>
-                <a class="dropdown-item" href="javascript:void(0);" data-theme="light">
-                  <span class="align-middle"><i class='bx bx-sun me-2'></i>Light</span>
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="javascript:void(0);" data-theme="dark">
-                  <span class="align-middle"><i class="bx bx-moon me-2"></i>Dark</span>
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="javascript:void(0);" data-theme="system">
-                  <span class="align-middle"><i class="bx bx-desktop me-2"></i>System</span>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <!-- / Style Switcher-->
-          
-
-          <!-- Notification -->
-          <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-1">
-            <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
-              <i class="bx bx-bell bx-sm"></i>
-              <span class="badge bg-danger rounded-pill badge-notifications">5</span>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end py-0">
-              <li class="dropdown-menu-header border-bottom">
-                <div class="dropdown-header d-flex align-items-center py-3">
-                  <h5 class="text-body mb-0 me-auto">Notification</h5>
-                  <a href="javascript:void(0)" class="dropdown-notifications-all text-body" data-bs-toggle="tooltip" data-bs-placement="top" title="Mark all as read"><i class="bx fs-4 bx-envelope-open"></i></a>
-                </div>
-              </li>
-              <li class="dropdown-notifications-list scrollable-container">
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item list-group-item-action dropdown-notifications-item">
-                    <div class="d-flex">
-                      <div class="flex-shrink-0 me-3">
-                        <div class="avatar">
-                          <img src="../../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle">
-                        </div>
-                      </div>
-                      <div class="flex-grow-1">
-                        <h6 class="mb-1">Congratulation Lettie 🎉</h6>
-                        <p class="mb-0">Won the monthly best seller gold badge</p>
-                        <small class="text-muted">1h ago</small>
-                      </div>
-                      <div class="flex-shrink-0 dropdown-notifications-actions">
-                        <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
-                        <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="list-group-item list-group-item-action dropdown-notifications-item">
-                    <div class="d-flex">
-                      <div class="flex-shrink-0 me-3">
-                        <div class="avatar">
-                          <span class="avatar-initial rounded-circle bg-label-danger">CF</span>
-                        </div>
-                      </div>
-                      <div class="flex-grow-1">
-                        <h6 class="mb-1">Charles Franklin</h6>
-                        <p class="mb-0">Accepted your connection</p>
-                        <small class="text-muted">12hr ago</small>
-                      </div>
-                      <div class="flex-shrink-0 dropdown-notifications-actions">
-                        <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
-                        <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
-                    <div class="d-flex">
-                      <div class="flex-shrink-0 me-3">
-                        <div class="avatar">
-                          <img src="../../assets/img/avatars/2.png" alt class="w-px-40 h-auto rounded-circle">
-                        </div>
-                      </div>
-                      <div class="flex-grow-1">
-                        <h6 class="mb-1">New Message ✉️</h6>
-                        <p class="mb-0">You have new message from Natalie</p>
-                        <small class="text-muted">1h ago</small>
-                      </div>
-                      <div class="flex-shrink-0 dropdown-notifications-actions">
-                        <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
-                        <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="list-group-item list-group-item-action dropdown-notifications-item">
-                    <div class="d-flex">
-                      <div class="flex-shrink-0 me-3">
-                        <div class="avatar">
-                          <span class="avatar-initial rounded-circle bg-label-success"><i class="bx bx-cart"></i></span>
-                        </div>
-                      </div>
-                      <div class="flex-grow-1">
-                        <h6 class="mb-1">Whoo! You have new order 🛒 </h6>
-                        <p class="mb-0">ACME Inc. made new order $1,154</p>
-                        <small class="text-muted">1 day ago</small>
-                      </div>
-                      <div class="flex-shrink-0 dropdown-notifications-actions">
-                        <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
-                        <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
-                    <div class="d-flex">
-                      <div class="flex-shrink-0 me-3">
-                        <div class="avatar">
-                          <img src="../../assets/img/avatars/9.png" alt class="w-px-40 h-auto rounded-circle">
-                        </div>
-                      </div>
-                      <div class="flex-grow-1">
-                        <h6 class="mb-1">Application has been approved 🚀 </h6>
-                        <p class="mb-0">Your ABC project application has been approved.</p>
-                        <small class="text-muted">2 days ago</small>
-                      </div>
-                      <div class="flex-shrink-0 dropdown-notifications-actions">
-                        <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
-                        <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
-                    <div class="d-flex">
-                      <div class="flex-shrink-0 me-3">
-                        <div class="avatar">
-                          <span class="avatar-initial rounded-circle bg-label-success"><i class="bx bx-pie-chart-alt"></i></span>
-                        </div>
-                      </div>
-                      <div class="flex-grow-1">
-                        <h6 class="mb-1">Monthly report is generated</h6>
-                        <p class="mb-0">July monthly financial report is generated </p>
-                        <small class="text-muted">3 days ago</small>
-                      </div>
-                      <div class="flex-shrink-0 dropdown-notifications-actions">
-                        <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
-                        <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
-                    <div class="d-flex">
-                      <div class="flex-shrink-0 me-3">
-                        <div class="avatar">
-                          <img src="../../assets/img/avatars/5.png" alt class="w-px-40 h-auto rounded-circle">
-                        </div>
-                      </div>
-                      <div class="flex-grow-1">
-                        <h6 class="mb-1">Send connection request</h6>
-                        <p class="mb-0">Peter sent you connection request</p>
-                        <small class="text-muted">4 days ago</small>
-                      </div>
-                      <div class="flex-shrink-0 dropdown-notifications-actions">
-                        <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
-                        <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="list-group-item list-group-item-action dropdown-notifications-item">
-                    <div class="d-flex">
-                      <div class="flex-shrink-0 me-3">
-                        <div class="avatar">
-                          <img src="../../assets/img/avatars/6.png" alt class="w-px-40 h-auto rounded-circle">
-                        </div>
-                      </div>
-                      <div class="flex-grow-1">
-                        <h6 class="mb-1">New message from Jane</h6>
-                        <p class="mb-0">Your have new message from Jane</p>
-                        <small class="text-muted">5 days ago</small>
-                      </div>
-                      <div class="flex-shrink-0 dropdown-notifications-actions">
-                        <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
-                        <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
-                    <div class="d-flex">
-                      <div class="flex-shrink-0 me-3">
-                        <div class="avatar">
-                          <span class="avatar-initial rounded-circle bg-label-warning"><i class="bx bx-error"></i></span>
-                        </div>
-                      </div>
-                      <div class="flex-grow-1">
-                        <h6 class="mb-1">CPU is running high</h6>
-                        <p class="mb-0">CPU Utilization Percent is currently at 88.63%,</p>
-                        <small class="text-muted">5 days ago</small>
-                      </div>
-                      <div class="flex-shrink-0 dropdown-notifications-actions">
-                        <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
-                        <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </li>
-              <li class="dropdown-menu-footer border-top p-3">
-                <button class="btn btn-primary text-uppercase w-100">view all notifications</button>
-              </li>
-            </ul>
-          </li>
-          <!--/ Notification -->
-          <!-- User -->
-          <li class="nav-item navbar-dropdown dropdown-user dropdown">
-            <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-              <div class="avatar avatar-online">
-                <img src="../../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle">
-              </div>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end">
-              <li>
-                <a class="dropdown-item" href="pages-account-settings-account.html">
-                  <div class="d-flex">
-                    <div class="flex-shrink-0 me-3">
-                      <div class="avatar avatar-online">
-                        <img src="../../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle">
-                      </div>
-                    </div>
-                    <div class="flex-grow-1">
-                      <span class="fw-medium d-block">John Doe</span>
-                      <small class="text-muted">Admin</small>
-                    </div>
-                  </div>
-                </a>
-              </li>
-              <li>
-                <div class="dropdown-divider"></div>
-              </li>
-              <li>
-                <a class="dropdown-item" href="pages-profile-user.html">
-                  <i class="bx bx-user me-2"></i>
-                  <span class="align-middle">My Profile</span>
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="pages-account-settings-account.html">
-                  <i class="bx bx-cog me-2"></i>
-                  <span class="align-middle">Settings</span>
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="pages-account-settings-billing.html">
-                  <span class="d-flex align-items-center align-middle">
-                    <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                    <span class="flex-grow-1 align-middle">Billing</span>
-                    <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                  </span>
-                </a>
-              </li>
-              <li>
-                <div class="dropdown-divider"></div>
-              </li>
-              <li>
-                <a class="dropdown-item" href="pages-faq.html">
-                  <i class="bx bx-help-circle me-2"></i>
-                  <span class="align-middle">FAQ</span>
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="pages-pricing.html">
-                  <i class="bx bx-dollar me-2"></i>
-                  <span class="align-middle">Pricing</span>
-                </a>
-              </li>
-              <li>
-                <div class="dropdown-divider"></div>
-              </li>
-              <li>
-                <a class="dropdown-item" href="auth-login-cover.html" target="_blank">
-                  <i class="bx bx-power-off me-2"></i>
-                  <span class="align-middle">Log Out</span>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <!--/ User -->
-          
-
-        </ul>
-      </div>
-
-      
-      <!-- Search Small Screens -->
-      <div class="navbar-search-wrapper search-input-wrapper  d-none">
-        <input type="text" class="form-control search-input container-xxl border-0" placeholder="Search..." aria-label="Search...">
-        <i class="bx bx-x bx-sm search-toggler cursor-pointer"></i>
-      </div>
-      
-      
-  </nav>
-  
 
   
 <!-- / Navbar -->
@@ -472,13 +15,30 @@
           <div class="container-xxl flex-grow-1 container-p-y">
             
             
-<h4 class="py-3 mb-4"><span class="text-muted fw-light">UI Elements /</span> Cards Basic</h4>
+<h4 class="py-3 mb-4"><span class="text-muted fw-light">커뮤니티관리 /</span> 인기 게시글 </h4>
 
 <!-- Examples -->
 <div class="row mb-5">
+
   <div class="col-md-6 col-lg-4 mb-3">
     <div class="card h-100">
-      <img class="card-img-top" src="../../assets/img/elements/2.jpg" alt="Card image cap" />
+      <img class="card-img-top" src="${pageContext.request.contextPath}/bootstrapTemp/assets/img/elements/2.jpg" alt="Card image cap" />
+      <div class="card-body">
+        <h5 class="card-title">글제목</h5>
+        <p class="card-text">
+          글내용@@@@@@@@@@@@@@@@@@@
+        </p>
+        <p class="card-text"> 
+        <i class="fa-regular fa-eye"></i> : 2 | <i class='bx bxs-like'></i> : 2 
+        </p>
+        <a href="javascript:void(0)" class="btn btn-outline-primary">Go somewhere</a>
+      </div>
+    </div>
+  </div>
+  
+   <div class="col-md-6 col-lg-4 mb-3">
+    <div class="card h-100">
+      <img class="card-img-top" src="${pageContext.request.contextPath}/bootstrapTemp/assets/img/elements/2.jpg" alt="Card image cap" />
       <div class="card-body">
         <h5 class="card-title">Card title</h5>
         <p class="card-text">
@@ -488,142 +48,55 @@
       </div>
     </div>
   </div>
-  <div class="col-md-6 col-lg-4 mb-3">
+  
+   <div class="col-md-6 col-lg-4 mb-3">
     <div class="card h-100">
+      <img class="card-img-top" src="${pageContext.request.contextPath}/bootstrapTemp/assets/img/elements/2.jpg" alt="Card image cap" />
       <div class="card-body">
         <h5 class="card-title">Card title</h5>
-        <h6 class="card-subtitle text-muted">Support card subtitle</h6>
-      </div>
-      <img class="img-fluid" src="../../assets/img/elements/13.jpg" alt="Card image cap" />
-      <div class="card-body">
-        <p class="card-text">Bear claw sesame snaps gummies chocolate.</p>
-        <a href="javascript:void(0);" class="card-link">Card link</a>
-        <a href="javascript:void(0);" class="card-link">Another link</a>
+        <p class="card-text">
+          Some quick example text to build on the card title and make up the bulk of the card's content.
+        </p>
+        <a href="javascript:void(0)" class="btn btn-outline-primary">Go somewhere</a>
       </div>
     </div>
   </div>
-  <div class="col-md-6 col-lg-4 mb-3">
-    <div class="card h-100">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <h6 class="card-subtitle text-muted">Support card subtitle</h6>
-        <img class="img-fluid d-flex mx-auto my-4 rounded" src="../../assets/img/elements/4.jpg" alt="Card image cap" />
-        <p class="card-text">Bear claw sesame snaps gummies chocolate.</p>
-        <a href="javascript:void(0);" class="card-link">Card link</a>
-        <a href="javascript:void(0);" class="card-link">Another link</a>
-      </div>
-    </div>
-  </div>
+  
 </div>
 <!-- Examples -->
 
-<h4 class="py-3 mb-4"><span class="text-muted fw-light">UI Elements /</span> Cards Analytics
+<h4 class="py-3 mb-4"><span class="text-muted fw-light"></span> 게시글 인기순 통계
 </h4>
 
 
 <div class="row">
-  <!-- Customer Ratings -->
-  <div class="col-md-6 col-lg-4 mb-4">
-    <div class="card h-100">
-      <div class="card-header d-flex align-items-center justify-content-between">
-        <h5 class="card-title m-0 me-2">Customer Ratings</h5>
-        <div class="dropdown">
-          <button class="btn p-0" type="button" id="customerRatings" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="bx bx-dots-vertical-rounded"></i>
-          </button>
-          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="customerRatings">
-            <a class="dropdown-item" href="javascript:void(0);">Featured Ratings</a>
-            <a class="dropdown-item" href="javascript:void(0);">Based on Task</a>
-            <a class="dropdown-item" href="javascript:void(0);">See All</a>
-          </div>
-        </div>
-      </div>
-      <div class="card-body pb-0">
-        <div class="d-flex align-items-center gap-3 mb-3">
-          <h1 class="display-3 mb-0">4.0</h1>
-          <div class="ratings">
-            <i class="bx bxs-star bx-sm text-warning"></i>
-            <i class="bx bxs-star bx-sm text-warning"></i>
-            <i class="bx bxs-star bx-sm text-warning"></i>
-            <i class="bx bxs-star bx-sm text-warning"></i>
-            <i class="bx bxs-star bx-sm text-lighter"></i>
-          </div>
-        </div>
-        <div class="d-flex align-items-center">
-          <span class="badge bg-label-primary me-3">+5.0</span>
-          <span>Points from last month</span>
-        </div>
-      </div>
-      <div id="customerRatingsChart"></div>
-    </div>
-  </div>
-  <!--/ Customer Ratings -->
+  
 
-  <!-- Sales Stats -->
-  <div class="col-md-6 col-lg-4 mb-4">
-    <div class="card h-100">
-      <div class="card-header d-flex align-items-center justify-content-between">
-        <h5 class="card-title m-0 me-2">Sales Stats</h5>
-        <div class="dropdown">
-          <button class="btn p-0" type="button" id="salesStatsID" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="bx bx-dots-vertical-rounded"></i>
-          </button>
-          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="salesStatsID">
-            <a class="dropdown-item" href="javascript:void(0);">Last 28 Days</a>
-            <a class="dropdown-item" href="javascript:void(0);">Last Month</a>
-            <a class="dropdown-item" href="javascript:void(0);">Last Year</a>
-          </div>
-        </div>
-      </div>
-      <div id="salesStats"></div>
-      <div class="card-body">
-        <div class="d-flex justify-content-around">
-          <div class="d-flex align-items-center lh-1 mb-3 mb-sm-0">
-            <span class="badge badge-dot bg-success me-2"></span> Conversion Ratio
-          </div>
-          <div class="d-flex align-items-center lh-1 mb-3 mb-sm-0">
-            <span class="badge badge-dot bg-label-secondary me-2"></span> Total requirements
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/ Sales Stats -->
 
-  <!-- Sales Analytics -->
-  <div class="col-md-6 col-lg-4 mb-4">
-    <div class="card h-100">
-      <div class="card-header d-flex align-items-start justify-content-between">
-        <div>
-          <h5 class="card-title m-0 me-2 mb-2">Sales Analytics</h5>
-          <span class="badge bg-label-success me-1">+42.6%</span> <span>Than last year</span>
-        </div>
-        <div class="dropdown">
-          <button class="btn btn-sm btn-label-primary dropdown-toggle" type="button" id="salesAnalyticsId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            2022
-          </button>
-          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="salesAnalyticsId">
-            <a class="dropdown-item" href="javascript:void(0);">2021</a>
-            <a class="dropdown-item" href="javascript:void(0);">2020</a>
-            <a class="dropdown-item" href="javascript:void(0);">2019</a>
-          </div>
-        </div>
-      </div>
-      <div class="card-body pb-0">
-        <div id="salesAnalyticsChart"></div>
-      </div>
-    </div>
-  </div>
-  <!--/ Sales Analytics -->
+ 
 
   <!-- Overview & Sales Activity -->
   <div class="col-md-6 col-lg-4 mb-4">
     <div class="card h-100">
       <div class="card-header">
-        <h5 class="card-title mb-0">Overview & Sales Activity</h5>
-        <small class="card-subtitle">Check out each column for more details</small>
+        <h5 class="card-title mb-0">신고 누적순 게시글</h5>
       </div>
-      <div id="salesActivityChart"></div>
+      <div class="card-body">
+            <div class="report-list">
+              <div class="report-list-item rounded-2 mb-3">
+                <div class="d-flex align-items-start">
+                  <div class="report-list-icon shadow-sm me-2">
+                    <img src="../../assets/svg/icons/paypal-icon.svg" width="22" height="22" alt="">
+                  </div>
+                  <div class="d-flex justify-content-between align-items-end w-100 flex-wrap gap-2">
+                    <div class="d-flex flex-column">
+                      <span>글제목</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
     </div>
   </div>
   <!--/ Overview & Sales Activity -->
@@ -634,77 +107,343 @@
       <div class="row row-bordered g-0">
         <div class="col-md-8">
           <div class="card-header">
-            <h5 class="card-title mb-0">Total Income</h5>
-            <small class="card-subtitle">Yearly report overview</small>
+            <h5 class="card-title mb-0">카테고리별 인기순</h5>
+            <small class="card-subtitle">조회수/좋아요/댓글등으로 통계</small>
           </div>
           <div class="card-body">
-            <div id="totalIncomeChart"></div>
+         	<!-- chart -->
+            <div id="totalIncomeChart">
+
+
+									<svg id="SvgjsSvg2843" width="435" height="270"
+										xmlns="http://www.w3.org/2000/svg" version="1.1"
+										xmlns:xlink="http://www.w3.org/1999/xlink"
+										xmlns:svgjs="http://svgjs.dev" class="apexcharts-svg"
+										xmlns:data="ApexChartsNS" transform="translate(0, 0)"
+										style="background: transparent;">
+										<g id="SvgjsG2845"
+											class="apexcharts-inner apexcharts-graphical"
+											transform="translate(32.291666984558105, -5)">
+										<defs id="SvgjsDefs2844">
+										<linearGradient id="SvgjsLinearGradient2849" x1="0" y1="0"
+											x2="0" y2="1">
+										<stop id="SvgjsStop2850" stop-opacity="0.4"
+											stop-color="rgba(216,227,240,0.4)" offset="0"></stop>
+										<stop id="SvgjsStop2851" stop-opacity="0.5"
+											stop-color="rgba(190,209,230,0.5)" offset="1"></stop>
+										<stop id="SvgjsStop2852" stop-opacity="0.5"
+											stop-color="rgba(190,209,230,0.5)" offset="1"></stop></linearGradient>
+										<clipPath id="gridRectMaskvcwz8vps">
+										<rect id="SvgjsRect2854" width="382.6979160308838"
+											height="248.269332818985" x="-2" y="0" rx="0" ry="0"
+											opacity="1" stroke-width="0" stroke="none"
+											stroke-dasharray="0" fill="#fff"></rect></clipPath>
+										<clipPath id="forecastMaskvcwz8vps"></clipPath>
+										<clipPath id="nonForecastMaskvcwz8vps"></clipPath>
+										<clipPath id="gridRectMarkerMaskvcwz8vps">
+										<rect id="SvgjsRect2855" width="382.6979160308838"
+											height="252.269332818985" x="-2" y="-2" rx="0" ry="0"
+											opacity="1" stroke-width="0" stroke="none"
+											stroke-dasharray="0" fill="#fff"></rect></clipPath></defs>
+										<rect id="SvgjsRect2853" width="0" height="248.269332818985"
+											x="0" y="0" rx="0" ry="0" opacity="1" stroke-width="0"
+											stroke-dasharray="3" fill="url(#SvgjsLinearGradient2849)"
+											class="apexcharts-xcrosshairs" y2="248.269332818985"
+											filter="none" fill-opacity="0.9"></rect>
+										<g id="SvgjsG2916"
+											class="apexcharts-yaxis apexcharts-xaxis-inversed" rel="0">
+										<g id="SvgjsG2917"
+											class="apexcharts-yaxis-texts-g apexcharts-xaxis-inversed-texts-g"
+											transform="translate(0, 0)">
+										<text id="SvgjsText2918" font-family="Public Sans" x="-15"
+											y="22.569939347180455" text-anchor="end"
+											dominant-baseline="auto" font-size="13px" font-weight="400"
+											fill="#a1acb8"
+											class="apexcharts-text apexcharts-yaxis-label "
+											style="font-family: &quot;Public Sans&quot;;">
+										<tspan id="SvgjsTspan2919">6</tspan>
+										<title>6</title></text>
+										<text id="SvgjsText2920" font-family="Public Sans" x="-15"
+											y="63.94816148367795" text-anchor="end"
+											dominant-baseline="auto" font-size="13px" font-weight="400"
+											fill="#a1acb8"
+											class="apexcharts-text apexcharts-yaxis-label "
+											style="font-family: &quot;Public Sans&quot;;">
+										<tspan id="SvgjsTspan2921">5</tspan>
+										<title>5</title></text>
+										<text id="SvgjsText2922" font-family="Public Sans" x="-15"
+											y="105.32638362017545" text-anchor="end"
+											dominant-baseline="auto" font-size="13px" font-weight="400"
+											fill="#a1acb8"
+											class="apexcharts-text apexcharts-yaxis-label "
+											style="font-family: &quot;Public Sans&quot;;">
+										<tspan id="SvgjsTspan2923">4</tspan>
+										<title>4</title></text>
+										<text id="SvgjsText2924" font-family="Public Sans" x="-15"
+											y="146.70460575667295" text-anchor="end"
+											dominant-baseline="auto" font-size="13px" font-weight="400"
+											fill="#a1acb8"
+											class="apexcharts-text apexcharts-yaxis-label "
+											style="font-family: &quot;Public Sans&quot;;">
+										<tspan id="SvgjsTspan2925">3</tspan>
+										<title>3</title></text>
+										<text id="SvgjsText2926" font-family="Public Sans" x="-15"
+											y="188.08282789317045" text-anchor="end"
+											dominant-baseline="auto" font-size="13px" font-weight="400"
+											fill="#a1acb8"
+											class="apexcharts-text apexcharts-yaxis-label "
+											style="font-family: &quot;Public Sans&quot;;">
+										<tspan id="SvgjsTspan2927">2</tspan>
+										<title>2</title></text>
+										<text id="SvgjsText2928" font-family="Public Sans" x="-15"
+											y="229.46105002966794" text-anchor="end"
+											dominant-baseline="auto" font-size="13px" font-weight="400"
+											fill="#a1acb8"
+											class="apexcharts-text apexcharts-yaxis-label "
+											style="font-family: &quot;Public Sans&quot;;">
+										<tspan id="SvgjsTspan2929">1</tspan>
+										<title>1</title></text></g></g>
+										<g id="SvgjsG2896"
+											class="apexcharts-xaxis apexcharts-yaxis-inversed">
+										<g id="SvgjsG2897" class="apexcharts-xaxis-texts-g"
+											transform="translate(0, -8.666666666666666)">
+										<text id="SvgjsText2898"
+											font-family="Helvetica, Arial, sans-serif"
+											x="378.6979160308838" y="278.269332818985"
+											text-anchor="middle" dominant-baseline="auto"
+											font-size="13px" font-weight="400" fill="#a1acb8"
+											class="apexcharts-text apexcharts-xaxis-label "
+											style="font-family: Helvetica, Arial, sans-serif;">
+										<tspan id="SvgjsTspan2900">35%</tspan>
+										<title>35%</title></text>
+										<text id="SvgjsText2901"
+											font-family="Helvetica, Arial, sans-serif"
+											x="302.858332824707" y="278.269332818985"
+											text-anchor="middle" dominant-baseline="auto"
+											font-size="13px" font-weight="400" fill="#a1acb8"
+											class="apexcharts-text apexcharts-xaxis-label "
+											style="font-family: Helvetica, Arial, sans-serif;">
+										<tspan id="SvgjsTspan2903">28%</tspan>
+										<title>28%</title></text>
+										<text id="SvgjsText2904"
+											font-family="Helvetica, Arial, sans-serif"
+											x="227.0187496185303" y="278.269332818985"
+											text-anchor="middle" dominant-baseline="auto"
+											font-size="13px" font-weight="400" fill="#a1acb8"
+											class="apexcharts-text apexcharts-xaxis-label "
+											style="font-family: Helvetica, Arial, sans-serif;">
+										<tspan id="SvgjsTspan2906">21%</tspan>
+										<title>21%</title></text>
+										<text id="SvgjsText2907"
+											font-family="Helvetica, Arial, sans-serif"
+											x="151.17916641235354" y="278.269332818985"
+											text-anchor="middle" dominant-baseline="auto"
+											font-size="13px" font-weight="400" fill="#a1acb8"
+											class="apexcharts-text apexcharts-xaxis-label "
+											style="font-family: Helvetica, Arial, sans-serif;">
+										<tspan id="SvgjsTspan2909">14%</tspan>
+										<title>14%</title></text>
+										<text id="SvgjsText2910"
+											font-family="Helvetica, Arial, sans-serif"
+											x="75.33958320617677" y="278.269332818985"
+											text-anchor="middle" dominant-baseline="auto"
+											font-size="13px" font-weight="400" fill="#a1acb8"
+											class="apexcharts-text apexcharts-xaxis-label "
+											style="font-family: Helvetica, Arial, sans-serif;">
+										<tspan id="SvgjsTspan2912">7%</tspan>
+										<title>7%</title></text>
+										<text id="SvgjsText2913"
+											font-family="Helvetica, Arial, sans-serif" x="-0.5"
+											y="278.269332818985" text-anchor="middle"
+											dominant-baseline="auto" font-size="13px" font-weight="400"
+											fill="#a1acb8"
+											class="apexcharts-text apexcharts-xaxis-label "
+											style="font-family: Helvetica, Arial, sans-serif;">
+										<tspan id="SvgjsTspan2915">0%</tspan>
+										<title>0%</title></text></g></g>
+										<g id="SvgjsG2930" class="apexcharts-grid">
+										<g id="SvgjsG2931" class="apexcharts-gridlines-horizontal"></g>
+										<g id="SvgjsG2932" class="apexcharts-gridlines-vertical">
+										<line id="SvgjsLine2933" x1="0" y1="0" x2="0"
+											y2="248.269332818985" stroke="#eceef1" stroke-dasharray="10"
+											stroke-linecap="butt" class="apexcharts-gridline"></line>
+										<line id="SvgjsLine2934" x1="76.03958320617676" y1="0"
+											x2="76.03958320617676" y2="248.269332818985" stroke="#eceef1"
+											stroke-dasharray="10" stroke-linecap="butt"
+											class="apexcharts-gridline"></line>
+										<line id="SvgjsLine2935" x1="152.07916641235352" y1="0"
+											x2="152.07916641235352" y2="248.269332818985"
+											stroke="#eceef1" stroke-dasharray="10" stroke-linecap="butt"
+											class="apexcharts-gridline"></line>
+										<line id="SvgjsLine2936" x1="228.11874961853027" y1="0"
+											x2="228.11874961853027" y2="248.269332818985"
+											stroke="#eceef1" stroke-dasharray="10" stroke-linecap="butt"
+											class="apexcharts-gridline"></line>
+										<line id="SvgjsLine2937" x1="304.15833282470703" y1="0"
+											x2="304.15833282470703" y2="248.269332818985"
+											stroke="#eceef1" stroke-dasharray="10" stroke-linecap="butt"
+											class="apexcharts-gridline"></line>
+										<line id="SvgjsLine2938" x1="380.1979160308838" y1="0"
+											x2="380.1979160308838" y2="248.269332818985" stroke="#eceef1"
+											stroke-dasharray="10" stroke-linecap="butt"
+											class="apexcharts-gridline"></line></g>
+										<line id="SvgjsLine2940" x1="0" y1="248.269332818985"
+											x2="378.6979160308838" y2="248.269332818985"
+											stroke="transparent" stroke-dasharray="0"
+											stroke-linecap="butt"></line>
+										<line id="SvgjsLine2939" x1="0" y1="1" x2="0"
+											y2="248.269332818985" stroke="transparent"
+											stroke-dasharray="0" stroke-linecap="butt"></line></g>
+										<g id="SvgjsG2856"
+											class="apexcharts-bar-series apexcharts-plot-series">
+										<g id="SvgjsG2857" class="apexcharts-series" rel="1"
+											seriesName="seriesx1" data:realIndex="0">
+										<path id="SvgjsPath2861"
+											d="M 0.1 6.206733320474626L 371.7979160308838 6.206733320474626Q 378.7979160308838 6.206733320474626 378.7979160308838 13.206733320474626L 378.7979160308838 28.171488816022872Q 378.7979160308838 35.17148881602287 371.7979160308838 35.17148881602287L 371.7979160308838 35.17148881602287L 0.1 35.17148881602287L 0.1 35.17148881602287Q 0.1 35.17148881602287 0.1 35.17148881602287L 0.1 6.206733320474626Q 0.1 6.206733320474626 0.1 6.206733320474626z"
+											fill="rgba(105,108,255,0.85)" fill-opacity="1"
+											stroke-opacity="1" stroke-linecap="round" stroke-width="0"
+											stroke-dasharray="0" class="apexcharts-bar-area" index="0"
+											clip-path="url(#gridRectMaskvcwz8vps)"
+											pathTo="M 0.1 6.206733320474626L 371.7979160308838 6.206733320474626Q 378.7979160308838 6.206733320474626 378.7979160308838 13.206733320474626L 378.7979160308838 28.171488816022872Q 378.7979160308838 35.17148881602287 371.7979160308838 35.17148881602287L 371.7979160308838 35.17148881602287L 0.1 35.17148881602287L 0.1 35.17148881602287Q 0.1 35.17148881602287 0.1 35.17148881602287L 0.1 6.206733320474626Q 0.1 6.206733320474626 0.1 6.206733320474626z"
+											pathFrom="M 0.1 6.206733320474626L 0.1 6.206733320474626L 0.1 35.17148881602287L 0.1 35.17148881602287L 0.1 35.17148881602287L 0.1 35.17148881602287L 0.1 35.17148881602287L 0.1 6.206733320474626"
+											cy="47.584955456972125" cx="378.7979160308838" j="0" val="35"
+											barHeight="28.964755495548246" barWidth="378.6979160308838"></path>
+										<path id="SvgjsPath2867"
+											d="M 0.1 47.584955456972125L 209.49880916050503 47.584955456972125Q 216.49880916050503 47.584955456972125 216.49880916050503 54.584955456972125L 216.49880916050503 69.54971095252037Q 216.49880916050503 76.54971095252037 209.49880916050503 76.54971095252037L 209.49880916050503 76.54971095252037L 0.1 76.54971095252037L 0.1 76.54971095252037Q 0.1 76.54971095252037 0.1 76.54971095252037L 0.1 47.584955456972125Q 0.1 47.584955456972125 0.1 47.584955456972125z"
+											fill="rgba(3,195,236,0.85)" fill-opacity="1"
+											stroke-opacity="1" stroke-linecap="round" stroke-width="0"
+											stroke-dasharray="0" class="apexcharts-bar-area" index="0"
+											clip-path="url(#gridRectMaskvcwz8vps)"
+											pathTo="M 0.1 47.584955456972125L 209.49880916050503 47.584955456972125Q 216.49880916050503 47.584955456972125 216.49880916050503 54.584955456972125L 216.49880916050503 69.54971095252037Q 216.49880916050503 76.54971095252037 209.49880916050503 76.54971095252037L 209.49880916050503 76.54971095252037L 0.1 76.54971095252037L 0.1 76.54971095252037Q 0.1 76.54971095252037 0.1 76.54971095252037L 0.1 47.584955456972125Q 0.1 47.584955456972125 0.1 47.584955456972125z"
+											pathFrom="M 0.1 47.584955456972125L 0.1 47.584955456972125L 0.1 76.54971095252037L 0.1 76.54971095252037L 0.1 76.54971095252037L 0.1 76.54971095252037L 0.1 76.54971095252037L 0.1 47.584955456972125"
+											cy="88.96317759346962" cx="216.49880916050503" j="1" val="20"
+											barHeight="28.964755495548246" barWidth="216.39880916050504"></path>
+										<path id="SvgjsPath2873"
+											d="M 0.1 88.96317759346962L 144.57916641235352 88.96317759346962Q 151.57916641235352 88.96317759346962 151.57916641235352 95.96317759346962L 151.57916641235352 110.92793308901787Q 151.57916641235352 117.92793308901787 144.57916641235352 117.92793308901787L 144.57916641235352 117.92793308901787L 0.1 117.92793308901787L 0.1 117.92793308901787Q 0.1 117.92793308901787 0.1 117.92793308901787L 0.1 88.96317759346962Q 0.1 88.96317759346962 0.1 88.96317759346962z"
+											fill="rgba(113,221,55,0.85)" fill-opacity="1"
+											stroke-opacity="1" stroke-linecap="round" stroke-width="0"
+											stroke-dasharray="0" class="apexcharts-bar-area" index="0"
+											clip-path="url(#gridRectMaskvcwz8vps)"
+											pathTo="M 0.1 88.96317759346962L 144.57916641235352 88.96317759346962Q 151.57916641235352 88.96317759346962 151.57916641235352 95.96317759346962L 151.57916641235352 110.92793308901787Q 151.57916641235352 117.92793308901787 144.57916641235352 117.92793308901787L 144.57916641235352 117.92793308901787L 0.1 117.92793308901787L 0.1 117.92793308901787Q 0.1 117.92793308901787 0.1 117.92793308901787L 0.1 88.96317759346962Q 0.1 88.96317759346962 0.1 88.96317759346962z"
+											pathFrom="M 0.1 88.96317759346962L 0.1 88.96317759346962L 0.1 117.92793308901787L 0.1 117.92793308901787L 0.1 117.92793308901787L 0.1 117.92793308901787L 0.1 117.92793308901787L 0.1 88.96317759346962"
+											cy="130.34139972996712" cx="151.57916641235352" j="2"
+											val="14" barHeight="28.964755495548246"
+											barWidth="151.47916641235352"></path>
+										<path id="SvgjsPath2879"
+											d="M 0.1 130.34139972996712L 122.939285496303 130.34139972996712Q 129.939285496303 130.34139972996712 129.939285496303 137.34139972996712L 129.939285496303 152.30615522551537Q 129.939285496303 159.30615522551537 122.939285496303 159.30615522551537L 122.939285496303 159.30615522551537L 0.1 159.30615522551537L 0.1 159.30615522551537Q 0.1 159.30615522551537 0.1 159.30615522551537L 0.1 130.34139972996712Q 0.1 130.34139972996712 0.1 130.34139972996712z"
+											fill="rgba(133,146,163,0.85)" fill-opacity="1"
+											stroke-opacity="1" stroke-linecap="round" stroke-width="0"
+											stroke-dasharray="0" class="apexcharts-bar-area" index="0"
+											clip-path="url(#gridRectMaskvcwz8vps)"
+											pathTo="M 0.1 130.34139972996712L 122.939285496303 130.34139972996712Q 129.939285496303 130.34139972996712 129.939285496303 137.34139972996712L 129.939285496303 152.30615522551537Q 129.939285496303 159.30615522551537 122.939285496303 159.30615522551537L 122.939285496303 159.30615522551537L 0.1 159.30615522551537L 0.1 159.30615522551537Q 0.1 159.30615522551537 0.1 159.30615522551537L 0.1 130.34139972996712Q 0.1 130.34139972996712 0.1 130.34139972996712z"
+											pathFrom="M 0.1 130.34139972996712L 0.1 130.34139972996712L 0.1 159.30615522551537L 0.1 159.30615522551537L 0.1 159.30615522551537L 0.1 159.30615522551537L 0.1 159.30615522551537L 0.1 130.34139972996712"
+											cy="171.71962186646462" cx="129.939285496303" j="3" val="12"
+											barHeight="28.964755495548246" barWidth="129.839285496303"></path>
+										<path id="SvgjsPath2885"
+											d="M 0.1 171.71962186646462L 101.29940458025251 171.71962186646462Q 108.29940458025251 171.71962186646462 108.29940458025251 178.71962186646462L 108.29940458025251 193.68437736201287Q 108.29940458025251 200.68437736201287 101.29940458025251 200.68437736201287L 101.29940458025251 200.68437736201287L 0.1 200.68437736201287L 0.1 200.68437736201287Q 0.1 200.68437736201287 0.1 200.68437736201287L 0.1 171.71962186646462Q 0.1 171.71962186646462 0.1 171.71962186646462z"
+											fill="rgba(255,62,29,0.85)" fill-opacity="1"
+											stroke-opacity="1" stroke-linecap="round" stroke-width="0"
+											stroke-dasharray="0" class="apexcharts-bar-area" index="0"
+											clip-path="url(#gridRectMaskvcwz8vps)"
+											pathTo="M 0.1 171.71962186646462L 101.29940458025251 171.71962186646462Q 108.29940458025251 171.71962186646462 108.29940458025251 178.71962186646462L 108.29940458025251 193.68437736201287Q 108.29940458025251 200.68437736201287 101.29940458025251 200.68437736201287L 101.29940458025251 200.68437736201287L 0.1 200.68437736201287L 0.1 200.68437736201287Q 0.1 200.68437736201287 0.1 200.68437736201287L 0.1 171.71962186646462Q 0.1 171.71962186646462 0.1 171.71962186646462z"
+											pathFrom="M 0.1 171.71962186646462L 0.1 171.71962186646462L 0.1 200.68437736201287L 0.1 200.68437736201287L 0.1 200.68437736201287L 0.1 200.68437736201287L 0.1 200.68437736201287L 0.1 171.71962186646462"
+											cy="213.09784400296212" cx="108.29940458025251" j="4"
+											val="10" barHeight="28.964755495548246"
+											barWidth="108.19940458025252"></path>
+										<path id="SvgjsPath2891"
+											d="M 0.1 213.09784400296212L 90.47946412222726 213.09784400296212Q 97.47946412222726 213.09784400296212 97.47946412222726 220.09784400296212L 97.47946412222726 235.06259949851037Q 97.47946412222726 242.06259949851037 90.47946412222726 242.06259949851037L 90.47946412222726 242.06259949851037L 0.1 242.06259949851037L 0.1 242.06259949851037Q 0.1 242.06259949851037 0.1 242.06259949851037L 0.1 213.09784400296212Q 0.1 213.09784400296212 0.1 213.09784400296212z"
+											fill="rgba(255,171,0,0.85)" fill-opacity="1"
+											stroke-opacity="1" stroke-linecap="round" stroke-width="0"
+											stroke-dasharray="0" class="apexcharts-bar-area" index="0"
+											clip-path="url(#gridRectMaskvcwz8vps)"
+											pathTo="M 0.1 213.09784400296212L 90.47946412222726 213.09784400296212Q 97.47946412222726 213.09784400296212 97.47946412222726 220.09784400296212L 97.47946412222726 235.06259949851037Q 97.47946412222726 242.06259949851037 90.47946412222726 242.06259949851037L 90.47946412222726 242.06259949851037L 0.1 242.06259949851037L 0.1 242.06259949851037Q 0.1 242.06259949851037 0.1 242.06259949851037L 0.1 213.09784400296212Q 0.1 213.09784400296212 0.1 213.09784400296212z"
+											pathFrom="M 0.1 213.09784400296212L 0.1 213.09784400296212L 0.1 242.06259949851037L 0.1 242.06259949851037L 0.1 242.06259949851037L 0.1 242.06259949851037L 0.1 242.06259949851037L 0.1 213.09784400296212"
+											cy="254.47606613945962" cx="97.47946412222726" j="5" val="9"
+											barHeight="28.964755495548246" barWidth="97.37946412222726"></path>
+										<g id="SvgjsG2859" class="apexcharts-bar-goals-markers"
+											style="pointer-events: none">
+										<g id="SvgjsG2860" className="apexcharts-bar-goals-groups"></g>
+										<g id="SvgjsG2866" className="apexcharts-bar-goals-groups"></g>
+										<g id="SvgjsG2872" className="apexcharts-bar-goals-groups"></g>
+										<g id="SvgjsG2878" className="apexcharts-bar-goals-groups"></g>
+										<g id="SvgjsG2884" className="apexcharts-bar-goals-groups"></g>
+										<g id="SvgjsG2890" className="apexcharts-bar-goals-groups"></g></g></g>
+										<g id="SvgjsG2858" class="apexcharts-datalabels"
+											data:realIndex="0">
+										<g id="SvgjsG2863" class="apexcharts-data-labels"
+											transform="rotate(0)">
+										<text id="SvgjsText2865" font-family="Public Sans"
+											x="189.44895801544192" y="25.022444560527802"
+											text-anchor="middle" dominant-baseline="auto"
+											font-size="13px" font-weight="200" fill="#ffffff"
+											class="apexcharts-datalabel" cx="189.44895801544192"
+											cy="25.022444560527802"
+											style="font-family: &quot;Public Sans&quot;;">UI Design</text></g>
+										<g id="SvgjsG2869" class="apexcharts-data-labels"
+											transform="rotate(0)">
+										<text id="SvgjsText2871" font-family="Public Sans"
+											x="108.29940458025251" y="66.4006666970253"
+											text-anchor="middle" dominant-baseline="auto"
+											font-size="13px" font-weight="200" fill="#ffffff"
+											class="apexcharts-datalabel" cx="108.29940458025251"
+											cy="66.4006666970253"
+											style="font-family: &quot;Public Sans&quot;;">UX Design</text></g>
+										<g id="SvgjsG2875" class="apexcharts-data-labels"
+											transform="rotate(0)">
+										<text id="SvgjsText2877" font-family="Public Sans"
+											x="75.83958320617675" y="107.7788888335228"
+											text-anchor="middle" dominant-baseline="auto"
+											font-size="13px" font-weight="200" fill="#ffffff"
+											class="apexcharts-datalabel" cx="75.83958320617675"
+											cy="107.7788888335228"
+											style="font-family: &quot;Public Sans&quot;;">Music</text></g>
+										<g id="SvgjsG2881" class="apexcharts-data-labels"
+											transform="rotate(0)">
+										<text id="SvgjsText2883" font-family="Public Sans"
+											x="65.0196427481515" y="149.1571109700203"
+											text-anchor="middle" dominant-baseline="auto"
+											font-size="13px" font-weight="200" fill="#ffffff"
+											class="apexcharts-datalabel" cx="65.0196427481515"
+											cy="149.1571109700203"
+											style="font-family: &quot;Public Sans&quot;;">Animation</text></g>
+										<g id="SvgjsG2887" class="apexcharts-data-labels"
+											transform="rotate(0)">
+										<text id="SvgjsText2889" font-family="Public Sans"
+											x="54.199702290126254" y="190.53533310651778"
+											text-anchor="middle" dominant-baseline="auto"
+											font-size="13px" font-weight="200" fill="#ffffff"
+											class="apexcharts-datalabel" cx="54.199702290126254"
+											cy="190.53533310651778"
+											style="font-family: &quot;Public Sans&quot;;">React</text></g>
+										<g id="SvgjsG2893" class="apexcharts-data-labels"
+											transform="rotate(0)">
+										<text id="SvgjsText2895" font-family="Public Sans"
+											x="48.789732061113625" y="231.9135552430153"
+											text-anchor="middle" dominant-baseline="auto"
+											font-size="13px" font-weight="200" fill="#ffffff"
+											class="apexcharts-datalabel" cx="48.789732061113625"
+											cy="231.9135552430153"
+											style="font-family: &quot;Public Sans&quot;;">SEO</text></g></g></g>
+										<line id="SvgjsLine2941" x1="0" y1="0" x2="378.6979160308838"
+											y2="0" stroke="#b6b6b6" stroke-dasharray="0" stroke-width="1"
+											stroke-linecap="butt" class="apexcharts-ycrosshairs"></line>
+										<line id="SvgjsLine2942" x1="0" y1="0" x2="378.6979160308838"
+											y2="0" stroke-dasharray="0" stroke-width="0"
+											stroke-linecap="butt" class="apexcharts-ycrosshairs-hidden"></line>
+										<g id="SvgjsG2943" class="apexcharts-yaxis-annotations"></g>
+										<g id="SvgjsG2944" class="apexcharts-xaxis-annotations"></g>
+										<g id="SvgjsG2945" class="apexcharts-point-annotations"></g></g>
+										<g id="SvgjsG2846" class="apexcharts-annotations"></g></svg>
+
+
+
+
+								</div>
+            <!-- /chat  -->
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="card-header d-flex justify-content-between">
-            <div>
-              <h5 class="card-title mb-0">Report</h5>
-              <small class="card-subtitle">Monthly Avg. $45.578k</small>
-            </div>
-            <div class="dropdown">
-              <button class="btn p-0" type="button" id="totalIncome" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="bx bx-dots-vertical-rounded"></i>
-              </button>
-              <div class="dropdown-menu dropdown-menu-end" aria-labelledby="totalIncome">
-                <a class="dropdown-item" href="javascript:void(0);">Last 28 Days</a>
-                <a class="dropdown-item" href="javascript:void(0);">Last Month</a>
-                <a class="dropdown-item" href="javascript:void(0);">Last Year</a>
-              </div>
-            </div>
-          </div>
-          <div class="card-body">
-            <div class="report-list">
-              <div class="report-list-item rounded-2 mb-3">
-                <div class="d-flex align-items-start">
-                  <div class="report-list-icon shadow-sm me-2">
-                    <img src="../../assets/svg/icons/paypal-icon.svg" width="22" height="22" alt="Paypal">
-                  </div>
-                  <div class="d-flex justify-content-between align-items-end w-100 flex-wrap gap-2">
-                    <div class="d-flex flex-column">
-                      <span>Income</span>
-                      <h5 class="mb-0">$42,845</h5>
-                    </div>
-                    <small class="text-success">+2.34k</small>
-                  </div>
-                </div>
-              </div>
-              <div class="report-list-item rounded-2 mb-3">
-                <div class="d-flex align-items-start">
-                  <div class="report-list-icon shadow-sm me-2">
-                    <img src="../../assets/svg/icons/shopping-bag-icon.svg" width="22" height="22" alt="Shopping Bag">
-                  </div>
-                  <div class="d-flex justify-content-between align-items-end w-100 flex-wrap gap-2">
-                    <div class="d-flex flex-column">
-                      <span>Expense</span>
-                      <h5 class="mb-0">$38,658</h5>
-                    </div>
-                    <small class="text-danger">-1.15k</small>
-                  </div>
-                </div>
-              </div>
-              <div class="report-list-item rounded-2">
-                <div class="d-flex align-items-start">
-                  <div class="report-list-icon shadow-sm me-2">
-                    <img src="../../assets/svg/icons/wallet-icon.svg" width="22" height="22" alt="Wallet">
-                  </div>
-                  <div class="d-flex justify-content-between align-items-end w-100 flex-wrap gap-2">
-                    <div class="d-flex flex-column">
-                      <span>Profit</span>
-                      <h5 class="mb-0">$18,220</h5>
-                    </div>
-                    <small class="text-success">+1.35k</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+       
+        
       </div>
     </div>
     <!--/ Total Income -->
@@ -712,372 +451,11 @@
   <!--/ Total Income -->
 </div>
 <div class="row">
-  <!-- Expense Overview -->
-  <div class="col-md-6 col-lg-4 mb-4">
-    <div class="card h-100">
-      <div class="card-header">
-        <ul class="nav nav-pills" role="tablist">
-          <li class="nav-item">
-            <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-tabs-line-card-income" aria-controls="navs-tabs-line-card-income" aria-selected="true">Income</button>
-          </li>
-          <li class="nav-item">
-            <button type="button" class="nav-link" role="tab">Expenses</button>
-          </li>
-          <li class="nav-item">
-            <button type="button" class="nav-link" role="tab">Profit</button>
-          </li>
-        </ul>
-      </div>
-      <div class="card-body px-0">
-        <div class="tab-content p-0">
-          <div class="tab-pane fade show active" id="navs-tabs-line-card-income" role="tabpanel">
-            <div class="d-flex px-4">
-              <div class="avatar flex-shrink-0 me-3">
-                <img src="../../assets/img/icons/unicons/wallet.png" alt="User">
-              </div>
-              <div>
-                <small class="text-muted d-block">Total Balance</small>
-                <div class="d-flex align-items-center">
-                  <h6 class="mb-0 me-1">$459.10</h6>
-                  <small class="text-success fw-medium">
-                    <i class='bx bx-chevron-up'></i>
-                    42.9%
-                  </small>
-                </div>
-              </div>
-            </div>
-            <div id="incomeChart"></div>
-            <div class="d-flex justify-content-center pt-3 gap-2">
-              <div class="flex-shrink-0">
-                <div id="expensesOfWeek"></div>
-              </div>
-              <div>
-                <p class="mb-n1 mt-1">Expenses This Week</p>
-                <small class="text-muted">$39 less than last week</small>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/ Expense Overview -->
+  
+ 
+ 
 
-  <!-- Performance -->
-  <div class="col-md-6 col-lg-4 mb-4">
-    <div class="card h-100">
-      <div class="card-header d-flex align-items-center justify-content-between">
-        <h5 class="card-title m-0 me-2">Performance</h5>
-        <div class="dropdown">
-          <button class="btn p-0" type="button" id="performanceId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="bx bx-dots-vertical-rounded"></i>
-          </button>
-          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="performanceId">
-            <a class="dropdown-item" href="javascript:void(0);">Last 28 Days</a>
-            <a class="dropdown-item" href="javascript:void(0);">Last Month</a>
-            <a class="dropdown-item" href="javascript:void(0);">Last Year</a>
-          </div>
-        </div>
-      </div>
-      <div class="card-body">
-        <div class="row">
-          <div class="col-6">
-            <small>Earnings: <span class="fw-medium">$846.17</span></small>
-          </div>
-          <div class="col-6">
-            <small>Sales: <span class="fw-medium">25.7M</span></small>
-          </div>
-        </div>
-      </div>
-      <div id="performanceChart"></div>
-    </div>
-  </div>
-  <!--/ Performance -->
-
-  <!-- Total Balance -->
-  <div class="col-md-6 col-lg-4 mb-4">
-    <div class="card h-100">
-      <div class="card-header d-flex align-items-center justify-content-between">
-        <h5 class="card-title m-0 me-2">Total Balance</h5>
-        <div class="dropdown">
-          <button class="btn p-0" type="button" id="totalBalance" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="bx bx-dots-vertical-rounded"></i>
-          </button>
-          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="totalBalance">
-            <a class="dropdown-item" href="javascript:void(0);">Last 28 Days</a>
-            <a class="dropdown-item" href="javascript:void(0);">Last Month</a>
-            <a class="dropdown-item" href="javascript:void(0);">Last Year</a>
-          </div>
-        </div>
-      </div>
-      <div class="card-body">
-        <div class="d-flex justify-content-start">
-          <div class="d-flex pe-4">
-            <div class="me-3">
-              <span class="badge bg-label-warning p-2"><i class="bx bx-wallet text-warning"></i></span>
-            </div>
-            <div>
-              <h6 class="mb-0">$2.54k</h6>
-              <small>Wallet</small>
-            </div>
-          </div>
-          <div class="d-flex">
-            <div class="me-3">
-              <span class="badge bg-label-secondary p-2"><i class="bx bx-dollar text-secondary"></i></span>
-            </div>
-            <div>
-              <h6 class="mb-0">$4.2k</h6>
-              <small>Paypal</small>
-            </div>
-          </div>
-        </div>
-        <div id="totalBalanceChart" class="border-bottom mb-3"></div>
-        <div class="d-flex justify-content-between">
-          <small class="text-muted">You have done <span class="fw-medium">57.6%</span> more sales.<br>Check your new badge in your profile.</small>
-          <div>
-            <span class="badge bg-label-warning p-2"><i class="bx bx-chevron-right text-warning"></i></span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/ Total Balance -->
-
-  <!-- Session Overview -->
-  <div class="col-12 col-lg-6 col-xxl-5 order-lg-0 order-1 mb-4">
-    <div class="card h-100">
-      <div class="card-header d-flex align-items-center justify-content-between">
-        <h5 class="card-title m-0 me-2">Session Overview</h5>
-        <div class="dropdown">
-          <button class="btn p-0" type="button" id="sessionOverview" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="bx bx-dots-vertical-rounded"></i>
-          </button>
-          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="sessionOverview">
-            <a class="dropdown-item" href="javascript:void(0);">Last 28 Days</a>
-            <a class="dropdown-item" href="javascript:void(0);">Last Month</a>
-            <a class="dropdown-item" href="javascript:void(0);">Last Year</a>
-          </div>
-        </div>
-      </div>
-      <div class="card-body row gap-md-0 gap-4">
-        <div class="col-md-5">
-          <h1 class="mb-0 text-nowrap">32,754</h1>
-          <small class="text-success">
-            +0.7645%
-          </small>
-
-          <div id="sessionOverviewChart" class="ms-n3"></div>
-        </div>
-        <div class="col-md-7 d-flex flex-column justify-content-between">
-          <div class="d-flex justify-content-between">
-            <div class="d-flex flex-column">
-              <small class="text-muted">Today</small>
-              <span class="fw-medium">+ $340</span>
-            </div>
-            <div class="d-flex flex-column">
-              <small class="text-muted">Last Week</small>
-              <span class="fw-medium">+ $680</span>
-            </div>
-            <div class="d-flex flex-column">
-              <small class="text-muted">Today</small>
-              <span class="fw-medium">+ $3,540</span>
-            </div>
-          </div>
-          <div class="progress-wrapper mb-4">
-            <div class="mb-3">
-              <small class="text-muted">Effective Return</small>
-              <div class="d-flex align-items-center">
-                <div class="progress w-100 me-2" style="height:8px">
-                  <div class="progress-bar bg-primary" style="width: 74%" role="progressbar" aria-valuenow="74" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <small class="text-muted">74%</small>
-              </div>
-            </div>
-            <div>
-              <small class="text-muted">Invalid Session</small>
-              <div class="d-flex align-items-center">
-                <div class="progress w-100 me-2" style=" height:8px">
-                  <div class="progress-bar bg-primary" style="width: 40%" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <small class="text-muted">40%</small>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/ Session Overview -->
-
-  <!-- Total Revenue -->
-  <div class="col-12 col-xxl-7 order-xxl-0 order-1 mb-4">
-    <div class="card">
-      <div class="row row-bordered g-0">
-        <div class="col-md-8">
-          <h5 class="card-header m-0 me-2 pb-2">Total Revenue</h5>
-          <div id="totalRevenueChart" class="px-2"></div>
-        </div>
-        <div class="col-md-4">
-          <div class="card-body">
-            <div class="text-center">
-              <div class="dropdown">
-                <button class="btn btn-sm btn-label-primary dropdown-toggle" type="button" id="growthReportId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  2022
-                </button>
-                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="growthReportId">
-                  <a class="dropdown-item" href="javascript:void(0);">2021</a>
-                  <a class="dropdown-item" href="javascript:void(0);">2020</a>
-                  <a class="dropdown-item" href="javascript:void(0);">2019</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div id="growthChart"></div>
-          <div class="text-center fw-medium pt-3 mb-2">62% Company Growth</div>
-
-          <div class="d-flex p-4 gap-3 justify-content-between">
-            <div class="d-flex">
-              <div class="me-2">
-                <span class="badge bg-label-primary p-2"><i class="bx bx-dollar text-primary"></i></span>
-              </div>
-              <div class="d-flex flex-column">
-                <small>2022</small>
-                <h6 class="mb-0">$32.5k</h6>
-              </div>
-            </div>
-            <div class="d-flex">
-              <div class="me-2">
-                <span class="badge bg-label-info p-2"><i class="bx bx-wallet text-info"></i></span>
-              </div>
-              <div class="d-flex flex-column">
-                <small>2021</small>
-                <h6 class="mb-0">$41.2k</h6>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/ Total Revenue -->
-
-  <!-- Score -->
-  <div class="col-md-6 col-xxl-4 mb-4">
-    <div class="card h-100">
-      <div class="card-header text-center">
-        <small class="card-subtitle mb-2">Your score is</small>
-        <h5 class="card-title mb-0 mt-1">Awesome</h5>
-      </div>
-      <div class="card-body">
-        <div id="scoreChart"></div>
-
-        <div class="d-flex flex-column align-items-center mt-2">
-          <small class="text-muted">Your score is based on the last</small>
-          <small class="fw-medium">287 Transactions</small>
-          <a href="javascript:void(0)" class="btn btn-sm btn-primary mt-2" role="button">View My Account</a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--/ Score -->
-
-  <!-- Courses-->
-  <div class="col-12 col-xl-8 mb-4">
-    <div class="card h-100">
-      <div class="card-header d-flex align-items-center justify-content-between">
-        <h5 class="card-title m-0 me-2">Topic you are interested in</h5>
-        <div class="dropdown">
-          <button class="btn p-0" type="button" id="topic" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="bx bx-dots-vertical-rounded"></i>
-          </button>
-          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="topic">
-            <a class="dropdown-item" href="javascript:void(0);">Highest Views</a>
-            <a class="dropdown-item" href="javascript:void(0);">See All</a>
-          </div>
-        </div>
-      </div>
-      <div class="card-body row g-3">
-        <div class="col-md-6">
-          <div id="horizontalBarChart"></div>
-        </div>
-        <div class="col-md-6 d-flex justify-content-around align-items-center">
-          <div>
-            <div class="d-flex align-items-baseline">
-              <span class="text-primary me-2"><i class='bx bxs-circle'></i></span>
-              <div>
-                <p class="mb-2">UI Design</p>
-                <h5>35%</h5>
-              </div>
-            </div>
-            <div class="d-flex align-items-baseline my-3">
-              <span class="text-success me-2"><i class='bx bxs-circle'></i></span>
-              <div>
-                <p class="mb-2">Music</p>
-                <h5>14%</h5>
-              </div>
-            </div>
-            <div class="d-flex align-items-baseline">
-              <span class="text-danger me-2"><i class='bx bxs-circle'></i></span>
-              <div>
-                <p class="mb-2">React</p>
-                <h5>10%</h5>
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <div class="d-flex align-items-baseline">
-              <span class="text-info me-2"><i class='bx bxs-circle'></i></span>
-              <div>
-                <p class="mb-2">UX Design</p>
-                <h5>20%</h5>
-              </div>
-            </div>
-            <div class="d-flex align-items-baseline my-3">
-              <span class="text-secondary me-2"><i class='bx bxs-circle'></i></span>
-              <div>
-                <p class="mb-2">Animation</p>
-                <h5>12%</h5>
-              </div>
-            </div>
-            <div class="d-flex align-items-baseline">
-              <span class="text-warning me-2"><i class='bx bxs-circle'></i></span>
-              <div>
-                <p class="mb-2">SEO</p>
-                <h5>9%</h5>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- /Courses-->
-
-  <!-- Reasons for delivery exceptions -->
-  <div class="col-md-6 col-xxl-4 mb-4 order-4">
-    <div class="card h-100">
-      <div class="card-header d-flex align-items-center justify-content-between">
-        <div class="card-title mb-0">
-          <h5 class="m-0 me-2">Reasons for delivery exceptions</h5>
-        </div>
-        <div class="dropdown">
-          <button class="btn p-0" type="button" id="deliveryExceptions" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="bx bx-dots-vertical-rounded"></i>
-          </button>
-          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="deliveryExceptions">
-            <a class="dropdown-item" href="javascript:void(0);">Select All</a>
-            <a class="dropdown-item" href="javascript:void(0);">Refresh</a>
-            <a class="dropdown-item" href="javascript:void(0);">Share</a>
-          </div>
-        </div>
-      </div>
-      <div class="card-body">
-        <div id="deliveryExceptionsChart"></div>
-      </div>
-    </div>
-  </div>
-  <!--/ Reasons for delivery exceptions -->
+  
 </div>
 
 

@@ -98,7 +98,7 @@
 <div class="card">
   <div class="card-datatable ">
     <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-    	<div class="card-header d-flex align-items-md-center pb-md-2 flex-wrap">
+    	<div class="card-header d-flex align-items-md-center pb-md-2 flex-wrap justify-content-end" style="width: 100%;">
     		<div class="me-2 ms-n2" >
 	    		<div id="DataTables_Table_0_filter" class="dataTables_filter">
 	    			<label>
@@ -115,7 +115,7 @@
 		   	</select>
 		   </div>
     	<div class="dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-end align-items-md-center justify-content-md-end pt-0 gap-3 flex-wrap">
-    		<div class="dataTables_length  md-3 mb-2" id="DataTables_Table_0_length" style="padding-left: 700px;">
+    		<div class="dataTables_length  md-3 mb-2" id="DataTables_Table_0_length" style="padding-left: 750px;">
 		    	<label>
 		    		<select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="form-select">
 			    		<option value="10">10</option>
@@ -133,8 +133,8 @@
         	<th class="control sorting_disabled pe-0" rowspan="1" colspan="1" style="width: 10px;" aria-label=""></th>
         	<th class="sorting_disabled dt-checkboxes-cell dt-checkboxes-select-all" rowspan="1" colspan="1" style="width: 50px;" data-col="1" aria-label=""><input type="checkbox" class="form-check-input"></th>
         	<th class="sorting sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 50px;" aria-label="Product: activate to sort column descending" aria-sort="ascending">상품</th>
-        	<th class="text-nowrap sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 50px;" aria-label="Reviewer: activate to sort column ascending">작성자</th>
-        	<th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width:10px;" aria-label="Review: activate to sort column ascending">별점</th>
+        	<th class="text-nowrap sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 40px;" aria-label="Reviewer: activate to sort column ascending">작성자</th>
+        	<th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width:40px;" aria-label="Review: activate to sort column ascending">별점</th>
         	<th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 10px;" aria-label="Date: activate to sort column ascending">날짜</th>
         	<th class="sorting_disabled dtr-hidden" rowspan="1" colspan="1" style="width: 10px; " aria-label="Actions"></th>
         	</tr>
@@ -173,9 +173,9 @@
       	</td>
       	<td>
       		<div>
-      			<div class="read-only-ratings ps-0 mb-2 jq-ry-container" readonly="readonly" style="width: 112px;">
+      			<div class="read-only-ratings ps-0 mb-2 jq-ry-container" readonly="readonly" style="width:150px;">
       				<div class="jq-ry-group-wrapper">
-      					<div class="jq-ry-normal-group jq-ry-group">
+      					<div class="jq-ry-normal-group jq-ry-group" style="width: 100%;">
       						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20px" height="20px" fill="gray">
       							<path d="M12,2 L15.09,8.09 L22,9.9 L17,14 L18.18,20 L12,17.5 L5.82,20 L7,14 L2,9.9 L8.91,8.09 L12,2 Z"></path>
       						</svg>
@@ -191,24 +191,8 @@
       						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20px" height="20px" fill="gray" style="margin-left: 3px;">
       							<path d="M12,2 L15.09,8.09 L22,9.9 L17,14 L18.18,20 L12,17.5 L5.82,20 L7,14 L2,9.9 L8.91,8.09 L12,2 Z"></path>
       						</svg>
-     						</div>
-     					<div class="jq-ry-rated-group jq-ry-group" style="width: 38.3929%;">
-     						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20px" height="20px" fill="#f39c12">
-     							<path d="M12,2 L15.09,8.09 L22,9.9 L17,14 L18.18,20 L12,17.5 L5.82,20 L7,14 L2,9.9 L8.91,8.09 L12,2 Z"></path>
-     						</svg>
-     						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20px" height="20px" fill="#f39c12" style="margin-left: 3px;">
-     							<path d="M12,2 L15.09,8.09 L22,9.9 L17,14 L18.18,20 L12,17.5 L5.82,20 L7,14 L2,9.9 L8.91,8.09 L12,2 Z"></path>
-     						</svg>
-     						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20px" height="20px" fill="#f39c12" style="margin-left: 3px;">
-     							<path d="M12,2 L15.09,8.09 L22,9.9 L17,14 L18.18,20 L12,17.5 L5.82,20 L7,14 L2,9.9 L8.91,8.09 L12,2 Z"></path>
-     						</svg>
-     						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20px" height="20px" fill="#f39c12" style="margin-left: 3px;">
-     							<path d="M12,2 L15.09,8.09 L22,9.9 L17,14 L18.18,20 L12,17.5 L5.82,20 L7,14 L2,9.9 L8.91,8.09 L12,2 Z"></path>
-     						</svg>
-     						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20px" height="20px" fill="#f39c12" style="margin-left: 3px;">
-     							<path d="M12,2 L15.09,8.09 L22,9.9 L17,14 L18.18,20 L12,17.5 L5.82,20 L7,14 L2,9.9 L8.91,8.09 L12,2 Z"></path>
-     						</svg>
      					</div>
+     										
      				</div>
      			</div>
      			<p class="fw-medium mb-1 text-truncate text-capitalize">제목</p>
@@ -232,13 +216,13 @@
     		
    </tbody>
     </table>
-    	<div class="row mx-2">
+    	<div class="row mx-2 " style="width: 100%;">
     		<div class="col-sm-12 col-md-6">
     			<div class="dataTables_info mt-3" id="DataTables_Table_0_info" role="status" aria-live="polite">1-10개/100개 중</div>
     		</div>
-    		<div class="col-sm-12 col-md-6 mt-3" style="padding-left: 15%;">
+    		<div class="col-sm-12 col-md-6 mt-3 " >
     			<div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
-    				<ul class="pagination">
+    				<ul class="pagination justify-content-end">
     					<li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous">
     						<a aria-controls="DataTables_Table_0" aria-disabled="true" role="link" data-dt-idx="previous" tabindex="0" class="page-link">Previous</a>
     					</li>
