@@ -1013,16 +1013,18 @@
 				<i class='bx bxs-pencil'></i>
 			</button>
 			<ul class="dropdown-menu"
-				style="width: 38px; text-align: right; background-color: rgb(245, 245, 249); padding-right: 17px;">
-				<a data-bs-toggle="modal" data-bs-target="#notice"
-					style="cursor: pointer;"><li><i
-						class='bx bxs-bell-ring faq-nav-icon me-1  '></i></li></a>
-				<a data-bs-toggle="modal" data-bs-target="#faq"
-					style="cursor: pointer;"><li><i
-						class='bx bx-question-mark faq-nav-icon me-1'></i></li></a>
-				<a data-bs-toggle="modal" data-bs-target="#event"
-					style="cursor: pointer;"><li><i
-						class='bx bx-bulb faq-nav-icon me-1'></i></li></a>
+				style="width: 38px; text-align: right; background-color: rgb(245, 245, 249); padding-right: 17px; box-shadow:none;">
+				<li><a data-bs-toggle="modal" data-bs-target="#notice"
+					style="cursor: pointer;"> <i
+						class='bx bxs-bell-ring faq-nav-icon me-1  '></i></a></li>
+				<li><a data-bs-toggle="modal" data-bs-target="#faq"
+					style="cursor: pointer;"> <i
+						class='bx bx-question-mark faq-nav-icon me-1'></i>
+
+				</a></li>
+				<li><a data-bs-toggle="modal" data-bs-target="#event"
+					style="cursor: pointer;"> <i
+						class='bx bx-bulb faq-nav-icon me-1'> </i></a></li>
 
 
 
