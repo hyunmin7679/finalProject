@@ -174,7 +174,7 @@ $(function(){
 		                    <li><a class="dropdown-item" href="#">내활동</a></li>
 		                    <li><a class="dropdown-item" href="#">장바구니</a></li>
 		                    <li><a class="dropdown-item" href="#">위시리스트</a></li>
-		                    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/myPage/paymenList">주문내역</a></li>
+		                    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/myPage/paymentList">주문내역</a></li>
 		                    <li><a class="dropdown-item" href="#">친구목록</a></li>
 		                    <li><a class="dropdown-item" href="#">포인트/쿠폰</a></li>
 		                    <li><a class="dropdown-item" href="#">배송지관리</a></li>
