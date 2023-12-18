@@ -3,7 +3,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <style type="text/css">
- body { background:#FFF7F6; }
  
 .body-container {
     width: 1000px;
