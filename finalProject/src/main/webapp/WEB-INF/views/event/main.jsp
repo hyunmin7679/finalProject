@@ -86,7 +86,7 @@ $(function(){
 $(function(){
 	$(".product-item").click(function(){
 		let productNum = $(this).attr("data-productNum");
-		let url = "${pageContext.request.contextPath}/product/buy/"+productNum;
+		let url = "${pageContext.request.contextPath}/event/article";// +productNum
 		location.href = url;
 	});
 });
@@ -94,6 +94,7 @@ $(function(){
 </script>
 
 <div class="container body-container">
+	<h2>이벤트</h2>
     <div class="inner-page">
 		<div class="row mt-1">
 				<div class="col-md-4 col-lg-3 mt-4 rounded">
@@ -122,6 +123,16 @@ $(function(){
 							</div>
 					</div>
 				</div>
+				
+				<div class="col-md-4 col-lg-3 mt-4 rounded">
+					<div class="border rounded product-item item" data-productNum="1"  style="background-color: #fff;">
+						<img class="thumbnail-img" src="${pageContext.request.contextPath}/resources/images/2월리뷰_홈페이지용.jpg">
+						<div class="caption">
+								<a>쓰페샬이벤트</a>
+							</div>
+					</div>
+				</div>
+				
 				
 				<div class="col-md-4 col-lg-3 mt-4 rounded">
 					<div class="border rounded product-item item" data-productNum="1"  style="background-color: #fff;">
