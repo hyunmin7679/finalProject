@@ -125,10 +125,10 @@ $(function(){
 					사료<i class='fa fa-angle-down'></i>
 				</a>
 				<ul>
-					<li><a href="${pageContext.request.contextPath}/product/feed/main">건식사료</a></li>
-					<li><a href="${pageContext.request.contextPath}/product/feed/main">습식사료</a></li>
-					<li><a href="${pageContext.request.contextPath}/product/feed/main">우유/분유</a></li>
-					<li><a href="${pageContext.request.contextPath}/product/feed/main">고양이사료</a></li>
+					<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/1">건식사료</a></li>
+					<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/2">습식사료</a></li>
+					<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/3">우유/분유</a></li>
+					<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/4">고양이사료</a></li>
 				</ul>
 			</li>
 			<li class='sub-menu'>
@@ -136,12 +136,12 @@ $(function(){
 					간식<i class='fa fa-angle-down'></i>
 				</a>
 				<ul>
-					<li><a href="${pageContext.request.contextPath}/product/treats/main">강아지껌</a></li>
-					<li><a href="${pageContext.request.contextPath}/product/treats/main">육포/사시미</a></li>
-					<li><a href="${pageContext.request.contextPath}/product/treats/main">수제간식</a></li>
-					<li><a href="${pageContext.request.contextPath}/product/treats/main">비스켓/스낵</a></li>
-					<li><a href="${pageContext.request.contextPath}/product/treats/main">캔/파우치</a></li>
-					<li><a href="${pageContext.request.contextPath}/product/treats/main">고양이간식</a></li>
+					<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/5">강아지껌</a></li>
+					<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/6">육포/사시미</a></li>
+					<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/7">수제간식</a></li>
+					<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/8">비스켓/스낵</a></li>
+					<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/9">캔/파우치</a></li>
+					<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/10">고양이간식</a></li>
 				</ul>
 			</li>
 			<li class='sub-menu'>
@@ -149,14 +149,14 @@ $(function(){
 					용품<i class='fa fa-angle-down'></i>
 				</a>
 				<ul>
-					<li><a href="${pageContext.request.contextPath}/product/supplies/main">위생/배변</a></li>
-					<li><a href="${pageContext.request.contextPath}/product/supplies/main">건강관리</a></li>
-					<li><a href="${pageContext.request.contextPath}/product/supplies/main">장난감</a></li>
-					<li><a href="${pageContext.request.contextPath}/product/supplies/main">미용/목욕</a></li>
-					<li><a href="${pageContext.request.contextPath}/product/supplies/main">하우스</a></li>
-					<li><a href="${pageContext.request.contextPath}/product/supplies/main">급식기/급수기</a></li>
-					<li><a href="${pageContext.request.contextPath}/product/supplies/main">의류/액세서리</a></li>
-					<li><a href="${pageContext.request.contextPath}/product/supplies/main">목줄/가슴줄</a></li>
+					<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/11">위생/배변</a></li>
+					<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/12">건강관리</a></li>
+					<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/13">장난감</a></li>
+					<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/14">미용/목욕</a></li>
+					<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/15">하우스</a></li>
+					<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/16">급식기/급수기</a></li>
+					<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/17">의류/액세서리</a></li>
+					<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/18">목줄/가슴줄</a></li>
 				</ul>
 			</li>
 			
