@@ -66,7 +66,7 @@
 </script>
 -->
 
-<!--  
+ <!-- 
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendor/jquery/css/jquery-ui.min.css" type="text/css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.2/css/all.css">
 	
@@ -76,10 +76,11 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/forms.css" type="text/css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/paginate.css" type="text/css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/ui-css.css" type="text/css">
-	
+ -->	
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/jquery/js/jquery.min.js"></script>
-	
+	<!--
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/util-jquery.js"></script>
+	
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/menu2.js"></script>
 	-->
 </head>
@@ -108,7 +109,7 @@
 	<!-- 
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/jquery/js/jquery-ui.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/jquery/js/jquery.ui.datepicker-ko.js"></script>
--->
+ -->
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/bootstrapTemp/assets/vendor/libs/jquery/jquery.js"></script>
 <script type="text/javascript"
