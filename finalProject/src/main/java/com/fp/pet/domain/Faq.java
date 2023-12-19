@@ -2,7 +2,8 @@ package com.fp.pet.domain;
 
 public class Faq {
 	private long num;
-    private String memberIdx;
+    private String userId;
+    private String userName;
     private String subject;
     private String content;
     private String reg_date;
@@ -18,11 +19,17 @@ public class Faq {
 	public void setNum(long num) {
 		this.num = num;
 	}
-	public String getMemberIdx() {
-		return memberIdx;
+	public String getUserId() {
+		return userId;
 	}
-	public void setMemberIdx(String memberIdx) {
-		this.memberIdx = memberIdx;
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	public String getSubject() {
 		return subject;

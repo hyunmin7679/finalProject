@@ -1,19 +1,37 @@
 package com.fp.pet.controller;
 
+import java.net.URLDecoder;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.fp.pet.common.MyUtil;
+import com.fp.pet.domain.Faq;
+import com.fp.pet.service.FaqService;
 
 
 @Controller
 @RequestMapping("/faq/*")
 public class FaqController {
-	//@Autowired
-	//private FaqService service;
+	@Autowired
+	private FaqService service;
+	
+	@Autowired
+	private MyUtil myUtil;
 
 	@GetMapping(value = "main")
-	public String main() throws Exception {
-		/*
+	public String main(@RequestParam(value = "pageNo", defaultValue = "1") int current_page,
+			Model model) throws Exception {
+		
 		Map<String, Object> map = new HashMap<>();
 		
 		map.put("mode", "enabled");
@@ -22,10 +40,11 @@ public class FaqController {
 		model.addAttribute("listCategory", listCategory);
 		model.addAttribute("categoryNum", "0");
 		model.addAttribute("pageNo", current_page);
-*/
+		
 		return ".faq.main";
 	}
-/*
+	
+	
 	// AJAX-Text(HTML)
 	@RequestMapping(value = "list")
 	public String list(@RequestParam(value = "pageNo", defaultValue = "1") int current_page,
@@ -83,5 +102,4 @@ public class FaqController {
 
 		return "faq/list";
 	}
-*/
 }
