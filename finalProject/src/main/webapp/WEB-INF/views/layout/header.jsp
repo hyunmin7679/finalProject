@@ -13,8 +13,54 @@ header .header-top{ background: #fff; }
 main { margin-top: 130px; }
 li{ padding-left: 5px; padding-right: 5px;}
 
+
+nav {background: #003166;}
+nav ul {
+    font-size: 0;
+    margin: 0;
+    padding: 0;
+}
+nav ul li {
+    display: inline-block;
+    position: relative;
+}
+nav ul li a {
+    color: #fff;
+    display: block;
+    font-size: 14px;
+    padding: 15px 14px;
+    transition: 0.3s linear;
+    text-decoration:none;
+}
+nav ul li a:hover {  text-decoration:none;}
+nav ul li:hover { background: #003166; }
+nav ul li ul {
+    display: none;
+    position: absolute;
+    width: 250px;
+}
+nav ul li ul li {
+    border-top: 1px solid #444;
+    display: block;
+}
+nav ul li ul li:first-child { border-top: none; }
+nav ul li ul li a {
+    background: #373737;
+    display: block;
+    padding: 10px 14px;
+    text-decoration: none;
+}
+nav ul li ul li a:hover {text-decoration:none; background: #126d9b; }
+nav .fa.fa-angle-down { margin-left: 6px; }
+
+
+.hicon{ padding-right: 150px;}
+
+
+
 </style>
 
+<script src="//code.jquery.com/jquery.min.js"></script>
 <script type="text/javascript">
 $(function(){
 	$(window).scroll(function() {
@@ -32,159 +78,157 @@ $(function(){
 		$('.header-top').addClass('topbar-scrolled');
 	}
 });
-</script>
 
-	<div class="container-fluid header-top fixed-top">
-		<div class="container">
-			<div class="row">
+
+</script>
+<div class="">
+	<div class="">
+		<div class="row">
+			
+			<div class="col">
 				
-				<div class="col">
-					<div class="d-flex justify-content-end">
-						<c:choose>
-							<c:when test="${empty sessionScope.member}">
-								<div class="p-2">
-									<a href="javascript:dialogLogin();" title="로그인"><i class="bi bi-lock"></i></a>
-								</div>
-								<div class="p-2">
-									<a href="${pageContext.request.contextPath}/member/member" title="회원가입"><i class="bi bi-person-plus"></i></a>
-								</div>	
-							</c:when>
-							<c:otherwise>
-								<div class="p-2">
-									<a href="${pageContext.request.contextPath}/member/logout" title="로그아웃"><i class="bi bi-unlock"></i></a>
-								</div>					
-								<div class="p-2">
-									<a href="#" title="쪽지" class="position-relative">
-										<i class="bi bi-bell"></i>
-										<span class="new-noteCount position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary" style="font-size: 6px;"></span>
-									</a>
-								</div>
+				
+				<div class="d-flex justify-content-between">
+					<a class="pt-3 pb-3 ps-5" href="${pageContext.request.contextPath}/"><img style="width: 250px; height: 60px;"  alt="logo" src="${pageContext.request.contextPath}/resources/images/logo.png"></a>
+					
+					<c:choose>
+						<c:when test="${empty sessionScope.member}">
+							<div class="hicon align-bottom pt-5">
+								<a href="javascript:dialogLogin();" title="로그인"><i class="bi bi-lock p-2"></i></a>
+								<a href="${pageContext.request.contextPath}/member/member" title="회원가입"><i class="bi bi-person-plus p-2"></i></a>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div class="hicon align-bottom pt-5">
+								<a href="${pageContext.request.contextPath}/member/logout" title="로그아웃"><i class="bi bi-unlock p-2"></i></a>
+								<a href="#" title="쪽지" class="position-relative">
+									<i class="bi bi-bell p-2"></i>
+									<span class="new-noteCount position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary" style="font-size: 6px;"></span>
+								</a>
 								<c:if test="${sessionScope.member.membership>50}">
-									<div class="p-2">
-										<a href="${pageContext.request.contextPath}/admin" title="관리자"><i class="bi bi-gear"></i></a>
-									</div>					
+									<a href="${pageContext.request.contextPath}/admin" title="관리자"><i class="bi bi-gear p-2"></i></a>
 								</c:if>
-							</c:otherwise>
-						</c:choose>
-					</div>
+							</div>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 		</div>
 	</div>
-	
-	<nav class="navbar navbar-expand-lg navbar-light fixed-top">
-		<div class="container">
-			<a class="navbar-brand" href="${pageContext.request.contextPath}/"><img style="width: 250px; height: 60px;"  alt="logo" src="${pageContext.request.contextPath}/resources/images/logo.png"></a>
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-				
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav ms-auto flex-nowrap">
-					 
-					<li class="nav-item dropdown">
-						<a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							사료
-						</a>
-						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/feed/main">건식사료</a></li>
-							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/feed/main">습식사료</a></li>
-							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/feed/main">우유/분유</a></li>
-							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/feed/main">고양이사료</a></li>
-						</ul>
-					</li>
-					<li class="nav-item dropdown">
-						<a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							간식
-						</a>
-						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/treats/main">강아지껌</a></li>
-							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/treats/main">육포/사시미</a></li>
-							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/treats/main">수제간식</a></li>
-							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/treats/main">비스켓/스낵</a></li>
-							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/treats/main">캔/파우치</a></li>
-							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/treats/main">고양이간식</a></li>
-						</ul>
-					</li>
-					<li class="nav-item dropdown">
-						<a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							용품
-						</a>
-						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/supplies/main">위생/배변</a></li>
-							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/supplies/main">건강관리</a></li>
-							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/supplies/main">장난감</a></li>
-							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/supplies/main">미용/목욕</a></li>
-							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/supplies/main">하우스</a></li>
-							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/supplies/main">급식기/급수기</a></li>
-							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/supplies/main">의류/액세서리</a></li>
-							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/product/supplies/main">목줄/가슴줄</a></li>
-						</ul>
-					</li>
-					
-					<li class="nav-item dropdown">
-						<a class="nav-link" href="#" id="navbarDropdown" style="none" >
-		                     |
-		                </a>
-					
-					
-					<li class="nav-item dropdown">
-						
-						<a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-		                     Community
-		                </a>
-		                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-		                	<li><a class="dropdown-item" href="#">나눔</a></li>
-							<li><a class="dropdown-item" href="#">상담</a></li>
-		                    <li><a class="dropdown-item" href="#">자유</a></li>
-		                    <li><a class="dropdown-item" href="#">산책메이트</a></li>
-		                </ul>
+</div>
 
-					</li>
-					
-					<li class="nav-item dropdown">
-						<a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							Event
-						</a>
-						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/event/main">이벤트</a></li>
-	                    </ul>
-
-					</li>
-					
-					<li class="nav-item dropdown">
-						<a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							Service Center
-						</a>
-						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/faq/main">FAQ</a></li>
-		                    <li><a class="dropdown-item" href="#">공지사항</a></li>
-		                    <li><a class="dropdown-item" href="#">문의사항</a></li>
-
-						</ul>
-					</li>
-					
-					<li class="nav-item dropdown">
-						<a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-		                	MyPage
-		                </a>
-	                	<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-		                    <li><a class="dropdown-item" href="#">회원정보</a></li>
-		                    <li><a class="dropdown-item" href="#">내활동</a></li>
-		                    <li><a class="dropdown-item" href="#">장바구니</a></li>
-		                    <li><a class="dropdown-item" href="#">위시리스트</a></li>
-		                    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/myPage/paymentList">주문내역</a></li>
-		                    <li><a class="dropdown-item" href="#">친구목록</a></li>
-		                    <li><a class="dropdown-item" href="#">포인트/쿠폰</a></li>
-	                  	</ul>
-		             </li>
-					
+	<nav>
+    <div class="container">	
+        <ul>		 
+			<li class='sub-menu'>
+				<a href="#">
+					사료<i class='fa fa-angle-down'></i>
+				</a>
+				<ul>
+					<li><a href="${pageContext.request.contextPath}/product/feed/main">건식사료</a></li>
+					<li><a href="${pageContext.request.contextPath}/product/feed/main">습식사료</a></li>
+					<li><a href="${pageContext.request.contextPath}/product/feed/main">우유/분유</a></li>
+					<li><a href="${pageContext.request.contextPath}/product/feed/main">고양이사료</a></li>
 				</ul>
-			</div>
+			</li>
+			<li class='sub-menu'>
+				<a href="#">
+					간식<i class='fa fa-angle-down'></i>
+				</a>
+				<ul>
+					<li><a href="${pageContext.request.contextPath}/product/treats/main">강아지껌</a></li>
+					<li><a href="${pageContext.request.contextPath}/product/treats/main">육포/사시미</a></li>
+					<li><a href="${pageContext.request.contextPath}/product/treats/main">수제간식</a></li>
+					<li><a href="${pageContext.request.contextPath}/product/treats/main">비스켓/스낵</a></li>
+					<li><a href="${pageContext.request.contextPath}/product/treats/main">캔/파우치</a></li>
+					<li><a href="${pageContext.request.contextPath}/product/treats/main">고양이간식</a></li>
+				</ul>
+			</li>
+			<li class='sub-menu'>
+				<a href="#">
+					용품<i class='fa fa-angle-down'></i>
+				</a>
+				<ul>
+					<li><a href="${pageContext.request.contextPath}/product/supplies/main">위생/배변</a></li>
+					<li><a href="${pageContext.request.contextPath}/product/supplies/main">건강관리</a></li>
+					<li><a href="${pageContext.request.contextPath}/product/supplies/main">장난감</a></li>
+					<li><a href="${pageContext.request.contextPath}/product/supplies/main">미용/목욕</a></li>
+					<li><a href="${pageContext.request.contextPath}/product/supplies/main">하우스</a></li>
+					<li><a href="${pageContext.request.contextPath}/product/supplies/main">급식기/급수기</a></li>
+					<li><a href="${pageContext.request.contextPath}/product/supplies/main">의류/액세서리</a></li>
+					<li><a href="${pageContext.request.contextPath}/product/supplies/main">목줄/가슴줄</a></li>
+				</ul>
+			</li>
 			
-		</div>
-	</nav>
-<script type="text/javascript">
+			<li class='sub-menu'>
+				<a href="#">
+                     |
+                </a>
+			</li>
+			
+			<li class='sub-menu'>
+				<a href="#">
+                     Community<i class='fa fa-angle-down'></i>
+                </a>
+                <ul>
+                	<li><a href="#">나눔</a></li>
+					<li><a href="#">상담</a></li>
+                    <li><a href="#">자유</a></li>
+                    <li><a href="#">산책메이트</a></li>
+                </ul>
+			</li>
+			
+			<li class='sub-menu'>
+				<a href="#">
+					Event<i class='fa fa-angle-down'></i>
+				</a>
+				<ul>
+					<li><a href="${pageContext.request.contextPath}/event/main">이벤트</a></li>
+                </ul>
+			</li>
+			
+			<li class='sub-menu'>
+				<a href="#">
+					Service Center<i class='fa fa-angle-down'></i>
+				</a>
+				<ul>
+					<li><a href="${pageContext.request.contextPath}/faq/main">FAQ</a></li>
+                    <li><a href="#">공지사항</a></li>
+                    <li><a href="#">문의사항</a></li>
+
+				</ul>
+			</li>
+			
+			<li class='sub-menu'>
+				<a href="#">
+                	MyPage<i class='fa fa-angle-down'></i>
+                </a>
+               	<ul>
+                    <li><a href="#">회원정보</a></li>
+                    <li><a href="#">내활동</a></li>
+                    <li><a href="#">장바구니</a></li>
+                    <li><a href="#">위시리스트</a></li>
+                    <li><a href="${pageContext.request.contextPath}/myPage/paymentList">주문내역</a></li>
+                    <li><a href="#">친구목록</a></li>
+                    <li><a href="#">포인트/쿠폰</a></li>
+                 	</ul>
+             </li>
+			
+		</ul>
+    </div>
+</nav>
+
+<script>
+// 메뉴바 슬라이드
+$('nav li').hover(
+        function() {
+            $('ul', this).stop().slideDown(200);
+        },
+        function() {
+            $('ul', this).stop().slideUp(200);
+        }
+    );
+
 // 이미지 소스 배열
 var imageSources = [
     "${pageContext.request.contextPath}/uploads/img/dd.PNG",
@@ -262,6 +306,4 @@ function fadeOutImage(element) {
 }
 
 document.addEventListener("DOMContentLoaded", init);
-
-
 </script>
