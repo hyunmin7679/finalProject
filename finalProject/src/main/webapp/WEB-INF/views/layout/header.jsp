@@ -166,14 +166,14 @@ $(function(){
          </li>
          
          <li class='sub-menu'>
-            <a href="#">
+            <a href="${pageContext.request.contextPath}/bbs/list">
                      Community<i class='fa fa-angle-down'></i>
                 </a>
                 <ul>
-                   <li><a href="#">나눔</a></li>
-               <li><a href="#">상담</a></li>
-                    <li><a href="#">자유</a></li>
-                    <li><a href="#">산책메이트</a></li>
+                   <li><a href="${pageContext.request.contextPath}/bbs/list">나눔</a></li>
+               <li><a href="${pageContext.request.contextPath}/bbs/list">상담</a></li>
+                    <li><a href="${pageContext.request.contextPath}/bbs/list">자유</a></li>
+                    <li><a href="${pageContext.request.contextPath}/bbs/list">산책메이트</a></li>
                 </ul>
          </li>
          
