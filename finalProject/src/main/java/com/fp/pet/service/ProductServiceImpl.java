@@ -54,6 +54,20 @@ public class ProductServiceImpl implements ProductService{
 	}
 	
 	@Override
+	public Product findByProduct(long ProductNum) {
+		Product dto = null;
+		
+		try {
+			dto = mapper.findByProduct(ProductNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return dto;
+	}
+
+	@Override
 	public Product findByCategoryName(long categoryNum) {
 		Product dto = null;
 		
@@ -66,6 +80,8 @@ public class ProductServiceImpl implements ProductService{
 		return dto;
 	}
 
+
+	
 
 
 }

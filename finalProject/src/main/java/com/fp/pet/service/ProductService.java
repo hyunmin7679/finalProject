@@ -9,6 +9,7 @@ public interface ProductService {
 	public int dataCount(Map<String, Object> map);
 	public List<Product> listProduct(Map<String, Object> map);
 	
+	public Product findByProduct(long ProductNum);
 	public Product findByCategoryName(long categoryNum);
 
 }

@@ -3,7 +3,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fp.pet.mapper.ProductMapper">
 
-	<!-- 일반 상품 목록 -->
 	<select id="dataCount" parameterType="map" resultType="Integer">
 		SELECT NVL(COUNT(*), 0) FROM product
 		WHERE special=0 AND productShow=1 AND categoryNum = #{categoryNum}
@@ -17,6 +16,16 @@
 		WHERE special=0 AND productShow=1 AND p.categoryNum = #{categoryNum}
 		ORDER BY productNum DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<select id="findByProduct" parameterType="long" resultType="com.fp.pet.domain.Product">
+		SELECT p.productNum, p.categoryNum, p.special, p.productShow, categoryName, 
+		    productName, price, savedMoney, 
+			discountRate, delivery, thumbnail, p.content, p.reg_date,
+			NVL(showSpecial, -1) showSpecial, 
+			NVL(saleCount, 0) saleCount
+		FROM product p
+		JOIN productCategory c ON p.categoryNum = c.categoryNum
 	</select>
 
 	<select id="findByCategoryName" parameterType="long" resultType="com.fp.pet.domain.Product" >
