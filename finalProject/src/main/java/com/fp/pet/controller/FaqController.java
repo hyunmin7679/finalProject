@@ -84,7 +84,7 @@ public class FaqController {
 
 		List<Faq> list = service.listFaq(map);
 		for (Faq dto : list) {
-			dto.setContent(myUtil.htmlSymbols(dto.getContent()));
+			dto.setContent(myUtil.htmlSymbols(dto.getContent().replaceAll("\t", "")));
 		}
 
 		String paging = myUtil.pagingMethod(current_page, total_page, "listPage");
