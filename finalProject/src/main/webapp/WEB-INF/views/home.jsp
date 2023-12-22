@@ -100,7 +100,7 @@
 					</div>
 				</div>
 				<div class="col-md-4">
-					<div class="banner_item align-items-center" style="background-image:url(${pageContext.request.contextPath}/resources/images/상품배너4.png)">
+					<div class="banner_item align-items-center" style="background-image:url(${pageContext.request.contextPath}/resources/images/상품배너1.jpg)">
 						<div class="banner_category">
 							<a href="categories.html">snack</a>
 						</div>
