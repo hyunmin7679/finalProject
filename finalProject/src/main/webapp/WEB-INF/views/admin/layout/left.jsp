@@ -106,21 +106,10 @@
 		</a></li>
 		
 		<!-- 회원 관리 -->
-		<li class="menu-item ${left=='UserControl'? 'active open':''}"><a href="javascript:void(0);"
-			class="menu-link menu-toggle"> <i
-				class="menu-icon tf-icons bx bx-group"></i>
+		<li class="menu-item ${left=='UserControl'? 'active open':''}"><a href="${pageContext.request.contextPath}/admin/userManage/"
+			class="menu-link"> <i class='menu-icon tf-icons bx bx-group'></i>
 				<div data-i18n="UserControl">회원 관리</div>
-		</a>
-			<ul class="menu-sub">
-				<li class="menu-item ${sub=='userlist'?'active':''}"><a href="${pageContext.request.contextPath}/admin/inquiryManage/users"
-					class="menu-link">
-						<div data-i18n="userlist">회원 리스트</div>
-				</a></li>
-				<li class="menu-item ${sub=='usersinfo'?'active':''}"><a href="${pageContext.request.contextPath}/admin/inquiryManage/usersinfo"
-					class="menu-link">
-						<div data-i18n="usersinfo">회원 상세</div>
-				</a></li>
-			</ul></li>
+		</a></li>
 			
 		<!-- 일반 관리 -->
 		<li class="menu-item ${left=='csManage'? 'active':''}" ><a href="${pageContext.request.contextPath}/admin/inquiryManage/csManage"
@@ -130,7 +119,7 @@
 		
 		<!-- 아이콘 관리 -->
 		<li class="menu-item ${left=='iconControl'? 'active':''}">
-			<a href="${pageContext.request.contextPath}/admin/inquiryManage/icons"class="menu-link"> 
+			<a href="${pageContext.request.contextPath}/admin/iconManage/list"class="menu-link"> 
 				<i class='menu-icon tf-icons bx bx-face'></i>
 				<div data-i18n="icons">아이콘 관리</div>
 		</a></li>
@@ -151,7 +140,7 @@
 		
 		
 		<!-- 쿠폰 관리 -->
-		<li class="menu-item ${left=='couponManage'? 'active open':''}"><a href="${pageContext.request.contextPath}/admin/inquiryManage/couponManage"
+		<li class="menu-item ${left=='couponManage'? 'active open':''}"><a href="${pageContext.request.contextPath}/admin/couponManage/list"
             class="menu-link"> <i class='menu-icon tf-icons bx bxs-discount'></i>
                 <div data-i18n="Basic">쿠폰 관리</div>
         </a></li>

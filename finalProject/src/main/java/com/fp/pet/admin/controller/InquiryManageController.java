@@ -22,13 +22,6 @@ public class InquiryManageController {
 		return ".admin.inquiryManage.list2";
 	}
 	
-	@RequestMapping(value = "users")
-	public String users(Model model) throws Exception {
-		model.addAttribute("left","UserControl");
-		model.addAttribute("sub","userlist");
-		return ".admin.inquiryManage.users";
-	}
-	
 	@RequestMapping(value = "usersinfo")
 	public String usersinfo(Model model) throws Exception {
 		model.addAttribute("left","UserControl");
@@ -48,14 +41,6 @@ public class InquiryManageController {
 		model.addAttribute("left","adminAuthentication");
 		model.addAttribute("sub","adminAccount");
 		return ".admin.inquiryManage.adminMypage";
-	}
-	
-	
-	@RequestMapping(value = "icons")
-	public String icons(Model model) throws Exception {
-		model.addAttribute("left","iconControl");
-		model.addAttribute("sub","icons");
-		return ".admin.inquiryManage.icons";
 	}
 	
 	@RequestMapping(value = "reviewManage")
@@ -93,12 +78,7 @@ public class InquiryManageController {
         return ".admin.inquiryManage.scheduleManage";
     }
     
-    @RequestMapping(value = "couponManage")
-    public String couponManage(Model model) throws Exception {
-        model.addAttribute("left","couponManage");
-        model.addAttribute("sub","couponManage");
-        return ".admin.inquiryManage.couponManage";
-    }
+ 
 
     @RequestMapping(value = "dpManage")
     public String dpManage(Model model) throws Exception {
