@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fp.pet.admin.mapper.UserManageMapper">
+	
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*),0) FROM member1
+	</select>
+	
+	<select id="userCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*),0) FROM member
+	</select>
+	
+	<select id="todayregcount" parameterType="map" resultType="Integer">
+		select nvl(count(*), 0) from member1 where to_char(to_date(register_date,'yy-mm-dd')) = to_char(to_date(sysdate,'YY-MM-DD'))
+	</select>
+	
+	<select id="yesterdayregcount" parameterType="map" resultType="Integer">
+		select nvl(count(*), 0) from member1 where to_char(to_date(register_date,'yy-mm-dd')) = to_char(to_date(sysdate,'YY-MM-DD')-1)
+	</select>
+	
+	<select id="activeuserCount" parameterType="map" resultType="Integer">
+		SELECT SUM(daily_count) AS total_count
+FROM(
+    select nvl(count(*), 0)as daily_count from member1 where to_char(to_date(last_login,'yy-mm-dd')) = to_char(to_date(sysdate,'YY-MM-DD'))
+    union all
+    select nvl(count(*), 0)as daily_count from member1 where to_char(to_date(last_login,'yy-mm-dd')) = to_char(to_date(sysdate,'YY-MM-DD')-1)
+        union all
+    select nvl(count(*), 0)as daily_count from member1 where to_char(to_date(last_login,'yy-mm-dd')) = to_char(to_date(sysdate,'YY-MM-DD')-2)
+        union all
+    select nvl(count(*), 0)as daily_count from member1 where to_char(to_date(last_login,'yy-mm-dd')) = to_char(to_date(sysdate,'YY-MM-DD')-3)
+        union all
+    select nvl(count(*), 0)as daily_count from member1 where to_char(to_date(last_login,'yy-mm-dd')) = to_char(to_date(sysdate,'YY-MM-DD')-4)
+        union all
+    select nvl(count(*), 0)as daily_count from member1 where to_char(to_date(last_login,'yy-mm-dd')) = to_char(to_date(sysdate,'YY-MM-DD')-5)
+        union all
+    select nvl(count(*), 0)as daily_count from member1 where to_char(to_date(last_login,'yy-mm-dd')) = to_char(to_date(sysdate,'YY-MM-DD')-6))
+    subquery
+	</select>
+	<select id="activeuserCountlastweek" parameterType="map" resultType="Integer">
+	SELECT SUM(daily_count) AS total_count
+	FROM(
+    select nvl(count(*), 0)as daily_count from member1 where to_char(to_date(last_login,'yy-mm-dd')) = to_char(to_date(sysdate,'YY-MM-DD')-7)
+    union all
+    select nvl(count(*), 0)as daily_count from member1 where to_char(to_date(last_login,'yy-mm-dd')) = to_char(to_date(sysdate,'YY-MM-DD')-8)
+        union all
+    select nvl(count(*), 0)as daily_count from member1 where to_char(to_date(last_login,'yy-mm-dd')) = to_char(to_date(sysdate,'YY-MM-DD')-9)
+        union all
+    select nvl(count(*), 0)as daily_count from member1 where to_char(to_date(last_login,'yy-mm-dd')) = to_char(to_date(sysdate,'YY-MM-DD')-10)
+        union all
+    select nvl(count(*), 0)as daily_count from member1 where to_char(to_date(last_login,'yy-mm-dd')) = to_char(to_date(sysdate,'YY-MM-DD')-11)
+        union all
+    select nvl(count(*), 0)as daily_count from member1 where to_char(to_date(last_login,'yy-mm-dd')) = to_char(to_date(sysdate,'YY-MM-DD')-12)
+        union all
+    select nvl(count(*), 0)as daily_count from member1 where to_char(to_date(last_login,'yy-mm-dd')) = to_char(to_date(sysdate,'YY-MM-DD')-13))
+    subquery
+	</select>
+	
+	<select id="purchaseuserCount" parameterType="map" resultType="Integer">
+	SELECT SUM(daily_purchase) AS total_count
+FROM(
+select nvl(count(distinct memberIdx),0 ) as daily_purchase from productOrder where to_char(to_date(orderdate,'yy-mm-dd')) = to_char(to_date(sysdate,'YY-MM-DD'))
+union all
+select nvl(count(distinct memberIdx),0 ) as daily_purchase from productOrder where to_char(to_date(orderdate,'yy-mm-dd')) = to_char(to_date(sysdate,'YY-MM-DD')-1)
+union all
+select nvl(count(distinct memberIdx),0 ) as daily_purchase from productOrder where to_char(to_date(orderdate,'yy-mm-dd')) = to_char(to_date(sysdate,'YY-MM-DD')-2)
+union all
+select nvl(count(distinct memberIdx),0 ) as daily_purchase from productOrder where to_char(to_date(orderdate,'yy-mm-dd')) = to_char(to_date(sysdate,'YY-MM-DD')-3)
+union all
+select nvl(count(distinct memberIdx),0 ) as daily_purchase from productOrder where to_char(to_date(orderdate,'yy-mm-dd')) = to_char(to_date(sysdate,'YY-MM-DD')-4)
+union all
+select nvl(count(distinct memberIdx),0 ) as daily_purchase from productOrder where to_char(to_date(orderdate,'yy-mm-dd')) = to_char(to_date(sysdate,'YY-MM-DD')-5)
+union all
+select nvl(count(distinct memberIdx),0 ) as daily_purchase from productOrder where to_char(to_date(orderdate,'yy-mm-dd')) = to_char(to_date(sysdate,'YY-MM-DD')-6))
+subquery
+	</select>
+	
+	<select id="purchaseuserCountweekbefore" parameterType="map" resultType="Integer">
+SELECT SUM(daily_purchase) AS total_count
+FROM(
+select nvl(count(distinct memberIdx),0 ) as daily_purchase from productOrder where to_char(to_date(orderdate,'yy-mm-dd')) = to_char(to_date(sysdate,'YY-MM-DD')-7)
+union all
+select nvl(count(distinct memberIdx),0 ) as daily_purchase from productOrder where to_char(to_date(orderdate,'yy-mm-dd')) = to_char(to_date(sysdate,'YY-MM-DD')-8)
+union all
+select nvl(count(distinct memberIdx),0 ) as daily_purchase from productOrder where to_char(to_date(orderdate,'yy-mm-dd')) = to_char(to_date(sysdate,'YY-MM-DD')-9)
+union all
+select nvl(count(distinct memberIdx),0 ) as daily_purchase from productOrder where to_char(to_date(orderdate,'yy-mm-dd')) = to_char(to_date(sysdate,'YY-MM-DD')-10)
+union all
+select nvl(count(distinct memberIdx),0 ) as daily_purchase from productOrder where to_char(to_date(orderdate,'yy-mm-dd')) = to_char(to_date(sysdate,'YY-MM-DD')-11)
+union all
+select nvl(count(distinct memberIdx),0 ) as daily_purchase from productOrder where to_char(to_date(orderdate,'yy-mm-dd')) = to_char(to_date(sysdate,'YY-MM-DD')-12)
+union all
+select nvl(count(distinct memberIdx),0 ) as daily_purchase from productOrder where to_char(to_date(orderdate,'yy-mm-dd')) = to_char(to_date(sysdate,'YY-MM-DD')-13))
+subquery	
+	</select>
+	
+	<select id="deactiveuserCount" parameterType="map" resultType="Integer">
+		select count(*) from member1 where enabled=0
+	</select>
+	
+	<select id="purchaseUserCount" parameterType="map" resultType="Integer">
+		select count(distinct memberIdx) from productOrder
+	</select>
+	
+	
+	
+	<sql id="where-list">
+		<choose>
+			<when test="schType == 'all' ">
+			   membership >=1 
+			</when>
+			<when test="schType == 'admin' ">
+			   membership >=31 
+			</when>
+			<when test="schType == 'active'">
+			    enabled=1
+			</when>
+			<otherwise>
+			   enabled=0
+			</otherwise>
+		</choose>
+	</sql>
+	
+	
+	<select id="listUser" parameterType="map" resultType="com.fp.pet.domain.Member">
+		select m.memberIdx, m.membership, n.userId, n.userName, nvl(sum(p.payment),0) totalPayment, count(*) ordercount,  
+		n.enabled, case when n.enabled=0 then '휴면'
+						when n.enabled=1 then '활동' 
+						end as enabledstate, 
+		n.register_date, n.userPoint, o.email, o.tel, o.zip, 
+		o.addr1, o.addr2, to_date(sysdate,'yy-mm-dd')-to_date(n.register_date,'yy-mm-dd') regdays
+						from member m 
+						join member1 n on m.memberIdx=n.memberIdx  
+						join member2 o on n.userId=o.userId
+						join productOrder p on m.memberIdx=p.memberIdx 
+			<if test="kwd != null and kwd != ''">
+				WHERE INSTR(n.userName, #{kwd}) &gt; 0
+			</if>
+		GROUP BY m.memberIdx, m.membership, n.userId, n.userName, n.enabled, n.register_date,
+		 n.userPoint,  o.email, o.tel,o.zip, o.addr1, o.addr2
+		<choose>
+			<when test="orders==1">ORDER BY regdays</when>
+			<when test="orders==2">ORDER BY regdays DESC</when>
+			<when test="orders==3">ORDER BY totalPayment</when>
+			<when test="orders==4">ORDER BY totalPayment DESC</when>
+			<when test="orders==5">ORDER BY enabled DESC</when>
+			<when test="orders==6">ORDER BY enabled</when>
+			<otherwise>ORDER BY n.userName</otherwise>
+		</choose>
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<select id="listUserinfo" parameterType="map" resultType="com.fp.pet.domain.Member">
+		select m.memberIdx, m.membership, nvl(sum(p.payment),0) totalPayment,
+				case when m.membership=1 then '일반회원'
+				when m.membership=31 then '사원' 
+				when m.membership=51 then '임원' 
+				when m.membership=99 then '최고관리자'
+				end as memberstate, 
+		n.userId, n.userName, n.enabled, 
+				case when n.enabled=0 then '휴면'
+				when n.enabled=1 then '활동' 
+				end as enabledstate, 
+		n.register_date, n.userPoint, o.email, o.tel, 
+		o.zip, o.addr1, o.addr2, to_date(sysdate,'yy-mm-dd')-to_date(n.register_date,'yy-mm-dd') regdays
+				from member m 
+				join member1 n on m.memberIdx=n.memberidx  
+				join member2 o on n.userId=o.userId 
+				join productOrder p on m.memberIdx=p.memberIdx 
+				where m.memberIdx=#{memberIdx}
+				GROUP BY m.memberIdx, m.membership, n.userId, n.userName, n.enabled, n.register_date,
+		 n.userPoint,  o.email, o.tel,o.zip, o.addr1, o.addr2
+	</select>
+	
+	<select id="catanaly">
+		select 
+	
+	</select>
+	
+	<select id="purchaselist">
+	
+	</select>
+	
+	<update id="sancUser">
+	update member1 set 
+	enabled=0, sancNum=#{sancNum}, sancMemo=#{sancMemo} 
+	where memberIdx=#{memberIdx}
+	</update>
+
+	
+</mapper>

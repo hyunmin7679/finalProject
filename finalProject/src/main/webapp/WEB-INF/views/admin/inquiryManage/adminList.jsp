@@ -19,16 +19,6 @@
 <div class="card">
   <div class="card-header border-bottom">
     <h5 class="card-title">계정 분류</h5>
-    <div class="d-flex justify-content-between align-items-center row py-3 gap-3 gap-md-0">
-      <div class="col-md-4 user_role">
-      	<select id="UserRole" class="form-select text-capitalize">
-      		<option value="">ALL</option>
-      		<option value="Admin">임원</option>
-      		<option value="worker">직원</option>
-      		<option value="Author">퇴사자</option>
-      	</select>
-      </div>
-    </div>
   </div>
   <div class="card-datatable" >
     <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">

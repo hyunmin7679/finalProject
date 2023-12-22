@@ -20,8 +20,58 @@ public class Member {
 	private String zip;
 	private String addr1;
 	private String addr2;
-	private int enabled;
+	private int enabled;	
+	private String memberstate;
+	private int userPoint;
+	private int sancNum;
+	private String sancMemo;
+	private int totalPayment;
+	private int ordercount;
 	
+	public int getOrdercount() {
+		return ordercount;
+	}
+	public void setOrdercount(int ordercount) {
+		this.ordercount = ordercount;
+	}
+	public int getTotalPayment() {
+		return totalPayment;
+	}
+	public void setTotalPayment(int totalPayment) {
+		this.totalPayment = totalPayment;
+	}
+	public int getSancNum() {
+		return sancNum;
+	}
+	public void setSancNum(int sancNum) {
+		this.sancNum = sancNum;
+	}
+	public String getSancMemo() {
+		return sancMemo;
+	}
+	public void setSancMemo(String sancMemo) {
+		this.sancMemo = sancMemo;
+	}
+	public int getUserPoint() {
+		return userPoint;
+	}
+	public void setUserPoint(int userPoint) {
+		this.userPoint = userPoint;
+	}
+	public String getMemberstate() {
+		return memberstate;
+	}
+	public void setMemberstate(String memberstate) {
+		this.memberstate = memberstate;
+	}
+	private String enabledstate;
+	public String getEnabledstate() {
+		return enabledstate;
+	}
+	public void setEnabledstate(String enabledstate) {
+		this.enabledstate = enabledstate;
+	}
+	private int regdays;
 	private String authority;
 	private long num;
 	private int stateCode;
@@ -147,6 +197,12 @@ public class Member {
 	}
 	public void setEnabled(int enabled) {
 		this.enabled = enabled;
+	}
+	public int getRegdays() {
+		return regdays;
+	}
+	public void setRegdays(int regdays) {
+		this.regdays = regdays;
 	}
 	public String getAuthority() {
 		return authority;
