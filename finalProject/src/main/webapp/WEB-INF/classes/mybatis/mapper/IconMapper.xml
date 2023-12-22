@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fp.pet.admin.mapper.IconMapper">
+	<sql id="where-list">
+		<if test="schType== 'all' ">
+			INSTR(iconName, #{kwd}) &gt; 0
+		</if>
+	</sql>
+	
+	<insert id="insertIcon" parameterType="com.fp.pet.admin.domain.Icon">
+		insert into icon(iconNum,iconName,iconImage,iconPrice,iconCategory)
+		values (icon_seq.NEXTVAL,#{iconName},#{iconImage},#{iconPrice},#{iconCategory})
+	</insert>
+	
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0) from icon
+		<where>
+			<if test="kwd != null and kwd!=''  ">
+				<include refid="where-list"/>
+			</if>
+			<if test="schType=='dog'">
+				AND iconCategory = 1 AND INSTR(iconName, #{kwd}) &gt; 0
+			</if>
+			<if test="schType=='cat'">
+				AND iconCategory = 2 AND INSTR(iconName, #{kwd}) &gt; 0
+			</if>
+			<if test="schType=='etc'">
+				AND iconCategory = 3 AND INSTR(iconName, #{kwd}) &gt; 0
+			</if>
+		</where>
+	</select>
+	<select id="listIcon" parameterType="map" resultType="com.fp.pet.admin.domain.Icon">
+		select 
+		iconNum,iconName,iconImage,iconPrice,iconCategory 
+		from icon
+		<where>
+			<if test="kwd != null and kwd!=''  ">
+				<include refid="where-list"/>
+			</if>
+			<if test="schType=='dog'">
+				AND iconCategory = 1 AND INSTR(iconName, #{kwd}) &gt; 0
+			</if>
+			<if test="schType=='cat'"> 
+				AND iconCategory = 2 AND INSTR(iconName, #{kwd}) &gt; 0
+			</if>
+			<if test="schType=='etc'">
+				AND iconCategory = 3 AND INSTR(iconName, #{kwd}) &gt; 0
+			</if>
+		</where>
+		ORDER BY iconNum DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<delete id="deleteIcon" parameterType="Long">
+		delete from icon where iconNum = #{iconNum}
+	</delete>
+	
+</mapper>

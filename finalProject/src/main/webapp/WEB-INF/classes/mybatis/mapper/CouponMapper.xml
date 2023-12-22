@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fp.pet.admin.mapper.CouponMapper">
+
+	<sql id="where-list">
+		<if test="category== 'open' ">
+			TRUNC(startCouponDate) &lt;= TRUNC(SYSDATE)
+		</if>
+		<if test="category== 'end' ">
+			TRUNC(endCouponDate) &lt; TRUNC(SYSDATE)
+		</if>
+	</sql>
+
+	<insert id="insertCoupon" parameterType="com.fp.pet.admin.domain.Coupon">
+		insert into coupon
+		(couponNum,categoryNum,couponCode,couponName,couponDiscount,startCouponDate,endCouponDate)
+		values 
+		(coupon_seq.NEXTVAL,#{categoryNum},#{couponCode},#{couponName},#{couponDiscount},TO_DATE(#{startCouponDate}, 'YYYY-MM-DD HH24:MI:SS'), TO_DATE(#{endCouponDate}, 'YYYY-MM-DD HH24:MI:SS'))
+	</insert>
+	
+	<select id="dataCount" parameterType="map" resultType="Integer" >
+		SELECT NVL(COUNT(*), 0) from coupon
+		<where>
+			<include refid="where-list"/>
+			
+			
+			<if test="kwd != null and kwd!=''  ">
+				<if test="schType=='couponCode'">
+					AND INSTR(couponCode, #{kwd}) &gt; 0
+				</if>
+				
+				<if test="schType=='couponName'">
+					AND INSTR(couponName, #{kwd}) &gt; 0
+				</if>
+				
+				<if test="schType=='categoryNum'">
+					AND INSTR(categoryNum, #{kwd}) &gt; 0
+				</if>
+			</if>
+		</where>
+		
+	</select>
+
+	<select id="listCoupon" parameterType="map"
+		resultType="com.fp.pet.admin.domain.Coupon">
+		SELECT
+		c.couponNum,c.categoryNum,c.couponCode,c.couponName,c.couponDiscount,c.couponState,
+		TRUNC(c.startCouponDate) AS startCouponDate, TRUNC(c.endCouponDate) AS endCouponDate,
+		COUNT(DISTINCT mc.memberIdx) AS issuedCoupon,
+		COUNT(CASE WHEN mc.use = 1 THEN 1 END) AS useCoupon
+		FROM
+		coupon c
+		LEFT JOIN
+		memberCoupon mc ON c.couponNum = mc.couponNum
+		<where>
+			<include refid="where-list" />
+
+			<if test="kwd != null and kwd!=''  ">
+				<if test="schType=='couponCode'">
+					AND INSTR(c.couponCode, #{kwd}) &gt; 0
+				</if>
+
+				<if test="schType=='couponName'">
+					AND INSTR(c.couponName, #{kwd}) &gt; 0
+				</if>
+
+				<if test="schType=='categoryNum'">
+					AND INSTR(c.categoryNum, #{kwd}) &gt; 0
+				</if>
+			</if>
+		</where>
+		GROUP BY
+		c.couponNum, c.categoryNum, c.couponCode, c.couponName, c.couponDiscount,
+		c.startCouponDate, c.endCouponDate, c.couponState
+		order by c.startCouponDate
+	</select>
+	
+	<select id="couponDetail" parameterType="Long" resultType="com.fp.pet.admin.domain.Coupon">
+		select categoryNum, sort, categoryName from productCategory where sort = #{sort}
+	</select>
+	
+	<delete id="deleteCoupon" parameterType="Long">
+		delete from coupon where couponNum = #{couponNum}
+	</delete>
+	
+	
+</mapper>
