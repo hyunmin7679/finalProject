@@ -133,4 +133,5 @@
 	<update id="updateAuthority" parameterType="com.fp.pet.domain.Member">
 		UPDATE memberAuthority SET authority = #{authority} WHERE userId = #{userId}
 	</update>
+	
 </mapper>
