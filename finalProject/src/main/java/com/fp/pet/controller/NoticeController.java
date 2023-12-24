@@ -37,7 +37,7 @@ public class NoticeController {
 	@Autowired
 	private FileManager fileManager;
 
-	@GetMapping(value = "list")
+	@RequestMapping(value = "list")
 	public String main(@RequestParam(value = "page", defaultValue = "1") int current_page,
 			@RequestParam(defaultValue = "all") String schType,
 			@RequestParam(defaultValue = "") String kwd,
@@ -131,6 +131,34 @@ public class NoticeController {
 	}
 	
 
+	@GetMapping("download")
+	public String download(@RequestParam long fileNum,
+			HttpServletResponse resp,
+			HttpSession session) throws Exception {
+		String root = session.getServletContext().getRealPath("/");
+		String pathname = root + "uploads" + File.separator + "notice";
+
+		boolean b = false;
+
+		Notice dto = service.findByFileId(fileNum);
+		if (dto != null) {
+			String saveFilename = dto.getSaveFilename();
+			String originalFilename = dto.getOriginalFilename();
+
+			b = fileManager.doFileDownload(saveFilename, originalFilename, pathname, resp);
+		}
+
+		if (! b) {
+			return ".error.filedownloadFailure";
+		}
+		
+		// void 반환 유형(또는 null 반환 값)이 있는 메소드는 
+		//    ServletResponse, OutputStream 인수 또는 @ResponseStatus 주석
+		//    도 있는 경우 응답을 완전히 처리한 것으로 간주
+		return null;
+	}
+
+
 	@GetMapping("zipdownload")
 	public String zipdownload(@RequestParam long num,
 			HttpServletResponse resp,
@@ -161,4 +189,50 @@ public class NoticeController {
 		return null;
 	}
 	
+
+	@GetMapping("article")
+	public String article(@RequestParam long num,
+			@RequestParam String page,
+			@RequestParam(defaultValue = "all") String schType,
+			@RequestParam(defaultValue = "") String kwd,
+			Model model) throws Exception {
+
+		kwd = URLDecoder.decode(kwd, "utf-8");
+
+		String query = "page=" + page;
+		if (kwd.length() != 0) {
+			query += "&schType=" + schType + "&kwd=" + URLEncoder.encode(kwd, "UTF-8");
+		}
+
+		service.updateHitCount(num);
+
+		Notice dto = service.findById(num);
+		if (dto == null) {
+			return "redirect:/notice/list?" + query;
+		}
+
+		// 스마트 에디터를 사용하므로
+		dto.setContent(dto.getContent().replaceAll("\n", "<br>"));
+
+		// 이전 글, 다음 글
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("schType", schType);
+		map.put("kwd", kwd);
+		map.put("num", num);
+
+		Notice prevDto = service.findByPrev(map);
+		Notice nextDto = service.findByNext(map);
+
+		// 파일
+		List<Notice> listFile = service.listNoticeFile(num);
+
+		model.addAttribute("dto", dto);
+		model.addAttribute("prevDto", prevDto);
+		model.addAttribute("nextDto", nextDto);
+		model.addAttribute("listFile", listFile);
+		model.addAttribute("page", page);
+		model.addAttribute("query", query);
+
+		return ".notice.article";
+	}
 }
