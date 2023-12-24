@@ -7,6 +7,7 @@
 	max-width: 800px;
 }
 
+
 .table-article img { max-width: 650px; }
 </style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/boot-board.css" type="text/css">
