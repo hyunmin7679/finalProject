@@ -10,7 +10,7 @@
 header .navbar.navbar-scrolled { top: 0; padding: 15px; }
 header .navbar { padding: 5px 0; top: 37px; z-index: 997;  background: #fff; }
 header .header-top{ background: #fff; }
-li{ padding-left: 5px; padding-right: 5px; z-index: 9999;}
+li{ padding-left: 5px; padding-right: 5px; z-index: 996;}
 
 
 nav {background: #003166;}
