@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fp.pet.mapper.QnaMapper">
+	<insert id="insertQna" parameterType="com.fp.pet.domain.Qna">
+		INSERT INTO productQna(num, productNum, memberIdx, secret, q_subject, question, question_date, showQuestion)
+			VALUES (productQna_seq.NEXTVAL,#{productNum},#{memberIdx},#{secret},#{q_subject}, #{question}, SYSDATE, 1)
+	</insert>
+
+	<sql id="where-list">
+		<if test="schType=='all' ">
+			( INSTR(q_subject, #{kwd}) &gt; 0 
+				OR INSTR(productName, #{kwd}) &gt; 0 )
+		</if>
+		<if test="schType=='userName'">
+			userName=#{kwd}
+		</if>
+		<if test="schType=='productName'">
+			INSTR(productName, #{kwd}) &gt; 0 
+		</if>
+		
+		<if test="schType=='question_date'">
+			( TO_CHAR(q.question_date, 'YYYY-MM-DD') = #{kwd}
+				OR TO_CHAR(q.question_date, 'YYYYMMDD') = #{kwd} )
+		</if>
+	</sql>
+	
+	<sql id="where-list2">
+		<if test="schType=='all' ">
+			productNum = #{kwd}
+			OR INSTR(productName, #{kwd}) &gt; 0 )
+		</if>
+		
+		<if test="schType=='productName'">
+			INSTR(productName, #{kwd}) &gt; 0 
+		</if>
+	</sql>
+
+	<!-- 글개수 -->
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM productQna q
+		JOIN member1 m ON q.memberIdx=m.memberIdx
+		LEFT OUTER JOIN product p ON q.productNum=p.productNum
+		<where>
+			showQuestion = 1
+			<if test="kwd!=null and kwd!='' ">
+				AND <include refid="where-list"/>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 상품선택 시 상품개수 -->
+	<select id="dataCount2" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM product p
+		<where>
+			<if test="kwd!=null and kwd!='' ">
+				<include refid="where-list2"/>
+			</if>
+		</where>
+	</select>
+
+	<!-- 글리스트 -->
+    <select id="listQna" parameterType="map" resultType="com.fp.pet.domain.Qna">
+		SELECT num, q.productNum, p.productName, thumbnail, q.memberIdx, userName, q_subject,
+			   TO_CHAR(question_date, 'YYYY-MM-DD') question_date, answer_date
+		FROM productQna q
+		JOIN member1 m ON q.memberIdx=m.memberIdx
+		LEFT OUTER JOIN product p ON q.productNum=p.productNum
+		<where>
+			showQuestion = 1
+			<if test="kwd!=null and kwd!='' ">
+				AND <include refid="where-list"/>
+			</if>
+		</where>   
+		ORDER BY num DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	
+	<!-- 상품검색 리스트 --> 
+	<select id="listProduct" parameterType="map" resultType="com.fp.pet.domain.Qna">
+		SELECT productNum, productName, thumbnail 
+		FROM product
+		<where>
+			<if test="kwd!=null and kwd!='' ">
+				AND <include refid="where-list2"/>
+			</if>
+		</where>   
+		ORDER BY productNum DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+    
+	<!-- 글보기 -->
+	<select id="findById" resultType="com.fp.pet.domain.Qna" parameterType="Long">
+		SELECT num, q.memberIdx, m.userName, q_subject, question, 
+				question_date, answerId, a.userName answerName, answer, answer_date
+		FROM productQna q
+		JOIN member1 m ON q.memberIdx=m.memberIdx
+		LEFT OUTER JOIN member1 a ON q.answerId = a.userId
+		WHERE num = #{num}
+	</select>
+
+	<!-- 삭제 -->
+	<delete id="deleteQna" parameterType="Long">
+		DELETE FROM productQna WHERE num = #{num}
+	</delete>
+</mapper>

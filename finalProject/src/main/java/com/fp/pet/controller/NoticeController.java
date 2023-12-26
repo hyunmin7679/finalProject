@@ -189,7 +189,6 @@ public class NoticeController {
 		return null;
 	}
 	
-
 	@GetMapping("article")
 	public String article(@RequestParam long num,
 			@RequestParam String page,
