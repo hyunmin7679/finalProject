@@ -193,7 +193,7 @@ $(function(){
             <ul>
                <li><a href="${pageContext.request.contextPath}/faq/main">FAQ</a></li>
                     <li><a href="${pageContext.request.contextPath}/notice/list">공지사항</a></li>
-                    <li><a href="#">문의사항</a></li>
+                    <li><a href="${pageContext.request.contextPath}/qna/list">문의사항</a></li>
 
             </ul>
          </li>
