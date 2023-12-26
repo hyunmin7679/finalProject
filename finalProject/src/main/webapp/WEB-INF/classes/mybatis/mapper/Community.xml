@@ -7,22 +7,26 @@
 	<insert id="insertCommunity" parameterType="com.fp.pet.domain.Community">
 		INSERT INTO community(communityNum, categoryNum, userId, subject, content, park,
 									 reg_date, showNo, hitCount)
-			VALUES (community_seq.NEXTVAL, #{categoryNum}, #{userId}, #{subject}, #{content}, #{park, jdbcType=VARCHAR}, SYSDATE, 1, 0 )
+			VALUES (community_seq.NEXTVAL, #{categoryNum}, #{userId}, #{subject}, #{content}, #{park, jdbcType=VARCHAR}, SYSDATE, 1, 0)
 	</insert>
 	
 	<!-- 커뮤니티 파일등록 -->
 	<insert id="insertCommunityFile" parameterType="com.fp.pet.domain.Community">
-		INSERT INTO communityFile(fileNum, num, filename)
+		INSERT INTO communityFile(fileNum, communityNum, filename)
 			VALUES(communityFile_seq.NEXTVAL, community_seq.CURRVAL, #{filename})
 	</insert>
 	
-	<!-- 카테고리 리스트 
+	<!-- 카테고리 리스트 -->
 	<select id="listCategory" parameterType="map" resultType="com.fp.pet.domain.Community">
 		SELECT categoryNum, categoryName, use, showNo 
 		FROM communityCategory
-		WHERE use = 1 
-		AND showNo = 1 
-	</select> -->
+		 <where>
+         <if test="mode=='use'">
+            use = 1
+         </if>
+      </where>
+		ORDER BY categoryNum
+	</select> 
 	
 	<!-- 검색조건 -->
 	<sql id="where-list">
@@ -62,28 +66,30 @@
 	<!-- 커뮤니티 리스트 -->
 	<select id="listCommunity" parameterType="map" resultType="com.fp.pet.domain.Community">
     SELECT c.communityNum, c.categoryNum, c.userId, m.userName, 
-			   subject, content, NVL(park, ' ') park, cg.categoryName, hitCount, TO_CHAR(reg_date, 'YYYY-MM-DD') reg_date,
+			   subject, content, NVL(park, ' ') park, cg.categoryName, cg.categoryNum, hitCount, TO_CHAR(reg_date, 'YYYY-MM-DD') reg_date,
 			   NVL(replyCount, 0) replyCount 
 		FROM community c
 		JOIN member1 m ON c.userId = m.userId
 		JOIN communityCategory cg ON cg.categoryNum = c.categoryNum
 		LEFT OUTER JOIN (
-			SELECT num, LISTAGG(filename, ',') WITHIN GROUP(ORDER BY fileNum) filename
+			SELECT communityNum, LISTAGG(filename, ',') WITHIN GROUP(ORDER BY fileNum) filename
             FROM communityFile
-            GROUP BY num	
-		) f ON c.communityNum = f.num 
+            GROUP BY communityNum	
+		) f ON c.communityNum = f.communityNum 
 		LEFT OUTER JOIN (
 			SELECT communityNum, COUNT(*) replyCount FROM communityReply
 			WHERE answer = 0 AND showReply=1
 			GROUP BY communityNum
 		) r ON r.communityNum = c.communityNum
 		<where>
-			<if test="kwd != null and kwd != ''">
-				<include refid="where-list"/>
-			</if>
-		</where> 
-		AND cg.use = 1 
-		AND c.showNo = 1 
+         <if test="categoryNum!=0">
+            ( c.categoryNum = #{categoryNum} )
+         </if>
+         <if test="kwd!=null and kwd!='' ">
+            AND <include refid="where-list"/>
+         </if>
+         AND cg.use = 1
+      </where>
 		ORDER BY communityNum DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
@@ -91,15 +97,10 @@
 	<!-- 글보기 -->
 	<select id="findById" parameterType="Long" resultType="com.fp.pet.domain.Community">
 		SELECT c.communityNum, c.categoryNum, c.userId, m.userName, subject, content, NVL(park, ' ') park, 
-		       cg.categoryName, TO_CHAR(reg_date, 'YYYY-MM-DD') reg_date, fileName
+		       cg.categoryName, TO_CHAR(reg_date, 'YYYY-MM-DD') reg_date 
 		FROM community c   
 		JOIN member1 m ON c.userId = m.userId    
 		JOIN communityCategory cg ON cg.categoryNum = c.categoryNum
-		LEFT OUTER JOIN (
-			SELECT num, LISTAGG(filename, ',') WITHIN GROUP(ORDER BY fileNum) filename
-            FROM communityFile
-            GROUP BY num	
-		) f ON c.communityNum = f.num 
 		WHERE c.communityNum = #{communityNum}
 	</select>
 	
@@ -145,21 +146,27 @@
 	</update>
 
 	<update id="updateCommunityFile" parameterType="com.fp.pet.domain.Community">
-		UPDATE communityFile SET filename
-		WHERE num = #{communityNum}		
+		UPDATE communityFile SET filename = #{filename}
+		WHERE communityNum = #{communityNum}		
 	</update>
 	
 	<!-- 커뮤니티 파일리스트 -->
-	<select id="listCommunityFile" parameterType="Long" resultType="com.fp.pet.domain.Community">
-		SELECT fileNum, num, filename
+	<select id="findByFileId" parameterType="Long" resultType="com.fp.pet.domain.Community">
+		SELECT fileNum, communityNum, filename
 		FROM communityFile
 		WHERE fileNum = #{fileNum}
 	</select>
 	
+	<select id="listCommunityFile" parameterType="Long" resultType="com.fp.pet.domain.Community">
+		SELECT fileNum, communityNum, filename
+		FROM communityFile
+		WHERE communityNum = #{communityNum}
+	</select>
+	
 	<!-- 커뮤니티 삭제 -->
-	<delete id="deleteCommunityFile" parameterType="Long" >
+	<delete id="deleteCommunityFile" parameterType="map" >
 		DELETE FROM communityFile
-		WHERE num = #{communityNum}
+		WHERE communityNum = #{communityNum}
 	</delete>
 	
 	<delete id="deleteCommunity" parameterType="Long">
@@ -187,6 +194,81 @@
 		SELECT communityNum, userId FROM communityLike WHERE communityNum = #{communityNum} AND userId = #{userId}
 	</select>
 	
+	<!-- 댓글 -->
+	<insert id="insertReply" parameterType="com.fp.pet.domain.Reply">
+		INSERT INTO communityReply(replyNum, communityNum, userId, content, answer, showReply, reg_date)
+		VALUES (communityReply_seq.NEXTVAL, #{communityNum}, #{userId}, #{content}, #{answer}, 1, SYSDATE)
+	</insert>
 	
+	<!-- 댓글개수 -->	
+	<select id="replyCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM communityReply
+		WHERE communityNum = #{communityNum} 
+		AND answer=0
+		<if test="membership lt 51">
+			AND ( showReply=1 OR ( showReply=0 AND userId=#{userId} ) )
+		</if>
+	</select>
+	
+	<!-- 댓글리스트 -->
+	<select id="listReply" parameterType="map" resultType="com.fp.pet.domain.Reply">
+    	SELECT r.replyNum, r.userId, userName, communityNum, content, r.reg_date, NVL(showReply, 1) showReply, 
+			   NVL(answerCount, 0) answerCount
+		FROM communityReply r
+		JOIN member1 m ON r.userId = m.userId
+		LEFT OUTER JOIN (
+			SELECT answer, COUNT(*) answerCount
+			FROM communityReply
+			WHERE answer!=0
+			<if test="membership lt 51">
+				AND ( showReply=1 OR ( showReply=0 AND userId=#{userId} ) )
+			</if>
+			GROUP BY answer
+		) a ON r.replyNum = a.answer
+		WHERE communityNum= #{communityNum} AND r.answer=0
+		<if test="membership lt 51">
+				AND ( showReply=1 OR ( showReply=0 AND userId=#{userId} ) )
+		</if>
+		ORDER BY r.replyNum DESC
+	</select>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="deleteReply" parameterType="map">
+		DELETE FROM communityReply
+		WHERE replyNum = #{replyNum}
+		<if test="mode=='reply'">
+			OR answer = #{replyNum}
+		</if>
+	</delete>
+	
+	<!-- 댓글의 답글 리스트 -->
+	<select id="listReplyAnswer" parameterType="map" resultType="com.fp.pet.domain.Reply">
+		SELECT replyNum, communityNum, r.userId, userName, content, 
+		       reg_date, answer, NVL(showReply, 1) showReply
+		FROM communityReply r
+		JOIN member1 m ON r.userId = m.userId
+		WHERE answer = #{answer}
+		<if test="membership lt 51">
+			AND ( showReply=1 OR ( showReply=0 AND r.userId=#{userId} ) )
+		</if>
+		ORDER BY replyNum DESC
+	</select>
+	
+		<!-- 댓글의 답글 개수 -->
+	<select id="replyAnswerCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM communityReply
+		WHERE answer = #{answer}
+		<if test="membership lt 51">
+			AND ( showReply=1 OR ( showReply=0 AND userId=#{userId} ) )
+		</if>
+	</select>
+	
+	<!-- 댓글 보이기/숨기기 -->
+	<update id="updateReplyShowHide" parameterType="map">
+		UPDATE communityReply SET showReply = #{showReply}
+		WHERE replyNum = #{replyNum} AND userId = #{userId}
+	</update>
 
 </mapper>

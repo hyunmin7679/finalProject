@@ -4,6 +4,7 @@ public class Reply {
 	private long replyNum;
 	private long communityNum;
 	private String userId;
+	private String userName;
 	private String content;
 	private String reg_date;
 	private long answer;
@@ -14,6 +15,12 @@ public class Reply {
 	private int disLikeCount;
 	
 	
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 	public long getReplyNum() {
 		return replyNum;
 	}

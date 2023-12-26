@@ -17,13 +17,15 @@ public interface CommunityMapper {
 	public void updateCommunity(Community dto) throws SQLException;
 	public void updateCommunityFile(Community dto) throws SQLException;
 	public void deleteCommunity(long communityNum) throws SQLException;
-	public void deleteCommunityFile(long num) throws SQLException;
+	public void deleteCommunityFile(Map<String, Object> map) throws SQLException;
 	
 	// 리스트
 	public List<Community> listCategory(Map<String, Object>map);
 	public int dataCount(Map<String, Object>map);
 	public List<Community> listCommunity (Map<String, Object>map);
-	public List<Community> listCommunityFile(long num);
+	public void insertReviewFile(Community dto) throws SQLException;
+	public Community findByFileId(long communityNum);
+	public List<Community> listCommunityFile(long communityNum);
 	
 	// 글보기, 조회수 수정, 이전글, 다음글
 	public Community findById (long communityNum);
@@ -46,10 +48,6 @@ public interface CommunityMapper {
 	// 대댓글리스트, 대댓글수
 	public List<Reply> listReplyAnswer(Map<String, Object> map);
 	public int replyAnswerCount(Map<String, Object> map);
-	
-	// 댓글좋아요등록, 댓글좋아요 수
-	public void insertReplyLike(Map<String, Object> map) throws SQLException;
-	public Map<String, Object> replyLikeCount(Map<String, Object> map);
 	
 	// 댓글 보이기/숨기기
 	public void updateReplyShowHide(Map<String, Object> map) throws SQLException;	

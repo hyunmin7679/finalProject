@@ -52,14 +52,18 @@
 						</td>
 					</tr>
 					
-					<c:if test="${not empty dto.filename}">
 					<tr>
 						<td colspan="2" style="border-bottom: none;">
-							<img src="${pageContext.request.contextPath}/uploads/bbs/${dto.filename}" 
-								class="img-fluid img-thumbnail w-100 h-auto">
+							<div class="row row-cols-6 img-box">
+								<c:forEach var="vo" items="${listFile}">
+									<div class="col p-1">
+										<img src="${pageContext.request.contextPath}/uploads/bbs/${vo.filename}"
+											class="imageViewer img-thumbnail w-100 h-100" style="max-height: 130px;">
+									</div>
+								</c:forEach>
+							</div>
 						</td>
-				   </tr>
-				   </c:if>
+					</tr>
 					
 					<c:if test="${dto.park != ' '}">
 					<tr>
@@ -76,7 +80,7 @@
 					
 					<tr>
 						<td colspan="2" class="text-center p-3" style="border-bottom: none;">
-							<button type="button" class="btn btn-outline-secondary btnSendCommunityLike" title="좋아요"><i class="bi ${userCommunityLiked ? 'bi-hand-thumbs-up-fill':'bi-hand-thumbs-up' }"></i>&nbsp;&nbsp;<span id="communityLikeCount">${dto.communityLikeCount}</span></button>
+							<button type="button" class="btn btn-outline-secondary btnSendBoardLike" title="좋아요"><i class="bi ${userBoardLiked ? 'bi-hand-thumbs-up-fill':'bi-hand-thumbs-up' }"></i>&nbsp;&nbsp;<span id="communityLikeCount">${dto.communityLikeCount}</span></button>
 						</td>
 					</tr>
 					
@@ -191,9 +195,9 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 	$.ajax(url, settings);
 }
 
-// 게시글 공감 여부
+//게시글 공감 여부
 $(function(){
-	$('.btnSendCommunityLike').click(function(){
+	$('.btnSendBoardLike').click(function(){
 		const $i = $(this).find('i');
 		let userLiked = $i.hasClass('bi-hand-thumbs-up-fill');
 		let msg = userLiked ? '게시글 공감을 취소하시겠습니까 ? ' : '게시글에 공감하십니까 ? ';
@@ -202,9 +206,9 @@ $(function(){
 			return false;
 		}
 		
-		let url = '${pageContext.request.contextPath}/bbs/insertLike';
-		let num = '${dto.num}';
-		let query = 'num=' + num + '&userLiked=' + userLiked;
+		let url = '${pageContext.request.contextPath}/bbs/insertBoardLike';
+		let communityNum = '${dto.communityNum}';
+		let query = 'communityNum=' + communityNum + '&userLiked=' + userLiked;
 		
 		const fn = function(data){
 			let state = data.state;
@@ -216,6 +220,7 @@ $(function(){
 				}
 				
 				let count = data.communityLikeCount;
+				$('#communityLikeCount').text(count);
 			} else if(state === 'liked') {
 				alert('게시글 공감은 한번만 가능합니다. !!!');
 			} else if(state === "false") {
@@ -227,6 +232,7 @@ $(function(){
 	});
 });
 
+
 // 페이징 처리
 $(function(){
 	listPage(1);
@@ -234,7 +240,7 @@ $(function(){
 
 function listPage(page) {
 	let url = '${pageContext.request.contextPath}/bbs/listReply';
-	let query = 'num=${dto.num}&pageNo=' + page;
+	let query = 'communityNum=${dto.communityNum}&pageNo=' + page;
 	let selector = '#listReply';
 	
 	const fn = function(data){
@@ -247,7 +253,7 @@ function listPage(page) {
 // 리플 등록
 $(function(){
 	$('.btnSendReply').click(function(){
-		let num = '${dto.num}';
+		let communityNum = '${dto.communityNum}';
 		const $tb = $(this).closest('table');
 
 		let content = $tb.find('textarea').val().trim();
@@ -258,7 +264,7 @@ $(function(){
 		content = encodeURIComponent(content);
 		
 		let url = '${pageContext.request.contextPath}/bbs/insertReply';
-		let query = 'num=' + num + '&content=' + content + '&answer=0';
+		let query = 'communityNum=' + communityNum + '&content=' + content + '&answer=0';
 		
 		const fn = function(data){
 			$tb.find('textarea').val('');
@@ -321,7 +327,7 @@ $(function(){
 });
 
 // 댓글 좋아요 / 싫어요
-$(function(){
+/*$(function(){
 	// 댓글 좋아요 / 싫어요 등록
 	$('.reply').on('click', '.btnSendReplyLike', function(){
 		let replyNum = $(this).attr('data-replyNum');
@@ -357,7 +363,7 @@ $(function(){
 		
 		ajaxFun(url, 'post', query, 'json', fn);
 	});
-});
+});*/
 
 // 댓글별 답글 리스트
 function listReplyAnswer(answer) {
@@ -411,7 +417,7 @@ $(function(){
 // 댓글별 답글 등록
 $(function(){
 	$('.reply').on('click', '.btnSendReplyAnswer', function(){
-		let num = '${dto.num}';
+		let communityNum = '${dto.communityNum}';
 		let replyNum = $(this).attr('data-replyNum');
 		const $td = $(this).closest('td');
 		
@@ -423,7 +429,7 @@ $(function(){
 		
 		let url = '${pageContext.request.contextPath}/bbs/insertReply';
 		// let formData = 'num=' + num + '&content=' + encodeURIComponent(content) + '&answer=' + replyNum;
-		let formData = {num:num, content:content, answer:replyNum}; // formData를 객체로 전송하면 인코딩하면 안됨
+		let formData = {communityNum:communityNum, content:content, answer:replyNum}; // formData를 객체로 전송하면 인코딩하면 안됨
 		
 		const fn = function(data){
 			$td.find('textarea').val('');
@@ -540,4 +546,5 @@ $(function(){
 		ajaxFun(url, 'post', query, 'json', fn);
 	});
 });
+
 </script>

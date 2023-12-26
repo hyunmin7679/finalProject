@@ -37,7 +37,7 @@ window.addEventListener('load', function(){
 });
 
 //탭
-$(function(){
+/*$(function(){
 	$("button[role='tab']").on('click', function(){
 		const tab = $(this).attr("aria-controls");
 		
@@ -51,13 +51,79 @@ $(function(){
 			
 		} 
 	});
-});
+});*/
 </script>
 
 <script type="text/javascript">
+function login() {
+	location.href = '${pageContext.request.contextPath}/member/login';
+}
+
+function ajaxFun(url, method, formData, dataType, fn, file = false) {
+	const settings = {
+			type: method, 
+			data: formData,
+			success:function(data) {
+				fn(data);
+			},
+			beforeSend: function(jqXHR) {
+				jqXHR.setRequestHeader('AJAX', true);
+			},
+			complete: function () {
+			},
+			error: function(jqXHR) {
+				if(jqXHR.status === 403) {
+					login();
+					return false;
+				} else if(jqXHR.status === 400) {
+					alert('요청 처리가 실패 했습니다.');
+					return false;
+		    	}
+		    	
+				console.log(jqXHR.responseText);
+			}
+	};
+	
+	if(file) {
+		settings.processData = false;  // file 전송시 필수. 서버로전송할 데이터를 쿼리문자열로 변환여부
+		settings.contentType = false;  // file 전송시 필수. 서버에전송할 데이터의 Content-Type. 기본:application/x-www-urlencoded
+	}
+	
+	$.ajax(url, settings);
+}
+
 function searchList() {
 	const f = document.searchForm;
 	f.submit();
+}
+
+$(function(){
+	listPage(1);
+	
+    $("button[role='tab']").on("click", function(e){
+    	listPage(1);
+    	
+    });
+});
+
+// 글리스트 및 페이징 처리
+function listPage(page) {
+	const $tab = $("button[role='tab'].active");
+	let categoryNum = $tab.attr("data-categoryNum");
+	
+	let url = "${pageContext.request.contextPath}/bbs/list";
+	let query = "pageNo="+page+"&categoryNum="+categoryNum;
+	let search = $('form[name=bbsSearchForm]').serialize();
+	query = query+"&"+search;
+	
+	console.log(query);
+	
+	let selector = "#nav-content";
+	
+	const fn = function(data){
+		$(selector).html(data);
+	};
+	ajaxFun(url, "get", query, "text", fn);
 }
 </script>
 
@@ -67,27 +133,25 @@ function searchList() {
 			<h3><i class="bi bi-app"></i> 게시판 </h3>
 		</div>
 		
+	<form name="bbsSearchForm" method="post">
+		<input type="hidden" name="schType" value="all">
+	    <input type="hidden" name="kwd" value="">
+	</form>
+	
 		<div class="nav-align-top mb-4">
-		   <ul class="nav nav-pills mb-3" role="tablist">
-		      <li class="nav-item" role="presentation">
-		         <button type="button" class="nav-link active" role="tab"
-		            data-bs-toggle="tab" data-bs-target="#nav-content"
-		            aria-controls="navs-pills-top-home" aria-selected="true">나눔</button>
-		      </li>
-		      <li class="nav-item" role="presentation">
-		         <button type="button" class="nav-link" role="tab"
-		            data-bs-toggle="tab" data-bs-target="#nav-content"
-		            aria-controls="navs-pills-top-profile" aria-selected="false"
-		            tabindex="-1">상담</button>
-		      </li>
-		      <!-- 위에 회원 지우고 이걸로
-		      <c:forEach var="dto" items="${listCategory}" varStatus="status">
-		      	<li class="nav-item" role="presentation">
-					<button class="nav-link" id="tab-${status.count}" data-bs-toggle="tab" data-bs-target="#nav-content" type="button" role="tab" aria-controls="${status.count}" aria-selected="true" data-categoryNum="${dto.categoryNum}">${dto.category}</button>
+		  <ul class="nav nav-pills mb-3" role="tablist">   
+	        <li class="nav-item" role="presentation">
+				<button class="nav-link active" id="tab-0" data-bs-toggle="tab" data-bs-target="#nav-content" 
+					type="button" role="tab" aria-controls="0" aria-selected="true" data-categoryNum="0">전체</button>
+			</li>		
+			<c:forEach var="dto" items="${listCategory}" varStatus="status">
+				<li class="nav-item" role="presentation">
+					<button class="nav-link" id="tab-${status.count}" data-bs-toggle="tab" 
+						data-bs-target="#nav-content" type="button" role="tab" aria-controls="${status.count}" 
+						aria-selected="true" data-categoryNum="${dto.categoryNum}">${dto.categoryName}</button>
 				</li>
-			  </c:forEach>
-		       -->
-		   </ul>
+			</c:forEach>
+	   </ul>
 		</div>
 		
 		<div class="body-main">
@@ -105,6 +169,7 @@ function searchList() {
 						<th width="100">작성자</th>
 						<th width="100">작성일</th>
 						<th width="70">조회수</th>
+						<th width="70">댓글수</th>
 
 					</tr>
 				</thead>
@@ -128,6 +193,7 @@ function searchList() {
 							<td>${dto.userName}</td>
 							<td>${dto.reg_date}</td>
 							<td>${dto.hitCount}</td>
+							<td>${dto.replyCount}</td>
 						</tr>
 					</c:forEach>
 				</tbody>

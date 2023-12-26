@@ -85,23 +85,24 @@ function check() {
 					</tr>
 					
 					<tr>
-						<td class="bg-light col-sm-2">첨&nbsp;&nbsp;&nbsp;&nbsp;부</td>
-						<td> 
-							<input type="file" name="selectFile" class="form-control">
+						<td class="bg-light col-sm-2" scope="row">이미지</td>
+						<td>
+							<div class="img-grid"><img class="item img-add rounded" src="${pageContext.request.contextPath}/resources/images/add_photo.png"></div>
+							<input type="file" name="selectFile" accept="image/*" multiple style="display: none;" class="form-control">
 						</td>
 					</tr>
 					
 					<c:if test="${mode=='update'}">
 						<tr>
-							<td class="bg-light col-sm-2" scope="row">첨부된파일</td>
+							<td class="bg-light col-sm-2" scope="row">등록이미지</td>
 							<td> 
-								<p class="form-control-plaintext">
-									<c:if test="${not empty dto.filename}">
-										<a href="javascript:deleteFile('${list.fileNum}');"><i class="bi bi-trash"></i></a>
-										${dto.filename}
-									</c:if>
-									&nbsp;
-								</p>
+								<div class="img-box">
+									<c:forEach var="vo" items="${listFile}">
+										<img src="${pageContext.request.contextPath}/uploads/bbs/${vo.filename}"
+											class="delete-img"
+											data-fileNum="${vo.fileNum}">
+									</c:forEach>
+								</div>
 							</td>
 						</tr>
 					</c:if>
@@ -115,7 +116,7 @@ function check() {
 							<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/bbs/list';">${mode=='update'?'수정취소':'등록취소'}&nbsp;<i class="bi bi-x"></i></button>
 							<c:if test="${mode=='update'}">
 								<input type="hidden" name="communityNum" value="${dto.communityNum}">
-								<input type="hidden" name="fileNum" value="${list.fileNum}">
+								<input type="hidden" name="fileNum" value="${dto.fileNum}">
 								<input type="hidden" name="filename" value="${dto.filename}">
 								<input type="hidden" name="page" value="${page}">
 							</c:if>
@@ -130,11 +131,11 @@ function check() {
 
 <c:if test="${mode=='update'}">
 	<script type="text/javascript">
-		function deleteFile(fileNum) {
+		function deleteFile(communityNum) {
 			if( ! confirm("파일을 삭제하시겠습니까 ?") ) {
 				return;
 			}
-			let url = "${pageContext.request.contextPath}/bbs/deleteFile?fileNum=" + fileNum + "&page=${page}";
+			let url = "${pageContext.request.contextPath}/bbs/deleteFile?communityNum=" + communityNum + "&page=${page}";
 			location.href = url;
 		}
 	</script>
@@ -168,4 +169,68 @@ function setDefaultFont() {
 	var nFontSize = 12;
 	oEditors.getById["ir1"].setDefaultFont(sDefaultFont, nFontSize);
 }
+
+$(function(){
+	var sel_files = [];
+	
+	$(".write-form").on("click", ".img-add", function(event){
+		$("form[name=boardForm] input[name=selectFile]").trigger("click"); 
+	});
+	
+	$("form[name=selectFile] input[name=selectFile]").change(function(){
+		if(! this.files) {
+			let dt = new DataTransfer();
+			for(let f of sel_files) {
+				dt.items.add(f);
+			}
+			document.albumForm.selectFile.files = dt.files;
+			
+	    	return false;
+	    }
+	    
+        for(let file of this.files) {
+        	sel_files.push(file);
+        	
+            const reader = new FileReader();
+			const $img = $("<img>", {class:"item img-item"});
+			$img.attr("data-filename", file.name);
+            reader.onload = e => {
+            	$img.attr("src", e.target.result);
+            };
+			reader.readAsDataURL(file);
+            
+            $(".img-grid").append($img);
+        }
+		
+		let dt = new DataTransfer();
+		for(let f of sel_files) {
+			dt.items.add(f);
+		}
+		document.selectFile.selectFile.files = dt.files;		
+	    
+	});
+	
+	$(".write-form").on("click", ".img-item", function(event) {
+		if(! confirm("선택한 파일을 삭제 하시겠습니까 ?")) {
+			return false;
+		}
+		
+		let filename = $(this).attr("data-filename");
+		
+	    for(let i = 0; i < sel_files.length; i++) {
+	    	if(filename === sel_files[i].name){
+	    		sel_files.splice(i, 1);
+	    		break;
+			}
+	    }
+	
+		let dt = new DataTransfer();
+		for(let f of sel_files) {
+			dt.items.add(f);
+		}
+		document.selectFile.selectFile.files = dt.files;
+		
+		$(this).remove();
+	});
+});
 </script>
