@@ -10,6 +10,8 @@
 .board-article img { max-width: 650px; }
 
 </style>
+<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=05a2937d99f19b82637494048cbe786d&libraries=services"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/boot-board.css" type="text/css">
 
 <c:if test="${sessionScope.member.userId==dto.userId||sessionScope.member.membership>50}">
@@ -75,6 +77,12 @@
 					<tr>
 						<td colspan="2" valign="top" height="200" style="border-bottom: none;">
 							${dto.content}
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<div id="map" class="map"></div>
 						</td>
 					</tr>
 					
@@ -199,8 +207,8 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 $(function(){
 	$('.btnSendBoardLike').click(function(){
 		const $i = $(this).find('i');
-		let userLiked = $i.hasClass('bi-hand-thumbs-up-fill');
-		let msg = userLiked ? '게시글 공감을 취소하시겠습니까 ? ' : '게시글에 공감하십니까 ? ';
+		let userCommunityLiked = $i.hasClass('bi-hand-thumbs-up-fill');
+		let msg = userCommunityLiked ? '게시글 공감을 취소하시겠습니까 ? ' : '게시글에 공감하십니까 ? ';
 		
 		if(! confirm( msg )) {
 			return false;
@@ -208,12 +216,12 @@ $(function(){
 		
 		let url = '${pageContext.request.contextPath}/bbs/insertBoardLike';
 		let communityNum = '${dto.communityNum}';
-		let query = 'communityNum=' + communityNum + '&userLiked=' + userLiked;
+		let query = 'communityNum=' + communityNum + '&userCommunityLiked=' + userCommunityLiked;
 		
 		const fn = function(data){
 			let state = data.state;
 			if(state === 'true') {
-				if( userLiked ) {
+				if( userCommunityLiked ) {
 					$i.removeClass('bi-hand-thumbs-up-fill').addClass('bi-hand-thumbs-up');
 				} else {
 					$i.removeClass('bi-hand-thumbs-up').addClass('bi-hand-thumbs-up-fill');
@@ -546,5 +554,116 @@ $(function(){
 		ajaxFun(url, 'post', query, 'json', fn);
 	});
 });
+
+// 카카오맵 API 
+	var mapContainer = document.getElementById('map');
+	var mapOption = {
+		center: new kakao.maps.LatLng(37.557714093880406, 126.92450981105797),  // 지도의 중심좌표 : 위도(latitude), 경도(longitude)
+		level: 3  // 지도의 레벨(확대, 축소 정도)
+	};
+	
+	// 지도를 생성
+	var map = new kakao.maps.Map(mapContainer, mapOption);
+	
+	// 주소-좌표 변환 객체를 생성
+	var geocoder = new kakao.maps.services.Geocoder();
+	
+	// AJAX - 마커를 출력할 위도/경도 및 제목을 불러오기
+	var url = "${pageContext.request.contextPath}/bbs/regions";
+	var query = null;
+	var fn = function(data) {
+		createMarker(data);
+	}
+	ajaxFun(url, "get", query, "json", fn);
+
+	function createMarker(data) {
+		$(data.list).each(function(index, item){
+			var num = item.num;
+			var subject = item.subject;
+			var addr = item.addr;
+			
+			// 주소로 마커 찍기
+			geocoder.addressSearch(addr, function(result, status) {
+
+			    // 정상적으로 검색이 완료됐으면 
+			     if (status === kakao.maps.services.Status.OK) {
+
+			        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+			        // 결과값으로 받은 위치를 마커로 표시
+			        var marker = new kakao.maps.Marker({
+			            map: map,
+			            position: coords
+			        });
+
+			        // 인포윈도우로 장소에 대한 설명을 표시
+			        var infowindow = new kakao.maps.InfoWindow({
+			        	content:"<div class='marker-info'>"+subject+"</div>"
+			        });
+
+			        // 지도의 중심을 결과값으로 받은 위치로 이동
+			        // map.setCenter(coords);
+			        
+				    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+				    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));			        
+			    } 
+			});
+			
+		});
+		
+		// 인포윈도우를 표시하는 클로저를 만드는 함수
+		function makeOverListener(map, marker, infowindow) {
+		    return function() {
+		        infowindow.open(map, marker);
+		    };
+		}
+
+		// 인포윈도우를 닫는 클로저를 만드는 함수
+		function makeOutListener(infowindow) {
+		    return function() {
+		        infowindow.close();
+		    };
+		}			
+		
+	}
+	
+// -----------------------------------------------------------------	
+	
+/*var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+   mapOption = {
+       center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+       level: 3 // 지도의 확대 레벨
+   };  
+
+// 지도를 생성합니다    
+var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+// 주소-좌표 변환 객체를 생성합니다
+var geocoder = new kakao.maps.services.Geocoder();
+
+// 주소로 좌표를 검색합니다
+geocoder.addressSearch('${meet.addr1}', function(result, status) {
+
+    // 정상적으로 검색이 완료됐으면 
+     if (status === kakao.maps.services.Status.OK) {
+
+        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+        // 결과값으로 받은 위치를 마커로 표시합니다
+        var marker = new kakao.maps.Marker({
+            map: map,
+            position: coords
+        });
+
+        // 인포윈도우로 장소에 대한 설명을 표시합니다
+        var infowindow = new kakao.maps.InfoWindow({
+            content: '<div style="width:150px;text-align:center;padding:6px 0;">모임장소:${meet.addr1}</div>'
+        });
+        infowindow.open(map, marker);
+
+        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        map.setCenter(coords);
+    } 
+});   */
 
 </script>

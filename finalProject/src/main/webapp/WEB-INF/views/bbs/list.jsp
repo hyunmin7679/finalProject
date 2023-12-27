@@ -2,15 +2,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/paginate-boot.js"></script>
+
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/boot-board.css" type="text/css">
+
 <style type="text/css">
 .body-container {
 	max-width: 800px;
 }
 
 </style>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/boot-board.css" type="text/css">
-
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/paginate-boot.js"></script>
 
 <c:url var="listUrl" value="/bbs/list">
 	<c:if test="${not empty kwd}">
@@ -28,6 +31,7 @@ window.addEventListener('load', function(){
 	
 	let total_page = pageCount(dataCount, pageSize);
 	let paging = pagingUrl(page, total_page, url);
+
 	
 	document.querySelector('.dataCount').innerHTML = dataCount + '개 ('
 			+ page + '/' + total_page + '페이지)';
@@ -36,94 +40,9 @@ window.addEventListener('load', function(){
 		dataCount === 0 ? '등록된 게시물이 없습니다.' : paging;
 });
 
-//탭
-/*$(function(){
-	$("button[role='tab']").on('click', function(){
-		const tab = $(this).attr("aria-controls");
-		
-		if(tab === "1") { // 나눔
-			//location.href = "${pageContext.request.contextPath}/admin/order/status";
-		} else if( tab === "2") { // 상담 
-			//location.href = "${pageContext.request.contextPath}/admin/order/delivery";
-		} else if( tab === "3") { // 자유
-			
-		} else if( tab === "4") { // 산책메이트
-			
-		} 
-	});
-});*/
-</script>
-
-<script type="text/javascript">
-function login() {
-	location.href = '${pageContext.request.contextPath}/member/login';
-}
-
-function ajaxFun(url, method, formData, dataType, fn, file = false) {
-	const settings = {
-			type: method, 
-			data: formData,
-			success:function(data) {
-				fn(data);
-			},
-			beforeSend: function(jqXHR) {
-				jqXHR.setRequestHeader('AJAX', true);
-			},
-			complete: function () {
-			},
-			error: function(jqXHR) {
-				if(jqXHR.status === 403) {
-					login();
-					return false;
-				} else if(jqXHR.status === 400) {
-					alert('요청 처리가 실패 했습니다.');
-					return false;
-		    	}
-		    	
-				console.log(jqXHR.responseText);
-			}
-	};
-	
-	if(file) {
-		settings.processData = false;  // file 전송시 필수. 서버로전송할 데이터를 쿼리문자열로 변환여부
-		settings.contentType = false;  // file 전송시 필수. 서버에전송할 데이터의 Content-Type. 기본:application/x-www-urlencoded
-	}
-	
-	$.ajax(url, settings);
-}
-
 function searchList() {
 	const f = document.searchForm;
 	f.submit();
-}
-
-$(function(){
-	listPage(1);
-	
-    $("button[role='tab']").on("click", function(e){
-    	listPage(1);
-    	
-    });
-});
-
-// 글리스트 및 페이징 처리
-function listPage(page) {
-	const $tab = $("button[role='tab'].active");
-	let categoryNum = $tab.attr("data-categoryNum");
-	
-	let url = "${pageContext.request.contextPath}/bbs/list";
-	let query = "pageNo="+page+"&categoryNum="+categoryNum;
-	let search = $('form[name=bbsSearchForm]').serialize();
-	query = query+"&"+search;
-	
-	console.log(query);
-	
-	let selector = "#nav-content";
-	
-	const fn = function(data){
-		$(selector).html(data);
-	};
-	ajaxFun(url, "get", query, "text", fn);
 }
 </script>
 
@@ -232,3 +151,75 @@ function listPage(page) {
 		</div>
 	</div>
 </div>
+
+<script>
+function login() {
+	location.href = '${pageContext.request.contextPath}/member/login';
+}
+
+function ajaxFun(url, method, formData, dataType, fn, file = false) {
+	const settings = {
+			type: method, 
+			data: formData,
+			success:function(data) {
+				fn(data);
+			},
+			beforeSend: function(jqXHR) {
+				jqXHR.setRequestHeader('AJAX', true);
+			},
+			complete: function () {
+			},
+			error: function(jqXHR) {
+				if(jqXHR.status === 403) {
+					login();
+					return false;
+				} else if(jqXHR.status === 400) {
+					alert('요청 처리가 실패 했습니다.');
+					return false;
+		    	}
+		    	
+				console.log(jqXHR.responseText);
+			}
+	};
+	
+	if(file) {
+		settings.processData = false;  // file 전송시 필수. 서버로전송할 데이터를 쿼리문자열로 변환여부
+		settings.contentType = false;  // file 전송시 필수. 서버에전송할 데이터의 Content-Type. 기본:application/x-www-urlencoded
+	}
+	
+	$.ajax(url, settings);
+}
+
+$(function(){
+	listPage(1);
+	
+    $("button[role='tab']").on("click", function(e){
+		// const tab = $(this).attr("aria-controls");
+    	listPage(1);
+    	
+    });
+});
+
+// 글리스트 및 페이징 처리
+function listPage(page) {
+	const $tab = $("button[role='tab'].active");
+	let categoryNum = $tab.attr("data-categoryNum");
+	
+	let url = "${pageContext.request.contextPath}/bbs/list";
+	let query = "page="+page+"&categoryNum="+categoryNum;
+	let search = $('form[name=bbsSearchForm]').serialize();
+	
+	query = query+"&"+search;
+	
+	console.log(query);
+	
+	let selector = "#nav-content";
+	
+	const fn = function(data){
+		$(selector).html(data);
+	};
+	ajaxFun(url, "get", query, "text", fn);
+}
+
+
+</script>

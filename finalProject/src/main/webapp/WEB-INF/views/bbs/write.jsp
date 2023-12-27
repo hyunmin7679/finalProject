@@ -4,7 +4,29 @@
 
 <style type="text/css">
 .body-container {
-	max-width: 850px;
+	max-width: 850px; }
+	
+.img-box img {
+    width: 50px;
+    height: 50px;
+    margin-right: 5px;
+    flex: 0 0 auto;
+    cursor: pointer;
+    border: 1px solid #c2c2c2;
+    border-radius: 10px;
+}
+
+.img-grid .item {
+    object-fit: cover;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    border: 1px solid #c2c2c2;
+    border-radius: 10px;
+}
+
+img, svg {
+    vertical-align: middle;
 }
 </style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/boot-board.css" type="text/css">
@@ -78,9 +100,15 @@ function check() {
 					</tr>
 					
 					<tr>
+						<td class="bg-light col-sm-2" scope="row" >산책로이름</td>
+						<td>
+							<input type="text" name="parkname" class="form-control" value="${dto.parkname}">
+						</td>
+					</tr>
+					<tr>
 						<td class="bg-light col-sm-2" scope="row">산책로주소</td>
 						<td>
-							<input type="text" name="park" class="form-control">
+							<input type="text" name="park" class="form-control" value="${dto.park}">
 						</td>
 					</tr>
 					
@@ -117,27 +145,36 @@ function check() {
 							<c:if test="${mode=='update'}">
 								<input type="hidden" name="communityNum" value="${dto.communityNum}">
 								<input type="hidden" name="fileNum" value="${dto.fileNum}">
-								<input type="hidden" name="filename" value="${dto.filename}">
 								<input type="hidden" name="page" value="${page}">
 							</c:if>
 						</td>
 					</tr>
 				</table>
 			</form>
-		
 		</div>
 	</div>
 </div>
 
 <c:if test="${mode=='update'}">
 	<script type="text/javascript">
-		function deleteFile(communityNum) {
-			if( ! confirm("파일을 삭제하시겠습니까 ?") ) {
-				return;
-			}
-			let url = "${pageContext.request.contextPath}/bbs/deleteFile?communityNum=" + communityNum + "&page=${page}";
-			location.href = url;
-		}
+		$(function(){
+			$(".delete-img").click(function(){
+				if(! confirm("이미지를 삭제 하시겠습니까 ?")) {
+					return false;
+				}
+				
+				let $img = $(this);
+				let fileNum = $img.attr("data-fileNum");
+				let url="${pageContext.request.contextPath}/bbs/deleteFile";
+				
+				$.ajaxSetup({ beforeSend: function(e) { e.setRequestHeader('AJAX', true); } });
+				$.post(url, {fileNum:fileNum}, function(data){
+					$img.remove();
+				}, "json").fail(function(){
+					alert('error....');
+				});
+			});
+		});
 	</script>
 </c:if>
 
@@ -177,13 +214,13 @@ $(function(){
 		$("form[name=boardForm] input[name=selectFile]").trigger("click"); 
 	});
 	
-	$("form[name=selectFile] input[name=selectFile]").change(function(){
+	$("form[name=boardForm] input[name=selectFile]").change(function(){
 		if(! this.files) {
 			let dt = new DataTransfer();
 			for(let f of sel_files) {
 				dt.items.add(f);
 			}
-			document.albumForm.selectFile.files = dt.files;
+			document.boardForm.selectFile.files = dt.files;
 			
 	    	return false;
 	    }
@@ -206,7 +243,7 @@ $(function(){
 		for(let f of sel_files) {
 			dt.items.add(f);
 		}
-		document.selectFile.selectFile.files = dt.files;		
+		document.boardForm.selectFile.files = dt.files;		
 	    
 	});
 	
@@ -228,7 +265,7 @@ $(function(){
 		for(let f of sel_files) {
 			dt.items.add(f);
 		}
-		document.selectFile.selectFile.files = dt.files;
+		document.boardForm.selectFile.files = dt.files;
 		
 		$(this).remove();
 	});
