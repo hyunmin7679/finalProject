@@ -9,7 +9,7 @@
 	</insert>
 
 	<sql id="where-list">
-		<if test="schType=='all' ">
+		<if test="schType=='all'">
 			( INSTR(q_subject, #{kwd}) &gt; 0 
 				OR INSTR(productName, #{kwd}) &gt; 0 )
 		</if>
@@ -90,7 +90,6 @@
 			</if>
 		</where>   
 		ORDER BY productNum DESC
-		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
 	
     

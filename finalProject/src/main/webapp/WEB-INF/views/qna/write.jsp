@@ -2,39 +2,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/boot-board.css" type="text/css">
+
 <style type="text/css">
 .body-container {
 	max-width: 870px;
 }
 
 </style>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/boot-board.css" type="text/css">
 
 <script type="text/javascript">
 function sendOk() {
     const f = document.qnaForm;
 	let str;
 	
-	if(!f.lectureSubCode.value) {
-        alert("과목을 선택하세요. ");
-        f.title.focus();
-        return;
-	}
 	
-    str = f.title.value.trim();
-    if(!str) {
-        alert("제목을 입력하세요. ");
-        f.title.focus();
-        return;
-    }
-
-    str = f.content.value.trim();
-    if(!str) {
-        alert("내용을 입력하세요. ");
-        f.content.focus();
-        return;
-    }
-
     f.action = "${pageContext.request.contextPath}/qna/${mode}";
     f.submit();
 }
@@ -55,7 +37,7 @@ function sendOk() {
 						<td>
 							<div class="row">
 								<div class="col-sm-4 ps-1">
-									<select name="subject" class="form-select">
+									<select name="q_subject" class="form-select">
 										<option value="">:: 제목 선택 ::</option>
 										<option value="product">[상품] 상품관련 문의</option>
 										<option value="delivery">[배송] 배송관련 문의</option>										
@@ -67,7 +49,9 @@ function sendOk() {
 					<tr>
 						<td class="bg-light col-sm-2" scope="row">상품명</td>
 						<td>
-							<button onclick ="popup();">상품검색</button>
+							<input type="text" name="productName" class="form-control" readonly>
+							<button type="button" class="btn btn-light btn-append">상품등록</button>
+							<input type="hidden" name="productNum">
 
 						</td>
 					</tr>
@@ -93,8 +77,8 @@ function sendOk() {
 					<tr>
 						<td class="bg-light col-sm-2" scope="row">내 용</td>
 						<td>
-							<textarea name="content" class="form-control">※ 상품문의 시 상품명을 작성해주시면 정확하고 빠른 답변에 도움이 됩니다.
-							${dto.content}</textarea>
+							<textarea name="question" class="form-control">※ 상품문의 시 상품명을 작성해주시면 정확하고 빠른 답변에 도움이 됩니다.
+							${dto.question}</textarea>
 						</td>
 					</tr>
 					
@@ -110,14 +94,53 @@ function sendOk() {
 								<input type="hidden" name="num" value="${dto.num}">
 								<input type="hidden" name="page" value="${page}">
 							</c:if>
+							
+							
 						</td>
 					</tr>
 				</table>
 			</form>
-		
 		</div>
 	</div>
 </div>
+
+
+<!-- 상품 검색 대화상자2 -->
+<div class="modal fade" id="productSearchModal" tabindex="-1" aria-labelledby="searchModalLabel"
+				aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+		
+			<div class="modal-header">
+				<h5 class="modal-title" id="searchViewerModalLabel">상품검색</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			
+			<div class="modal-body">
+                <div class="row search-form">
+					<div class="col-4 pe-1">
+						<select name="schType" class="form-select">
+				            <option value="productName" ${schType=="productName"?"selected":""}>상품명</option>
+				            <option value="all" ${schType=="all"?"selected":""}>코드+상품명</option>
+			        	</select>
+					</div>
+					<div class="col ps-0 pe-1">
+						<input type="text" name="kwd" value="${kwd}" class="form-control">
+					</div>
+					<div class="col-auto ps-0 pe-2">
+						<button type="button" class="btn btn-light btn-productSearch" title="검색"><i class="bi bi-search"></i></button>
+					</div>
+                </div>
+               	<div class='row mt-2 border-top border-bottom bg-light p-2'>
+               	 	<div class='col-3 text-center'>상품코드</div>
+               	 	<div class='col ps-2'>상품명</div>
+               	</div>
+                <div class="product-search-list"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
 
 <script type="text/javascript">
 function login() {
@@ -157,37 +180,61 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 	$.ajax(url, settings);
 }
 
+
 $(function(){
-	$('form select[name=lectureCode]').change(function(){
-		let lectureCode = $(this).val();
-		if(! lectureCode) {
-			return false;
-		}
+	// 상품 등록 버튼
+	$(".btn-append").click(function(){
+		// 모달2가 뜸
+		$(".search-form input[name=productNum]").val("");
+		$(".search-form input[name=productName]").val("");
+		$(".product-search-list").html("");
+
+		$("#productSearchModal").modal("show");
+	});
+	
+	// 상품검색 대화상자-검색 버튼2
+	$(".btn-productSearch").click(function(){
+    	//$(".product-search-list").html("");
+    	
+		let schType = $(".search-form select[name=schType]").val();
+	    let kwd = $(".search-form input[name=kwd]").val();
 		
-		$('form select[name=lectureSubCode]').find('option')
-			.remove().end()
-			.append('<option value="">:: 과목 선택 ::</option>');		
-		
-		let url = '${pageContext.request.contextPath}/qna/listSubject';
-		let query = 'lectureCode='+lectureCode;
-		
-		const fn = function(data) {
-			$.each(data.listSubject, function(index, item){
-				let lectureSubCode = item.lectureSubCode;
-				let subject = item.subject;
-				let s = '<option value="'+lectureSubCode+'">'+subject+'</option>';
-				$('form select[name=lectureSubCode]').append(s);
-			});
+	    let query = "schType="+schType+"&kwd="+encodeURIComponent(kwd);
+	    let url = "${pageContext.request.contextPath}/qna/productSearch";
+	    
+	    
+	    const fn = function(data) { // data에 num, name, tumbnail 있음
+	    	let out = "";
+	    	for(let item of data.list) {
+	    		let productNum = item.productNum;
+	    		let productName = item.productName;
+	    		//썸네일 추가할거면 여기에
+	    		
+	    		out += "<div class='row mb-2 p-2 border-bottom'>";
+	    		out += "  <div class='col-3 text-center'>"+productNum+"</div>"
+	    		out += "  <div class='col ps-2 search-productName' data-productNum='"+productNum+"'>"+productName+"</div>";
+	    		out += "</div>"; 
+ 
+	    	}
+	    	
+	    	$(".product-search-list").html(out);
 		};
-		ajaxFun(url, 'get', query, 'json', fn);
+		
+		ajaxFun(url, "get", query, "json", fn);
+	    
+	});
+	
+	// 상품검색 대화상자-검색된 상품을 클릭한 경우
+	$("body").on("click", '.search-productName', function(){
+		let productNum = $(this).attr("data-productNum");
+		let productName = $(this).text().trim();
+		
+		$(".write-form input[name=productNum]").val(productNum);
+		$(".write-form input[name=productName]").val(productName);
+		
+		$("#productSearchModal").modal("hide");
+		
 	});
 });
-
-
-function popup(){
-	window.name="parent";
-  	window.open('popup','팝업','width=500,height=500'); 
-	
-};
 
 </script>

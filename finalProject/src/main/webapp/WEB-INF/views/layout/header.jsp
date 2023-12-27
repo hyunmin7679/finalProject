@@ -59,7 +59,6 @@ nav .fa.fa-angle-down { margin-left: 6px; }
 
 </style>
 
-<script src="//code.jquery.com/jquery.min.js"></script>
 <script type="text/javascript">
 $(function(){
    $(window).scroll(function() {

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fp.pet.common.MyUtil;
 import com.fp.pet.domain.Qna;
@@ -110,80 +111,6 @@ public class QnaController {
 		return "qna/popup";
 	}
 	
-	// 상품검색 리스트
-	@PostMapping("popup") 
-	public String productList(@RequestParam(value = "page", defaultValue = "1") int current_page,
-			@RequestParam(defaultValue = "all") String schType,
-			@RequestParam(defaultValue = "") String kwd,
-			@RequestParam("productNum") int productNum,
-			HttpServletRequest req,
-			Model model) throws Exception {
-
-		String cp = req.getContextPath();
-		//SessionInfo info = (SessionInfo) session.getAttribute("member");
-
-		int size = 10;
-		int total_page = 0;
-		int dataCount = 0;
-
-		if (req.getMethod().equalsIgnoreCase("GET")) { // GET 방식인 경우
-			kwd = URLDecoder.decode(kwd, "utf-8");
-		}
-
-		// 전체 페이지 수
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("schType", schType);
-		map.put("kwd", kwd);
-		//map.put("userId", info.getUserId());
-		
-		dataCount = service.dataCount2(map);
-		if (dataCount != 0) {
-			total_page = myUtil.pageCount(dataCount, size);
-		}
-
-		if (total_page < current_page) {
-			current_page = total_page;
-		}
-
-		int offset = (current_page - 1) * size;
-		if(offset < 0) offset = 0;
-
-		map.put("offset", offset);
-		map.put("size", size);
-
-		// 검색 후 상품 리스트
-		List<Qna> list = service.listProduct(map);
-
-		String query = "";
-		String listUrl = cp + "/qna/popup";
-		String articleUrl = cp + "/qna/article?page=" + current_page;
-		if (kwd.length() != 0) {
-			query = "schType=" + schType + "&kwd=" + URLEncoder.encode(kwd, "utf-8");
-		}
-
-		if (query.length() != 0) {
-			listUrl += "?" + query;
-			articleUrl += "&" + query;
-		}
-
-		String paging = myUtil.paging(current_page, total_page, listUrl);
-		
-		
-		model.addAttribute("list", list);
-		model.addAttribute("articleUrl", articleUrl);
-		model.addAttribute("page", current_page);
-		model.addAttribute("dataCount", dataCount);
-		model.addAttribute("total_page", total_page);
-		model.addAttribute("paging", paging);
-
-		model.addAttribute("schType", schType);
-		model.addAttribute("kwd", kwd);
-
-		return "redirect:/qna/write" + query;
-	}
-	
-	
-	
 	
 	@GetMapping("write")
 	public String writeForm(HttpSession session, Model model) throws Exception {
@@ -196,8 +123,11 @@ public class QnaController {
 	}
 
 	@PostMapping("write")
-	public String writeSubmit(Qna dto) throws Exception {
+	public String writeSubmit(HttpSession session, Qna dto) throws Exception {
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
 		try {
+			
+			dto.setMemberIdx(info.getMemberIdx());
 			service.insertQna(dto);
 		} catch (Exception e) {
 		}
@@ -268,5 +198,25 @@ public class QnaController {
 
 		return "redirect:/qna/list?" + query;
 	}
+	
+	
+	// 문의사항에 등록할 상품 검색
+	// AJAX - JSON
+	@GetMapping("productSearch")
+	@ResponseBody
+	public Map<String, Object> productSearch(@RequestParam String schType,
+			@RequestParam String kwd) throws Exception {
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("schType", schType);
+		map.put("kwd", kwd);
+		
+		List<Qna> list = service.listProduct(map);
+		
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("list", list);
+		return model;
+	}
+
 	
 }

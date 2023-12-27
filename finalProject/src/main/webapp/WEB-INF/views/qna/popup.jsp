@@ -1,8 +1,17 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/boot-board.css" type="text/css">
+
+<script type="text/javascript">
+function searchList() {
+	const f = document.schForm;
+	f.submit();
+}
+</script>
+
 
 <div>
 	<h3>상품검색</h3>
@@ -54,6 +63,7 @@
 </table>	  
 
 <script>
+
 	
 function select(productNum){
 	var productNum = String(productNum);
