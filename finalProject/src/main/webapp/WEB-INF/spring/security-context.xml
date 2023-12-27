@@ -32,13 +32,13 @@
            <intercept-url pattern="/member/idFind" access="permitAll"/>
            <intercept-url pattern="/member/expired" access="permitAll"/>
            <intercept-url pattern="/member/nonmember" access="permitAll"/>
-           
-           
+           <intercept-url pattern="/product/**" access="permitAll"/>
            
            
            <intercept-url pattern="/resources/**" access="permitAll"/>
            <intercept-url pattern="/bootstrapTemp/**" access="permitAll"/>
            <intercept-url pattern="/uploads/img/**" access="permitAll"/>
+           <intercept-url pattern="/uploads/product/**" access="permitAll"/>
            
            <!-- admin 페이지 -->
            <intercept-url pattern="/admin/**" access="hasAnyRole('ROLE_ADMIN','ROLE_EMP')"/>

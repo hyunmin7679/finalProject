@@ -21,17 +21,30 @@
 	<select id="findByProduct" parameterType="long" resultType="com.fp.pet.domain.Product">
 		SELECT p.productNum, p.categoryNum, p.special, p.productShow, categoryName, 
 		    productName, price, savedMoney, 
-			discountRate, delivery, thumbnail, p.content, p.reg_date,
-			NVL(showSpecial, -1) showSpecial, 
-			NVL(saleCount, 0) saleCount
+			discountRate, delivery, thumbnail, p.content, p.reg_date
 		FROM product p
 		JOIN productCategory c ON p.categoryNum = c.categoryNum
+		WHERE p.productShow = 1 AND p.productNum = #{productNum}
 	</select>
 
 	<select id="findByCategoryName" parameterType="long" resultType="com.fp.pet.domain.Product" >
 		select categoryname
 		from productcategory
 		where categorynum=#{categoryNum}
+	</select>
+	
+		<select id="listProductOption" parameterType="Long" resultType="com.fp.pet.domain.Product">
+		SELECT optionNum, optionName, parent, productNum, nooption
+		FROM productOption
+		WHERE productNum = #{productNum}
+		ORDER BY parent NULLS FIRST, parent
+	</select>
+	
+	<select id="listOptionDetail" parameterType="Long" resultType="com.fp.pet.domain.Product">
+		SELECT detailNum, optionNum, optionValue
+		FROM optionDetail
+		WHERE optionNum = #{optionNum}
+		ORDER BY detailNum
 	</select>
 
 </mapper>

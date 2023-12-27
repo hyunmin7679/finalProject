@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fp.pet.common.MyUtil;
 import com.fp.pet.domain.Product;
@@ -81,11 +82,36 @@ public class ProductController {
 		return ".product.main";
 	}
 	
+	@GetMapping("listOptionDetail2")
+	@ResponseBody
+	public List<Product> listOptionDetail2(@RequestParam long optionNum,
+			@RequestParam long optionNum2, @RequestParam long detailNum) {
+		List<Product> list = service.listOptionDetail(optionNum2);
+		return list;
+	}
+	
 	@GetMapping("/buy/{productNum}")
 	public String buyRequest(@PathVariable String productNum, Model model) throws Exception{
 		
-		model.addAttribute("productNum",productNum);
-		return ".product.buy";
+		try {
+			long longNum = Long.parseLong(productNum);
+			Product dto = service.findByProduct(longNum);
+			// 옵션명
+			List<Product> listOption = service.listProductOption(longNum);
+			// 상위 옵션값
+			List<Product> listOptionDetail = null;
+			if(listOption.size() > 0) {
+				listOptionDetail = service.listOptionDetail(listOption.get(0).getOptionNum());
+			}
+		
+			model.addAttribute("dto", dto);
+			model.addAttribute("productNum",productNum);
+			model.addAttribute("listOption", listOption);
+			model.addAttribute("listOptionDetail", listOptionDetail);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ".product.buy2";
 	}
 	
 }

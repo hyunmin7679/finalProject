@@ -11,5 +11,8 @@ public interface ProductService {
 	
 	public Product findByProduct(long ProductNum);
 	public Product findByCategoryName(long categoryNum);
+	
+	public List<Product> listProductOption(long productNum);
+	public List<Product> listOptionDetail(long optionNum);
 
 }

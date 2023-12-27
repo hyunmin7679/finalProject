@@ -168,7 +168,7 @@ $(function(){
 		let optionValue = $(".requiredOption :selected").text();
 		let optionValue2 = $(".requiredOption2 :selected").text();
 		
-		let salePrice = ${dto.salePrice};
+		let salePrice = ${dto.price};
 		let totalPrice = salePrice.toLocaleString();
 		
 		let s = optionValue + " / " + optionValue2;
@@ -397,7 +397,7 @@ $(function(){
 	<div class="body-container">	
 		<div class="body-main">
 			<div class="row mt-4">
-				<div class="col-md-6 border border-end-0 pt-2">
+				<div class="col-md-6 border-end-0 pt-2">
 					<div class="row gx-1 border rounded">
 						<div class="col lg-img">
 							<img class="w-100 h-100" src="${pageContext.request.contextPath}/uploads/product/${dto.thumbnail}">
@@ -412,7 +412,7 @@ $(function(){
 					</div>
 				</div>
 				
-				<div class="col-md-6 border">
+				<div class="col-md-6">
 					<form name="buyForm">
 						<c:if test="${dto.special != 0}">
 							<div class="border rounded bg-light mt-2 p-2">
@@ -446,11 +446,11 @@ $(function(){
 							</c:if>
 							<div class="col text-end">
 								<label class="fs-5 pe-2 fw-semibold">
-									<fmt:formatNumber value="${dto.salePrice}"/>원
+									<fmt:formatNumber value="${dto.price}"/>원
 								</label>
 								<c:if test="${dto.discountRate != 0}">
 									<label class="fs-6 fw-light text-decoration-line-through">
-										<fmt:formatNumber value="${dto.price}"/>원
+										<fmt:formatNumber value="${dto.salePrice}"/>원
 									</label>
 								</c:if>
 							</div>
@@ -493,7 +493,6 @@ $(function(){
 								<label>200,000 이상 구매시 무료</label>
 							</div>
 						</div>
-						
 						<div class="mt-2">
 							* 필수 옵션
 						</div>
@@ -511,7 +510,6 @@ $(function(){
 								<option value="">${listOption[1].optionName}</option>
 							</select>
 						</div>
-						
 						<div class="order-area"></div>
 						
 						<div class="row mt-2 pb-2">
@@ -524,7 +522,7 @@ $(function(){
 	
 						<div class="mt-2">
 							<input type="hidden" name="mode" value="buy">
-							<button type="button" class="btn btn-primary w-100 btn-buySend" onclick="sendOk('buy');">구매하기</button>
+							<button type="button" class="btn w-100 btn-buySend" style="background-color: #ffc107" onclick="sendOk('buy');">구매하기</button>
 						</div>
 						<div class="row mt-2 mb-2">
 							<div class="col pe-1">

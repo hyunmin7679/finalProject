@@ -14,9 +14,28 @@ public class Product {
 	private String reg_date;
 
 	private int special;
-	
-	private String categoryNum;
+	private String startDate;
+	private String endDate;
+	private int showSpecial;
+	private int saleCount;
+
+	private long categoryNum;
 	private String categoryName;
+	private Long parentNum;
+	private int level;
+
+	private long fileNum;
+	private String filename;
+
+	private double score;
+	private int reviewCount;
+	private int questionCount;
+
+	private long optionNum;
+	private String optionName;
+	private long detailNum;
+	private String optionValue;
+	private long noOption;
 	
 	public long getProductNum() {
 		return productNum;
@@ -90,10 +109,34 @@ public class Product {
 	public void setSpecial(int special) {
 		this.special = special;
 	}
-	public String getCategoryNum() {
+	public String getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+	public String getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+	public int getShowSpecial() {
+		return showSpecial;
+	}
+	public void setShowSpecial(int showSpecial) {
+		this.showSpecial = showSpecial;
+	}
+	public int getSaleCount() {
+		return saleCount;
+	}
+	public void setSaleCount(int saleCount) {
+		this.saleCount = saleCount;
+	}
+	public long getCategoryNum() {
 		return categoryNum;
 	}
-	public void setCategoryNum(String categoryNum) {
+	public void setCategoryNum(long categoryNum) {
 		this.categoryNum = categoryNum;
 	}
 	public String getCategoryName() {
@@ -102,10 +145,79 @@ public class Product {
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
+	public Long getParentNum() {
+		return parentNum;
+	}
+	public void setParentNum(Long parentNum) {
+		this.parentNum = parentNum;
+	}
+	public int getLevel() {
+		return level;
+	}
+	public void setLevel(int level) {
+		this.level = level;
+	}
+	public long getFileNum() {
+		return fileNum;
+	}
+	public void setFileNum(long fileNum) {
+		this.fileNum = fileNum;
+	}
+	public String getFilename() {
+		return filename;
+	}
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+	public double getScore() {
+		return score;
+	}
+	public void setScore(double score) {
+		this.score = score;
+	}
+	public int getReviewCount() {
+		return reviewCount;
+	}
+	public void setReviewCount(int reviewCount) {
+		this.reviewCount = reviewCount;
+	}
+	public int getQuestionCount() {
+		return questionCount;
+	}
+	public void setQuestionCount(int questionCount) {
+		this.questionCount = questionCount;
+	}
+	public long getOptionNum() {
+		return optionNum;
+	}
+	public void setOptionNum(long optionNum) {
+		this.optionNum = optionNum;
+	}
+	public String getOptionName() {
+		return optionName;
+	}
+	public void setOptionName(String optionName) {
+		this.optionName = optionName;
+	}
+	public long getDetailNum() {
+		return detailNum;
+	}
+	public void setDetailNum(long detailNum) {
+		this.detailNum = detailNum;
+	}
+	public String getOptionValue() {
+		return optionValue;
+	}
+	public void setOptionValue(String optionValue) {
+		this.optionValue = optionValue;
+	}
+	public long getNoOption() {
+		return noOption;
+	}
+	public void setNoOption(long noOption) {
+		this.noOption = noOption;
+	}
 	
 
-
-
-	
 
 }

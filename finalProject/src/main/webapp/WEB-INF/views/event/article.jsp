@@ -15,7 +15,7 @@
 <div class="container">
 	<div class="body-container">	
 		<div class="body-title">
-			<h3><i class="bi bi-app"></i> 게시판 </h3>
+			<h3><i class="bi bi-app"></i> 이벤트 </h3>
 		</div>
 		
 		<div class="body-main">
@@ -32,7 +32,7 @@
 				<tbody>
 					<tr>
 						<td width="50%">
-							이름 : ${dto.userName}
+							관리자 : ${dto.userName}
 						</td>
 						<td align="right">
 							${dto.reg_date} | 조회 ${dto.hitCount}
