@@ -14,12 +14,22 @@
 <script type="text/javascript">
 function sendOk() {
     const f = document.qnaForm;
-	let str;
 	
+    let str;
+	str = f.q_subject.value;
 	
+	if(str == "[상품] 상품관련 문의"){
+		if(!f.productName.value){
+			alert("상품관련 문의 시 상품선택은 필수입니다.");
+			str.focus();
+			return;
+		}	
+	}
+
     f.action = "${pageContext.request.contextPath}/qna/${mode}";
     f.submit();
 }
+
 </script>
 
 <div class="container">
@@ -29,18 +39,20 @@ function sendOk() {
 		</div>
 		
 		<div class="body-main">
-		
 			<form name="qnaForm" method="post">
 				<table class="table mt-5 write-form">
 					<tr>
 						<td class="bg-light col-sm-2" scope="row">제 목</td>
 						<td>
 							<div class="row">
-								<div class="col-sm-4 ps-1">
+								<div class="col-sm-4">
 									<select name="q_subject" class="form-select">
 										<option value="">:: 제목 선택 ::</option>
-										<option value="product">[상품] 상품관련 문의</option>
-										<option value="delivery">[배송] 배송관련 문의</option>										
+										<option value="[상품] 상품관련 문의" ${dto.q_subject=="[상품] 상품관련 문의"?"selected":""}>[상품] 상품관련 문의</option>
+										<option value="[배송] 배송관련 문의" ${dto.q_subject=="[배송] 배송관련 문의"?"selected":""}>[배송] 배송관련 문의</option>										
+										<option value="[주문] 주문관련 문의" ${dto.q_subject=="[주문] 주문관련 문의"?"selected":""}>[주문] 주문관련 문의</option>										
+										<option value="[반품/환불] 반품/환불 문의" ${dto.q_subject=="[반품/환불] 반품/환불 문의"?"selected":""}>[반품/환불] 반품/환불 문의</option>										
+										<option value="[기타] 기타 문의" ${dto.q_subject=="[기타] 기타 문의"?"selected":""}>[기타] 기타 문의</option>										
 									</select>
 								</div>
 							</div>
@@ -49,19 +61,27 @@ function sendOk() {
 					<tr>
 						<td class="bg-light col-sm-2" scope="row">상품명</td>
 						<td>
-							<input type="text" name="productName" class="form-control" readonly>
-							<button type="button" class="btn btn-light btn-append">상품등록</button>
-							<input type="hidden" name="productNum">
-
+							<c:if test="${mode=='write'}">
+								<input type="text" name="productName" class="form-control" readonly>
+								<button type="button" class="btn btn-light btn-append">상품선택</button>
+								<span style="font-size: 13px; color: #003166;">상품문의 시 상품선택 바랍니다.</span>
+							</c:if>
+							
+							<c:if test="${mode=='update'}"> 
+								<input type="text" name="productName" class="form-control" readonly value="${dto.productName}">
+								<button type="button" class="btn btn-light btn-append">상품선택</button>							
+							</c:if>
+							
+							<input type="hidden" name="productNum" value="0">
 						</td>
 					</tr>
+					
 					<tr>
 						<td class="bg-light col-sm-2" scope="row">작성자명</td>
  						<td>
-							<p class="form-control-plaintext">${uName}</p>
+							<p class="form-control-plaintext">${sessionScope.member.userName}</p>
 						</td>
 					</tr>
-		
 					<tr>
 						<td class="bg-light col-sm-2" scope="row">공개여부</td>
 						<td class="py-3"> 
@@ -73,15 +93,12 @@ function sendOk() {
 							<label class="form-check-label" for="secret2">비공개</label>
 						</td>
 					</tr>
-
 					<tr>
 						<td class="bg-light col-sm-2" scope="row">내 용</td>
 						<td>
-							<textarea name="question" class="form-control">※ 상품문의 시 상품명을 작성해주시면 정확하고 빠른 답변에 도움이 됩니다.
-							${dto.question}</textarea>
+							<textarea name="question" class="form-control"><c:if test="${mode=='write'}">※ 문의 시 상품명 또는 주문번호를 작성해주시면 정확하고 빠른 답변에 도움이 됩니다.</c:if>${dto.question}</textarea>
 						</td>
-					</tr>
-					
+					</tr>	
 				</table>
 				
 				<table class="table table-borderless">
@@ -94,8 +111,6 @@ function sendOk() {
 								<input type="hidden" name="num" value="${dto.num}">
 								<input type="hidden" name="page" value="${page}">
 							</c:if>
-							
-							
 						</td>
 					</tr>
 				</table>
@@ -105,7 +120,7 @@ function sendOk() {
 </div>
 
 
-<!-- 상품 검색 대화상자2 -->
+<!-- 상품 검색 대화상자 -->
 <div class="modal fade" id="productSearchModal" tabindex="-1" aria-labelledby="searchModalLabel"
 				aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
 	<div class="modal-dialog modal-dialog-centered">
@@ -167,24 +182,22 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 					alert('요청 처리가 실패 했습니다.');
 					return false;
 		    	}
-		    	
 				console.log(jqXHR.responseText);
 			}
 	};
 	
 	if(file) {
-		settings.processData = false;  // file 전송시 필수. 서버로전송할 데이터를 쿼리문자열로 변환여부
-		settings.contentType = false;  // file 전송시 필수. 서버에전송할 데이터의 Content-Type. 기본:application/x-www-urlencoded
+		settings.processData = false; 
+		settings.contentType = false; 
 	}
 	
 	$.ajax(url, settings);
 }
 
-
 $(function(){
-	// 상품 등록 버튼
+	// 상품 선택 버튼
 	$(".btn-append").click(function(){
-		// 모달2가 뜸
+		// 모달 뜸
 		$(".search-form input[name=productNum]").val("");
 		$(".search-form input[name=productName]").val("");
 		$(".product-search-list").html("");
@@ -192,9 +205,8 @@ $(function(){
 		$("#productSearchModal").modal("show");
 	});
 	
-	// 상품검색 대화상자-검색 버튼2
+	// 모달 내 검색 버튼
 	$(".btn-productSearch").click(function(){
-    	//$(".product-search-list").html("");
     	
 		let schType = $(".search-form select[name=schType]").val();
 	    let kwd = $(".search-form input[name=kwd]").val();
@@ -203,7 +215,7 @@ $(function(){
 	    let url = "${pageContext.request.contextPath}/qna/productSearch";
 	    
 	    
-	    const fn = function(data) { // data에 num, name, tumbnail 있음
+	    const fn = function(data) { 
 	    	let out = "";
 	    	for(let item of data.list) {
 	    		let productNum = item.productNum;
@@ -213,15 +225,12 @@ $(function(){
 	    		out += "<div class='row mb-2 p-2 border-bottom'>";
 	    		out += "  <div class='col-3 text-center'>"+productNum+"</div>"
 	    		out += "  <div class='col ps-2 search-productName' data-productNum='"+productNum+"'>"+productName+"</div>";
-	    		out += "</div>"; 
- 
+	    		out += "</div>";
 	    	}
-	    	
 	    	$(".product-search-list").html(out);
 		};
 		
 		ajaxFun(url, "get", query, "json", fn);
-	    
 	});
 	
 	// 상품검색 대화상자-검색된 상품을 클릭한 경우

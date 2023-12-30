@@ -42,7 +42,6 @@ public class QnaController {
 			Model model) throws Exception {
 
 		String cp = req.getContextPath();
-		//SessionInfo info = (SessionInfo) session.getAttribute("member");
 
 		int size = 10;
 		int total_page = 0;
@@ -56,7 +55,6 @@ public class QnaController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("schType", schType);
 		map.put("kwd", kwd);
-		//map.put("userId", info.getUserId());
 		
 		dataCount = service.dataCount(map);
 		if (dataCount != 0) {
@@ -84,8 +82,8 @@ public class QnaController {
 		}
 
 		if (query.length() != 0) {
-			listUrl += "?" + query;
-			articleUrl += "&" + query;
+			listUrl += "/qna/list?" + query;
+			articleUrl += "/qna/article?page=" + current_page + "&" + query;
 		}
 
 		String paging = myUtil.paging(current_page, total_page, listUrl);
@@ -104,30 +102,20 @@ public class QnaController {
 	}
 
 	
-
-	@GetMapping("popup")
-	public String popup() throws Exception {
-		
-		return "qna/popup";
-	}
-	
-	
 	@GetMapping("write")
 	public String writeForm(HttpSession session, Model model) throws Exception {
-		SessionInfo info = (SessionInfo) session.getAttribute("member");
 		
-		String uName =info.getUserName();
-		model.addAttribute("uName",uName);
 		model.addAttribute("mode", "write");
 		return ".qna.write";
 	}
 
 	@PostMapping("write")
-	public String writeSubmit(HttpSession session, Qna dto) throws Exception {
+	public String writeSubmit(HttpSession session,			
+			Qna dto) throws Exception {
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
 		try {
-			
 			dto.setMemberIdx(info.getMemberIdx());
+			
 			service.insertQna(dto);
 		} catch (Exception e) {
 		}
@@ -156,20 +144,69 @@ public class QnaController {
 			return "redirect:/qna/list?" + query;
 		}
 
-		if ( info.getMemberIdx() != dto.getMemberIdx()) {
+		if (dto.getSecret() == 1 && (info.getMemberIdx() != dto.getMemberIdx()) 
+				&& info.getMembership() < 31 ) {
 			return "redirect:/qna/list?" + query;
 		}
 		
-		model.addAttribute("info", info);
-		model.addAttribute("msg","비공개글이므로 접근할 수 없습니다!");
+		dto.setQuestion(dto.getQuestion().replaceAll("\n", "<br>"));
+		
+		// 이전 글, 다음 글
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("num", dto.getNum());
+		map.put("schType", schType);
+		map.put("kwd", kwd);
+
+		Qna prevDto = service.findByPrev(map);
+		Qna nextDto = service.findByNext(map);
+		
 		model.addAttribute("dto", dto);
+		model.addAttribute("prevDto", prevDto);
+		model.addAttribute("nextDto", nextDto);
 		model.addAttribute("page", page);
-		model.addAttribute("schType", schType);
-		model.addAttribute("kwd", kwd);
 		model.addAttribute("query", query);
 
 		return ".qna.article";
 	}
+	
+	@GetMapping("update")
+	public String updateForm(@RequestParam long num,
+			@RequestParam String page,
+			HttpSession session,
+			Model model) throws Exception {
+
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
+
+		Qna dto = service.findById(num);
+		if (dto == null) {
+			return "redirect:/qna/list?page=" + page;
+		}
+
+		if (info.getMemberIdx() != dto.getMemberIdx()) {
+			return "redirect:/qna/list?page=" + page;
+		}
+
+		model.addAttribute("mode", "update");
+		model.addAttribute("page", page);
+		model.addAttribute("dto", dto);
+
+		return ".qna.write";
+	}
+
+	@PostMapping("update")
+	public String updateSubmit(Qna dto,
+			@RequestParam String page,
+			HttpSession session) throws Exception {
+		try {
+			SessionInfo info = (SessionInfo) session.getAttribute("member");
+			dto.setMemberIdx(info.getMemberIdx());
+			service.updateQna(dto);
+		} catch (Exception e) {
+		}
+
+		return "redirect:/qna/list?page=" + page;
+	}
+
 
 	@GetMapping("delete")
 	public String delete(@RequestParam long num,
@@ -187,12 +224,11 @@ public class QnaController {
 		}
 
 		Qna dto = service.findById(num);
-		if (dto != null) {
-			if (info.getMemberIdx()==dto.getMemberIdx()) {
-				try {
-					service.deleteQna(num);
-				} catch (Exception e) {
-				}
+		
+		if (dto != null && info.getMemberIdx()==dto.getMemberIdx()||info.getMembership()>30) {
+			try {
+				service.deleteQna(num);
+			} catch (Exception e) {
 			}
 		}
 

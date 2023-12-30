@@ -5,7 +5,7 @@
 <mapper namespace="com.fp.pet.mapper.QnaMapper">
 	<insert id="insertQna" parameterType="com.fp.pet.domain.Qna">
 		INSERT INTO productQna(num, productNum, memberIdx, secret, q_subject, question, question_date, showQuestion)
-			VALUES (productQna_seq.NEXTVAL,#{productNum},#{memberIdx},#{secret},#{q_subject}, #{question}, SYSDATE, 1)
+			VALUES (productQna_seq.NEXTVAL,#{productNum,jdbcType=BIGINT},#{memberIdx},#{secret},#{q_subject}, #{question}, SYSDATE, 1)
 	</insert>
 
 	<sql id="where-list">
@@ -27,7 +27,7 @@
 	</sql>
 	
 	<sql id="where-list2">
-		<if test="schType=='all' ">
+		<if test="schType=='all'">
 			productNum = #{kwd}
 			OR INSTR(productName, #{kwd}) &gt; 0 )
 		</if>
@@ -64,7 +64,7 @@
 
 	<!-- 글리스트 -->
     <select id="listQna" parameterType="map" resultType="com.fp.pet.domain.Qna">
-		SELECT num, q.productNum, p.productName, thumbnail, q.memberIdx, userName, q_subject,
+		SELECT num, q.productNum, p.productName, thumbnail, q.memberIdx, secret, userName, q_subject,
 			   TO_CHAR(question_date, 'YYYY-MM-DD') question_date, answer_date
 		FROM productQna q
 		JOIN member1 m ON q.memberIdx=m.memberIdx
@@ -95,13 +95,50 @@
     
 	<!-- 글보기 -->
 	<select id="findById" resultType="com.fp.pet.domain.Qna" parameterType="Long">
-		SELECT num, q.memberIdx, m.userName, q_subject, question, 
+		SELECT num, q.memberIdx, m.userName, q_subject, question, thumbnail,q.productNum,productName,
 				question_date, answerId, a.userName answerName, answer, answer_date
 		FROM productQna q
 		JOIN member1 m ON q.memberIdx=m.memberIdx
+		LEFT OUTER JOIN product p ON q.productNum=p.productNum
 		LEFT OUTER JOIN member1 a ON q.answerId = a.userId
 		WHERE num = #{num}
 	</select>
+	
+	<select id="findByPrev" parameterType="map" resultType="com.fp.pet.domain.Qna">
+		SELECT q.num, q.q_subject, q.secret, m.userId, q.memberIdx, thumbnail,q.productNum,productName
+		FROM productQna q
+		JOIN member1 m ON q.memberIdx=m.memberIdx
+		LEFT OUTER JOIN product p ON q.productNum=p.productNum
+		<where>
+			<if test="kwd != null and kwd != '' ">
+				<include refid="where-list"/>
+			</if>
+			AND (q.num &gt; #{num})
+		</where>
+		ORDER BY num ASC
+		FETCH FIRST 1 ROWS ONLY
+	</select>
+	
+	<select id="findByNext" parameterType="map" resultType="com.fp.pet.domain.Qna">
+		SELECT q.num, q.q_subject, q.secret, m.userId, q.memberIdx, thumbnail,q.productNum,productName
+		FROM productQna q
+		JOIN member1 m ON q.memberIdx=m.memberIdx
+		LEFT OUTER JOIN product p ON q.productNum=p.productNum
+		<where>
+			<if test="kwd != null and kwd != '' ">
+				<include refid="where-list"/>
+			</if>
+			AND (q.num &lt; #{num})
+		</where>
+		ORDER BY num DESC
+		FETCH FIRST 1 ROWS ONLY
+	</select>
+	
+	<update id="updateQna" parameterType="com.fp.pet.domain.Qna">
+		UPDATE productQna SET productNum=#{productNum}, q_subject=#{q_subject}, question=#{question}, secret=#{secret}
+		WHERE num = #{num}
+	</update>
+	
 
 	<!-- 삭제 -->
 	<delete id="deleteQna" parameterType="Long">

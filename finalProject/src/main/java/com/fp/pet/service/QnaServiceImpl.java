@@ -17,6 +17,9 @@ public class QnaServiceImpl implements QnaService {
 	@Override
 	public void insertQna(Qna dto) throws Exception {
 		try {
+			if(dto.getProductNum() == null || dto.getProductNum() == 0) {
+				dto.setProductNum(null);
+			}
 			mapper.insertQna(dto);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -97,6 +100,42 @@ public class QnaServiceImpl implements QnaService {
 		}
 		
 		return list;
+	}
+
+	@Override
+	public Qna findByPrev(Map<String, Object> map) {
+		Qna dto = null;
+
+		try {
+			dto = mapper.findByPrev(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return dto;
+	}
+
+	@Override
+	public Qna findByNext(Map<String, Object> map) {
+		Qna dto = null;
+
+		try {
+			dto = mapper.findByNext(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return dto;
+	}
+
+	@Override
+	public void updateQna(Qna dto) throws Exception {
+		try {
+			mapper.updateQna(dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 	}	
 
 }

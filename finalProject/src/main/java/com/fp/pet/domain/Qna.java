@@ -4,7 +4,7 @@ package com.fp.pet.domain;
 // x : userName, userId, category 
 public class Qna {
 	private long num; // 문의번호
-	private long productNum;
+	private Long productNum;
 	private long memberIdx;  
 	private int secret;
 	private String q_subject;
@@ -30,10 +30,10 @@ public class Qna {
 	public void setNum(long num) {
 		this.num = num;
 	}
-	public long getProductNum() {
+	public Long getProductNum() {
 		return productNum;
 	}
-	public void setProductNum(long productNum) {
+	public void setProductNum(Long productNum) {
 		this.productNum = productNum;
 	}
 	public long getMemberIdx() {

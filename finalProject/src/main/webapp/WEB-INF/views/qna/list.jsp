@@ -60,7 +60,20 @@ function searchList() {
 								</c:if>
 							</td>
 							<td class="left">
-								<a href="${articleUrl}&num=${dto.num}">${dto.q_subject}</a>
+								<c:choose>
+									<c:when test="${dto.secret==1}">
+										<c:if test="${sessionScope.member.memberIdx eq dto.memberIdx || sessionScope.member.membership>30}">
+											<a href="${articleUrl}&num=${dto.num}">${dto.q_subject}</a>
+										</c:if>
+										<c:if test="${!(sessionScope.member.memberIdx eq dto.memberIdx) && sessionScope.member.membership<31}">
+											비밀글 입니다.
+										</c:if>
+										<i class="bi bi-file-lock2"></i>
+									</c:when>
+									<c:otherwise>
+										<a href="${articleUrl}&num=${dto.num}">${dto.q_subject}</a>
+									</c:otherwise>
+								</c:choose>
 							</td>
 							<td>${dto.userName}</td>
 							<td>${dto.question_date}</td>
@@ -100,7 +113,6 @@ function searchList() {
 					<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/qna/write';">질문등록</button>
 				</div>
 			</div>
-
 		</div>
 	</div>
 </div>
