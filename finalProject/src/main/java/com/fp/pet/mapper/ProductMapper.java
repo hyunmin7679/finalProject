@@ -3,8 +3,11 @@ package com.fp.pet.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.fp.pet.domain.Product;
 
+@Mapper
 public interface ProductMapper {
 	public int dataCount(Map<String, Object> map);
 	public List<Product> listProduct(Map<String, Object> map);

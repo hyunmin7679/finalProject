@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fp.pet.mapper.FriendMapper">
+
+	<select id="listFriend" parameterType="map" resultType="com.fp.pet.domain.Friend">
+		select FRIENDNUM,FROM_FRIEND,TO_FRIEND,IS_FRIEND,REG_DATE,FRIEND_DATE,IDENTIFYDAY
+		from friendlist
+		where is_friend = 2 and FROM_FRIEND = #{userId}
+	</select>
+	
+	<select id="receivedlist" parameterType="map" resultType="com.fp.pet.domain.Friend">
+		select FRIENDNUM,FROM_FRIEND,TO_FRIEND,IS_FRIEND,REG_DATE,FRIEND_DATE,IDENTIFYDAY
+		from friendlist
+		where is_friend = 0 and FROM_FRIEND = #{userId}
+	</select>
+	
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		select nvl(Count(*),0)
+		from friendlist
+		where is_friend = 2 and FROM_FRIEND = #{userId}
+	</select>
+	
+	<select id="searchMember" parameterType="map" resultType="com.fp.pet.domain.Friend">
+		select username
+		from member1
+		where username = #{kwd}
+	</select>
+	
+	<sql id="where-list">
+		INSTR(username, #{kwd}) &gt; 0
+	</sql>
+	
+	<select id="addFriend" parameterType="com.fp.pet.domain.Friend">
+		insert into friendlist(FRIENDNUM,FROM_FRIEND,TO_FRIEND,IS_FRIEND,REG_DATE)
+			values(friendlist_seq.nextval, #{userId}, #{userName}, 1, sysdate)
+	</select>
+	
+	<select id="addFriend2" parameterType="com.fp.pet.domain.Friend">
+		insert into friendlist(FRIENDNUM,FROM_FRIEND,TO_FRIEND,IS_FRIEND,REG_DATE)
+			values(friendlist_seq.nextval, #{userName}, #{userId}, 0, sysdate)
+	</select>
+	
+	<update id="acceptFriend" parameterType="com.fp.pet.domain.Friend">
+		update friendlist set IS_FRIEND = 2, FRIEND_DATE = sysdate, IDENTIFYDAY = sysdate 
+		where FROM_FRIEND = #{userId} and TO_FRIEND = #{userName}
+	</update>
+	
+	<update id="acceptFriend2" parameterType="com.fp.pet.domain.Friend">
+		update friendlist set IS_FRIEND = 2, FRIEND_DATE = sysdate, IDENTIFYDAY = sysdate 
+		where FROM_FRIEND = #{userName} and TO_FRIEND = #{userId}
+	</update>
+
+</mapper>

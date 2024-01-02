@@ -207,7 +207,7 @@ $(function(){
                     <li><a href="#">장바구니</a></li>
                     <li><a href="#">위시리스트</a></li>
                     <li><a href="${pageContext.request.contextPath}/myPage/paymentList">주문내역</a></li>
-                    <li><a href="#">친구목록</a></li>
+                    <li><a href="${pageContext.request.contextPath}/friend/list">친구목록</a></li>
                     <li><a href="#">포인트/쿠폰</a></li>
                     </ul>
              </li>
