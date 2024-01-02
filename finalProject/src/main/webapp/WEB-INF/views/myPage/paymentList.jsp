@@ -2,12 +2,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
 
 <style type="text/css">
 .body-container {
 	max-width: 850px;
 }
-``
+
 .nav-tabs .nav-link {
 	min-width: 170px;
 	background: #f3f5f7;
@@ -58,6 +60,29 @@
 	border: 1px solid #c2c2c2;
 	cursor: pointer;
 }
+
+/* ------------------------------------------------------------------------------ */
+
+@import url('http://fonts.googleapis.com/earlyaccess/notosanskr.css');
+
+ul, li, p { list-style:none; padding:0; margin:0; }
+.body-container {max-width: 800px; }
+.fa-regular {text-align: center;}
+
+i { color:#848484; width: 15px;}
+a { color:#848484; font-size: 15px;}
+a:hover {color: black; text-decoration: none;}
+.category-bar { margin-top: 40px; margin-bottom:20px; display: flex;  align-items: center; border:1px solid #D8D8D8; border-radius: 30px; padding-bottom: 5px;}
+.bar-item{ width:100px; height:auto; text-align:center; margin: 10px; }
+.title {display: flex; justify-content: center; }
+h3{font-weight: 900;}
+
+.icombox {padding: 30px;}
+.icon {padding-left : 30px;  width: 100px; height:auto; text-align:left; padding: 0}
+p:nth-child(2) {font-size: 10px;}
+.itembox {display: flex; justify-content: center; width: 70%;} 
+
+
 </style>
 
 <script type="text/javascript">
@@ -217,18 +242,45 @@ $(function(){
 </script>
 
 <div class="container">
-	<div class="body-container">
+
+	<div class="category-bar">
+		<div >
+			<a href="${pageContext.request.contextPath}/"><img class="icon" src="${pageContext.request.contextPath}/resources/images/아이콘1.gif"></a>
+			<div style="text-align: center;">
+			<p>현주님</p>
+			<p>VIP등급</p>
+			</div>
+		</div>
 		
+		<div style="margin: 100px">
+		</div>
+		
+		<div class="itembox">
+		<div class="bar-item p-3">
+			<a href="${pageContext.request.contextPath}/faq/main"><i class="fa-regular fa-circle-question fa-lg"></i><br>FAQ</a>
+		</div>
+		<div class="bar-item p-3">
+			<a href="${pageContext.request.contextPath}/notice/list" ><i class="fa-regular fa-file-lines fa-lg"></i><br>공지사항</a>
+		</div>
+		<div class="bar-item p-3">
+			<a href="#"><i class="fa-solid fa-file-pen fa-lg"></i><br>문의사항</a>
+		</div>
+		</div>
+    </div>
+	
+	
 	<!-- 탭버튼 -->
 		<ul class="nav nav-tabs mt-5" id="myTab" role="tablist">
 			<li class="nav-item" role="presentation">
 				<button class="nav-link active" id="tab-1" data-bs-toggle="tab" data-bs-target="#tab-pane-1" type="button" role="tab" aria-controls="1" aria-selected="true">주문 내역</button>
 			</li>
+		<!-- 
 			<li class="nav-item" role="presentation">
 				<button class="nav-link" id="tab-3" data-bs-toggle="tab" data-bs-target="#tab-pane-2" type="button" role="tab" aria-controls="2" aria-selected="false">배송조회</button>
 			</li>
+		 -->	
 			<li class="nav-item" role="presentation">
-				<button class="nav-link" id="tab-2" data-bs-toggle="tab" data-bs-target="#tab-pane-3" type="button" role="tab" aria-controls="3" aria-selected="false">취소/반품 내역</button>
+				<button class="nav-link" id="tab-2" data-bs-toggle="tab" data-bs-target="#tab-pane-2" type="button" role="tab" aria-controls="3" aria-selected="false">취소/반품 내역</button>
 			</li>
 		</ul>
 		
@@ -240,12 +292,12 @@ $(function(){
 				</div>
 				<div class="mt-3">
 				
-					<!-- 포이치 -->
-					<%-- <c:forEach var="dto" items="${list }"> --%>
+			
+					 <c:forEach var="dto" items="${list }">
 						<div class="mt-3 p-2 border-bottom payment-list">
 							<div class="row pb-2">
 								<div class="col-6">
-									<div class="fs-6 fw-semibold text-black-50"><label>${dto.stateProduct}</label><label></label></div>
+									<div class="fs-6 fw-semibold text-black-50"><label>${detailState[dto.detailState]}</label><label></label></div>
 								</div>
 								<div class="col-6 text-end">
 									<label class='payment-delete' title="주문내역삭제" data-orderDetailNum="${dto.orderDetailNum}"><i class="fa-solid fa-rectangle-xmark"></i></label>
@@ -253,20 +305,20 @@ $(function(){
 							</div>
 								<div class="row">
 									<div class="pt-1 pb-2">
-										<label class="text-black-50">2023-12-15 결재</label>
+										<label class="text-black-50">${dto.orderDate} 결제</label>
 									</div>
 								<div class="col-auto">
 									<!-- 상품이미지 -->
-									<img class="border rounded md-img" src="${pageContext.request.contextPath}/resources/images/상품배너4.PNG">
+									<img class="border rounded md-img" src="${pageContext.request.contextPath}/uploads/product/${dto.thumbnail}">
 								</div>
 								<div class="col">
-									<div class="fw-semibold pt-2">사료계량저울-(상품명)</div>
+									<div class="fw-semibold pt-2">${dto.productName}</div>
 									<div class="pt-1">
-										<label>주문수량 : 1개 &nbsp; |</label>
-										<label class="fw-semibold ps-3"><fmt:formatNumber value="${dto.productMoney}"/>32,000원</label>
+										<label>주문수량 : ${dto.qty}개 &nbsp; |</label>
+										<label class="fw-semibold ps-3"><fmt:formatNumber value="${dto.productMoney}"/>원</label>
 									</div>
 									<div class="pt-1">
-										옵션 : 하얀색(옵션1) / - (옵션2)
+										옵션 : ${dto.optionValue} / ${dto.optionValue2}
 									</div>
 								</div>
 							</div>
@@ -276,7 +328,7 @@ $(function(){
 								<c:if test="${dto.reviewWrite==0 && (dto.detailState==1 || dto.detailState==2)}">
 									<button type="button" class="btn border btnReviewWriteForm" style="width: 130px;"> 리뷰쓰기 </button>
 								</c:if>						
-								<button type="button" class="btn btn-warning" style="width: 130px;" data-orderDetailNum="${dto.orderDetailNum}"> 배송조회 </button>
+								<button type="button" class="btn btn-warning deliveryTracking" style="width: 130px;" data-orderDetailNum="${dto.orderDetailNum}"> 배송조회 </button>
 														
 								<c:if test="${dto.detailState==0}">
 									<button type="button" class="btn border payment-confirmation" style="width: 130px;" data-orderDetailNum="${dto.orderDetailNum}"> 구매확정 </button>
@@ -330,7 +382,7 @@ $(function(){
 							</c:if>
 							
 						</div>
-					<%-- </c:forEach> --%>
+					 </c:forEach> 
 					
 					<div class="page-navigation">
 						${dataCount == 0 ? "주문 내역이 없습니다." : paging }
@@ -339,7 +391,7 @@ $(function(){
 				</div>				
 			</div>
 			
-			
+			<!-- 
 			<div class="tab-pane fade" id="tab-pane-2" role="tabpanel" aria-labelledby="tab-2" tabindex="0">
 				<div class="mt-3 pt-3 border-bottom">
 					<p class="fs-4 fw-semibold">배송조회</p> 
@@ -358,7 +410,7 @@ $(function(){
 										<label class="text-black-50">2023-12-15 주문</label>
 									</div>
 								<div class="col-auto">
-									<!-- 상품이미지 -->
+								
 									<img class="border rounded md-img" src="${pageContext.request.contextPath}/resources/images/상품배너4.PNG">
 								</div>
 								<div class="col">
@@ -379,12 +431,14 @@ $(function(){
 							</div>
 					</div>				
 				</div>
+				 -->
 				
 		  <!--주문취소/반품내역 -->
-			<div class="tab-pane fade" id="tab-pane-3" role="tabpanel" aria-labelledby="tab-3" tabindex="0">
+			<div class="tab-pane fade" id="tab-pane-2" role="tabpanel" aria-labelledby="tab-2" tabindex="0">
 				<div class="mt-3 pt-3 border-bottom">
 					<p class="fs-4 fw-semibold">취소/반품 내역</p> 
 				</div>
+				<c:forEach var="dto" items="${cancelList }">
 				<div class="mt-3 p-2 border-bottom payment-list">
 							<div class="row pb-2">
 								<div class="col-6">
@@ -396,34 +450,68 @@ $(function(){
 							</div>
 								<div class="row">
 									<div class="pt-1 pb-2">
-										<label class="text-black-50">2023-12-15 반품/취소</label>
+										<label class="text-black-50">${dto.reg_date} 반품/취소</label>
 									</div>
 								<div class="col-auto">
 									<!-- 상품이미지 -->
-									<img class="border rounded md-img" src="${pageContext.request.contextPath}/resources/images/상품배너4.PNG">
+									<img class="border rounded md-img" src="${pageContext.request.contextPath}/uploads/product/${dto.thumbnail}">
 								</div>
 								<div class="col">
-									<div class="fw-semibold pt-2">사료계량저울-(상품명)</div>
+									<div class="fw-semibold pt-2">${dto.productName}</div>
 									<div class="pt-1">
-										<label>주문수량 : 1개 &nbsp; |</label>
-										<label class="fw-semibold ps-3"><fmt:formatNumber value="${dto.productMoney}"/>32,000원</label>
+										<label>주문수량 : ${dto.qty}개 &nbsp; |</label>
+										<label class="fw-semibold ps-3"><fmt:formatNumber value="${dto.productMoney}"/>원</label>
 									</div>
 									<div class="pt-1">
-										옵션 : 하얀색(옵션1) / - (옵션2)
+										옵션 : ${dto.optionValue} / ${dto.optionValue2}
+									</div>
+									<div class="pt-1">
+										총 취소금액 : ${dto.cancelCost} 
 									</div>
 									<div class="mt-3 mb-0 text-end">
-										<p>단순변심으로 인한 주문취소 -(주문취소 구분)</p>
-										<label class="text-black-50 mt-0">2023-12-16 처리완료 </label>
+										<p>${changeSort[dto.changeSort]}</p>
+										<label class="text-black-50 mt-0">${dto.com_date } &nbsp; | ${changeSate[dto.changeState]} </label>
 									</div>
 									<div class="text-end">
 									</div>
 								</div>
 							</div>
-					</div>
+						</div>
+					</c:forEach>
 			</div>
 		</div>
 	</div>
 </div>
+
+
+<!-- 배송조회  -->
+<c:forEach var="dto" items="${list }">
+<div class="modal fade" id="deliveryTrackingModal" tabindex="-1" aria-labelledby="deliveryTrackingModalLabel"
+				aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="deliveryTrackingModalLabel">배송조회</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+                <div class="row search-form">
+					<div class="col-4 pe-1">
+						<h3>${dto.deliveryName} | </h3>
+					</div>
+					<div class="col-auto ps-0 pe-2">
+						<p>${orderState[dto.orderState]}</p>
+					</div>
+					<div class="col ps-0 pe-1">
+						<span>${dto.invoiceNumber}</span>
+					</div>
+                </div>
+			</div>
+		</div>
+	</div>
+</div>
+</c:forEach>
+
 
 <!-- 구매취소/교환요청/반품요청 대화상자  -->
 <div class="modal fade" id="orderDetailUpdateDialogModal" tabindex="-1" aria-labelledby="orderDetailUpdateDialogModalLabel" aria-hidden="true">
@@ -447,13 +535,20 @@ $(function(){
 						</div>
 					</form>
 				</div>
-				
 			</div>
 		</div>
 	</div>
 </div>
 
 <script type="text/javascript">
+
+// 상품등록(수정)대화상자 - 검색
+$(".deliveryTracking").click(function(){
+
+	$("#deliveryTrackingModal").modal("show");
+});
+
+
 // 리뷰 쓰기 버튼
 $(function(){
 	$(".btnReviewWriteForm").click(function(){

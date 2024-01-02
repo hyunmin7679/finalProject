@@ -88,7 +88,7 @@
 					
 					<tr>
 						<td colspan="2" class="text-center p-3" style="border-bottom: none;">
-							<button type="button" class="btn btn-outline-secondary btnSendBoardLike" title="좋아요"><i class="bi ${userBoardLiked ? 'bi-hand-thumbs-up-fill':'bi-hand-thumbs-up' }"></i>&nbsp;&nbsp;<span id="communityLikeCount">${dto.communityLikeCount}</span></button>
+							<button type="button" class="btn btn-outline-secondary btnSendBoardLike" title="좋아요"><i class="bi ${userBoardLiked ? 'bi-hand-thumbs-up-fill':'bi-hand-thumbs-up' }"></i>&nbsp;&nbsp;<span id="boardLikeCount">${dto.boardLikeCount}</span></button>
 						</td>
 					</tr>
 					
@@ -203,12 +203,12 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 	$.ajax(url, settings);
 }
 
-//게시글 공감 여부
+// 게시글 공감 여부
 $(function(){
 	$('.btnSendBoardLike').click(function(){
 		const $i = $(this).find('i');
-		let userCommunityLiked = $i.hasClass('bi-hand-thumbs-up-fill');
-		let msg = userCommunityLiked ? '게시글 공감을 취소하시겠습니까 ? ' : '게시글에 공감하십니까 ? ';
+		let userLiked = $i.hasClass('bi-hand-thumbs-up-fill');
+		let msg = userLiked ? '게시글 공감을 취소하시겠습니까 ? ' : '게시글에 공감하십니까 ? ';
 		
 		if(! confirm( msg )) {
 			return false;
@@ -216,19 +216,19 @@ $(function(){
 		
 		let url = '${pageContext.request.contextPath}/bbs/insertBoardLike';
 		let communityNum = '${dto.communityNum}';
-		let query = 'communityNum=' + communityNum + '&userCommunityLiked=' + userCommunityLiked;
+		let query = 'communityNum=' + communityNum + '&userLiked=' + userLiked;
 		
 		const fn = function(data){
 			let state = data.state;
 			if(state === 'true') {
-				if( userCommunityLiked ) {
+				if( userLiked ) {
 					$i.removeClass('bi-hand-thumbs-up-fill').addClass('bi-hand-thumbs-up');
 				} else {
 					$i.removeClass('bi-hand-thumbs-up').addClass('bi-hand-thumbs-up-fill');
 				}
 				
-				let count = data.communityLikeCount;
-				$('#communityLikeCount').text(count);
+				let count = data.boardLikeCount;
+				$('#boardLikeCount').text(count);
 			} else if(state === 'liked') {
 				alert('게시글 공감은 한번만 가능합니다. !!!');
 			} else if(state === "false") {
@@ -239,7 +239,6 @@ $(function(){
 		ajaxFun(url, 'post', query, 'json', fn);
 	});
 });
-
 
 // 페이징 처리
 $(function(){

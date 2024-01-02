@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.fp.pet.domain.Community;
+import com.fp.pet.domain.Region;
 import com.fp.pet.domain.Reply;
 
 public interface CommunityService {
@@ -34,10 +35,10 @@ public interface CommunityService {
 	public void deleteCommunityFile(Map<String, Object> map) throws Exception;
 
 	// 게시글 좋아요 관련
-	public void insertCommunityLike(Map<String, Object> map) throws Exception;
-	public void deleteCommunityLike(Map<String, Object> map) throws Exception;
-	public int communityLikeCount(long num);
-	public boolean userCommunityLiked(Map<String, Object> map);
+	public void insertBoardLike(Map<String, Object> map) throws Exception;
+	public void deleteBoardLike(Map<String, Object> map) throws Exception;
+	public int boardLikeCount(long communityNum);
+	public boolean userBoardLiked(Map<String, Object> map);
 	
 	// 댓글등록, 댓글 리스트, 댓글개수, 댓글삭제
 	public void insertReply(Reply dto) throws Exception;
@@ -51,5 +52,6 @@ public interface CommunityService {
 	
 	public void updateReplyShowHide(Map<String, Object> map) throws Exception;	
 
-	
-}
+	// 카카오맵 API
+	public List<Region> listRegion();
+	public List<Region> listRegion(String keyword);}

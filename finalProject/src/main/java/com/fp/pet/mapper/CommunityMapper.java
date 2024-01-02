@@ -34,10 +34,10 @@ public interface CommunityMapper {
 	public Community findByNext(Map<String, Object> map);
 	
 	// 좋아요 등록&삭제, 좋아요수, 게시글 좋아요 여부 
-	public void insertCommunityLike(Map<String, Object> map) throws SQLException;
-	public void deleteCommunityLike(Map<String, Object> map) throws SQLException;
-	public int communityLikeCount(long num);
-	public Community userCommunityLiked(Map<String, Object> map);
+	public void insertBoardLike(Map<String, Object> map) throws SQLException;
+	public void deleteBoardLike(Map<String, Object> map) throws SQLException;
+	public int boardLikeCount(long num);
+	public Community userBoardLiked(Map<String, Object> map);
 	
 	// 댓글등록, 댓글 수, 댓글리스트, 댓글삭제
 	public void insertReply(Reply dto) throws SQLException;
@@ -52,4 +52,6 @@ public interface CommunityMapper {
 	// 댓글 보이기/숨기기
 	public void updateReplyShowHide(Map<String, Object> map) throws SQLException;	
 
+	// 카카오맵 API
+	public List<Community> listParkAddr(Map<String, Object> map);
 }

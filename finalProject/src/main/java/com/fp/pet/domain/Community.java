@@ -22,6 +22,8 @@ public class Community {
 	private String reg_date;
 	private int hitCount;
 	private String userName;
+	private String parkname;
+	
 	
 
 	// 커뮤니티 파일
@@ -34,7 +36,7 @@ public class Community {
 	// 좋아요
 	private long memberIdx;	
 	private int replyCount;
-	private int communityLikeCount;
+	private int boardLikeCount;
 	
 	
 	public long getCategoryNum() {
@@ -151,11 +153,17 @@ public class Community {
 	public void setReplyCount(int replyCount) {
 		this.replyCount = replyCount;
 	}
-	public int getCommunityLikeCount() {
-		return communityLikeCount;
+	public int getboardLikeCount() {
+		return boardLikeCount;
 	}
-	public void setCommunityLikeCount(int communityLikeCount) {
-		this.communityLikeCount = communityLikeCount;
+	public void setboardLikeCount(int boardLikeCount) {
+		this.boardLikeCount = boardLikeCount;
+	}
+	public String getParkname() {
+		return parkname;
+	}
+	public void setParkname(String parkname) {
+		this.parkname = parkname;
 	}
 
 }

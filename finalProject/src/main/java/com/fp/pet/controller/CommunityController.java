@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fp.pet.common.FileManager;
 import com.fp.pet.common.MyUtil;
 import com.fp.pet.domain.Community;
+import com.fp.pet.domain.Region;
 import com.fp.pet.domain.Reply;
 import com.fp.pet.domain.SessionInfo;
 import com.fp.pet.service.CommunityService;
@@ -39,22 +40,6 @@ public class CommunityController {
 	
 	@Autowired
 	private FileManager fileManager;
-	
-	@GetMapping(value = "main")
-	public String main(@RequestParam(value = "pageNo", defaultValue = "1") int current_page,
-						Model model) throws Exception {
-		
-		Map<String, Object> map = new HashMap<>();
-		
-		map.put("mode", "use");
-		List<Community> listCategory = service.listCategory(map);
-
-		model.addAttribute("listCategory", listCategory);
-		model.addAttribute("categoryNum", "0");
-		model.addAttribute("pageNo", current_page);
-		
-		return ".bbs.list";
-	}
 	
 	// 리스트
 	@RequestMapping("list")
@@ -105,7 +90,7 @@ public class CommunityController {
 
 		// 글 리스트
 		List<Community> list = service.listCommunity(map);
-
+		
 		if(info != null) {
 			for(Community dto : list) {
 				if(info.getMemberIdx() == info.getMemberIdx()) {
@@ -119,7 +104,7 @@ public class CommunityController {
 		model.addAttribute("size", size);
 		model.addAttribute("page", current_page);
 		model.addAttribute("total_page", total_page);
-		model.addAttribute("categoryNum", categoryNum);
+		model.addAttribute("categoryNum", "0");
 		model.addAttribute("listCategory", listCategory);
 
 		model.addAttribute("schType", schType);
@@ -158,6 +143,28 @@ public class CommunityController {
 		return "redirect:/bbs/list";
 	}
 	
+	@GetMapping("regions")
+	@ResponseBody
+	public Map<String, Object> regions(
+			@RequestParam(defaultValue = "") String keyword
+			) throws Exception {
+
+		// 지도를 표시할 리전
+		List<Region> list = null;
+		
+		if(keyword.length() == 0) {
+			list = service.listRegion();
+		} else {
+			list = service.listRegion(keyword);
+		}
+
+		Map<String, Object> model = new HashMap<String, Object>();
+
+		model.put("list", list);
+		
+		return model;
+	}	
+	
 	// 글보기
 	@GetMapping("article")
 	public String article(@RequestParam long communityNum,
@@ -195,11 +202,11 @@ public class CommunityController {
 		Community nextDto = service.findByNext(map);
 
 		List<Community> listFile = service.listCommunityFile(communityNum);
-
+		
 		
 		// 게시글 좋아요 여부
 		map.put("userId", info.getUserId());
-		boolean userCommunityLiked = service.userCommunityLiked(map); 
+		boolean userBoardLiked = service.userBoardLiked(map);
 		
 		model.addAttribute("dto", dto);
 		model.addAttribute("prevDto", prevDto);
@@ -209,7 +216,7 @@ public class CommunityController {
 		model.addAttribute("page", page);
 		model.addAttribute("query", query);
 
-		model.addAttribute("userCommunityLiked", userCommunityLiked);
+		model.addAttribute("userBoardLiked", userBoardLiked);
 		
 		return ".bbs.article";
 	}  
@@ -227,7 +234,12 @@ public class CommunityController {
 			return "redirect:/bbs/list?page=" + page;
 		}
 		
+		List<Community> listFile = service.listCommunityFile(communityNum);
+
+		
 		model.addAttribute("dto", dto); 
+		model.addAttribute("listFile", listFile);
+		
 		model.addAttribute("mode", "update"); 
 		model.addAttribute("page", page); 
 		
@@ -249,35 +261,9 @@ public class CommunityController {
 		} catch (Exception e) {
 		}
 		
-		return "redirect:/bbs/list?page=" + page;
+		return "redirect:/bbs/article?communityNum=" + dto.getCommunityNum() + "&page=" + page;
 	}
 	
-	// **수정폼에서 파일삭제
-	@GetMapping("deleteFile")
-	public Map<String, Object> deleteFile(@RequestParam long fileNum,
-						     @RequestParam String page,
-							 HttpSession session) throws Exception {
-		
-		SessionInfo info = (SessionInfo) session.getAttribute("member");
-
-		String root = session.getServletContext().getRealPath("/");
-		String pathname = root + "uploads" + File.separator + "bbs";
-
-		Community dto = service.findByFileId(fileNum);
-		if (dto != null) {
-			fileManager.doFileDelete(dto.getFilename(), pathname);
-		}
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("fileNum", fileNum);
-		service.deleteCommunityFile(map);
-		
-			Map<String, Object> model = new HashMap<>();
-			model.put("state", "true");
-			
-			return model;
-		}
-		
 	// 커뮤니티 삭제 (파일있으면 파일도 삭제)
 	@GetMapping("delete")
 	public String delete (@RequestParam long communityNum,
@@ -299,7 +285,7 @@ public class CommunityController {
 
 		Community dto = service.findById(communityNum);
 		if(dto == null) {
-			return "redirect:/album/list?page=" + page;
+			return "redirect:/bbs/list?page=" + page;
 		}
 		
 		if (!dto.getUserId().equals(info.getUserId())) {
@@ -315,6 +301,31 @@ public class CommunityController {
 		return "redirect:/bbs/list?" + query;
 		
 	}
+	
+	// **수정폼에서 파일삭제
+	@PostMapping("deleteFile")
+	@ResponseBody
+	public Map<String, Object> deleteFile(@RequestParam long fileNum,
+			HttpSession session) throws Exception {
+		
+		String root = session.getServletContext().getRealPath("/");
+		String pathname = root + "uploads" + File.separator + "bbs";
+		
+		Community dto = service.findByFileId(fileNum);
+		if (dto != null) {
+			fileManager.doFileDelete(dto.getFilename(), pathname);
+		}
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("field", "fileNum");
+		map.put("communityNum", fileNum);
+		service.deleteCommunityFile(map);
+		
+		Map<String, Object> model = new HashMap<>();
+		model.put("state", "true");
+		
+		return model;	
+	}	
 
 	// 게시글 좋아요 추가/삭제 (AJAX-JSON)
 	@PostMapping("insertBoardLike")
@@ -323,7 +334,7 @@ public class CommunityController {
 			@RequestParam boolean userLiked,
 			HttpSession session) {
 		String state = "true";
-		int communityLikeCount = 0;
+		int boardLikeCount = 0;
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
 
 		Map<String, Object> paramMap = new HashMap<>();
@@ -332,9 +343,9 @@ public class CommunityController {
 
 		try {
 			if(userLiked) {
-				service.deleteCommunityLike(paramMap);
+				service.deleteBoardLike(paramMap);
 			} else {
-				service.insertCommunityLike(paramMap);
+				service.insertBoardLike(paramMap);
 			}
 		} catch (DuplicateKeyException e) {
 			state = "liked";
@@ -342,11 +353,11 @@ public class CommunityController {
 			state = "false";
 		}
 
-		communityLikeCount = service.communityLikeCount(communityNum);
+		boardLikeCount = service.boardLikeCount(communityNum);
 
 		Map<String, Object> model = new HashMap<>();
 		model.put("state", state);
-		model.put("communityLikeCount", communityLikeCount);
+		model.put("boardLikeCount", boardLikeCount);
 
 		return model;
 	}
@@ -503,5 +514,6 @@ public class CommunityController {
 			
 			return model;
 		}	
+		
 
 }

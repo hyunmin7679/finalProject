@@ -5,9 +5,9 @@
 
 	<!-- 커뮤니티 등록 -->
 	<insert id="insertCommunity" parameterType="com.fp.pet.domain.Community">
-		INSERT INTO community(communityNum, categoryNum, userId, subject, content, park,
+		INSERT INTO community(communityNum, categoryNum, userId, subject, content, park, parkname,
 									 reg_date, showNo, hitCount)
-			VALUES (community_seq.NEXTVAL, #{categoryNum}, #{userId}, #{subject}, #{content}, #{park, jdbcType=VARCHAR}, SYSDATE, 1, 0)
+			VALUES (community_seq.NEXTVAL, #{categoryNum}, #{userId}, #{subject}, #{content}, #{park, jdbcType=VARCHAR}, #{parkname, jdbcType=VARCHAR}, SYSDATE, 1, 0)
 	</insert>
 	
 	<!-- 커뮤니티 파일등록 -->
@@ -66,7 +66,7 @@
 	<!-- 커뮤니티 리스트 -->
 	<select id="listCommunity" parameterType="map" resultType="com.fp.pet.domain.Community">
     SELECT c.communityNum, c.categoryNum, c.userId, m.userName, 
-			   subject, content, NVL(park, ' ') park, cg.categoryName, cg.categoryNum, hitCount, TO_CHAR(reg_date, 'YYYY-MM-DD') reg_date,
+			   subject, content, NVL(park, ' ') park, parkname, cg.categoryName, cg.categoryNum, hitCount, TO_CHAR(reg_date, 'YYYY-MM-DD') reg_date,
 			   NVL(replyCount, 0) replyCount 
 		FROM community c
 		JOIN member1 m ON c.userId = m.userId
@@ -84,11 +84,11 @@
 		<where>
          <if test="categoryNum!=0">
             ( c.categoryNum = #{categoryNum} )
+         AND cg.use = 1
          </if>
          <if test="kwd!=null and kwd!='' ">
             AND <include refid="where-list"/>
          </if>
-         AND cg.use = 1
       </where>
 		ORDER BY communityNum DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
@@ -96,7 +96,7 @@
 	
 	<!-- 글보기 -->
 	<select id="findById" parameterType="Long" resultType="com.fp.pet.domain.Community">
-		SELECT c.communityNum, c.categoryNum, c.userId, m.userName, subject, content, NVL(park, ' ') park, 
+		SELECT c.communityNum, c.categoryNum, c.userId, m.userName, subject, content, NVL(park, ' ') park, parkname, 
 		       cg.categoryName, TO_CHAR(reg_date, 'YYYY-MM-DD') reg_date 
 		FROM community c   
 		JOIN member1 m ON c.userId = m.userId    
@@ -141,7 +141,7 @@
 	
 	<!-- 수정 -->
 	<update id="updateCommunity" parameterType="com.fp.pet.domain.Community">
-		UPDATE community SET categoryNum = #{categoryNum}, subject = #{subject}, content = #{content}, reg_date = SYSDATE
+		UPDATE community SET categoryNum = #{categoryNum}, subject = #{subject}, content = #{content}, reg_date = SYSDATE, park = #{park}, parkname = #{parkname}
 		WHERE communityNum = #{communityNum}		    
 	</update>
 
@@ -166,7 +166,7 @@
 	<!-- 커뮤니티 삭제 -->
 	<delete id="deleteCommunityFile" parameterType="map" >
 		DELETE FROM communityFile
-		WHERE communityNum = #{communityNum}
+		WHERE ${field} = #{communityNum}
 	</delete>
 	
 	<delete id="deleteCommunity" parameterType="Long">
@@ -175,23 +175,30 @@
 	</delete>
 	
 	<!-- 게시글 좋아요 추가 -->
-	<insert id="insertCommunityLike" parameterType="map">
-		INSERT INTO communityLike (communityNum, userId) VALUES (#{communityNum}, #{userId})
+	<insert id="insertBoardLike" parameterType="map">
+		INSERT INTO communityLike(communityNum, userId) 
+			VALUES (#{communityNum}, #{userId})
 	</insert>
 	
 	<!-- 게시글 좋아요 삭제 -->
-	<delete id="deleteCommunityLike" parameterType="map">
-		DELECT FROM communityLike WHERE communityNum = #{communityNum} AND userId = #{userId}
+	<delete id="deleteBoardLike" parameterType="map">
+		DELETE FROM communityLike 
+		WHERE communityNum = #{communityNum} 
+		AND userId = #{userId}
 	</delete>
 	
 	<!-- 게시글 좋아요 개수 -->
-	<select id="communityLikeCount" parameterType="Long" resultType="Integer">
-		SELECT COUNT(*) FROM communityLike WHERE communityNum = #{communityNum}
+	<select id="boardLikeCount" parameterType="Long" resultType="Integer">
+		SELECT COUNT(*) FROM communityLike 
+		WHERE communityNum = #{communityNum}
 	</select>
 	
 	<!-- 게시글 좋아요 여부 -->
-	<select id="userCommunityLiked" parameterType="map" resultType="com.fp.pet.domain.Community">
-		SELECT communityNum, userId FROM communityLike WHERE communityNum = #{communityNum} AND userId = #{userId}
+	<select id="userBoardLiked" parameterType="map" resultType="com.fp.pet.domain.Community">
+		SELECT communityNum, userId 
+		FROM communityLike 
+		WHERE communityNum = #{communityNum} 
+		AND userId = #{userId}
 	</select>
 	
 	<!-- 댓글 -->
@@ -270,5 +277,11 @@
 		UPDATE communityReply SET showReply = #{showReply}
 		WHERE replyNum = #{replyNum} AND userId = #{userId}
 	</update>
+	
+	<select id="listParkAddr" parameterType="map" resultType="com.fp.pet.domain.Community">
+		SELECT communityNum, parkname, park
+		FROM community
+		WHERE communityNum = #{communityNum}	
+	</select>
 
 </mapper>

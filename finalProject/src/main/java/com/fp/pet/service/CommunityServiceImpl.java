@@ -1,5 +1,6 @@
 package com.fp.pet.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fp.pet.common.FileManager;
 import com.fp.pet.domain.Community;
+import com.fp.pet.domain.Region;
 import com.fp.pet.domain.Reply;
 import com.fp.pet.mapper.CommunityMapper;
 
@@ -199,12 +201,15 @@ public class CommunityServiceImpl implements CommunityService {
 		try {
 
 				List<Community> listFile = listCommunityFile(communityNum);
-				if(listFile != null) {
-					fileManager.doFileDelete(pathname);
+				if (listFile != null) {
+					for (Community dto : listFile) {
+						fileManager.doFileDelete(dto.getFilename(), pathname);
+					}
 				}
 
 				// 파일 테이블 내용 지우기
 				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("field", "communityNum");
 				map.put("communityNum", communityNum);
 				deleteCommunityFile(map);
 
@@ -231,58 +236,59 @@ public class CommunityServiceImpl implements CommunityService {
 
 	// 게시글 좋아요 추가
 	@Override
-	public void insertCommunityLike(Map<String, Object> map) throws Exception {
+	public void insertBoardLike(Map<String, Object> map) throws Exception {
 		try {
-			mapper.insertCommunityLike(map);
-
+			mapper.insertBoardLike(map);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
 		}
+		
 	}
-
+	
 	// 게시글 좋아요 삭제
 	@Override
-	public void deleteCommunityLike(Map<String, Object> map) throws Exception {
+	public void deleteBoardLike(Map<String, Object> map) throws Exception {
 		try {
-			mapper.deleteCommunityLike(map);
-
+			mapper.deleteBoardLike(map);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
 		}
-
+		
 	}
-
+	
 	// 게시글 좋아요 개수
 	@Override
-	public int communityLikeCount(long num) {
-		int result = 0;
-
+	public int boardLikeCount(long communityNum) {
+int result = 0;
+		
 		try {
-			result = mapper.communityLikeCount(num);
-
+			result = mapper.boardLikeCount(communityNum);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		
 		return result;
 	}
 
 	// 좋아요 여부
 	@Override
-	public boolean userCommunityLiked(Map<String, Object> map) {
+	public boolean userBoardLiked(Map<String, Object> map) {
 		boolean result = false;
 		try {
-			Community dto = mapper.userCommunityLiked(map);
+			Community dto = mapper.userBoardLiked(map);
 			if(dto != null) {
 				result = true; 
 			}
-
+				
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		
 		return result;
 	}
 
@@ -398,6 +404,7 @@ public class CommunityServiceImpl implements CommunityService {
 	public void insertCommunityFile(Community dto) throws Exception {
 		try {
 			mapper.insertCommunityFile(dto);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -416,5 +423,33 @@ public class CommunityServiceImpl implements CommunityService {
 
 		return listFile;
 	}
+
+	@Override
+	public List<Region> listRegion() {
+		// 지도를 표시할 리전
+		List<Region> list = new ArrayList<Region>();
+		
+		list.add(new Region(1, "홍대입구역", "서울특별시 마포구 양화로 지하 160", "(우) 04050,  지번 (동교동 165)", "water.png", 37.557714093880406, 126.92450981105797));
+		list.add(new Region(2, "쌍용 강북 교육센터", "서울특별시 마포구 월드컵북로 21", "(우) 04001, 지번 (서교동 447-5)", "water.png", 37.55667974381328, 126.919460553798));
+		
+		return list;
+	}
+
+	@Override
+	public List<Region> listRegion(String keyword) {
+		// 지도를 표시할 리전
+		List<Region> searchList = new ArrayList<Region>();
+		
+		List<Region> list = listRegion();
+		for(Region dto : list) {
+			if( dto.getSubject().indexOf(keyword) >= 0 || dto.getAddr().indexOf(keyword) >= 0 ) {
+				searchList.add(dto);
+			}
+		}
+		
+		return searchList;
+	}
+
+
 
 }
