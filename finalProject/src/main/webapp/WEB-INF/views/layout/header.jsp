@@ -165,7 +165,7 @@ $(function(){
          </li>
          
          <li class='sub-menu'>
-            <a href="${pageContext.request.contextPath}/bbs/list">
+            <a href="${pageContext.request.contextPath}/bbs/main">
                      Community<i class='fa fa-angle-down'></i>
                 </a>
                 <ul>
@@ -202,12 +202,12 @@ $(function(){
                    MyPage<i class='fa fa-angle-down'></i>
                 </a>
                   <ul>
-                    <li><a href="#">회원정보</a></li>
-                    <li><a href="#">내활동</a></li>
-                    <li><a href="${pageContext.request.contextPath}/myPage/cart">장바구니</a></li>
+                    <li><a href="${pageContext.request.contextPath}/member/pwd">회원정보</a></li>
+                    <li><a href="${pageContext.request.contextPath}/myPage/paymentList">내활동</a></li>
+                    <li><a href="#">장바구니</a></li>
                     <li><a href="#">위시리스트</a></li>
                     <li><a href="${pageContext.request.contextPath}/myPage/paymentList">주문내역</a></li>
-                    <li><a href="${pageContext.request.contextPath}/friend/list">친구목록</a></li>
+                    <li><a href="#">친구목록</a></li>
                     <li><a href="#">포인트/쿠폰</a></li>
                     </ul>
              </li>
