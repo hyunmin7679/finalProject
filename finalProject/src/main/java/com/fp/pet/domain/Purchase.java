@@ -10,7 +10,71 @@ public class Purchase {
 	private int detailState;
 	private String order_date;
 	private int userScore;
+	private int category_count;
+	private String category_description;
+	private int ordernum;
+	private String productName;
+	private int price;
+	private String orderdate;
+	private int savedmoney; 
+	private int average_score;
+	public int getAverage_score() {
+		return average_score;
+	}
+	public void setAverage_score(int average_score) {
+		this.average_score = average_score;
+	}
+	public String getOrderdate() {
+		return orderdate;
+	}
+	public void setOrderdate(String orderdate) {
+		this.orderdate = orderdate;
+	}
+	public int getOrdernum() {
+		return ordernum;
+	}
+	public void setOrdernum(int ordernum) {
+		this.ordernum = ordernum;
+	}
+	public String getProductName() {
+		return productName;
+	}
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}
 	
+	public int getSavedmoney() {
+		return savedmoney;
+	}
+	public void setSavedmoney(int savedmoney) {
+		this.savedmoney = savedmoney;
+	}
+	public String getCategory_description() {
+		return category_description;
+	}
+	public void setCategory_description(String category_description) {
+		this.category_description = category_description;
+	}
+	public String getCategory_big() {
+		return category_big;
+	}
+	public void setCategory_big(String category_big) {
+		this.category_big = category_big;
+	}
+	private String category_big;
+	
+	public int getCategory_count() {
+		return category_count;
+	}
+	public void setCategory_count(int category_count) {
+		this.category_count = category_count;
+	}
 	public int getProductNum() {
 		return productNum;
 	}
