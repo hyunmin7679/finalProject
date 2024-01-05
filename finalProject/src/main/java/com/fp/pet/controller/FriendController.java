@@ -119,5 +119,21 @@ public class FriendController {
 		
 		return "redirect:/friend/list";
 	}
+	
+	@PostMapping("delete")
+	public String deletefriend(Friend dto,
+			HttpSession session) throws Exception{
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		
+		try {
+			dto.setUserId(info.getUserName());
+			service.deleteFriend(dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return "redirect:/friend/list";
+	}
 
 }

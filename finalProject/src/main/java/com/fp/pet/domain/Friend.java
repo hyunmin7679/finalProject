@@ -11,6 +11,8 @@ public class Friend{
 	
 	private String iconImage;
 	
+	private String userName2;
+	
 	private String userId;
 	private String userName;
 	
@@ -93,6 +95,14 @@ public class Friend{
 
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+
+	public String getUserName2() {
+		return userName2;
+	}
+
+	public void setUserName2(String userName2) {
+		this.userName2 = userName2;
 	}
 	
 	

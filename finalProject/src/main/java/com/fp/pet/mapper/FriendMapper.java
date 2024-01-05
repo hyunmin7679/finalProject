@@ -18,7 +18,8 @@ public interface FriendMapper {
 	public void addFriend2(Friend dto) throws SQLException;
 	public void acceptFriend(Friend dto) throws SQLException;
 	public void acceptFriend2(Friend dto) throws SQLException;
-	public void deleteFriend(long friendNum) throws SQLException;
+	public void deleteFriend(Friend dto) throws SQLException;
+	public void deleteFriend2(Friend dto) throws SQLException;
 	
 	public List<Friend>searchMember(Map<String, Object> map);
 

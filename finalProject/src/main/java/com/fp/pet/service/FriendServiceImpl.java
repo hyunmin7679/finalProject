@@ -87,4 +87,16 @@ public class FriendServiceImpl implements FriendService {
 		
 	}
 
+	@Override
+	public void deleteFriend(Friend dto) throws SQLException {
+		
+		try {
+			mapper.deleteFriend(dto);
+			mapper.deleteFriend2(dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
 }

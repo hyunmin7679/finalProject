@@ -51,4 +51,13 @@
 		where FROM_FRIEND = #{userName} and TO_FRIEND = #{userId}
 	</update>
 
+	<delete id="deleteFriend" parameterType="com.fp.pet.domain.Friend">
+		delete from friendlist 
+			where FROM_FRIEND = #{userId} and TO_FRIEND = #{userName2} 
+	</delete>
+	
+	<delete id="deleteFriend2" parameterType="com.fp.pet.domain.Friend">
+		delete from friendlist 
+			where FROM_FRIEND = #{userName2} and TO_FRIEND = #{userId} 
+	</delete>
 </mapper>

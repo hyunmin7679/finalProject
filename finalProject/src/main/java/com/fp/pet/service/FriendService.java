@@ -13,7 +13,8 @@ public interface FriendService {
 	public List<Friend> receivedlist(Map<String, Object>map);
 	
 	public List<Friend>searchMember(Map<String, Object> map);
+	
 	public void addFriend(Friend dto) throws Exception;
-
 	public void acceptFriend(Friend dto) throws SQLException;
+	public void deleteFriend(Friend dto) throws SQLException;
 }

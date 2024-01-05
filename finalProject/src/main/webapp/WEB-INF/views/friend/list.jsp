@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/paginate-boot.js"></script>
 
@@ -45,8 +44,10 @@ function searchList() {
 }
 function searchinsert() {
 	const f = document.insertForm;
+	f.action = "${pageContext.request.contextPath}/friend/accept"
 	f.submit();
 }
+
 </script>
 
 <div class="container">
@@ -81,13 +82,13 @@ function searchinsert() {
 	            <div class="col-auto me-auto dataCount"></div>
 	            <div class="col-auto">&nbsp;</div>
 	        </div>				
-			<form name="insertForm" action="${pageContext.request.contextPath}/friend/accept" method="post">
+			<form name="insertForm" method="post">
 			<table class="table table-hover board-list">
 				<thead class="table-light">
 					<tr>
 						<th width="100">작성자z</th>
-						<th width="100">작성일</th>
-						
+						<th width="100"></th>
+						<th width="100"></th>
 					</tr>
 				</thead>
 				
@@ -101,9 +102,11 @@ function searchinsert() {
 					</c:forEach>
 					
 					<c:forEach var="dto" items="${list}" varStatus="status">
-						<tr>
+						<tr >
 							<td>${dto.to_Friend}</td>
-							<td>${dto.reg_date}</td>
+							<td><i class="fa-solid fa-gift"></i></td>
+							<td><button type="button" class="btn btn-light ff " data-to_Friend="${dto.to_Friend}"><i class="fa-solid fa-trash"></i></button></td>
+							<td></td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -177,34 +180,27 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 	$.ajax(url, settings);
 }
 
-$(function(){
-	listPage(1);
+$(function (){
+	$('.body-main').on('click','.ff', function(){
+		if(! confirm('정말로 친구을 삭제하시겠습니까 ? ')) {
+	  	  return false;
+		}
 	
-    $("button[role='tab']").on("click", function(e){
-		// const tab = $(this).attr("aria-controls");
-    	listPage(1);
-    	
-    });
+		let userName2 = $(this).attr('data-to_Friend');
+		
+		let url = '${pageContext.request.contextPath}/friend/delete';
+		let query = 'userName2=' + userName2;
+		
+		let $tr = $(this).closest("tr");
+
+		const fn = function(data){
+			$tr.remove();
+		};
+		
+		ajaxFun(url, 'post', query, 'json', fn);
+	});
 });
 
-// 글리스트 및 페이징 처리
-function listPage(page) {
-	
-	let url = "${pageContext.request.contextPath}/friend/list";
-	let query = "page="+page";
-	let search = $('form[name=SearchForm]').serialize();
-	
-	query = query+"&"+search;
-	
-	console.log(query);
-	
-	let selector = "#nav-content";
-	
-	const fn = function(data){
-		$(selector).html(data);
-	};
-	ajaxFun(url, "get", query, "text", fn);
-}
 
 
 </script>

@@ -111,7 +111,7 @@ public class ProductController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return ".product.buy2";
+		return ".product.buy";
 	}
 	
 }
