@@ -106,38 +106,43 @@
 														style="width: 30%;"
 														aria-label="Progress: activate to sort column ascending">만족도</th>
 												</tr>
+
 											</thead>
-											<tbody>
-												<tr class="odd">
-													<td class="sorting_1">
-														<div
-															class="d-flex justify-content-left align-items-center">
-															<div class="avatar-wrapper">
-																<div class="avatar avatar-sm me-3">
-																	<img
-																		src="../../bootstrapTemp/assets/img/avatars/robot.jpg"
-																		alt="Project Image" class="rounded-circle">
+											<c:forEach var="vo" items="${catanaly}" varStatus="status">
+												<tbody>
+													<tr class="odd">
+														<td class="sorting_1">
+															<div
+																class="d-flex justify-content-left align-items-center">
+																<div class="avatar-wrapper">
+																	<div class="avatar avatar-sm me-3">
+																		<img
+																			src="../../bootstrapTemp/assets/img/avatars/robot.jpg"
+																			alt="Project Image" class="rounded-circle">
+																	</div>
+																</div>
+																<div class="d-flex flex-column">
+																	<span class="text-truncate fw-medium">${vo.category_description }</span>
+																	<small class="text-muted">${vo.category_big }</small>
 																</div>
 															</div>
+														</td>
+														<td style="align-items: center;">${vo.category_count}</td>
+														<td>
 															<div class="d-flex flex-column">
-																<span class="text-truncate fw-medium">의류</span> <small
-																	class="text-muted">아웃도어</small>
+																<small class="mb-1">${vo.average_score}%</small>
+																<div class="progress w-100 me-3" style="height: 6px;">
+																	<div
+																		class="progress-bar bg-${vo.average_score >= 80 ? 'success' : vo.average_score >= 60 ? 'info' : vo.average_score >= 40 ? 'warning' : 'danger'}"
+																		style="width: ${vo.average_score}%"
+																		aria-valuenow="100" aria-valuemin="0"
+																		aria-valuemax="100"></div>
+																</div>
 															</div>
-														</div>
-													</td>
-													<td style="align-items: center;">15</td>
-													<td>
-														<div class="d-flex flex-column">
-															<small class="mb-1">78%</small>
-															<div class="progress w-100 me-3" style="height: 6px;">
-																<div class="progress-bar bg-success" style="width: 78%"
-																	aria-valuenow="78%" aria-valuemin="0"
-																	aria-valuemax="100"></div>
-															</div>
-														</div>
-													</td>
-												</tr>
-											</tbody>
+														</td>
+													</tr>
+												</tbody>
+											</c:forEach>
 										</table>
 										<div class="d-flex justify-content-between mx-4 row mt-3 "
 											style="width: 100%;">
@@ -188,16 +193,21 @@
 												<tr>
 													<th class="sorting sorting_desc" tabindex="0"
 														aria-controls="DataTables_Table_1" rowspan="1" colspan="1"
-														style="width: 20%;"
+														style="width: 15%;"
 														aria-label="ID: activate to sort column ascending"
 														aria-sort="descending">주문번호</th>
+													<th class="sorting sorting_desc" tabindex="0"
+														aria-controls="DataTables_Table_1" rowspan="1" colspan="1"
+														style="width: 25%;"
+														aria-label="ID: activate to sort column ascending"
+														aria-sort="descending">상품명</th>
 													<th class="sorting" tabindex="0"
 														aria-controls="DataTables_Table_1" rowspan="1" colspan="1"
-														style="width: 20%;"
+														style="width: 15%;"
 														aria-label=": activate to sort column ascending">주문상태</th>
 													<th class="sorting" tabindex="0"
 														aria-controls="DataTables_Table_1" rowspan="1" colspan="1"
-														style="width: 25%;"
+														style="width: 10%;"
 														aria-label="Total: activate to sort column ascending">금액</th>
 													<th class="sorting" tabindex="0"
 														aria-controls="DataTables_Table_1" rowspan="1" colspan="1"
@@ -208,29 +218,34 @@
 														aria-label="Actions">마일리지</th>
 												</tr>
 											</thead>
-											<tbody>
-												<tr class="even">
-													<td class="sorting_1"><a
-														href="app-invoice-preview.html"> <span
-															class="fw-medium">#5041</span>
-													</a></td>
-													<td><span data-bs-toggle="tooltip" data-bs-html="true"
-														aria-label="<span>배송완료<br> 
+											<c:forEach var="to" items="${purchaselist}"
+												varStatus="status">
+												<tbody>
+													<tr class="even">
+														<td class="sorting_1"><a
+															href="app-invoice-preview.html"> <span
+																class="fw-medium">${to.ordernum}</span>
+														</a></td>
+														<td>${to.productName }</td>
+														<td><span data-bs-toggle="tooltip"
+															data-bs-html="true"
+															aria-label="<span>배송완료<br> 
 	         		 			<span class=&quot;fw-medium&quot;>Balance:</span> 0<br> 
 	         		 			<span class=&quot;fw-medium&quot;>배송 일자:</span> 11/19/2020</span>"
-														data-bs-original-title="<span>배송완료<br> 
+															data-bs-original-title="<span>배송완료<br> 
 	         		 			<span class=&quot;fw-medium&quot;>배송금액:</span> $20<br> 
 	         		 			<span class=&quot;fw-medium&quot;>배송일자:</span> 11/19/2020</span>">
-															<span
-															class="badge badge-center rounded-pill bg-label-secondary w-px-30 h-px-30 ">
-																<i class="bx bx-package bx-xs"></i>
-														</span>
-													</span></td>
-													<td>$2230</td>
-													<td>2021/01/21</td>
-													<td>123</td>
-												</tr>
-											</tbody>
+																<span
+																class="badge badge-center rounded-pill bg-label-secondary w-px-30 h-px-30 ">
+																	<i class="bx bx-package bx-xs"></i>
+															</span>
+														</span></td>
+														<td>${to.price}</td>
+														<td>${to.orderdate}</td>
+														<td>${to.savedmoney}</td>
+													</tr>
+												</tbody>
+											</c:forEach>
 										</table>
 										<div class="row ">
 											<div

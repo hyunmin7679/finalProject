@@ -267,14 +267,35 @@ $(function() {
    
     });
     
+	$('.user-list').on('click', '.unsanctrigger', function() {
+    	
+        var memberIdxx = $(this).data('enablenum');
+        $('.modal-body #memberIdx').val(memberIdxx);
+        console.log(memberIdxx);
+        
+        
+   
+    });
+    
 	
     
 	$('.user-list').on('click', '.sanctrigger', function() {
     	
         var userName = $(this).attr('data-userName');
         $('.modal-body #userName').val(userName);
+        
         var userNametext = userName + '님을 제재하시겠습니까?'
         $('#editUserLabel').html(userNametext);
+   
+    });
+	
+	$('.user-list').on('click', '.unsanctrigger', function() {
+    	
+        var userName = $(this).attr('data-userName');
+        $('.modal-body #userName').val(userName);
+        
+        var userNametext = userName + '님의 제재를 해제하시겠습니까?'
+        $('#editUserLabel2').html(userNametext);
    
     });
     
@@ -298,6 +319,18 @@ $(function() {
         $('#editUser').modal('hide');
     });
     
+    
+    
+    $('.user-list').on('click', '.unsancconfirm', function() {
+        var memberIdx = $('#editUser2 #memberIdx').val();
+        $(this).data('final', memberIdx);
+            
+        console.log(memberIdx);
+        
+        userunsanction(memberIdx);
+        $('#editUser2').modal('hide');
+    });
+    
 });
 
 
@@ -306,6 +339,19 @@ function usersanction(memberIdx,sancNum,sancMemo){
 
 	let url = "${pageContext.request.contextPath}/admin/userManage/"+memberIdx+"/sanction"; 
 	let query ="sancNum="+sancNum+"&sancMemo="+encodeURIComponent(sancMemo);
+	const fn = function(data){
+		userlist(1, 10);
+	};
+	
+	ajaxFun(url, "post", query, "json", fn);
+
+}
+
+function userunsanction(memberIdx){
+	
+
+	let url = "${pageContext.request.contextPath}/admin/userManage/"+memberIdx+"/unsanction"; 
+	let query ="";
 	const fn = function(data){
 		userlist(1, 10);
 	};

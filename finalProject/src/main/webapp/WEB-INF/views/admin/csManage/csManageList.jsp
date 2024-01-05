@@ -3,8 +3,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 
+
+
 <!-- Content wrapper -->
-<div class="content-wrapper">
+<div class="content-wrapper containercs">
 
 	<!-- Content -->
 
@@ -69,42 +71,45 @@
 								</h4>
 							</div>
 						</div>
+
 						<div id="accordionPayment" class="accordion">
 
 							<!-- --------------------------------------반복------------------------------------------------------------- -->
-
-							<div class="card accordion-item">
-								<h2 class="accordion-header">
-									<button class="accordion-button collapsed" type="button"
-										data-bs-toggle="collapse" data-bs-target="#accordionPayment-4"
-										aria-controls="accordionPayment-4">공지사항 제목</button>
-								</h2>
-								<div id="accordionPayment-4" class="accordion-collapse collapse">
-									<div class="dtr-hidden"
-										style="float: right; padding-right: 15px;">
-										<div class="text-xxl-center">
-											<div class="dropdown">
-												<a href="javascript:;"
-													class="btn dropdown-toggle hide-arrow text-body p-0"
-													data-bs-toggle="dropdown"> <i
-													class="bx bx-dots-vertical-rounded"></i>
-												</a>
-												<div class="dropdown-menu dropdown-menu-end">
+							<c:forEach var="vo" items="${listnotice}" varStatus="status">
+								<div class="card accordion-item">
+									<h2 class="accordion-header">
+										<button class="accordion-button collapsed" type="button"
+											data-bs-toggle="collapse"
+											data-bs-target="#accordionPayment-${status.index}"
+											aria-controls="accordionPayment-${status.index}">${vo.nsubject }</button>
+									</h2>
+									<div id="accordionPayment-${status.index}"
+										class="accordion-collapse collapse">
+										<div class="dtr-hidden"
+											style="float: right; padding-right: 15px;">
+											<div class="text-xxl-center">
+												<div class="dropdown">
 													<a href="javascript:;"
-														class="dropdown-item delete-record text">수정</a> <a
-														href="javascript:;"
-														class="dropdown-item delete-record text-danger">삭제</a>
+														class="btn dropdown-toggle hide-arrow text-body p-0"
+														data-bs-toggle="dropdown"> <i
+														class="bx bx-dots-vertical-rounded"></i>
+													</a>
+													<div class="dropdown-menu dropdown-menu-end">
+														<a href="javascript:;"
+															class="dropdown-item delete-record text">수정</a> <a
+															href="javascript:;"
+															class="dropdown-item delete-record text-danger">삭제</a>
+													</div>
+													<a
+														href="${pageContext.request.contextPath}/notice/zipdownload?num=${vo.nnum}"
+														style="align-self: flex-end;"><i class='bx bx-file'></i></a>
 												</div>
 											</div>
 										</div>
-									</div>
-									<div class="accordion-body">공지사항
-										내용aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-										aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-
+										<div class="accordion-body" style="margin-right: 7%;">${vo.ncontent }</div>
 									</div>
 								</div>
-							</div>
+							</c:forEach>
 							<!-- --------------------------------------반복------------------------------------------------------------- -->
 
 						</div>
@@ -138,7 +143,7 @@
 											data-bs-toggle="tab"
 											data-bs-target="#navs-pills-top-messages"
 											aria-controls="navs-pills-top-messages" aria-selected="false"
-											tabindex="-1">결제</button>
+											tabindex="-1">주문</button>
 									</li>
 									<li class="nav-item" role="presentation">
 										<button type="button" class="nav-link" role="tab"
@@ -155,242 +160,200 @@
 								</ul>
 
 								<div class="tab-content">
-									<div class="tab-pane fade active show" id="navs-pills-top-home"
-										role="tabpanel">
-										<div class="card accordion-item active"
-											id="navs-pills-top-all">
-											<h2 class="accordion-header">
-												<button class="accordion-button collapsed" type="button"
-													data-bs-toggle="collapse" aria-expanded="true"
-													data-bs-target="#accordionDelivery-1"
-													aria-controls="accordionDelivery-1">FAQ 제목모두</button>
-											</h2>
-											<div id="accordionDelivery-1"
-												class="accordion-collapse collapse">
-												<div class="dtr-hidden"
-													style="float: right; padding-right: 15px;">
-													<div class="text-xxl-center">
-														<div class="dropdown">
-															<a href="javascript:;"
-																class="btn dropdown-toggle hide-arrow text-body p-0"
-																data-bs-toggle="dropdown"> <i
-																class="bx bx-dots-vertical-rounded"></i>
-															</a>
-															<div class="dropdown-menu dropdown-menu-end">
+									<div class="tab-pane fade active show mt-4"
+										id="navs-pills-top-home" role="tabpanel">
+										<c:forEach var="dto" items="${listfaq}" varStatus="status">
+											<div class="card accordion-item active mt-4"
+												id="navs-pills-top-all">
+												<h2 class="accordion-header">
+													<button class="accordion-button collapsed" type="button"
+														data-bs-toggle="collapse" aria-expanded="true"
+														data-bs-target="#accordionDelivery-${status.index}"
+														aria-controls="accordionDelivery-${status.index}">${dto.fsubject }</button>
+												</h2>
+												<div id="accordionDelivery-${status.index}"
+													class="accordion-collapse collapse">
+													<div class="dtr-hidden"
+														style="float: right; padding-right: 15px;">
+														<div class="text-xxl-center">
+															<div class="dropdown">
 																<a href="javascript:;"
-																	class="dropdown-item delete-record text">수정</a> <a
-																	href="javascript:;"
-																	class="dropdown-item delete-record text-danger">삭제</a>
+																	class="btn dropdown-toggle hide-arrow text-body p-0"
+																	data-bs-toggle="dropdown"> <i
+																	class="bx bx-dots-vertical-rounded"></i>
+																</a>
+																<div class="dropdown-menu dropdown-menu-end">
+																	<a href="javascript:;"
+																		class="dropdown-item delete-record text">수정</a> <a
+																		href="javascript:;"
+																		class="dropdown-item delete-record text-danger">삭제</a>
+																</div>
 															</div>
 														</div>
 													</div>
-												</div>
-												<div class="accordion-body">FAQ 모두
-													모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두
-													모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두
-													모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두
-													모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두모두
-
+													<div class="accordion-body">${dto.fcontent }</div>
 												</div>
 											</div>
-										</div>
+										</c:forEach>
 									</div>
 
 
 									<div class="tab-pane fade" id="navs-pills-top-profile"
 										role="tabpanel">
-										<div class="card accordion-item active"
-											id="navs-pills-top-all">
-											<h2 class="accordion-header">
-												<button class="accordion-button collapsed" type="button"
-													data-bs-toggle="collapse" aria-expanded="true"
-													data-bs-target="#accordionDelivery-1"
-													aria-controls="accordionDelivery-1">FAQ 제목회원</button>
-											</h2>
-											<div id="accordionDelivery-1"
-												class="accordion-collapse collapse">
-												<div class="dtr-hidden"
-													style="float: right; padding-right: 15px;">
-													<div class="text-xxl-center">
-														<div class="dropdown">
-															<a href="javascript:;"
-																class="btn dropdown-toggle hide-arrow text-body p-0"
-																data-bs-toggle="dropdown"> <i
-																class="bx bx-dots-vertical-rounded"></i>
-															</a>
-															<div class="dropdown-menu dropdown-menu-end">
-																<a href="javascript:;"
-																	class="dropdown-item delete-record text">수정</a> <a
-																	href="javascript:;"
-																	class="dropdown-item delete-record text-danger">삭제</a>
+										<c:forEach var="dto" items="${listfaq}" varStatus="status">
+											<c:if test="${1 eq dto.fcategorynum }">
+												<div class="card accordion-item active mb-4"
+													id="navs-pills-top-all">
+													<h2 class="accordion-header">
+														<button class="accordion-button collapsed" type="button"
+															data-bs-toggle="collapse" aria-expanded="true"
+															data-bs-target="#accordionDelivery-${status.index}"
+															aria-controls="accordionDelivery-${status.index}">${dto.fsubject }</button>
+													</h2>
+													<div id="accordionDelivery-${status.index}"
+														class="accordion-collapse collapse">
+														<div class="dtr-hidden"
+															style="float: right; padding-right: 15px;">
+															<div class="text-xxl-center">
+																<div class="dropdown">
+																	<a href="javascript:;"
+																		class="btn dropdown-toggle hide-arrow text-body p-0"
+																		data-bs-toggle="dropdown"> <i
+																		class="bx bx-dots-vertical-rounded"></i>
+																	</a>
+																	<div class="dropdown-menu dropdown-menu-end">
+																		<a href="javascript:;"
+																			class="dropdown-item delete-record text">수정</a> <a
+																			href="javascript:;"
+																			class="dropdown-item delete-record text-danger">삭제</a>
+																	</div>
+																</div>
 															</div>
 														</div>
+														<div class="accordion-body">${dto.fcontent }</div>
 													</div>
 												</div>
-												<div class="accordion-body">FAQ
-													회원회원회원회원회원회원회원회원회원회원회원회원회원회원회원회원회원회원회원
-													회원회원회원회원회원회원회원회원회원회원회원회원회원회원회원회원회원회원회원
-													회원회원회원회원회원회원회원회원회원회원회원회원회원회원회원회원회원회원회원
-													회원회원회원회원회원회원회원회원회원회원회원회원회원회원회원회원회원회원회원
-													회원회원회원회원회원회원회원회원회원회원회원회원회원회원회원회원회원회원회원</div>
-											</div>
-										</div>
+											</c:if>
+										</c:forEach>
 									</div>
 
 
 									<div class="tab-pane fade" id="navs-pills-top-messages"
 										role="tabpanel">
-										<div class="card accordion-item active"
-											id="navs-pills-top-all">
-											<h2 class="accordion-header">
-												<button class="accordion-button collapsed" type="button"
-													data-bs-toggle="collapse" aria-expanded="true"
-													data-bs-target="#accordionDelivery-1"
-													aria-controls="accordionDelivery-1">FAQ 제목결제</button>
-											</h2>
-											<div id="accordionDelivery-1"
-												class="accordion-collapse collapse">
-												<div class="dtr-hidden"
-													style="float: right; padding-right: 15px;">
-													<div class="text-xxl-center">
-														<div class="dropdown">
-															<a href="javascript:;"
-																class="btn dropdown-toggle hide-arrow text-body p-0"
-																data-bs-toggle="dropdown"> <i
-																class="bx bx-dots-vertical-rounded"></i>
-															</a>
-															<div class="dropdown-menu dropdown-menu-end">
-																<a href="javascript:;"
-																	class="dropdown-item delete-record text">수정</a> <a
-																	href="javascript:;"
-																	class="dropdown-item delete-record text-danger">삭제</a>
+										<c:forEach var="dto" items="${listfaq}" varStatus="status">
+											<c:if test="${2 eq dto.fcategorynum }">
+												<div class="card accordion-item active mb-4"
+													id="navs-pills-top-all">
+													<h2 class="accordion-header">
+														<button class="accordion-button collapsed" type="button"
+															data-bs-toggle="collapse" aria-expanded="true"
+															data-bs-target="#accordionDelivery-${status.index}"
+															aria-controls="accordionDelivery-${status.index}">${dto.fsubject }</button>
+													</h2>
+													<div id="accordionDelivery-${status.index}"
+														class="accordion-collapse collapse">
+														<div class="dtr-hidden"
+															style="float: right; padding-right: 15px;">
+															<div class="text-xxl-center">
+																<div class="dropdown">
+																	<a href="javascript:;"
+																		class="btn dropdown-toggle hide-arrow text-body p-0"
+																		data-bs-toggle="dropdown"> <i
+																		class="bx bx-dots-vertical-rounded"></i>
+																	</a>
+																	<div class="dropdown-menu dropdown-menu-end">
+																		<a href="javascript:;"
+																			class="dropdown-item delete-record text">수정</a> <a
+																			href="javascript:;"
+																			class="dropdown-item delete-record text-danger">삭제</a>
+																	</div>
+																</div>
 															</div>
 														</div>
+														<div class="accordion-body">${dto.fcontent }</div>
 													</div>
 												</div>
-												<div class="accordion-body">FAQ
-													결제결제결제결제결제결제결제결제결제결제결제결제결제결제결제결제결제결제
-													결제결제결제결제결제결제결제결제결제결제결제결제결제결제결제결제결제결제결제결제결제결제결제결제결제결제결제결제결제결제결제결제결제결제결제결
-													결제결제결제결제결제결제결제결제결제결제결제결제결제결제결제결제결제결제
-													결제결제결제결제결제결제결제결제결제결제결제결제결제결제결제결제결제결제
-													결제결제결제결제결제결제결제결제결제결제결제결제결제결제결제결제결제결제</div>
-											</div>
-										</div>
+											</c:if>
+										</c:forEach>
 									</div>
 
 
 									<div class="tab-pane fade" id="navs-pills-top-ship"
 										role="tabpanel">
-										<div class="card accordion-item active"
-											id="navs-pills-top-all">
-											<h2 class="accordion-header">
-												<button class="accordion-button collapsed" type="button"
-													data-bs-toggle="collapse" aria-expanded="true"
-													data-bs-target="#accordionDelivery-1"
-													aria-controls="accordionDelivery-1">FAQ 제목배송</button>
-											</h2>
-											<div id="accordionDelivery-1"
-												class="accordion-collapse collapse">
-												<div class="dtr-hidden"
-													style="float: right; padding-right: 15px;">
-													<div class="text-xxl-center">
-														<div class="dropdown">
-															<a href="javascript:;"
-																class="btn dropdown-toggle hide-arrow text-body p-0"
-																data-bs-toggle="dropdown"> <i
-																class="bx bx-dots-vertical-rounded"></i>
-															</a>
-															<div class="dropdown-menu dropdown-menu-end">
-																<a href="javascript:;"
-																	class="dropdown-item delete-record text">수정</a> <a
-																	href="javascript:;"
-																	class="dropdown-item delete-record text-danger">삭제</a>
+										<c:forEach var="dto" items="${listfaq}" varStatus="status">
+											<c:if test="${3 eq dto.fcategorynum }">
+												<div class="card accordion-item active mb-4"
+													id="navs-pills-top-all">
+													<h2 class="accordion-header">
+														<button class="accordion-button collapsed" type="button"
+															data-bs-toggle="collapse" aria-expanded="true"
+															data-bs-target="#accordionDelivery-${status.index}"
+															aria-controls="accordionDelivery-${status.index}">${dto.fsubject }</button>
+													</h2>
+													<div id="accordionDelivery-${status.index}"
+														class="accordion-collapse collapse">
+														<div class="dtr-hidden"
+															style="float: right; padding-right: 15px;">
+															<div class="text-xxl-center">
+																<div class="dropdown">
+																	<a href="javascript:;"
+																		class="btn dropdown-toggle hide-arrow text-body p-0"
+																		data-bs-toggle="dropdown"> <i
+																		class="bx bx-dots-vertical-rounded"></i>
+																	</a>
+																	<div class="dropdown-menu dropdown-menu-end">
+																		<a href="javascript:;"
+																			class="dropdown-item delete-record text">수정</a> <a
+																			href="javascript:;"
+																			class="dropdown-item delete-record text-danger">삭제</a>
+																	</div>
+																</div>
 															</div>
 														</div>
+														<div class="accordion-body">${dto.fcontent }</div>
 													</div>
 												</div>
-												<div class="accordion-body">FAQ배송배송배송배송배송배송배송배송배송배송배송배송배송배송배송배송
-													배송배송배송배송배송배송배송배송배송배송배송배송배송배송배송배송배송배송배송배송배송배송배송배송
-													배송배송배송배송배송배송배송배송배송배송배송배송배송배송배송배송배송배송배송배송배송배송배송배송배송
-													배송배송배송배송배송배송배송배송배송배송배송배송배송배송배송</div>
-											</div>
-										</div>
+											</c:if>
+										</c:forEach>
 									</div>
-
 
 									<div class="tab-pane fade" id="navs-pills-top-etc"
 										role="tabpanel">
-										<div class="card accordion-item active mb-2"
-											id="navs-pills-top-all">
-											<h2 class="accordion-header">
-												<button class="accordion-button collapsed" type="button"
-													data-bs-toggle="collapse" aria-expanded="true"
-													data-bs-target="#accordionDelivery-1"
-													aria-controls="accordionDelivery-1">FAQ 제목기타</button>
-											</h2>
-											<div id="accordionDelivery-1"
-												class="accordion-collapse collapse">
-												<div class="dtr-hidden"
-													style="float: right; padding-right: 15px;">
-													<div class="text-xxl-center">
-														<div class="dropdown">
-															<a href="javascript:;"
-																class="btn dropdown-toggle hide-arrow text-body p-0"
-																data-bs-toggle="dropdown"> <i
-																class="bx bx-dots-vertical-rounded"></i>
-															</a>
-															<div class="dropdown-menu dropdown-menu-end">
-																<a href="javascript:;"
-																	class="dropdown-item delete-record text">수정</a> <a
-																	href="javascript:;"
-																	class="dropdown-item delete-record text-danger">삭제</a>
+										<c:forEach var="dto" items="${listfaq}" varStatus="status">
+											<c:if test="${4 eq dto.fcategorynum }">
+												<div class="card accordion-item active mb-4"
+													id="navs-pills-top-all">
+													<h2 class="accordion-header">
+														<button class="accordion-button collapsed" type="button"
+															data-bs-toggle="collapse" aria-expanded="true"
+															data-bs-target="#accordionDelivery-${status.index}"
+															aria-controls="accordionDelivery-${status.index}">${dto.fsubject}</button>
+													</h2>
+													<div id="accordionDelivery-${status.index}"
+														class="accordion-collapse collapse">
+														<div class="dtr-hidden"
+															style="float: right; padding-right: 15px;">
+															<div class="text-xxl-center">
+																<div class="dropdown">
+																	<a href="javascript:;"
+																		class="btn dropdown-toggle hide-arrow text-body p-0"
+																		data-bs-toggle="dropdown"> <i
+																		class="bx bx-dots-vertical-rounded"></i>
+																	</a>
+																	<div class="dropdown-menu dropdown-menu-end">
+																		<a href="javascript:;"
+																			class="dropdown-item delete-record text">수정</a> <a
+																			href="javascript:;"
+																			class="dropdown-item delete-record text-danger">삭제</a>
+																	</div>
+																</div>
 															</div>
 														</div>
+														<div class="accordion-body">${dto.fcontent}</div>
 													</div>
 												</div>
-												<div class="accordion-body">FAQ
-													기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타
-													기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타
-													기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타ㅍ</div>
-											</div>
-										</div>
-
-										<!------------------------------------------------ 반복 구간 ------------------------------------------------------ -->
-										<div class="card accordion-item active mb-2"
-											id="navs-pills-top-all">
-											<h2 class="accordion-header">
-												<button class="accordion-button collapsed" type="button"
-													data-bs-toggle="collapse" aria-expanded="true"
-													data-bs-target="#accordionDelivery-2"
-													aria-controls="accordionDelivery-2">FAQ 제목기타</button>
-											</h2>
-											<div id="accordionDelivery-2"
-												class="accordion-collapse collapse">
-												<div class="dtr-hidden"
-													style="float: right; padding-right: 15px;">
-													<div class="text-xxl-center">
-														<div class="dropdown">
-															<a href="javascript:;"
-																class="btn dropdown-toggle hide-arrow text-body p-0"
-																data-bs-toggle="dropdown"> <i
-																class="bx bx-dots-vertical-rounded"></i>
-															</a>
-															<div class="dropdown-menu dropdown-menu-end">
-																<a href="javascript:;"
-																	class="dropdown-item delete-record text">수정</a> <a
-																	href="javascript:;"
-																	class="dropdown-item delete-record text-danger">삭제</a>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="accordion-body">FAQ
-													기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타
-													기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타
-													기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타기타ㅍ</div>
-											</div>
-										</div>
-										<!------------------------------------------------ 반복 구간 ------------------------------------------------------ -->
+											</c:if>
+										</c:forEach>
 									</div>
 								</div>
 							</div>
@@ -436,130 +399,67 @@
 									<div class="tab-pane fade active show"
 										id="navs-pills-top-every" role="tabpanel">
 										<div id="accordionCancellation" class="accordion">
-											<div class="card accordion-item active">
-												<h2 class="accordion-header">
-													<button class="accordion-button collapsed" type="button"
-														data-bs-toggle="collapse"
-														data-bs-target="#accordionCancellation-1"
-														aria-controls="accordionCancellation-1">문의사항 제목</button>
-												</h2>
+											<c:forEach var="qo" items="${listqna}" varStatus="status">
+												<div class="card accordion-item active">
+													<h2 class="accordion-header">
+														<button class="accordion-button collapsed" type="button"
+															data-bs-toggle="collapse"
+															data-bs-target="#accordionCancellation-${status.index}"
+															aria-controls="accordionCancellation-${status.index}">${qo.q_subject}</button>
+													</h2>
 
-												<div id="accordionCancellation-1"
-													class="accordion-collapse collapse">
-													<div class="accordion-body">
-														<p>문의사항 내용</p>
-													</div>
-													<div class="dtr-hidden"
-														style="float: right; padding-top: 15px; padding-right: 15px;">
-														<div class="text-xxl-center">
-															<div class="dropdown">
-																<a href="javascript:;"
-																	class="btn dropdown-toggle hide-arrow text-body p-0"
-																	data-bs-toggle="dropdown"> <i
-																	class="bx bx-dots-vertical-rounded"></i>
-																</a>
-																<div class="dropdown-menu dropdown-menu-end">
+													<div id="accordionCancellation-${status.index}"
+														class="accordion-collapse collapse">
+														<div class="accordion-body">
+															<p>${qo.question }</p>
+														</div>
+														<div class="dtr-hidden"
+															style="float: right; padding-top: 15px; padding-right: 15px;">
+															<div class="text-xxl-center">
+																<div class="dropdown">
 																	<a href="javascript:;"
-																		class="dropdown-item delete-record text">수정</a> <a
-																		href="javascript:;"
-																		class="dropdown-item delete-record text-danger">삭제</a>
+																		class="btn dropdown-toggle hide-arrow text-body p-0"
+																		data-bs-toggle="dropdown"> <i
+																		class="bx bx-dots-vertical-rounded"></i>
+																	</a>
+																	<div class="dropdown-menu dropdown-menu-end">
+																		<a href="javascript:;"
+																			class="dropdown-item delete-record text">수정</a> <a
+																			href="javascript:;"
+																			class="dropdown-item delete-record text-danger">삭제</a>
+																	</div>
 																</div>
 															</div>
 														</div>
-													</div>
-													<div class="accordion-body" style="padding-top: 15px;">
-														문의사항
-														답변aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-														aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-														aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-													</div>
-													<div class="reply">
-														<form name="answerForm" method="post">
-
-															<table class="table reply-form">
-																<tbody>
-																	<tr>
-																		<td><textarea class="form-control" name="answer"></textarea>
-																		</td>
-																	</tr>
-																	<tr>
-																		<td align="right">
-																			<button type="button" class="btn btn-secondary"
-																				onclick="sendAnswerOk()">답변 등록</button> <input
-																			type="hidden" name="num" value="1"> <input
-																			type="hidden" name="page" value="1"> <input
-																			type="hidden" name="schType" value="all"> <input
-																			type="hidden" name="kwd" value="">
-																		</td>
-																	</tr>
-																</tbody>
-															</table>
-														</form>
-													</div>
-												</div>
-											</div>
-											<div class="card accordion-item">
-												<h2 class="accordion-header">
-													<button class="accordion-button collapsed" type="button"
-														data-bs-toggle="collapse"
-														data-bs-target="#accordionCancellation-2"
-														aria-controls="accordionCancellation-2">문의사항 제목2</button>
-												</h2>
-												<div id="accordionCancellation-2"
-													class="accordion-collapse collapse ">
-													<div class="accordion-body">
-														<p>문의사항 내용2</p>
-													</div>
-													<div class="dtr-hidden"
-														style="float: right; padding-top: 15px; padding-right: 15px;">
-														<div class="text-xxl-center">
-															<div class="dropdown">
-																<a href="javascript:;"
-																	class="btn dropdown-toggle hide-arrow text-body p-0"
-																	data-bs-toggle="dropdown"> <i
-																	class="bx bx-dots-vertical-rounded"></i>
-																</a>
-																<div class="dropdown-menu dropdown-menu-end">
-																	<a href="javascript:;"
-																		class="dropdown-item delete-record text">수정</a> <a
-																		href="javascript:;"
-																		class="dropdown-item delete-record text-danger">삭제</a>
-																</div>
-															</div>
+														<div class="accordion-body" style="padding-top: 15px;">
+															문의사항 답변<br> <br> ${qo.answer}
 														</div>
-													</div>
-													<div class="accordion-body"
-														style="padding-top: 15px; display: hidden;">
-														<p class="mt-3"></p>
-													</div>
-													<div class="reply">
-														<form name="answerForm" method="post">
+														<c:if test="${empty qo.answer_date }">
+															<div class="reply">
+																<form name="answerForm" method="post">
 
-															<table class="table reply-form">
-																<tbody>
-																	<tr>
-																		<td><textarea class="form-control" name="answer"></textarea>
-																		</td>
-																	</tr>
-																	<tr>
-																		<td align="right">
-																			<button type="button" class="btn btn-secondary"
-																				onclick="sendAnswerOk()">답변 등록</button> <input
-																			type="hidden" name="num" value="1"> <input
-																			type="hidden" name="page" value="1"> <input
-																			type="hidden" name="schType" value="all"> <input
-																			type="hidden" name="kwd" value="">
-																		</td>
-																	</tr>
-																</tbody>
-															</table>
-														</form>
+																	<table class="table reply-form">
+																		<tbody>
+																			<tr>
+																				<td align="right">
+																					<button type="button"
+																						class="btn btn-secondary answer"
+																						onclick="sendAnswerOk()">답변 등록</button> <input
+																					type="hidden" name="num" value="1"> <input
+																					type="hidden" name="page" value="1"> <input
+																					type="hidden" name="schType" value="all"> <input
+																					type="hidden" name="kwd" value="">
+																				</td>
+																			</tr>
+																		</tbody>
+																	</table>
+																</form>
+															</div>
+														</c:if>
 													</div>
-
 												</div>
-											</div>
+											</c:forEach>
 										</div>
-
 									</div>
 
 
@@ -567,133 +467,114 @@
 
 									<div class="tab-pane fade" id="navs-pills-top-answer"
 										role="tabpanel">
-										<div id="accordionCancellation" class="accordion">
-											<div class="card accordion-item active">
-												<h2 class="accordion-header">
-													<button class="accordion-button collapsed" type="button"
-														data-bs-toggle="collapse"
-														data-bs-target="#accordionCancellation-1"
-														aria-controls="accordionCancellation-1">문의사항 제목</button>
-												</h2>
+										<c:forEach var="qo" items="${listqna}" varStatus="status">
+											<c:if test="${not empty qo.answer_date }">
+												<div id="accordionCancellation" class="accordion mb-2">
+													<div class="card accordion-item active">
+														<h2 class="accordion-header">
+															<button class="accordion-button collapsed" type="button"
+																data-bs-toggle="collapse"
+																data-bs-target="#accordionCancellation-${status.index}"
+																aria-controls="accordionCancellation-${status.index}">${qo.q_subject}</button>
+														</h2>
 
-												<div id="accordionCancellation-1"
-													class="accordion-collapse collapse">
-													<div class="accordion-body">
-														<p>문의사항 내용</p>
-													</div>
-													<div class="dtr-hidden"
-														style="float: right; padding-top: 15px; padding-right: 15px;">
-														<div class="text-xxl-center">
-															<div class="dropdown">
-																<a href="javascript:;"
-																	class="btn dropdown-toggle hide-arrow text-body p-0"
-																	data-bs-toggle="dropdown"> <i
-																	class="bx bx-dots-vertical-rounded"></i>
-																</a>
-																<div class="dropdown-menu dropdown-menu-end">
-																	<a href="javascript:;"
-																		class="dropdown-item delete-record text">수정</a> <a
-																		href="javascript:;"
-																		class="dropdown-item delete-record text-danger">삭제</a>
+														<div id="accordionCancellation-${status.index}"
+															class="accordion-collapse collapse">
+															<div class="accordion-body">
+																<p>${qo.question }</p>
+															</div>
+															<div class="dtr-hidden"
+																style="float: right; padding-top: 15px; padding-right: 15px;">
+																<div class="text-xxl-center">
+																	<div class="dropdown">
+																		<a href="javascript:;"
+																			class="btn dropdown-toggle hide-arrow text-body p-0"
+																			data-bs-toggle="dropdown"> <i
+																			class="bx bx-dots-vertical-rounded"></i>
+																		</a>
+																		<div class="dropdown-menu dropdown-menu-end">
+																			<a href="javascript:;"
+																				class="dropdown-item delete-record text">수정</a> <a
+																				href="javascript:;"
+																				class="dropdown-item delete-record text-danger">삭제</a>
+																		</div>
+																	</div>
 																</div>
 															</div>
+															<div class="accordion-body" style="padding-top: 15px;">
+																문의사항 답변<br> <br> ${qo.answer}
+															</div>
+
 														</div>
 													</div>
-													<div class="accordion-body" style="padding-top: 15px;">문의사항
-														답변aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-														aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-														aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-													</div>
-													<div class="reply">
-														<form name="answerForm" method="post">
-
-															<table class="table reply-form">
-																<tbody>
-																	<tr>
-																		<td><textarea class="form-control" name="answer"></textarea>
-																		</td>
-																	</tr>
-																	<tr>
-																		<td align="right">
-																			<button type="button" class="btn btn-secondary"
-																				onclick="sendAnswerOk()">답변 등록</button> <input
-																			type="hidden" name="num" value="1"> <input
-																			type="hidden" name="page" value="1"> <input
-																			type="hidden" name="schType" value="all"> <input
-																			type="hidden" name="kwd" value="">
-																		</td>
-																	</tr>
-																</tbody>
-															</table>
-														</form>
-													</div>
 												</div>
-											</div>
-										</div>
+											</c:if>
+										</c:forEach>
 									</div>
 
 
-									<div class="tab-pane fade" id="navs-pills-top-yet"
+									<div class="tab-pane fade mb-4 mt-4" id="navs-pills-top-yet"
 										role="tabpanel">
-										<div class="card accordion-item">
-											<h2 class="accordion-header">
-												<button class="accordion-button collapsed" type="button"
-													data-bs-toggle="collapse"
-													data-bs-target="#accordionCancellation-2"
-													aria-controls="accordionCancellation-2">문의사항 제목2</button>
-											</h2>
-											<div id="accordionCancellation-2"
-												class="accordion-collapse collapse ">
-												<div class="accordion-body">
-													<p>문의사항 내용2</p>
-												</div>
-												<div class="dtr-hidden"
-													style="float: right; padding-top: 15px; padding-right: 15px;">
-													<div class="text-xxl-center">
-														<div class="dropdown">
-															<a href="javascript:;"
-																class="btn dropdown-toggle hide-arrow text-body p-0"
-																data-bs-toggle="dropdown"> <i
-																class="bx bx-dots-vertical-rounded"></i>
-															</a>
-															<div class="dropdown-menu dropdown-menu-end">
-																<a href="javascript:;"
-																	class="dropdown-item delete-record text">수정</a> <a
-																	href="javascript:;"
-																	class="dropdown-item delete-record text-danger">삭제</a>
+										<c:forEach var="qo" items="${listqna}" varStatus="status">
+											<c:if test="${empty qo.answer_date }">
+												<div class="card accordion-item mb-2">
+													<h2 class="accordion-header">
+														<button class="accordion-button collapsed " type="button"
+															data-bs-toggle="collapse"
+															data-bs-target="#accordionCancellation-${status.index}"
+															aria-controls="accordionCancellation-${status.index}">${qo.q_subject}</button>
+													</h2>
+													<div id="accordionCancellation-${status.index}"
+														class="accordion-collapse collapse ">
+														<div class="accordion-body">
+															<p>${qo.question }</p>
+														</div>
+														<div class="dtr-hidden"
+															style="float: right; padding-top: 15px; padding-right: 15px;">
+															<div class="text-xxl-center">
+																<div class="dropdown">
+																	<a href="javascript:;"
+																		class="btn dropdown-toggle hide-arrow text-body p-0"
+																		data-bs-toggle="dropdown"> <i
+																		class="bx bx-dots-vertical-rounded"></i>
+																	</a>
+																	<div class="dropdown-menu dropdown-menu-end">
+																		<a href="javascript:;"
+																			class="dropdown-item delete-record text">수정</a> <a
+																			href="javascript:;"
+																			class="dropdown-item delete-record text-danger">삭제</a>
+																	</div>
+																</div>
 															</div>
 														</div>
+														<div class="accordion-body"
+															style="padding-top: 15px; display: hidden;">
+															문의사항 답변<br> <br> ${qo.answer}
+														</div>
+														<c:if test="${empty qo.answer_date }">
+															<div class="reply">
+																<form name="answerForm${status.index}" method="post">
+																	<table class="table reply-form">
+																		<tbody>
+																			<tr>
+																				<td align="right">
+																					<button type="button"
+																						class="btn btn-secondary qanswer"
+																						data-qnum="${qo.qnum}" data-bs-toggle="modal"
+																						data-bs-target="#qna">답변
+																						등록</button> <input type="hidden" name="qnum"
+																					value="${qo.qnum}">
+																				</td>
+																			</tr>
+																		</tbody>
+																	</table>
+																</form>
+															</div>
+														</c:if>
 													</div>
 												</div>
-												<div class="accordion-body"
-													style="padding-top: 15px; display: hidden;">
-													<p class="mt-3"></p>
-												</div>
-												<div class="reply">
-													<form name="answerForm" method="post">
-
-														<table class="table reply-form">
-															<tbody>
-																<tr>
-																	<td><textarea class="form-control" name="answer"></textarea>
-																	</td>
-																</tr>
-																<tr>
-																	<td align="right">
-																		<button type="button" class="btn btn-secondary"
-																			onclick="sendAnswerOk()">답변 등록</button> <input
-																		type="hidden" name="num" value="1"> <input
-																		type="hidden" name="page" value="1"> <input
-																		type="hidden" name="schType" value="all"> <input
-																		type="hidden" name="kwd" value="">
-																	</td>
-																</tr>
-															</tbody>
-														</table>
-													</form>
-												</div>
-											</div>
-										</div>
+											</c:if>
+										</c:forEach>
 									</div>
 								</div>
 							</div>
@@ -713,7 +594,8 @@
 									<li class="nav-item" role="presentation">
 										<button type="button" class="nav-link active" role="tab"
 											data-bs-toggle="tab" data-bs-target="#navs-pills-top-whole"
-											aria-controls="navs-pills-top-whole" aria-selected="true">전체 이벤트</button>
+											aria-controls="navs-pills-top-whole" aria-selected="true">전체
+											이벤트</button>
 									</li>
 									<li class="nav-item" role="presentation">
 										<button type="button" class="nav-link" role="tab"
@@ -723,8 +605,7 @@
 									</li>
 									<li class="nav-item" role="presentation">
 										<button type="button" class="nav-link" role="tab"
-											data-bs-toggle="tab"
-											data-bs-target="#navs-pills-top-reserve"
+											data-bs-toggle="tab" data-bs-target="#navs-pills-top-reserve"
 											aria-controls="navs-pills-top-reserve" aria-selected="false"
 											tabindex="-1">예정</button>
 									</li>
@@ -743,8 +624,8 @@
 								</ul>
 
 								<div class="tab-content">
-									<div class="tab-pane fade active show" id="navs-pills-top-whole"
-										role="tabpanel">
+									<div class="tab-pane fade active show"
+										id="navs-pills-top-whole" role="tabpanel">
 										<div class="card accordion-item active"
 											id="navs-pills-top-all">
 											<h2 class="accordion-header">
@@ -781,7 +662,7 @@
 
 												</div>
 											</div>
-											
+
 										</div>
 									</div>
 
@@ -1013,7 +894,7 @@
 				<i class='bx bxs-pencil'></i>
 			</button>
 			<ul class="dropdown-menu"
-				style="width: 38px; text-align: right; background-color: rgb(245, 245, 249); padding-right: 17px; box-shadow:none;">
+				style="width: 38px; text-align: right; background-color: rgb(245, 245, 249); padding-right: 17px; box-shadow: none;">
 				<li><a data-bs-toggle="modal" data-bs-target="#notice"
 					style="cursor: pointer;"> <i
 						class='bx bxs-bell-ring faq-nav-icon me-1  '></i></a></li>
@@ -1042,7 +923,7 @@
 									<tbody>
 										<tr>
 											<td>제&nbsp;&nbsp;&nbsp;&nbsp;목</td>
-											<td><input type="text" name="subject" maxlength="100"
+											<td><input type="text" name="nsubject" maxlength="100"
 												class="form-control" value=""></td>
 										</tr>
 
@@ -1070,7 +951,7 @@
 
 										<tr>
 											<td valign="top">내&nbsp;&nbsp;&nbsp;&nbsp;용</td>
-											<td valign="top"><textarea name="content" id="ir1"
+											<td valign="top"><textarea name="ncontent" id="ir1"
 													class="form-control" style="max-width: 97%; height: 290px;"></textarea></td>
 										</tr>
 
@@ -1088,11 +969,10 @@
 									<tbody>
 										<tr>
 											<td align="center">
-												<button type="button" class="btn btn-dark"
-													onclick="submitContents(this.form);">등록하기</button>
+												<button type="button" class="btn btn-dark notice">등록하기</button>
 												<button type="reset" class="btn">다시입력</button>
 												<button type="button" class="btn"
-													onclick="location.href='/app/admin/noticeManage/list';">등록취소</button>
+													onclick="location.href='/pet/admin/csManage/';">등록취소</button>
 
 											</td>
 										</tr>
@@ -1115,7 +995,7 @@
 									<tbody>
 										<tr>
 											<td>카테고리</td>
-											<td><select name="categoryNum" class="form-select">
+											<td><select name="fcategorynum" class="form-select">
 
 													<option value="1">회원</option>
 
@@ -1130,7 +1010,7 @@
 
 										<tr>
 											<td>제&nbsp;&nbsp;&nbsp;&nbsp;목</td>
-											<td><input type="text" name="subject" maxlength="100"
+											<td><input type="text" name="fsubject" maxlength="100"
 												class="form-control" value=""></td>
 										</tr>
 
@@ -1141,7 +1021,7 @@
 
 										<tr>
 											<td valign="top">내&nbsp;&nbsp;&nbsp;&nbsp;용</td>
-											<td valign="top"><textarea name="content"
+											<td valign="top"><textarea name="fcontent"
 													class="form-control"></textarea></td>
 										</tr>
 									</tbody>
@@ -1151,11 +1031,10 @@
 									<tbody>
 										<tr>
 											<td align="center">
-												<button type="button" class="btn btn-dark"
-													onclick="sendOk();">등록하기</button>
+												<button type="button" class="btn btn-dark faq">등록하기</button>
 												<button type="reset" class="btn">다시입력</button>
 												<button type="button" class="btn"
-													onclick="location.href='/app/admin/faqManage/main?pageNo=1';">등록취소</button>
+													onclick="location.href='/pet/admin/csManage/';">등록취소</button>
 
 											</td>
 										</tr>
@@ -1163,34 +1042,51 @@
 								</table>
 							</form>
 
-							<div id="category-dialog" style="display: none;">
-								<form name="categoryForm" method="post">
-									<table class="table-category">
-										<thead>
-											<tr>
-												<th width="170">카테고리</th>
-												<th width="90">활성</th>
-												<th width="80">출력순서</th>
-												<th>변경</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr align="center" height="30" bgcolor="#fff">
-												<td><input type="text" name="category"></td>
-												<td><select name="enabled">
-														<option value="1">활성</option>
-														<option value="0">비활성</option>
-												</select></td>
-												<td><input type="text" name="orderNo"></td>
-												<td>
-													<button type="button" class="btnCategoryAddOk">등록하기</button>
-												</td>
-											</tr>
-										</tbody>
-										<tfoot class="category-list"></tfoot>
-									</table>
-								</form>
-							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="modal fade" id="qna" tabindex="-1" style="display: none;"
+				aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="body-main">
+							<form name="qnaForm" method="post" enctype="multipart/form-data">
+							<input type="text" name="qnum" id="qnum" value=""
+								style="display: none;" />
+								<table class="table table-border border-top2 table-form">
+									<tbody>
+										<tr>
+											<td>작성자</td>
+											<td>
+												<p class="form-control-plaintext">관리자</p>
+											</td>
+										</tr>
+
+										<tr>
+											<td valign="top">내&nbsp;&nbsp;&nbsp;&nbsp;용</td>
+											<td valign="top"><textarea name="answer" id="ir1"
+													class="form-control" style="max-width: 97%; height: 290px;"></textarea></td>
+										</tr>
+									</tbody>
+								</table>
+
+								<table class="table">
+									<tbody>
+										<tr>
+											<td align="center">
+												<button data-final="" type="button" class="btn btn-dark qna">등록하기</button>
+												<button type="reset" class="btn">다시입력</button>
+												<button type="button" class="btn"
+													onclick="location.href='/pet/admin/csManage/';">등록취소</button>
+
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</form>
 
 						</div>
 					</div>
@@ -1267,11 +1163,10 @@
 									<tbody>
 										<tr>
 											<td align="center">
-												<button type="button" class="btn btn-dark"
-													onclick="submitContents(this.form);">등록하기</button>
+												<button type="button" class="btn btn-dark">등록하기</button>
 												<button type="reset" class="btn">다시입력</button>
 												<button type="button" class="btn"
-													onclick="location.href='/app/admin/eventManage/all/list';">등록취소</button>
+													onclick="location.href='/pet/admin/csManage/';">등록취소</button>
 
 											</td>
 										</tr>
@@ -1292,3 +1187,178 @@
 </div>
 <!-- Content wrapper -->
 
+<script type="text/javascript">
+
+function ajaxFun(url, method, formData, dataType, fn, file = false) {
+	const settings = {
+			type: method, 
+			data: formData,
+			success:function(data) {
+				fn(data);
+			},
+			beforeSend: function(jqXHR) {
+				jqXHR.setRequestHeader('AJAX', true);
+			},
+			complete: function () {
+			},
+			error: function(jqXHR) {
+				if(jqXHR.status === 403) {
+					login();
+					return false;
+		    	} else if(jqXHR.status === 402) {
+		    		alert('권한이 없습니다.');
+		    		return false;
+				} else if(jqXHR.status === 400) {
+					alert('요청 처리가 실패 했습니다.');
+					return false;
+		    	} else if(jqXHR.status === 410) {
+		    		alert('삭제된 게시물입니다.');
+		    		return false;
+		    	}
+		    	
+				console.log(jqXHR.responseText);
+			}
+	};
+	
+	if(file) {
+		settings.processData = false;  // file 전송시 필수. 서버로전송할 데이터를 쿼리문자열로 변환여부
+		settings.contentType = false;  // file 전송시 필수. 서버에전송할 데이터의 Content-Type. 기본:application/x-www-urlencoded
+	}
+	
+	$.ajax(url, settings);
+}
+
+
+$(function(){
+	$('.containercs').on('click','.notice', function(){
+		
+		const f  = document.noticeForm;
+		
+		let str;
+		
+		str = f.nsubject.value.trim();
+		if(!str) {
+			alert('제목을 입력해주세요. ');
+			f.iconName.focus();
+			return false;
+		}
+
+		str = f.ncontent.value.trim();
+	    if(!str) {
+	        alert('내용을 입력하세요. ');
+	        f.iconPrice.focus();
+	        return;
+	    }
+	    
+	    
+	    let url = "${pageContext.request.contextPath}/admin/csManage/writenotice";
+		
+		let formData = new FormData(f);
+		
+		const fn = function(data){
+			let state = data.state;
+			if(state=="false"){
+				alert("공지사항 등록에 실패했습니다.");
+				return false;
+			}
+			
+			$('#notice').modal('hide');
+		};
+		ajaxFun(url,'post',formData, 'json', fn,true);
+		
+	});
+	
+});
+
+$(function(){
+	$('.containercs').on('click','.faq', function(){
+		
+		const f  = document.faqForm;
+		
+		let str;
+		
+		str = f.fsubject.value.trim();
+		if(!str) {
+			alert('제목을 입력해주세요. ');
+			f.iconName.focus();
+			return false;
+		}
+
+		str = f.fcontent.value.trim();
+	    if(!str) {
+	        alert('내용을 입력하세요. ');
+	        f.iconPrice.focus();
+	        return;
+	    }
+	    
+	    
+	    let url = "${pageContext.request.contextPath}/admin/csManage/writefaq";
+		
+		let formData = new FormData(f);
+		
+		const fn = function(data){
+			let state = data.state;
+			if(state=="false"){
+				alert("공지사항 등록에 실패했습니다.");
+				return false;
+			}
+			
+			$('#faq').modal('hide');
+		};
+		ajaxFun(url,'post',formData, 'json', fn,true);
+		
+	});
+	
+});
+
+$(function(){
+	$('.tab-pane').on('click','.qanswer', function(){
+		
+		var qnum = $(this).data('qnum');
+		$('.body-main #qnum').val(qnum);
+		console.log(qnum);
+	})
+	
+	
+	
+	
+	$('.containercs').on('click','.qna', function(){
+		var qnumfinal = $('#qna #qnum').val();
+		$(this).data('final' ,qnumfinal);
+		
+		const f  = document.qnaForm;
+		
+		let str;
+		
+		str = f.answer.value.trim();
+		if(!str) {
+			alert('답변을 입력해주세요. ');
+			f.iconName.focus();
+			return false;
+		}
+	    
+	    
+	    let url = "${pageContext.request.contextPath}/admin/csManage/updateqna";
+		
+		let formData = new FormData(f);
+		
+		const fn = function(data){
+			let state = data.state;
+			if(state=="false"){
+				alert("공지사항 등록에 실패했습니다.");
+				return false;
+			}
+			
+			$('#qna').modal('hide');
+			location.reload();
+		};
+		ajaxFun(url,'post',formData, 'json', fn,true);
+		
+	});
+	
+});
+
+
+
+
+</script>

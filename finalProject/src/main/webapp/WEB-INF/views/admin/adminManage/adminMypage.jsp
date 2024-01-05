@@ -29,6 +29,7 @@
 							</button>
 						</li>
 					</ul>
+					<c:forEach var="dto" items="${list}" varStatus="status">
 					<div class="tab-content">
 						<div class="tab-pane fade active show" id="navs-pills-top-home"
 							role="tabpanel">
@@ -52,34 +53,33 @@
 								</div>
 							</div>
 							<hr class="my-0">
+							
 							<div class="card-body">
 								<form id="formAccountSettings" method="POST"
 									onsubmit="return false">
+									
 									<div class="row">
 										<div class="mb-3 col-md-6">
 											<label for="firstName" class="form-label">이름</label> <input
 												class="form-control" type="text" id="firstName"
-												name="firstName" value="도훈" autofocus />
+												name="firstName" value="${dto.userName }" autofocus />
 										</div>
 										<div class="mb-3 col-md-6">
 											<label for="email" class="form-label">E-mail</label> <input
 												class="form-control" type="text" id="email" name="email"
-												value="김도훈@example.com" placeholder="이메일을 입력하세요" />
+												value="${dto.email }" placeholder="이메일을 입력하세요" />
 										</div>
 										<div class="mb-3 col-md-6">
-											<label for="organization" class="form-label">부서</label> <select
-												id="team" class="select2 form-select">
-												<option value="Australia">홍보부</option>
-												<option value="Bangladesh" selected>개발부</option>
-												<option value="Belarus">영업부</option>
-											</select>
+											<label for="organization" class="form-label">직책</label><input
+												class="form-control" type="text" id="email" name="email"
+												value="${dto.adminState}" placeholder="이메일을 입력하세요" />
 										</div>
 										<div class="mb-3 col-md-6">
 											<label class="form-label" for="phoneNumber">전화번호</label>
 											<div class="input-group input-group-merge">
 												<span class="input-group-text">KR (+82)</span> <input
 													type="text" id="phoneNumber" name="phoneNumber"
-													class="form-control" value="010-1234-1234"
+													class="form-control" value="${dto.tel}"
 													placeholder="전화번호를 입력하세요" />
 											</div>
 										</div>
@@ -106,6 +106,7 @@
 								</form>
 							</div>
 						</div>
+						
 						<div class="tab-pane fade" id="navs-pills-top-profile"
 							role="tabpanel">
 							<h5 class="card-header">비밀번호 변경</h5>
@@ -119,7 +120,7 @@
 											class="mb-3 col-md-6 form-password-toggle fv-plugins-icon-container">
 											<label class="form-label" for="currentPassword">현재 비밀번호</label>
 											<div class="input-group input-group-merge has-validation">
-												<input class="form-control" type="password" value="asd123+"
+												<input class="form-control" type="password" value="${dto.userPwd}"
 													name="currentPassword" id="currentPassword"
 													placeholder="············"> <span
 													class="input-group-text cursor-pointer"><i
@@ -176,6 +177,7 @@
 
 						</div>
 					</div>
+					</c:forEach>
 				</div>
 			</div>
 		</div>

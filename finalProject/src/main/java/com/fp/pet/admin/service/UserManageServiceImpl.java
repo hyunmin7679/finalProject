@@ -178,6 +178,17 @@ public class UserManageServiceImpl implements UserManageService{
 		
 	}
 
+	@Override
+	public void unsancuser(Map<String, Object> map) {
+
+		try {
+			mapper.unsancUser(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
 
 
 

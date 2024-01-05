@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fp.pet.admin.mapper.AdminManageMapper">
+
+
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT
+		NVL(COUNT(*),0) FROM member1 where memberIdx >= 31
+	</select>
+
+	<select id="listAdmin" parameterType="map"
+		resultType="com.fp.pet.admin.domain.Admin">
+		SELECT
+		m1.userId,
+		m1.userName,
+		m2.email,
+		m1.register_date,
+		m1.memberIdx,
+		m1.enabled,
+		CASE
+		WHEN m1.enabled = 1 THEN '재직'
+		WHEN m1.enabled = 0 THEN '퇴직'
+		END AS worknow,
+		m.membership,
+		CASE
+		WHEN m.membership = 99 THEN '관리자'
+		WHEN m.membership = 51 THEN '임원'
+		WHEN m.membership = 31 THEN '사원'
+		END AS workstate
+		FROM
+		member1 m1
+		JOIN member m ON m1.memberIdx = m.memberIdx
+		JOIN member2 m2 ON m1.userId = m2.userId
+		WHERE
+		m.membership >= 31
+		order by m.membership desc
+	</select>
+	
+	<select id="adminInfo" parameterType="map"
+		resultType="com.fp.pet.admin.domain.Admin">
+	select m1.userName, m2.email, m.membership,
+	CASE
+		WHEN m.membership = 99 THEN '관리자'
+		WHEN m.membership = 51 THEN '임원'
+		WHEN m.membership = 31 THEN '사원'
+		END AS adminstate,
+	 m2.tel, m2.zip, m2.addr1, m2.addr2 
+	from member1 m1 join member m on m1.memberIdx=m.memberIdx
+	join member2 m2 on m1.userId= m2.userId where m1.memberIdx = #{memberIdx} 
+	
+	
+	</select>
+
+</mapper>

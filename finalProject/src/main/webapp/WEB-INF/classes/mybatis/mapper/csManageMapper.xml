@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fp.pet.admin.mapper.CsManageMapper">
+
+
+	<select id="dataCountfaq" parameterType="map" resultType="Integer">
+		select nvl(count(*),0) from faq
+	</select>
+	
+	<select id="dataCountnotice" parameterType="map" resultType="Integer">
+		select nvl(count(*),0) from notice
+	</select>
+	
+	<select id="dataCountqna" parameterType="map" resultType="Integer">
+		select nvl(count(*),0) from faq
+	</select>
+	
+	<select id="listfaq" parameterType="map"
+		resultType="com.fp.pet.admin.domain.CsBoard">
+		select num as fnum , categorynum as  fcategorynum, 
+		subject as fsubject, content as fcontent, 
+		reg_date freg_date from faq 
+	</select>
+	
+	<select id="listnotice" parameterType="map"
+		resultType="com.fp.pet.admin.domain.CsBoard">
+		select num as nnum, subject as nsubject, content as ncontent
+		, reg_date as nreg_date from notice order by notice desc
+	
+	</select>
+	
+	<select id="listqna" parameterType="map"
+		resultType="com.fp.pet.admin.domain.CsBoard">
+		select num as qnum, q.productnum, p.productname, memberIdx as qmemberIdx, 
+		secret, question, answer, answerId,question_date, answer_date, 
+		showquestion, identifyday, q_subject 
+		from productqna q 
+		left outer join product p on q.productnum=p.productnum 
+		order by qnum desc	
+	</select>
+	
+	
+	<insert id="insertNotice" parameterType="com.fp.pet.admin.domain.CsBoard">
+		INSERT INTO notice(num, memberIdx, notice, subject, content,
+			 hitCount, reg_date, shownotice)
+		VALUES (notice_seq.NEXTVAL,#{memberIdx},#{notice},  #{nsubject}, #{ncontent},
+			0, SYSDATE, 1)
+	</insert>
+	
+	<insert id="insertNoticeFile" parameterType="com.fp.pet.admin.domain.CsBoard">
+		INSERT INTO noticeFile(fileNum, num, saveFilename, originalFilename)
+		VALUES (noticeFile_seq.NEXTVAL, notice_seq.CURRVAL, #{saveFilename, jdbcType=VARCHAR}, 
+		#{originalFilename, jdbcType=VARCHAR})
+	</insert>
+	
+	<insert id="insertFaq" parameterType="com.fp.pet.admin.domain.CsBoard">
+		INSERT INTO faq(num, categorynum,userId, subject, content, reg_date)
+		VALUES (faq_seq.NEXTVAL,#{fcategorynum},#{userId}, #{fsubject}, #{fcontent},
+			SYSDATE)
+	</insert>
+	
+	<update id="updateQna" parameterType="com.fp.pet.admin.domain.CsBoard">
+		UPDATE productqna set answer=#{answer}, answerId=#{answerId}, answer_date=SYSDATE WHERE num=#{qnum}
+	</update>
+
+</mapper>

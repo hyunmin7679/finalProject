@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fp.pet.admin.mapper.ReviewManageMapper">
+
+
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT
+		NVL(COUNT(*),0) FROM productreview
+	</select>
+
+	<select id="listReview" parameterType="map"
+		resultType="com.fp.pet.admin.domain.Review">
+		select pr.num, p.thumbnail, p.productName, p.content, m1.userName, 
+		m1.userId,
+		pr.score, pr.review, pr.answer, to_char(pr.review_date,'yyyy-mm-dd')
+		review_date,
+		pr.answer_date,
+		pr.showreview from productReview pr
+		join
+		product p on pr.productNum= p.productNum
+		join member1 m1 on
+		pr.memberIdx = m1.memberIdx
+		<choose>
+			<when test="sort==1">ORDER BY score</when>
+			<when test="sort==2">ORDER BY score DESC</when>
+			<when test="sort==3">ORDER BY review_date</when>
+			<when test="sort==4">ORDER BY review_date DESC</when>
+			<when test="sort==5">ORDER BY m1.userName</when>
+			<otherwise>ORDER BY m1.userName</otherwise>
+		</choose>
+	</select>
+
+	<select id="reviewavg" parameterType="map"
+		resultType="com.fp.pet.admin.domain.Review">
+		SELECT score, COUNT(*) AS count_per_score
+		FROM
+		productreview
+		GROUP BY
+		score
+		order by score desc
+	</select>
+
+	<select id="avgscore" parameterType="map" resultType="Integer">
+		SELECT
+		TO_CHAR(SUM(score * count_per_score) / SUM(count_per_score)*100,
+		'999') AS average_score
+		FROM (
+		SELECT
+		score,
+		COUNT(*) AS count_per_score
+		FROM
+		productreview
+		GROUP BY
+		score
+		) score_counts
+	</select>
+
+	<select id="reviewweek" parameterType="map" resultType="Integer">
+		SELECT SUM(daily_count) AS total_count
+		FROM(
+		select nvl(count(*), 0)as daily_count from productreview where
+		to_char(to_date(review_date,'yy-mm-dd')) =
+		to_char(to_date(sysdate,'YY-MM-DD'))
+		union all
+		select nvl(count(*), 0)as daily_count from productreview where
+		to_char(to_date(review_date,'yy-mm-dd')) =
+		to_char(to_date(sysdate,'YY-MM-DD')-1)
+		union all
+		select nvl(count(*), 0)as daily_count from productreview where
+		to_char(to_date(review_date,'yy-mm-dd')) =
+		to_char(to_date(sysdate,'YY-MM-DD')-2)
+		union all
+		select nvl(count(*), 0)as daily_count from productreview where
+		to_char(to_date(review_date,'yy-mm-dd')) =
+		to_char(to_date(sysdate,'YY-MM-DD')-3)
+		union all
+		select nvl(count(*), 0)as daily_count from productreview where
+		to_char(to_date(review_date,'yy-mm-dd')) =
+		to_char(to_date(sysdate,'YY-MM-DD')-4)
+		union all
+		select nvl(count(*), 0)as daily_count from productreview where
+		to_char(to_date(review_date,'yy-mm-dd')) =
+		to_char(to_date(sysdate,'YY-MM-DD')-5)
+		union all
+		select nvl(count(*), 0)as daily_count from productreview where
+		to_char(to_date(review_date,'yy-mm-dd')) =
+		to_char(to_date(sysdate,'YY-MM-DD')-6))
+		subquery
+	</select>
+
+	<select id="reviewupdown" parameterType="map"
+		resultType="com.fp.pet.admin.domain.Review">
+		WITH ScoreSummary AS (
+		SELECT
+		score,
+		COUNT(*) AS count_per_score,
+		ROUND(COUNT(*) * 100.0 / SUM(COUNT(*)) OVER (), 2) AS percentage
+		FROM
+		productreview
+		WHERE
+		review_date BETWEEN ADD_MONTHS(SYSDATE, -1) AND SYSDATE
+		GROUP BY
+		score
+		)
+		SELECT
+		CASE WHEN score IN (5, 4) THEN '긍정적' when score in(1,2) then '부정적' else
+		'중립적' END AS score_group,
+		SUM(percentage)*100 AS score_group_percentage_sum
+		FROM
+		ScoreSummary
+		GROUP BY
+		CASE WHEN score IN (5, 4) THEN '긍정적' when score in(1,2) then '부정적' else
+		'중립적' END order by score_group
+	</select>
+	
+	<update id="hidereview" parameterType="Integer">
+	update productreview set showreview=0 where num=#{reviewnumber}
+	</update>
+	
+	<update id="showreview" parameterType="Integer">
+	update productreview set showreview=1 where num=#{reviewnumber}
+	</update>
+	
+	<update id="reviewanswer" parameterType="map">
+	update productreview set answer=#{sancMemo}, answer_date=sysdate 
+	where num=#{reviewnumber}
+	</update>
+
+
+</mapper>

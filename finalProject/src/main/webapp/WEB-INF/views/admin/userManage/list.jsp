@@ -40,10 +40,19 @@
 							<i class="bx bx-dots-vertical-rounded me-2"></i>
 						</button>
 						<div class="dropdown-menu dropdown-menu-end m-0 trigwrap">
-							<button class="dropdown-item sanctrigger" data-bs-target="#editUser"
+						<c:if test="${dto.enabled==1 }">
+						<button class="dropdown-item sanctrigger" data-bs-target="#editUser"
 								data-bs-toggle="modal" data-enablenum="${dto.memberIdx}" 
-								data-userName="${dto.userName}" >
-								${dto.enabled==1 ? "제재":"해제"}</button>
+							data-enabled="${dto.enabled}" data-userName="${dto.userName}" >
+								제재</button>
+						</c:if>
+						<c:if test="${dto.enabled==0 }">
+						<button class="dropdown-item unsanctrigger" data-bs-target="#editUser2"
+								data-bs-toggle="modal" data-enablenum="${dto.memberIdx}" 
+							data-enabled="${dto.enabled}" data-userName="${dto.userName}" >
+								해제</button>
+						</c:if>
+							
 						</div>
 					</div>
 				</td>
@@ -79,6 +88,33 @@
 					</div>
 					<div class="modal-footer" style="margin: auto;">
 						<button type="button" class="btn btn-danger sancconfirm"
+							data-final="" data-finalNum="">확인</button>
+						<button type="button" class="btn btn-secondary"
+							data-bs-dismiss="modal">닫기</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modalwrap" id="editUser2" tabindex="-1" role="dialog"
+			aria-labelledby="editUserLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 style="margin: auto;" class="modal-title" id="editUserLabel2" ></h5>
+					</div>
+					<div class="modal-body" style="font: bold; margin: auto;">
+						<input type="text" name="memberIdx" id="memberIdx" value="" style="display: none;"/>
+						<input type="text" name="userName" id="userName" value="" style="display: none;"/>
+						<input type="text" name="enabled" id="enabled" value="" style="display: none;"/>
+						<div class="mt-2">
+							
+						</div>
+						<div class="col-12  mt-3" style="margin: auto;">
+						
+						</div>
+					</div>
+					<div class="modal-footer" style="margin: auto;">
+						<button type="button" class="btn btn-danger unsancconfirm"
 							data-final="" data-finalNum="">확인</button>
 						<button type="button" class="btn btn-secondary"
 							data-bs-dismiss="modal">닫기</button>

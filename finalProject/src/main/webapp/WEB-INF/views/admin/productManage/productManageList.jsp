@@ -1,7 +1,38 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+
+<style type="text/css">
+.table-form .thumbnail-viewer {
+	cursor: pointer;
+	border: 1px solid #c2c2c2;
+	width: 50px;
+	height: 50px;
+	border-radius: 10px;
+	background-image:
+		url("${pageContext.request.contextPath}/resources/images/add_photo.png");
+	position: relative;
+	z-index: 9999;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.table-form .img-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, 54px);
+	grid-gap: 2px;
+}
+
+.table-form .img-grid .item {
+	object-fit: cover;
+	width: 50px;
+	height: 50px;
+	border-radius: 10px;
+	border: 1px solid #c2c2c2;
+	cursor: pointer;
+}
+</style>
+
 
 <script type="text/javascript">
 function ajaxFun(url, method, formData, dataType, fn, file = false) {
@@ -36,7 +67,10 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 	
 	$.ajax(url, settings);
 }
-	$(function() {
+
+
+
+$(function() {
 		$(".btnOptionAdd")
 				.click(
 						function() {
@@ -280,30 +314,29 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 			<div class="card-header">
 				<h5 class="card-title">분류</h5>
 				<div
-					class="d-flex justify-content-between align-items-center row py-3 gap-3 gap-md-0">
+					class="d-flex justify-content-between align-items-center row py-3 gap-3 gap-md-0 sort">
 					<div class="col-md-4 product_status">
-						<select id="ProductStatus" class="form-select text-capitalize"><option
-								value="">상품 상태</option>
-							<option value="ss">상품준비중</option>
-							<option value="Scheduled">배송준비중</option>
-							<option value="Publish">배송중</option>
-							<option value="Inactive">배송완료</option></select>
+						<select id="ProductStatus"
+							class="form-select text-capitalize maincategory">
+							<option class="allcate" value="10">::메인 카테고리::</option>
+
+							<option value="0">사료</option>
+							<option value="1">간식</option>
+							<option value="2">용품</option>
+						</select>
 					</div>
 					<div class="col-md-4 product_category">
-						<select id="ProductCategory" class="form-select text-capitalize"><option
-								value="">카테고리</option>
-							<option value="Household">의류</option>
-							<option value="Office">산책용품</option>
-							<option value="Electronics">리빙</option>
-							<option value="Shoes">장난감</option>
-							<option value="Accessories">리빙</option>
-							<option value="Game">장난감</option></select>
+						<select id="subStatus" name="categoryNum"
+							class="form-select subcategory">
+							<option class="allcate" value="20">:: 카테고리 선택 ::</option>
+
+						</select>
 					</div>
 					<div class="col-md-4 product_stock">
-						<select id="ProductStock" class="form-select text-capitalize"><option
+						<select id="StockStatus" class="form-select text-capitalize"><option
 								value="">재고</option>
-							<option value="Out_of_Stock">재고 없음</option>
-							<option value="In_Stock">재고 있음</option></select>
+							<option value="0">재고 없음</option>
+							<option value="1">재고 있음</option></select>
 					</div>
 				</div>
 			</div>
@@ -311,13 +344,19 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 				<div id="DataTables_Table_0_wrapper"
 					class="dataTables_wrapper dt-bootstrap5 no-footer">
 					<div class="card-header d-flex border-top py-md-0">
-						<div class="me-2" style="width: 25%;">
+						<div class="" style="">
 							<div id="DataTables_Table_0_filter" class="dataTables_filter">
-								<label style="margin-top: 4%;"> <input type="search"
-									class="form-control" placeholder="상품 검색"
+								<label style="margin-top: 4%;"> <input type="search" id=kwd name="kwd"
+									class="form-control" placeholder="상품 검색"  value="${kwd}"
 									aria-controls="DataTables_Table_0">
 								</label>
 							</div>
+						</div>
+						<div class="col-auto p-1">
+							<button type="button" class="btn btn-light"
+								onclick="searchList()">
+								<i class='bx bx-search-alt'></i>
+							</button>
 						</div>
 						<div style="width: 45%"></div>
 						<div
@@ -325,21 +364,8 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 							style="width: 35%;">
 							<div
 								class="dt-action-buttons d-flex align-items-start align-items-md-center justify-content-sm-center mb-3 mb-sm-0">
-								<div class="dataTables_length mb-2 pb-1"
-									id="DataTables_Table_0_length">
-									<label> <select name="DataTables_Table_0_length"
-										aria-controls="DataTables_Table_0"
-										class="form-select mt-2 me-2">
-											<option value="7">7</option>
-											<option value="10">10</option>
-											<option value="20">20</option>
-											<option value="50">50</option>
-											<option value="70">70</option>
-											<option value="100">100</option>
-									</select>
-									</label>
-								</div>
-								<div class="dt-buttons d-flex flex-wrap ms-2">
+
+								<div class="dt-buttons d-flex flex-wrap ms-2 mt-1">
 									<button class="btn btn-secondary mb-1" type="button"
 										data-bs-toggle="offcanvas" data-bs-target="#offcanvasScroll"
 										aria-controls="offcanvasScroll">
@@ -347,9 +373,9 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 											class="d-none d-sm-inline-block">상품 추가</span> </span>
 									</button>
 								</div>
-								<div class="offcanvas offcanvas-end" data-bs-scroll="true"
-									data-bs-backdrop="false" tabindex="-1" id="offcanvasScroll"
-									aria-labelledby="offcanvasScrollLabel">
+								<div class="offcanvas offcanvas-end product-add "
+									data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+									id="offcanvasScroll" aria-labelledby="offcanvasScrollLabel">
 									<div class="offcanvas-header">
 										<button type="button" class="btn-close text-reset"
 											data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -364,28 +390,23 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 													<td>
 														<div class="row">
 															<div class="col-6 pe-1">
-																<select name="parentNum" class="form-select">
-																	<option value="">:: 메인 카테고리 선택 ::</option>
+																<select name="parentNum"
+																	class="form-select requiredOption">
+																	<option class="allcate" value="">:: 메인 카테고리 선택
+																		::</option>
 
-																	<option value="1">사료</option>
+																	<option value="0">사료</option>
 
-																	<option value="2">간식</option>
+																	<option value="1">간식</option>
 
-																	<option value="3">용품</option>
+																	<option value="2">용품</option>
 
 																</select>
 															</div>
 															<div class="col-6 ps-1">
-																<select name="categoryNum" class="form-select">
-																	<option value="">:: 카테고리 선택 ::</option>
-
-																	<option value="5">건식사료</option>
-
-																	<option value="6">습식사료</option>
-
-																	<option value="7">우유/분유</option>
-
-																	<option value="8">고양이사료</option>
+																<select name="categoryNum"
+																	class="form-select requiredOption2">
+																	<option class="allcate" value="">:: 카테고리 선택 ::</option>
 
 																</select>
 															</div>
@@ -395,37 +416,39 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 												<tr>
 													<td class="table-light col-sm-2">상품명</td>
 													<td><input type="text" name="productName"
-														class="form-control" value=""></td>
+														class="form-control" value="${dto.productName}"></td>
 												</tr>
 												<tr>
 													<td class="table-light col-sm-2">상품구분</td>
 													<td><select name="special" class="form-select">
 															<option value="0">일반상품</option>
-															<option value="1">특가상품</option>
-															<option value="2">기획상품</option>
+															<c:if test="${not empty dto.productNum}">
+																<option value="1">특가상품</option>
+																<option value="2">기획상품</option>
+															</c:if>
 													</select></td>
 												</tr>
 												<tr>
 													<td class="table-light col-sm-2">상품가격</td>
 													<td><input type="text" name="price"
-														class="form-control" value=""></td>
+														class="form-control price-tag" value="${dto.price}"></td>
 												</tr>
 												<tr>
 													<td class="table-light col-sm-2">할인율</td>
 													<td><input type="text" name="discountRate"
-														class="form-control" value=""> <small
-														class="form-control-plaintext help-block">할인율이 0인
-															경우 상품가격이 판매가격입니다.</small></td>
+														class="form-control" value="${dto.discountRate}">
+														<small class="form-control-plaintext help-block">할인율이
+															0인 경우 상품가격이 판매가격입니다.</small></td>
 												</tr>
 												<tr>
 													<td class="table-light col-sm-2">적립금</td>
 													<td><input type="text" name="savedMoney"
-														class="form-control" value=""></td>
+														class="form-control" value="${dto.savedMoney}"></td>
 												</tr>
 												<tr>
 													<td class="table-light col-sm-2">배송비</td>
 													<td><input type="text" name="delivery"
-														class="form-control" value=""> <small
+														class="form-control" value="${dto.delivery}"> <small
 														class="form-control-plaintext help-block">배송비가 0인
 															경우 무료 배송입니다.</small></td>
 												</tr>
@@ -435,21 +458,17 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 													<td>
 														<div class="mb-2">
 															<input type="text" name="optionName" class="form-control"
-																style="width: 250px;" placeholder="옵션명" value="">
-
+																style="width: 250px;" placeholder="옵션명" value="기본">
 														</div>
 														<div class="row option-area">
 															<div
 																class="col-auto pe-0 d-flex flex-row optionValue-area">
-
-
 																<div class="input-group pe-1">
 																	<input type="text" name="optionValues"
 																		class="form-control" style="flex: none; width: 90px;"
-																		placeholder="옵션값"> <i
+																		placeholder="옵션값" value="${vo.optionValue}"> <i
 																		class="bi bi-dash input-group-text ps-2 pe-2 bg-white option-minus"></i>
 																</div>
-
 															</div>
 															<div class="col-auto">
 																<button type="button" class="btn btn-light btnOptionAdd">추가</button>
@@ -464,21 +483,19 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 														<div class="mb-2">
 															<input type="text" name="optionName2"
 																style="width: 250px;" class="form-control"
-																placeholder="옵션명" value="">
-
+																placeholder="옵션명" value="기본">
 														</div>
 														<div class="row option-area2">
 															<div
 																class="col-auto pe-0 d-flex flex-row optionValue-area2">
 
-
 																<div class="input-group pe-1">
 																	<input type="text" name="optionValues2"
 																		class="form-control" style="flex: none; width: 90px;"
-																		placeholder="옵션값"> <i
+																		placeholder="옵션값" value=""> <input
+																		type="hidden" name="detailNums2" value=""> <i
 																		class="bi bi-dash input-group-text ps-2 pe-2 bg-white option-minus2"></i>
 																</div>
-
 															</div>
 															<div class="col-auto">
 																<button type="button"
@@ -494,10 +511,12 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 													<td>
 														<div class="pt-2 pb-2">
 															<input type="radio" name="productShow"
-																class="form-check-input" id="productShow1" value="1">
+																class="form-check-input" id="productShow1" value="1"
+																${dto.productShow==1 ? "checked='checked'" : "" }>
 															<label class="form-check-label" for="productShow1">상품진열</label>
 															&nbsp;&nbsp; <input type="radio" name="productShow"
-																class="form-check-input" id="productShow0" value="0">
+																class="form-check-input" id="productShow0" value="0"
+																${dto.productShow==0 ? "checked='checked'" : "" }>
 															<label class="form-check-label" for="productShow0">진열안함</label>
 														</div>
 													</td>
@@ -507,14 +526,15 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 													<td class="table-light col-sm-2">상품설명</td>
 													<td><textarea name="content" id="ir1"
 															class="form-control"
-															style="max-width: 95%; height: 290px;"></textarea></td>
+															style="max-width: 95%; height: 290px;">${dto.content}</textarea></td>
 												</tr>
 												<tr>
 													<td class="table-light col-sm-2">대표이미지</td>
 													<td>
 														<div class="thumbnail-viewer">
-															<img 
-																src="${pageContext.request.contextPath}/resources/images/add_photo.png">
+															<img class="item img-add"
+																style="width: 48px; height: 48px;"
+																src="../../bootstrapTemp/assets/img/images/camera.png">
 														</div> <input type="file" name="thumbnailFile" accept="image/*"
 														class="form-control" style="display: none;">
 													</td>
@@ -525,7 +545,7 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 													<td>
 														<div class="img-grid">
 															<img class="item img-add"
-																src="${pageContext.request.contextPath}/resources/images/add_photo.png">
+																src="../../bootstrapTemp/assets/img/images/camera.png">
 															<c:forEach var="vo" items="${listFile}">
 																<img
 																	src="${pageContext.request.contextPath}/uploads/product/${vo.filename}"
@@ -545,13 +565,10 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 													<tr>
 														<td class="text-center">
 
-															<button type="button" class="btn btn-dark"
-																onclick="submitContents(this.form);">등록완료</button>
+															<button type="button" class="btn btn-dark add-product">등록완료</button>
 															<button type="reset" class="btn btn-light">다시입력</button>
 															<button type="button" class="btn btn-light"
-																onclick="location.href='/app/admin/product/main';">등록취소</button>
-
-														</td>
+																onclick="location.href='/pet/admin/productManage/';">등록취소</button>
 													</tr>
 											</table>
 										</form>
@@ -568,156 +585,239 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 					style="width: 100%;">
 					<thead>
 						<tr>
-							<th class="control sorting_disabled" rowspan="1" colspan="1"
-								style="width: 6px;" aria-label=""></th>
-							<th
-								class="sorting_disabled dt-checkboxes-cell dt-checkboxes-select-all"
-								rowspan="1" colspan="1" style="width: 19px;" data-col="1"
-								aria-label=""><input type="checkbox"
-								class="form-check-input"></th>
 							<th class="sorting sorting_asc" tabindex="0"
 								aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-								style="width: 300px;"
+								width="100px;"
 								aria-label="product: activate to sort column descending"
 								aria-sort="ascending">상품명</th>
 							<th class="sorting" tabindex="0"
 								aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-								style="width: 132px;"
+								width="10%"
 								aria-label="category: activate to sort column ascending">카테고리</th>
 							<th class="sorting" tabindex="0"
 								aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-								style="width: 48px;"
+								width="50px;"
 								aria-label="sku: activate to sort column ascending">코드</th>
 							<th class="sorting" tabindex="0"
 								aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-								style="width: 48px;"
+								width="50px;"
 								aria-label="price: activate to sort column ascending">가격</th>
 							<th class="sorting" tabindex="0"
 								aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-								style="width: 50px; padding-right: 10px;"
+								width="100px;"
 								aria-label="qty: activate to sort column ascending">재고량</th>
 							<th class="sorting" tabindex="0"
 								aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-								style="width: 37px;"
+								width="100px;"
+								aria-label="status: activate to sort column ascending">옵션1</th>
+							<th class="sorting" tabindex="0"
+								aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+								width="100px;"
+								aria-label="status: activate to sort column ascending">옵션2</th>
+							<th class="sorting" tabindex="0"
+								aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+								width="100px;"
 								aria-label="status: activate to sort column ascending">상태</th>
 							<th class="sorting_disabled" rowspan="1" colspan="1"
 								style="width: 0px;" aria-label="Actions"></th>
 						</tr>
 					</thead>
-					<tbody>
-						<tr class="odd">
-							<td class="control" tabindex="0" style=""></td>
-							<td class="  dt-checkboxes-cell"><input type="checkbox"
-								class="dt-checkboxes form-check-input"></td>
-							<td class="sorting_1">
-								<div
-									class="d-flex justify-content-start align-items-center product-name">
-									<div class="avatar-wrapper">
-										<div class="avatar avatar me-2 rounded-2 bg-label-secondary">
-											<img src="../../bootstrapTemp/assets/img/avatars/robot.jpg"
-												alt="1" class="rounded-2">
-										</div>
-									</div>
-									<div class="d-flex flex-column">
-										<h6 class="text-body text-nowrap mb-0">상품명</h6>
-										<small class="text-muted text-truncate d-none d-sm-block">상품
-											설명</small>
-									</div>
-								</div>
-							</td>
-							<td><span class="text-truncate d-flex align-items-center">
-									<span
-									class="avatar-sm rounded-circle d-flex justify-content-center align-items-center bg-label-info me-2">
-										<i class="bx bx-walk"></i>
-								</span>Shoes
-							</span></td>
-							<td><span>31063</span></td>
-							<td><span>$125</span></td>
-							<td><span>942</span></td>
-							<td class="dtr-hidden"><span class="badge bg-label-success"
-								text-capitalized="">active</span></td>
-							<td class="dtr-hidden">
-								<div class="d-inline-block text-nowrap">
-									<button class="btn btn-sm btn-icon dropdown-toggle hide-arrow"
-										data-bs-toggle="dropdown">
-										<i class="bx bx-dots-vertical-rounded me-2"></i>
-									</button>
-									<div class="dropdown-menu dropdown-menu-end m-0">
-										<a href="javascript:0;" class="dropdown-item">수정</a> <a
-											href="javascript:0;" class="dropdown-item">삭제</a>
-									</div>
-								</div>
-							</td>
-						</tr>
-				</table>
-				<div class="row mx-2">
-					<div class="col-sm-12 col-md-6 mt-4">
-						<div class="dataTables_info" id="DataTables_Table_0_info"
-							role="status" aria-live="polite">1-7개/100개 중</div>
-					</div>
-					<div class="col-sm-12 col-md-6 mt-3 " style="padding-left: 14%;">
-						<div class="dataTables_paginate paging_simple_numbers"
-							id="DataTables_Table_0_paginate">
-							<ul class="pagination">
-								<li class="paginate_button page-item previous disabled"
-									id="DataTables_Table_0_previous"><a
-									aria-controls="DataTables_Table_0" aria-disabled="true"
-									role="link" data-dt-idx="previous" tabindex="0"
-									class="page-link">Previous</a></li>
-								<li class="paginate_button page-item active"><a href="#"
-									aria-controls="DataTables_Table_0" role="link"
-									aria-current="page" data-dt-idx="0" tabindex="0"
-									class="page-link">1</a></li>
-								<li class="paginate_button page-item "><a href="#"
-									aria-controls="DataTables_Table_0" role="link" data-dt-idx="1"
-									tabindex="0" class="page-link">2</a></li>
-								<li class="paginate_button page-item "><a href="#"
-									aria-controls="DataTables_Table_0" role="link" data-dt-idx="2"
-									tabindex="0" class="page-link">3</a></li>
-								<li class="paginate_button page-item "><a href="#"
-									aria-controls="DataTables_Table_0" role="link" data-dt-idx="3"
-									tabindex="0" class="page-link">4</a></li>
-								<li class="paginate_button page-item "><a href="#"
-									aria-controls="DataTables_Table_0" role="link" data-dt-idx="4"
-									tabindex="0" class="page-link">5</a></li>
-								<li class="paginate_button page-item disabled"
-									id="DataTables_Table_0_ellipsis"><a
-									aria-controls="DataTables_Table_0" aria-disabled="true"
-									role="link" data-dt-idx="ellipsis" tabindex="0"
-									class="page-link">…</a></li>
-								<li class="paginate_button page-item "><a href="#"
-									aria-controls="DataTables_Table_0" role="link" data-dt-idx="14"
-									tabindex="0" class="page-link">15</a></li>
-								<li class="paginate_button page-item next"
-									id="DataTables_Table_0_next"><a href="#"
-									aria-controls="DataTables_Table_0" role="link"
-									data-dt-idx="next" tabindex="0" class="page-link">Next</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
+					<tbody class="product-list">
+					</tbody>
+				</table>			
 			</div>
 		</div>
 	</div>
 </div>
-<!-- / Content -->
-
-
-
-
-<!-- Footer -->
-<footer class="content-footer footer bg-footer-theme">
-	<div
-		class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
-		<div class="mb-2 mb-md-0"></div>
-		<div class="d-none d-lg-inline-block"></div>
-	</div>
-</footer>
-<!-- / Footer -->
-
-
 <div class="content-backdrop fade"></div>
+
+<div class="modal fade modalwrap" id="insertStock" tabindex="-1"
+	role="dialog" aria-labelledby="editUserLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 style="margin: auto;" class="modal-title" id="productname"></h5>
+			</div>
+			<div class="modal-body" style="font: bold; margin: auto;">
+				<input type="text" name="productNum" id="productNum" value=""
+					style="display: none;" /> <input type="text" name="detailNumber1"
+					id="detailNumber1" value="" style="display: none;" /> <input
+					type="text" name="detailNumber2" id="detailNumber2" value=""
+					style="display: none;" /> <input type="text" name="optionName1"
+					id="optionName1" value="" style="display: none;" /> <input
+					type="text" name="optionValue1" id="optionValue1" value=""
+					style="display: none;" /> <input type="text" name="optionName2"
+					id="optionName2" value="" style="display: none;" /> <input
+					type="text" name="optionValue2" id="optionValue2" value=""
+					style="display: none;" /> <input type="text" name="productName"
+					id="productName" value="" style="display: none;" />
+				<div style="text-align: center;" id="productinfo"></div>
+				<div style="text-align: center;">재고 증감 수량을 입력하세요</div>
+				<div class="col-12  mt-3" style="margin: auto;">
+					<input style="text-align: center;" type="text" id="rememo"
+						name="rememo" class="form-control" placeholder="수량">
+				</div>
+			</div>
+			<div class="modal-footer" style="margin: auto;">
+				<button type="button" class="btn btn-danger answerconfirm"
+					id="stockconfirm" data-productNum="" data-detailNumber1=""
+					data-detailNumber2="" data-optionName1="" data-optionValue1=""
+					data-optionName2="" data-optionValue2="">확인</button>
+				<button type="button" class="btn btn-secondary"
+					data-bs-dismiss="modal">닫기</button>
+			</div>
+		</div>
+	</div>
+</div>
+<form name="searchForm" method="post">
+	<input type="hidden" name="kwd" value="">
+</form>
 <script type="text/javascript">
+
+function ajaxFun(url, method, formData, dataType, fn, file = false) {
+	const settings = {
+			type: method, 
+			data: formData,
+			success:function(data) {
+				fn(data);
+			},
+			beforeSend: function(jqXHR) {
+				jqXHR.setRequestHeader('AJAX', true);
+			},
+			complete: function () {
+			},
+			error: function(jqXHR) {
+				if(jqXHR.status === 403) {
+					login();
+					return false;
+		    	} else if(jqXHR.status === 402) {
+		    		alert('권한이 없습니다.');
+		    		return false;
+				} else if(jqXHR.status === 400) {
+					alert('요청 처리가 실패 했습니다.');
+					return false;
+		    	} else if(jqXHR.status === 410) {
+		    		alert('삭제된 게시물입니다.');
+		    		return false;
+		    	}
+		    	
+				console.log(jqXHR.responseText);
+			}
+	};
+	
+	if(file) {
+		settings.processData = false;  // file 전송시 필수. 서버로전송할 데이터를 쿼리문자열로 변환여부
+		settings.contentType = false;  // file 전송시 필수. 서버에전송할 데이터의 Content-Type. 기본:application/x-www-urlencoded
+	}
+	
+	$.ajax(url, settings);
+}
+
+
+
+window.onload=function(){
+	var sort = 5;
+	productlist(1, sort);
+}
+
+
+
+
+$("#ProductStatus").on("change", function() {
+    var selectedValue = $(this).val();   
+    var sort = selectedValue; 
+    
+    
+    
+    productlist(1, sort);
+});
+
+$("#subStatus").on("change", function() {
+    var subValue = $(this).val();
+    
+    
+    var subsort = subValue; 
+    
+    productdetaillist(1, subsort);
+});
+
+$("#StockStatus").on("change", function() {
+    var stockValue = $(this).val();
+    
+    
+    var stocksort = stockValue; 
+    
+    productstocklist(1, stocksort);
+});
+
+
+
+function productlist(page, sort){
+	
+	let url = "${pageContext.request.contextPath}/admin/productManage/"+sort+"/list"; 
+	let query = "pageNo="+page;
+	let search = $('form[name=searchForm]').serialize();
+	query = query+"&"+search;
+	let selector = ".product-list";
+	
+	const fn = function(data){
+		$(selector).html(data);
+	};
+	
+	ajaxFun(url, "get", query, "html", fn);
+
+}
+
+function listPage(page,sort) {
+	let url = "${pageContext.request.contextPath}/admin/productManage/"+sort+"/list"; 
+	let query = "pageNo="+page;
+	let selector = ".product-list";
+	
+	const fn = function(data){
+		$(selector).html(data);
+	};
+	// ajaxFun(url, 'get', query, 'html', fn);
+	ajaxFun(url, 'get', query, 'html', fn);
+}
+
+function searchList(){
+	const f = document.searchForm; 
+	f.kwd.value = $.trim($("#kwd").val());	
+	productlist(1, 10);
+	
+}
+function productdetaillist(page, subsort){
+	
+	let url = "${pageContext.request.contextPath}/admin/productManage/"+subsort+"/sublist"; 
+	let query = "pageNo="+page;
+	let search = $('form[name=searchForm]').serialize();
+	query = query+"&"+search;
+	let selector = ".product-list";
+	
+	const fn = function(data){
+		$(selector).html(data);
+	};
+	
+	ajaxFun(url, "get", query, "html", fn);
+
+}
+
+
+function productstocklist(page, stocksort){
+	
+	let url = "${pageContext.request.contextPath}/admin/productManage/"+stocksort+"/stocklist"; 
+	let query = "pageNo="+page;
+	let search = $('form[name=searchForm]').serialize();
+	query = query+"&"+search;
+	let selector = ".product-list";
+	
+	const fn = function(data){
+		$(selector).html(data);
+	};
+	
+	ajaxFun(url, "get", query, "html", fn);
+
+}
 // 대표(썸네일) 이미지
 $(function(){
 	var img = "${dto.thumbnail}";
@@ -841,4 +941,206 @@ $(function(){
 		$(this).remove();
 	});
 });
+
+$(function(){
+	$('.product-add').on('click','.add-product', function(){
+		
+		const f  = document.productForm;
+		
+	    
+	    let url = "${pageContext.request.contextPath}/admin/productManage/addproduct";
+		
+		let formData = new FormData(f);
+		
+		const fn = function(data){
+			let state = data.state;
+			if(state=="false"){
+				alert("상품 등록에 실패했습니다.");
+				return false;
+			}
+			
+			$('#offcanvasScroll').offcanvas('hide');
+		};
+		ajaxFun(url,'post',formData, 'json', fn,true);
+		
+	});
+	
+});
+
+
+
+$(function () {
+	$(".requiredOption").change(function(){
+		
+		let sort = $(this).val();
+		
+		$(".requiredOption2 option").each(function(){
+			
+			if($(this).is(":first-child")) {
+				return true; // continue
+			}
+			
+			$(this).remove();
+        });
+		
+		
+		
+		let url = "${pageContext.request.contextPath}/admin/productManage/productDetail";
+		$.get(url, {sort:sort}, function(data){
+			$(data).each(function(index, item){
+				
+				let categoryNum = item.categoryNum;
+				let sort = item.sort;
+				let categoryName = item.categoryName;
+				
+				$(".requiredOption2").append("<option value='"+categoryNum+"'>"+categoryName+"</option>");
+			});
+		});
+		
+	});
+});
+
+$(function () {
+	$(".maincategory").change(function(){
+		
+		let sort = $(this).val();
+		
+		$(".subcategory option").each(function(){
+			
+			if($(this).is(":first-child")) {
+				return true; // continue
+			}
+			
+			$(this).remove();
+        });
+		console.log(sort);
+		
+		
+		let url = "${pageContext.request.contextPath}/admin/productManage/productDetail";
+		$.get(url, {sort:sort}, function(data){
+			$(data).each(function(index, item){
+				
+				let categoryNum = item.categoryNum;
+				let sort = item.sort;
+				let categoryName = item.categoryName;
+				
+				$(".subcategory").append("<option value='"+categoryNum+"'>"+categoryName+"</option>");
+				console.log(categoryNum);
+			});
+		});
+		
+	});
+});
+
+$(document).ready(function() {
+    $('input[name="price"]').on('input focusout', function() {
+        var price = parseFloat($(this).val());
+
+        if (!isNaN(price)) {
+            var savedMoney = price * 0.03; 
+            $('input[name="savedMoney"]').val(savedMoney); 
+        } else {
+            $('input[name="savedMoney"]').val(''); 
+        }
+    });
+});
+
+
+function deleteProduct(productNum){
+    	
+		alert('해당 상품을 삭제하시겠습니까?');
+
+    	let url = "${pageContext.request.contextPath}/admin/productManage/deleteProduct" 
+    	let query ="productNum="+productNum;
+    	const fn = function(data){
+    		var sort = 5;
+    		productlist(1, sort);
+    	};
+    	
+    	ajaxFun(url, "post", query, "json", fn);
+
+}
+
+
+$(document).ready(function(){
+	
+	
+	$('.product-list').on('click', '#stockButton', function() {
+    	
+        var productNum = $(this).attr('data-productNum');
+        var detailNumber1 = $(this).attr('data-detailNumber1');
+        var detailNumber2 = $(this).attr('data-detailNumber2');
+        var optionName1 = $(this).attr('data-optionName1');
+        var optionValue1 = $(this).attr('data-optionValue1');
+        var optionName2 = $(this).attr('data-optionName2');
+        var optionValue2 = $(this).attr('data-optionValue2');
+        var productName = $(this).attr('data-productName');
+        
+        console.log(productNum);
+        console.log(detailNumber1);
+        console.log(detailNumber2);
+        console.log(optionName1);
+        console.log(optionValue1);
+        console.log(optionName2);
+        console.log(optionValue2);
+        console.log(productName);
+        
+        $('.modal-body #productNum').val(productNum);
+        $('.modal-body #detailNumber1').val(detailNumber1);
+        $('.modal-body #detailNumber2').val(detailNumber2);
+        $('.modal-body #optionName1').val(optionName1);
+        $('.modal-body #optionValue1').val(optionValue1);
+        $('.modal-body #optionName2').val(optionName2);
+        $('.modal-body #optionValue2').val(optionValue2);
+        $('.modal-body #productName').val(productName);
+        
+        var productna=productName+"재고입력";
+        $('#productname').html(productna);
+        
+        optionName1 = (optionName1 === '기본') ? '' : optionName1;
+        optionValue1 = (optionValue1 === '기본') ? '' : optionValue1;
+        optionName2 = (optionName2 === '기본') ? '기본' : optionName2;
+        optionValue2 = (optionValue2 === '기본') ? '' : optionValue2;
+
+        var productinfo = optionName1 +":"+ optionValue1+"&nbsp;"+optionName2+":"+optionValue2;
+        $('#productinfo').html(productinfo);
+        
+       
+          
+    });
+	
+	
+
+	$('#stockconfirm').on('click', function() {
+	    var productNum = $('#insertStock #productNum').val();        
+	    $(this).data('productNum', productNum);
+	    var detailNumber1 = $('#insertStock #detailNumber1').val();        
+	    $(this).data('detailNumber1', detailNumber1);
+	    var detailNumber2 = $('#insertStock #detailNumber2').val();        
+	    $(this).data('detailNumber2', detailNumber2);
+	    
+	    var sancMemo = $('#rememo').val();
+	    
+	    insertStock(productNum,detailNumber1,detailNumber2,sancMemo);
+	    
+	    $('#insertStock').modal('hide');
+	});
+	
+	
+});
+
+
+function insertStock(productNum,detailNumber1,detailNumber2,sancMemo){
+	
+	let url = "${pageContext.request.contextPath}/admin/productManage/"+productNum+"/insertStock";
+	let query = "detailNumber1="+detailNumber1+"&detailNumber2="+detailNumber2+"&sancMemo="+sancMemo;
+	const fn = function(data){
+		productlist(1, 5);
+	};
+	ajaxFun(url, "post", query, "json", fn);
+}
+
+
+
+
 </script>

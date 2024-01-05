@@ -28,5 +28,7 @@ public interface UserManageMapper {
 	public List<Purchase> purchaselist(Map<String, Object> map);
 	
 	public void sancUser(Map<String, Object> map)throws SQLException;
+	public void unsancUser(Map<String, Object> map)throws SQLException;
+
 
 }

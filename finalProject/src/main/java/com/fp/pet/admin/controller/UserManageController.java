@@ -98,7 +98,7 @@ public class UserManageController {
 		} else {
 			purchasediff = Integer.toString(purchaseUserCountdiff);
 		}
-		
+		model.addAttribute("left","UserControl");
 		model.addAttribute("list", list);
 		model.addAttribute("page", current_page);
 		model.addAttribute("dataCount", dataCount);
@@ -125,12 +125,12 @@ public class UserManageController {
 		map.put("memberIdx", memberIdx);
 		List<Member> list = service.listUserinfo(map);
 		
-		//List<Purchase> catanaly = service.catanaly(map);
-		//List<Purchase> purchaselist = service.purchaselist(map);
+		List<Purchase> catanaly = service.catanaly(map);
+		List<Purchase> purchaselist = service.purchaselist(map);
 				
 		model.addAttribute("list", list);
-		//model.addAttribute("catanaly", catanaly);
-		//model.addAttribute("purchaselist", purchaselist);
+		model.addAttribute("catanaly", catanaly);
+		model.addAttribute("purchaselist", purchaselist);
 		
 		return ".admin.userManage.userInfo";
 	}
@@ -229,6 +229,22 @@ public class UserManageController {
 		return "redirect:/admin/userManage/list";
 	}
 	
+	
+	@RequestMapping(value="{memberIdx}/unsanction")
+	@ResponseBody
+	public String enableunsanction(
+		@PathVariable int memberIdx,
+		Model model
+			)  throws Exception{
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("memberIdx", memberIdx);
+		service.unsancuser(map);
+		
+		
+		
+		return "redirect:/admin/userManage/list";
+	}
 
 	
 

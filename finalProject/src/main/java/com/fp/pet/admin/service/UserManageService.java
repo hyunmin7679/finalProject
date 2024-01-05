@@ -25,5 +25,6 @@ public interface UserManageService {
 	public List<Purchase> purchaselist(Map<String, Object> map);
 	
 	public void sancuser(Map<String, Object> map);
+	public void unsancuser(Map<String, Object> map);
 	
 }

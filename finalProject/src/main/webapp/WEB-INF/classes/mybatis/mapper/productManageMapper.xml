@@ -1,0 +1,494 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fp.pet.admin.mapper.ProductManageMapper">
+
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT COUNT(*) FROM (
+    SELECT DISTINCT
+        p.productNum,
+        p.categoryNum,
+        p.productname,
+        p.price,
+        p.thumbnail,
+        ps.totalstock,
+        p.discountRate,
+        p.special,
+        CASE
+            WHEN p.special = 0 THEN '일반'
+            WHEN p.special = 1 THEN '특가'
+            WHEN p.special = 2 THEN '기획'
+        END AS specialState,
+        po1.optionNum AS optionNum1,
+        po1.optionName AS optionName1,
+        od1.detailNum AS detailNum1,
+        od1.optionValue AS optionValue1,
+        po2.optionNum AS optionNum2,
+        po2.optionName AS optionName2,
+        od2.detailNum AS detailNum2,
+        od2.optionValue AS optionValue2
+    FROM
+        product p
+        LEFT OUTER JOIN productoption po1 ON p.productNum = po1.productNum
+        LEFT OUTER JOIN optiondetail od1 ON po1.optionNum = od1.optionNum
+        LEFT OUTER JOIN productoption po2 ON p.productNum = po2.productNum
+        LEFT OUTER JOIN optiondetail od2 ON po2.optionNum = od2.optionNum
+        LEFT OUTER JOIN productStock ps ON od1.detailNum = ps.detailNum AND od2.detailNum = ps.detailNum2
+        LEFT OUTER JOIN productCategory pc ON p.categoryNum = pc.categoryNum
+    WHERE (MOD(po1.optionNum, 2) = 1 AND po2.optionNum = po1.optionNum + 1)
+    <choose>
+    		<when test="sort==0">AND pc.sort=0</when>
+			<when test="sort==1">AND pc.sort=1</when>
+			<when test="sort==2">AND pc.sort=2</when>
+			<when test="subsort==1">AND p.categoryNum=1</when>
+			<when test="subsort==2">AND p.categoryNum=2</when>
+			<when test="subsort==3">AND p.categoryNum=3</when>
+			<when test="subsort==4">AND p.categoryNum=4</when>
+			<when test="subsort==5">AND p.categoryNum=5</when>
+			<when test="subsort==6">AND p.categoryNum=6</when>
+			<when test="subsort==7">AND p.categoryNum=7</when>
+			<when test="subsort==8">AND p.categoryNum=8</when>
+			<when test="subsort==9">AND p.categoryNum=9</when>
+			<when test="subsort==10">AND p.categoryNum=10</when>
+			<when test="subsort==11">AND p.categoryNum=11</when>
+			<when test="subsort==12">AND p.categoryNum=12</when>
+			<when test="subsort==13">AND p.categoryNum=13</when>
+			<when test="subsort==14">AND p.categoryNum=14</when>
+			<when test="subsort==15">AND p.categoryNum=15</when>
+			<when test="subsort==16">AND p.categoryNum=16</when>
+			<when test="subsort==17">AND p.categoryNum=17</when>
+			<when test="subsort==18">AND p.categoryNum=18</when>
+			<otherwise></otherwise>
+		</choose>
+)
+	</select>
+
+	<select id="sublistProduct" parameterType="map"
+		resultType="com.fp.pet.admin.domain.Product">
+		SELECT DISTINCT
+		p.productNum,
+		p.categoryNum,
+		p.productname,
+		p.price,
+		p.thumbnail,
+		ps.totalstock,
+		p.discountRate,
+		p.special,
+		CASE
+		WHEN p.special = 0 THEN '일반'
+		WHEN p.special = 1 THEN '특가'
+		WHEN p.special = 2 THEN '기획'
+		END AS
+		specialState,
+		po1.optionNum AS optionNum1,
+		po1.optionName AS
+		optionName1,
+		od1.detailNum AS detailNum1,
+		od1.optionValue AS
+		optionValue1,
+		po2.optionNum AS optionNum2,
+		po2.optionName AS
+		optionName2,
+		od2.detailNum AS detailNum2,
+		od2.optionValue AS
+		optionValue2
+		FROM
+		product p
+		LEFT OUTER JOIN productoption po1 ON
+		p.productNum = po1.productNum
+		LEFT OUTER JOIN optiondetail od1 ON
+		po1.optionNum = od1.optionNum
+		LEFT OUTER JOIN productoption po2 ON
+		p.productNum = po2.productNum
+		LEFT OUTER JOIN optiondetail od2 ON
+		po2.optionNum = od2.optionNum
+		LEFT OUTER JOIN productStock ps ON
+		od1.detailNum = ps.detailNum AND
+		od2.detailNum=ps.detailNum2
+		LEFT OUTER JOIN productCategory pc ON p.categoryNum = pc.categoryNum
+		WHERE
+		(MOD(po1.optionNum, 2) = 1 AND po2.optionNum = po1.optionNum + 1)
+		<choose>
+			<when test="subsort==1">AND p.categoryNum=1</when>
+			<when test="subsort==2">AND p.categoryNum=2</when>
+			<when test="subsort==3">AND p.categoryNum=3</when>
+			<when test="subsort==4">AND p.categoryNum=4</when>
+			<when test="subsort==5">AND p.categoryNum=5</when>
+			<when test="subsort==6">AND p.categoryNum=6</when>
+			<when test="subsort==7">AND p.categoryNum=7</when>
+			<when test="subsort==8">AND p.categoryNum=8</when>
+			<when test="subsort==9">AND p.categoryNum=9</when>
+			<when test="subsort==10">AND p.categoryNum=10</when>
+			<when test="subsort==11">AND p.categoryNum=11</when>
+			<when test="subsort==12">AND p.categoryNum=12</when>
+			<when test="subsort==13">AND p.categoryNum=13</when>
+			<when test="subsort==14">AND p.categoryNum=14</when>
+			<when test="subsort==15">AND p.categoryNum=15</when>
+			<when test="subsort==16">AND p.categoryNum=16</when>
+			<when test="subsort==17">AND p.categoryNum=17</when>
+			<when test="subsort==18">AND p.categoryNum=18</when>
+			<otherwise></otherwise>
+		</choose>
+		order by p.productNum
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+
+	<select id="listProduct" parameterType="map"
+		resultType="com.fp.pet.admin.domain.Product">
+		SELECT DISTINCT
+		p.productNum,
+		p.categoryNum,
+		p.productname,
+		p.price,
+		p.thumbnail,
+		ps.totalstock,
+		p.discountRate,
+		p.special,
+		CASE
+		WHEN p.special = 0 THEN '일반'
+		WHEN p.special = 1 THEN '특가'
+		WHEN p.special = 2 THEN '기획'
+		END AS
+		specialState,
+		po1.optionNum AS optionNum1,
+		po1.optionName AS optionName1,
+		od1.detailNum AS detailNum1,
+		od1.optionValue AS optionValue1,
+		po2.optionNum AS optionNum2,
+		po2.optionName AS optionName2,
+		od2.detailNum AS detailNum2,
+		od2.optionValue AS optionValue2
+		FROM
+		product p
+		LEFT OUTER JOIN productoption po1 ON p.productNum = po1.productNum
+		LEFT OUTER JOIN optiondetail od1 ON po1.optionNum = od1.optionNum
+		LEFT OUTER JOIN productoption po2 ON p.productNum = po2.productNum
+		LEFT OUTER JOIN optiondetail od2 ON po2.optionNum = od2.optionNum
+		LEFT OUTER JOIN productStock ps ON od1.detailNum = ps.detailNum AND
+		od2.detailNum=ps.detailNum2
+		LEFT OUTER JOIN productCategory pc ON p.categoryNum = pc.categoryNum
+		WHERE
+		(MOD(po1.optionNum, 2) = 1 AND po2.optionNum = po1.optionNum + 1)
+		<if test="kwd != null and kwd != ''">
+			AND INSTR(p.productName, #{kwd}) &gt; 0
+		</if>
+		<choose>
+			<when test="sort==0">AND pc.sort=0</when>
+			<when test="sort==1">AND pc.sort=1</when>
+			<when test="sort==2">AND pc.sort=2</when>
+			<otherwise></otherwise>
+		</choose>
+		order by p.productNum
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<select id="stocklistProduct" parameterType="map"
+		resultType="com.fp.pet.admin.domain.Product">
+		SELECT DISTINCT
+		p.productNum,
+		p.categoryNum,
+		p.productname,
+		p.price,
+		p.thumbnail,
+		ps.totalstock,
+		p.special,
+		CASE
+		WHEN p.special = 0 THEN '일반'
+		WHEN p.special = 1 THEN '특가'
+		WHEN p.special = 2 THEN '기획'
+		END AS
+		specialState,
+		po1.optionNum AS optionNum1,
+		po1.optionName AS optionName1,
+		od1.detailNum AS detailNum1,
+		od1.optionValue AS optionValue1,
+		po2.optionNum AS optionNum2,
+		po2.optionName AS optionName2,
+		od2.detailNum AS detailNum2,
+		od2.optionValue AS optionValue2
+		FROM
+		product p
+		LEFT OUTER JOIN productoption po1 ON p.productNum = po1.productNum
+		LEFT OUTER JOIN optiondetail od1 ON po1.optionNum = od1.optionNum
+		LEFT OUTER JOIN productoption po2 ON p.productNum = po2.productNum
+		LEFT OUTER JOIN optiondetail od2 ON po2.optionNum = od2.optionNum
+		LEFT OUTER JOIN productStock ps ON od1.detailNum = ps.detailNum AND
+		od2.detailNum=ps.detailNum2
+		LEFT OUTER JOIN productCategory pc ON p.categoryNum = pc.categoryNum
+		WHERE
+		(MOD(po1.optionNum, 2) = 1 AND po2.optionNum = po1.optionNum + 1)
+		<choose>
+			<when test="stocksort==0">AND ps.totalstock is null</when>
+			<when test="stocksort==1">AND ps.totalstock >=0</when>
+			<otherwise></otherwise>
+		</choose>
+		order by p.productNum
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+
+
+	<select id="productDetail" parameterType="Long"
+		resultType="com.fp.pet.admin.domain.Product">
+		select categoryNum, sort, categoryName from productCategory
+		where sort = #{sort}
+	</select>
+
+	<select id="productSeq" resultType="Long">
+		SELECT product_seq.NEXTVAL
+		FROM dual
+	</select>
+
+	<insert id="insertProduct"
+		parameterType="com.fp.pet.admin.domain.Product">
+		INSERT INTO product(productNum, categoryNum,
+		productName, special, price, discountRate,
+		savedMoney, delivery,
+		content, thumbnail, productShow, reg_date,
+		update_date) VALUES
+		(#{productNum}, #{categoryNum}, #{productName},
+		#{special}, #{price},
+		#{discountRate}, #{savedMoney}, #{delivery},
+		#{content}, #{thumbnail},
+		#{productShow}, SYSDATE, SYSDATE)
+	</insert>
+
+	<!-- 추가 이미지 등록 -->
+	<insert id="insertProductFile"
+		parameterType="com.fp.pet.admin.domain.Product">
+		INSERT INTO productFile(fileNum, productNum, filename)
+		VALUES(productFile_seq.NEXTVAL, #{productNum}, #{filename})
+	</insert>
+
+	<!-- 상위/하위 옵션 등록 -->
+	<select id="optionSeq" resultType="Long">
+		SELECT
+		productOption_seq.NEXTVAL FROM dual
+	</select>
+
+	<insert id="insertProductOption"
+		parameterType="com.fp.pet.admin.domain.Product">
+		INSERT INTO productOption(optionNum, optionName,
+		productNum, parent)
+		VALUES(#{optionNum}, #{optionName}, #{productNum},
+		#{parent, jdbcType=INTEGER})
+	</insert>
+
+	<!-- 옵션 상세 정보 등록 -->
+	<select id="detailSeq" resultType="Long">
+		SELECT
+		optionDetail_seq.NEXTVAL FROM dual
+	</select>
+
+	<insert id="insertOptionDetail"
+		parameterType="com.fp.pet.admin.domain.Product">
+		INSERT INTO optionDetail(detailNum, optionNum,
+		optionValue)
+		VALUES(#{detailNum}, #{optionNum}, #{optionValue})
+	</insert>
+
+	<!-- 상품 카테고리 -->
+	<select id="findByCategory" parameterType="Long"
+		resultType="com.fp.pet.admin.domain.Product">
+		SELECT categoryNum, categoryName, use, showNo, parentNum
+		FROM productCategory
+		WHERE categoryNum = #{categoryNum}
+	</select>
+
+	<!-- 상품 상위 카테고리 목록 -->
+	<select id="listCategory"
+		resultType="com.fp.pet.admin.domain.Product">
+		SELECT categoryNum, categoryName, use, showNo, parentNum
+		FROM productCategory
+		WHERE use = 1 AND parentNum IS NULL
+		ORDER BY showNo
+	</select>
+
+	<!-- 상품 하위 카테고리 목록 -->
+	<select id="listSubCategory" parameterType="Long"
+		resultType="com.fp.pet.admin.domain.Product">
+		SELECT categoryNum, categoryName, use, showNo, parentNum
+		FROM productCategory
+		WHERE use = 1 AND parentNum = #{parentNum}
+		ORDER BY
+		showNo
+	</select>
+
+	<!-- 상품 목록 -->
+	<sql id="where-list">
+		<if test="schType=='all' ">
+			( INSTR(productName, #{kwd}) &gt; 0
+			OR
+			DBMS_LOB.INSTR(content, #{kwd}) &gt; 0 )
+		</if>
+		<if test="schType=='productNum' ">
+			INSTR(p.productNum, #{kwd}) = 1
+		</if>
+		<if test="schType=='productName' ">
+			INSTR(productName, #{kwd}) &gt; 0
+		</if>
+		<if test="schType=='content' ">
+			DBMS_LOB.INSTR(content, #{kwd}) &gt; 0
+		</if>
+	</sql>
+
+
+
+
+
+	<!-- 상품 상세 정보 -->
+	<select id="findById" parameterType="Long"
+		resultType="com.fp.pet.admin.domain.Product">
+		SELECT productNum, p.categoryNum, c.categoryName,
+		productName, special, price, discountRate,
+		savedMoney, delivery,
+		content, thumbnail, productShow, reg_date, update_date
+		FROM
+		product p
+		JOIN productCategory c ON p.categoryNum = c.categoryNum
+		WHERE
+		productNum = #{productNum}
+	</select>
+
+	<select id="listProductFile" parameterType="Long"
+		resultType="com.fp.pet.admin.domain.Product">
+		SELECT fileNum, productNum, filename
+		FROM productFile
+		WHERE
+		productNum = #{productNum}
+	</select>
+
+	<!-- 상위/히위 옵션 -->
+	<select id="listProductOption" parameterType="Long"
+		resultType="com.fp.pet.admin.domain.Product">
+		SELECT optionNum, optionName, parent, productNum
+		FROM
+		productOption
+		WHERE productNum = #{productNum}
+		ORDER BY parent NULLS
+		FIRST, parent
+	</select>
+
+	<!-- 옵션 상세 정보 -->
+	<select id="listOptionDetail" parameterType="Long"
+		resultType="com.fp.pet.admin.domain.Product">
+		SELECT detailNum, optionNum, optionValue
+		FROM optionDetail
+		WHERE optionNum = #{optionNum}
+		ORDER BY detailNum
+	</select>
+
+
+	<update id="updateProduct"
+		parameterType="com.fp.pet.admin.domain.Product">
+		UPDATE product SET categoryNum = #{categoryNum},
+		productName = #{productName},
+		price = #{price}, discountRate =
+		#{discountRate}, savedMoney =
+		#{savedMoney}, special=#{special},
+		delivery = #{delivery},
+		content = #{content}, thumbnail = #{thumbnail},
+		productShow =
+		#{productShow}, update_date = SYSDATE
+		WHERE productNum =
+		#{productNum}
+	</update>
+
+
+
+	<delete id="deleteProductFile" parameterType="Long">
+		DELETE FROM
+		productFile WHERE fileNum = #{fileNum}
+	</delete>
+
+	<update id="updateProductOption"
+		parameterType="com.fp.pet.admin.domain.Product">
+		UPDATE productOption SET optionName = #{optionName}
+		WHERE optionNum = #{optionNum}
+	</update>
+
+	<delete id="deleteProductOption" parameterType="Long">
+		DELETE FROM
+		productOption WHERE optionNum = #{optionNum}
+	</delete>
+
+	<update id="updateOptionDetail"
+		parameterType="com.fp.pet.admin.domain.Product">
+		UPDATE optionDetail SET optionValue = #{optionValue}
+		WHERE detailNum = #{detailNum}
+	</update>
+
+	<delete id="deleteOptionDetail" parameterType="Long">
+		DELETE FROM
+		optionDetail WHERE detailNum = #{detailNum}
+	</delete>
+	<delete id="deleteOptionDetailStock" parameterType="Long">
+		DELETE FROM productStock where detailNum=#{detailNum} OR detailNum2=#{detailNum}
+	</delete>
+
+	<!-- 상품 재고 -->
+	<select id="listProductStock" parameterType="long"
+		resultType="com.fp.pet.admin.domain.Product">
+		SELECT stockNum, detailNum, detailNum2, totalStock,
+		p.productNum, productName
+		FROM productStock s
+		JOIN product p ON
+		s.productNum = p.productNum
+		WHERE p.productNum = #{productNum}
+		ORDER BY
+		stockNum
+	</select>
+
+	<insert id="insertProductStock"
+		parameterType="com.fp.pet.admin.domain.Product">
+		INSERT INTO productStock(stockNum, detailNum,
+		detailNum2, totalStock, productNum)
+		VALUES (productStock_seq.NEXTVAL,
+		#{detailNum}, #{detailNum2},
+		#{totalStock}, #{productNum})
+	</insert>
+
+	<update id="updateProductStock"
+		parameterType="com.fp.pet.admin.domain.Product">
+		UPDATE productStock SET totalStock = #{totalStock}
+		WHERE
+		stockNum = #{stockNum}
+	</update>
+
+
+
+
+	<delete id="deleteProduct" parameterType="Long">
+		DELETE FROM product
+		WHERE productNum = #{productNum}
+	</delete>
+
+	<delete id="deleteOptionDetailFinal" parameterType="Long">
+		DELETE FROM
+		optionDetail WHERE optionNum = #{optionNum}
+	</delete>
+
+	<delete id="deleteProductOptionFinal" parameterType="Long">
+		DELETE FROM
+		productOption WHERE productNum = #{productNum}
+	</delete>
+	<select id="findThumb" parameterType="Long">
+		select thumbnail from
+		product where productNum=#{productNum}
+	</select>
+	<select id="findyByProNum" parameterType="map"
+		resultType="Integer">
+		select totalStock from productStock where 
+		detailNum=#{detailNumber1} and detailNum2=#{detailNumber2} and productNum=#{productNum}
+	</select>
+	
+	<update id="updateStock"  parameterType="Long">
+		UPDATE productStock set totalStock=#{sancMemo} where detailNum=#{detailNumber1} AND 
+		detailNum2=#{detailNumber2} AND productNum=#{productNum}
+	</update>
+	
+	<insert id="insertStock"  parameterType="Long">
+		INSERT INTO productStock (stockNum, productNum, detailNum, detailNum2, totalStock)
+		VALUES (productStock_seq.NEXTVAL, #{productNum},#{detailNumber1},#{detailNumber2},#{sancMemo})
+	</insert>
+
+</mapper>
