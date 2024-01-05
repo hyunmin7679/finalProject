@@ -1,22 +1,71 @@
-﻿<%@ page contentType="text/html; charset=UTF-8" %>
+﻿<%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <style type="text/css">
- 
 .body-container {
-    width: 1000px;
-    height: 100%;
-    position: center;
-    padding: 70px 50px 50px 70px;
-    border-radius: 40px 80px;
-    background: #fffff0;
+	width: 1000px;
+	height: 100%;
+	position: center;
+	padding: 70px 50px 50px 70px;
+	border-radius: 40px 80px;
+	background: #fffff0;
 }
 
+.jss1 {
+	width: 100px;
+	height: 100px;
+	margin: 30px auto;
+	position: relative;
+	cursor: pointer;
 }
+
+.jss2 {
+	width: 100%;
+	height: 100%;
+	display: block;
+	position: relative;
+}
+
+.jss22 {
+	overflow: hidden;
+	border-radius: 50%;
+	background-color: #FFF;
+}
+
+.jss3 {
+	margin: auto;
+	display: block;
+	max-width: 100%;
+	max-height: 100%; 
+}
+
+.jss33 {
+	top: 0;
+	left: 0;
+	right: 0;
+	width: 100%;
+	bottom: 0;
+	height: 100%;
+	overflow: hidden;
+	position: absolute;
+	object-fit: cover;
+	pointer-events: none;
+}
+
+.jss4 {
+	right: 0;
+	width: 30px;
+	bottom: 0;
+	height: 30px;
+	padding: 2px;
+	position: absolute;
+	background: #999999;
+	border-radius: 50%;
+}
+
 </style>
-
-<script type="text/javascript">
+<script>
 function memberOk() {
 	const f = document.memberForm;
 	let str;
@@ -120,198 +169,274 @@ function changeEmail() {
 
 function userIdCheck() {
 	// 아이디 중복 검사
-	let userId = $('#userId').val();
-
-	if(!/^[a-z][a-z0-9_]{4,9}$/i.test(userId)) { 
-		let str = '아이디는 5~10자 이내이며, 첫글자는 영문자로 시작해야 합니다.';
-		$('#userId').focus();
-		$('.userId-box').find('.help-block').html(str);
+	let userId = $("#userId").val();
+	
+	if(! /^[a-z][a-z0-9_]{4,9}$/i.test(userId)) {
+		let str = "아이디는 5~10자 이내이며, 첫글자는 영문자로 시작해야 합니다.";
+		$("#userId").focus();
+		$("#userId").parent().find(".help-block").html(str);
 		return;
 	}
 	
-	let url = '${pageContext.request.contextPath}/member/userIdCheck';
-
-	// AJAX:POST-JSON
+	let url = "${pageContext.request.contextPath}/member/userIdCheck";
+	// AJAX - POST : JSON 응답 받기
 	$.post(url, {userId:userId}, function(data){
-		let passed = data.passed;
-
-		if(passed === 'true') {
-			let str = '<span style="color:blue; font-weight: bold;">' + userId + '</span> 아이디는 사용가능 합니다.';
+		let p = data.passed;
+		if(p === "true") {
+			let str = '<span style="color:blue; font-weight:bold;">' + userId + '</span> 아이디는 사용 가능합니다.';
 			$('.userId-box').find('.help-block').html(str);
 			$('#userIdValid').val('true');
 		} else {
-			let str = '<span style="color:red; font-weight: bold;">' + userId + '</span> 아이디는 사용할수 없습니다.';
+			let str = '<span style="color:red; font-weight:bold;">' + userId + '</span> 아이디는 사용할 수 없습니다.';
 			$('.userId-box').find('.help-block').html(str);
-			$('#userId').val('');
 			$('#userIdValid').val('false');
-			$('#userId').focus();
+			$("#userId").focus();
 		}
-	}, 'json');
+	}, "json");
+	
 }
 </script>
 
 <div class="body-container">
-	<div>	
+	<div>
 		<div class="body-title">
-			<h3><i class="bi bi-person-square"></i> ${mode=="member"?"회원가입":"정보수정"} </h3>
+			<h3>
+				<i class="bi bi-person-square"></i> ${mode=="member"?"회원가입":"정보수정"}
+			</h3>
 		</div>
-		
-	    <div class="alert alert-info" role="alert">
-	        <i class="bi bi-person-check-fill"></i> SPRING의 회원이 되시면 회원님만의 유익한 정보를 만날수 있습니다.
-	    </div>
-		    		
-		<div class="body-main">
 
+		<c:if test="${mode == 'member'}">
+			<div class="alert alert-info" role="alert">
+				<i class="bi bi-person-check-fill"></i> 두다뽀코별의 회원이 되시면 회원만의 혜택을 누릴 수
+				있습니다.
+			</div>
+		</c:if>
+
+		<div class="body-main">
+		
+			<c:if test="${mode == 'update'}">
+				<form name="iconForm" action="${pageContext.request.contextPath}/member/updateIcon" method="post">
+				<div class="jss1">
+					<div class="jss2 jss22">
+						<img class="jss3 jss33 img-fluid" style="border: none; width: 80px; height: 80px;" alt="프로필" 
+							src="${pageContext.request.contextPath}/uploads/photo/202401042359121810170527049600.png"
+							id="icon-image">
+					</div>
+					<span class="jss4"> 
+						<svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="img">
+						    <path d="M2 3.993c.004-.546.446-.989.992-.993h18.016c.548 0 .992.445.992.993v16.014c-.004.546-.446.989-.992.993H2.992C2.444 21 2 20.555 2 20.007V3.993zM4 5v14h16V5H4zm8 10c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm0 2c-2.761 0-5-2.239-5-5s2.239-5 5-5 5 2.239 5 5-2.239 5-5 5zm5-11h2v2h-2V6z"></path>
+						</svg>
+					</span>
+				</div>
+				</form>
+			</c:if>
+		
 			<form name="memberForm" method="post">
 				<div class="row mb-3">
 					<label class="col-sm-2 col-form-label" for="userId">아이디</label>
 					<div class="col-sm-10 userId-box">
 						<div class="row">
 							<div class="col-5 pe-1">
-								<input type="text" name="userId" id="userId" class="form-control" value="${dto.userId}" 
-										${mode=="update" ? "readonly ":""}
-										placeholder="아이디">
+								<input type="text" name="userId" id="userId"
+									class="form-control" value="${dto.userId}"
+									${mode=="update" ? "readonly ":""} placeholder="아이디">
 							</div>
 							<div class="col-3 ps-1">
 								<c:if test="${mode=='member'}">
-									<button type="button" class="btn btn-light" onclick="userIdCheck();">아이디중복검사</button>
+									<button type="button" class="btn btn-light"
+										onclick="userIdCheck();">아이디중복검사</button>
 								</c:if>
 							</div>
 						</div>
 						<c:if test="${mode=='member'}">
-							<small class="form-control-plaintext help-block">아이디는 5~10자 이내이며, 첫글자는 영문자로 시작해야 합니다.</small>
+							<small class="form-control-plaintext help-block">아이디는
+								5~10자 이내이며, 첫글자는 영문자로 시작해야 합니다.</small>
 						</c:if>
 					</div>
 				</div>
-			 
+
 				<div class="row mb-3">
 					<label class="col-sm-2 col-form-label" for="userPwd">패스워드</label>
 					<div class="col-sm-10">
-			            <input type="password" name="userPwd" id="userPwd" class="form-control" autocomplete="off" placeholder="패스워드">
-			            <small class="form-control-plaintext">패스워드는 5~10자이며 하나 이상의 숫자나 특수문자가 포함되어야 합니다.</small>
-			        </div>
-			    </div>
-			    
-			    <div class="row mb-3">
-			        <label class="col-sm-2 col-form-label" for="userPwd2">패스워드 확인</label>
-			        <div class="col-sm-10">
-			            <input type="password" name="userPwd2" id="userPwd2" class="form-control" autocomplete="off" placeholder="패스워드 확인">
-			            <small class="form-control-plaintext">패스워드를 한번 더 입력해주세요.</small>
-			        </div>
-			    </div>
-			 
-			    <div class="row mb-3">
-			        <label class="col-sm-2 col-form-label" for="userName">이름</label>
-			        <div class="col-sm-10">
-			            <input type="text" name="userName" id="userName" class="form-control" value="${dto.userName}" 
-			            		${mode=="update" ? "readonly ":""}
-			            		placeholder="이름">
-			        </div>
-			    </div>
-			 
-			    <div class="row mb-3">
-			        <label class="col-sm-2 col-form-label" for="birth">생년월일</label>
-			        <div class="col-sm-10">
-			            <input type="date" name="birth" id="birth" class="form-control" value="${dto.birth}" placeholder="생년월일">
-			            <small class="form-control-plaintext">생년월일은 2000-01-01 형식으로 입력 합니다.</small>
-			        </div>
-			    </div>
-			
-			    <div class="row mb-3">
-			        <label class="col-sm-2 col-form-label" for="selectEmail">이메일</label>
-			        <div class="col-sm-10 row">
+						<input type="password" name="userPwd" id="userPwd"
+							class="form-control" autocomplete="off" placeholder="패스워드">
+						<small class="form-control-plaintext">패스워드는 5~10자이며 하나 이상의
+							숫자나 특수문자가 포함되어야 합니다.</small>
+					</div>
+				</div>
+
+				<div class="row mb-3">
+					<label class="col-sm-2 col-form-label" for="userPwd2">패스워드
+						확인</label>
+					<div class="col-sm-10">
+						<input type="password" name="userPwd2" id="userPwd2"
+							class="form-control" autocomplete="off" placeholder="패스워드 확인">
+						<small class="form-control-plaintext">패스워드를 한번 더 입력해주세요.</small>
+					</div>
+				</div>
+
+				<div class="row mb-3">
+					<label class="col-sm-2 col-form-label" for="userName">이름</label>
+					<div class="col-sm-10">
+						<input type="text" name="userName" id="userName"
+							class="form-control" value="${dto.userName}"
+							${mode=="update" ? "readonly ":""} placeholder="이름">
+					</div>
+				</div>
+
+				<div class="row mb-3">
+					<label class="col-sm-2 col-form-label" for="birth">생년월일</label>
+					<div class="col-sm-10">
+						<input type="date" name="birth" id="birth" class="form-control"
+							value="${dto.birth}" placeholder="생년월일"> <small
+							class="form-control-plaintext">생년월일은 2000-01-01 형식으로 입력
+							합니다.</small>
+					</div>
+				</div>
+
+				<div class="row mb-3">
+					<label class="col-sm-2 col-form-label" for="selectEmail">이메일</label>
+					<div class="col-sm-10 row">
 						<div class="col-3 pe-0">
-							<select name="selectEmail" id="selectEmail" class="form-select" onchange="changeEmail();">
+							<select name="selectEmail" id="selectEmail" class="form-select"
+								onchange="changeEmail();">
 								<option value="">선 택</option>
-								<option value="naver.com" ${dto.email2=="naver.com" ? "selected" : ""}>네이버 메일</option>
-								<option value="gmail.com" ${dto.email2=="gmail.com" ? "selected" : ""}>지 메일</option>
-								<option value="hanmail.net" ${dto.email2=="hanmail.net" ? "selected" : ""}>한 메일</option>
-								<option value="hotmail.com" ${dto.email2=="hotmail.com" ? "selected" : ""}>핫 메일</option>
+								<option value="naver.com"
+									${dto.email2=="naver.com" ? "selected" : ""}>네이버 메일</option>
+								<option value="gmail.com"
+									${dto.email2=="gmail.com" ? "selected" : ""}>지 메일</option>
+								<option value="hanmail.net"
+									${dto.email2=="hanmail.net" ? "selected" : ""}>한 메일</option>
+								<option value="hotmail.com"
+									${dto.email2=="hotmail.com" ? "selected" : ""}>핫 메일</option>
 								<option value="direct">직접입력</option>
 							</select>
 						</div>
-						
+
 						<div class="col input-group">
-							<input type="text" name="email1" class="form-control" maxlength="30" value="${dto.email1}" >
-						    <span class="input-group-text p-1" style="border: none; background: none;">@</span>
-							<input type="text" name="email2" class="form-control" maxlength="30" value="${dto.email2}" readonly>
-						</div>		
-	
-			        </div>
-			    </div>
-			    
-			    <div class="row mb-3">
-			        <label class="col-sm-2 col-form-label" for="tel1">전화번호</label>
-			        <div class="col-sm-10 row">
+							<input type="text" name="email1" class="form-control"
+								maxlength="30" value="${dto.email1}"> <span
+								class="input-group-text p-1"
+								style="border: none; background: none;">@</span> <input
+								type="text" name="email2" class="form-control" maxlength="30"
+								value="${dto.email2}" readonly>
+						</div>
+
+					</div>
+				</div>
+
+				<div class="row mb-3">
+					<label class="col-sm-2 col-form-label" for="tel1">전화번호</label>
+					<div class="col-sm-10 row">
 						<div class="col-sm-3 pe-1">
-							<input type="text" name="tel1" id="tel1" class="form-control" value="${dto.tel1}" maxlength="3">
+							<input type="text" name="tel1" id="tel1" class="form-control"
+								value="${dto.tel1}" maxlength="3">
 						</div>
 						<div class="col-sm-1 px-1" style="width: 2%;">
 							<p class="form-control-plaintext text-center">-</p>
 						</div>
 						<div class="col-sm-3 px-1">
-							<input type="text" name="tel2" id="tel2" class="form-control" value="${dto.tel2}" maxlength="4">
+							<input type="text" name="tel2" id="tel2" class="form-control"
+								value="${dto.tel2}" maxlength="4">
 						</div>
 						<div class="col-sm-1 px-1" style="width: 2%;">
 							<p class="form-control-plaintext text-center">-</p>
 						</div>
 						<div class="col-sm-3 ps-1">
-							<input type="text" name="tel3" id="tel3" class="form-control" value="${dto.tel3}" maxlength="4">
-						</div>
-			        </div>
-			    </div>
-			
-			    <div class="row mb-3">
-			        <label class="col-sm-2 col-form-label" for="zip">우편번호</label>
-			        <div class="col-sm-5">
-			       		<div class="input-group">
-			           		<input type="text" name="zip" id="zip" class="form-control" placeholder="우편번호" value="${dto.zip}" readonly>
-		           			<button class="btn btn-light" type="button" style="margin-left: 3px;" onclick="daumPostcode();">우편번호 검색</button>
-			           	</div>
-					</div>
-			    </div>
-		
-			    <div class="row mb-3">
-			        <label class="col-sm-2 col-form-label" for="addr1">주소</label>
-			        <div class="col-sm-10">
-			       		<div>
-			           		<input type="text" name="addr1" id="addr1" class="form-control" placeholder="기본 주소" value="${dto.addr1}" readonly>
-			           	</div>
-			       		<div style="margin-top: 5px;">
-			       			<input type="text" name="addr2" id="addr2" class="form-control" placeholder="상세 주소" value="${dto.addr2}">
+							<input type="text" name="tel3" id="tel3" class="form-control"
+								value="${dto.tel3}" maxlength="4">
 						</div>
 					</div>
-			    </div>
-		
+				</div>
+
+				<div class="row mb-3">
+					<label class="col-sm-2 col-form-label" for="zip">우편번호</label>
+					<div class="col-sm-5">
+						<div class="input-group">
+							<input type="text" name="zip" id="zip" class="form-control"
+								placeholder="우편번호" value="${dto.zip}" readonly>
+							<button class="btn btn-light" type="button"
+								style="margin-left: 3px;" onclick="daumPostcode();">우편번호
+								검색</button>
+						</div>
+					</div>
+				</div>
+
+				<div class="row mb-3">
+					<label class="col-sm-2 col-form-label" for="addr1">주소</label>
+					<div class="col-sm-10">
+						<div>
+							<input type="text" name="addr1" id="addr1" class="form-control"
+								placeholder="기본 주소" value="${dto.addr1}" readonly>
+						</div>
+						<div style="margin-top: 5px;">
+							<input type="text" name="addr2" id="addr2" class="form-control"
+								placeholder="상세 주소" value="${dto.addr2}">
+						</div>
+					</div>
+				</div>
+
 				<c:if test="${mode=='member'}">
-				    <div class="row mb-3">
-				        <label class="col-sm-2 col-form-label" for="agree">약관 동의</label>
+					<div class="row mb-3">
+						<label class="col-sm-2 col-form-label" for="agree">약관 동의</label>
 						<div class="col-sm-8" style="padding-top: 5px;">
 							<input type="checkbox" id="agree" name="agree"
-								class="form-check-input"
-								checked
-								style="margin-left: 0;"
-								onchange="form.sendButton.disabled = !checked">
-							<label class="form-check-label">
-								<a href="#" class="text-decoration-none">이용약관</a>에 동의합니다.
+								class="form-check-input" checked style="margin-left: 0;"
+								onchange="form.sendButton.disabled = !checked"> <label
+								class="form-check-label"> <a href="#"
+								class="text-decoration-none">이용약관</a>에 동의합니다.
 							</label>
 						</div>
-				    </div>
-			    </c:if>
-			     
-			    <div class="row mb-3">
-			        <div class="text-center">
-			            <button type="button" name="sendButton" class="btn btn-primary" onclick="memberOk();"> ${mode=="member"?"회원가입":"정보수정"} <i class="bi bi-check2"></i></button>
-			            <button type="button" class="btn btn-danger" onclick="location.href='${pageContext.request.contextPath}/';"> ${mode=="member"?"가입취소":"수정취소"} <i class="bi bi-x"></i></button>
-						<input type="hidden" name="userIdValid" id="userIdValid" value="false">
-			        </div>
-			    </div>
-			
-			    <div class="row">
+					</div>
+				</c:if>
+
+				<div class="row mb-3">
+					<div class="text-center">
+						<button type="button" name="sendButton" class="btn btn-primary"
+							onclick="memberOk();">
+							${mode=="member"?"회원가입":"정보수정"} <i class="bi bi-check2"></i>
+						</button>
+						<button type="button" class="btn btn-danger"
+							onclick="location.href='${pageContext.request.contextPath}/';">
+							${mode=="member"?"가입취소":"수정취소"} <i class="bi bi-x"></i>
+						</button>
+						<input type="hidden" name="userIdValid" id="userIdValid"
+							value="false">
+					</div>
+				</div>
+
+				<div class="row">
 					<p class="form-control-plaintext text-center">${message}</p>
-			    </div>
+				</div>
+				
+				
+				
 			</form>
 
+		</div>
+	</div>
+</div>
+
+
+
+<!-- 아이콘 선택 모달 -->
+<div class="modal fade" id="iconSelectModal" tabindex="-1"
+	aria-labelledby="searchModalLabel" aria-hidden="true"
+	data-bs-backdrop="static" data-bs-keyboard="false">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<h5 class="modal-title" id="searchViewerModalLabel">보유아이콘</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal"
+					aria-label="Close"></button>
+			</div>
+
+			<div class="modal-body">
+				<div class="icon-list icons-container d-flex justify-content-spacing flex-wrap mt-2 ms-3 me-2">
+				</div>
+			</div>
+			
 		</div>
 	</div>
 </div>
@@ -359,4 +484,91 @@ function userIdCheck() {
             }
         }).open();
     }
+
+    function ajaxFun(url, method, formData, dataType, fn, file = false) {
+    	const settings = {
+    			type: method, 
+    			data: formData,
+    			success:function(data) {
+    				fn(data);
+    			},
+    			beforeSend: function(jqXHR) {
+    				jqXHR.setRequestHeader('AJAX', true);
+    			},
+    			complete: function () {
+    			},
+    			error: function(jqXHR) {
+    				if(jqXHR.status === 403) {
+    					login();
+    					return false;
+    				} else if(jqXHR.status === 400) {
+    					alert('요청 처리가 실패 했습니다.');
+    					return false;
+    		    	}
+    				console.log(jqXHR.responseText);
+    			}
+    	};
+    	
+    	if(file) {
+    		settings.processData = false; 
+    		settings.contentType = false; 
+    	}
+    	
+    	$.ajax(url, settings);
+    }
+
+    $(function(){
+    	// 아이콘 이미지 선택 
+    	$(".jss1").click(function(){    	    
+    		let query = "";
+    	    let url = "${pageContext.request.contextPath}/member/iconlist";
+    	  
+    	    const fn = function(data) { 
+    	    	let out = "";
+    	    	for(let item of data.list) {
+    	    		let iconNum = item.iconNum;
+    	    		let iconUse = item.iconUse;
+    	    		let iconImage = item.iconImage;
+    	    		let iconName = item.iconName;
+    	    		let iconPrice = item.iconPrice;
+    	    		
+    	    		out += "<div class='card icon-item cursor-pointer text-center mb-2 mx-2 pe-3 p-3' style='background-color: white; border: 0;'>";
+    	    		out += "	<button type='button'>";
+    	    		out += "		<img style='border: none; width: 80px; height: 80px;' src='${pageContext.request.contextPath}/uploads/photo/"+iconImage+"'>";
+    	    		out += "	</button>";    	    		
+    	    		out += "	<button type='button' class='btn-iconSelect'  data-icon-name='"+iconName+"' data-icon-price='"+iconPrice+"' data-icon-num='"+iconNum+"' data-icon-iconimage='"+iconImage+"'>"
+    	    		out += "	선&nbsp;택 </button>";
+    	    		out += "</div>";
+    	    		
+    	    	}
+    	    	
+    	    	$(".icon-list").html(out);
+    		};
+    		
+    		ajaxFun(url, "get", query, "json", fn);
+    		
+    		$("#iconSelectModal").modal("show");
+    	});
+    	
+    	
+    	// 모달의 선택 버튼 클릭한 경우 -> 그 아이콘의 정보 넘겨주기
+    	$("body").on("click", '.btn-iconSelect', function(){
+    		let iconNum = $(this).data("icon-num");
+    		let iconImage = $(this).data("icon-iconimage");
+    		let iconPrice = $(this).data("icon-price");
+    		let iconName = $(this).data("icon-name");
+    		//let productName = $(this).text().trim();
+    		
+    		let imageSrc = "${pageContext.request.contextPath}/uploads/photo/"+iconImage;
+    		$("#icon-image").attr("src",imageSrc);
+    		
+    		//$(".memberForm input[name=productName]").val(productName);
+    		
+    		$("#iconSelectModal").modal("hide");
+    		
+    	});
+    });
+
+    
+    
 </script>
