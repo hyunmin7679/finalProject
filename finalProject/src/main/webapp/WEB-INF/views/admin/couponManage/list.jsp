@@ -59,7 +59,7 @@
 		<br/>
 		<div class="app-ecommerce-category" data-select2-id="8">
 			
-			<div class="col">
+			<div class="col ">
 				
 				
 				<div class="nav-align-top mb-4">
@@ -80,11 +80,19 @@
 								aria-controls="navs-top-profile" aria-selected="false"
 								data-category="open">발급중 쿠폰</button>
 						</li>
+						
+						<li class="nav-item" role="presentation">
+							<button type="button" class="nav-link" role="tab"
+								data-bs-toggle="tab" data-bs-target="#navs-top-home"
+								aria-controls="navs-top-profile" aria-selected="false"
+								data-category="stop">발급중단 쿠폰</button>
+						</li>
+						
 						<li class="nav-item" role="presentation">
 							<button type="button" class="nav-link" role="tab"
 								data-bs-toggle="tab" data-bs-target="#navs-top-home"
 								aria-controls="navs-top-messages" aria-selected="false"
-								data-category="end">발급 끝난 쿠폰</button>
+								data-category="end">발급종료 쿠폰</button>
 						</li>
 					</ul>
 					
@@ -232,6 +240,42 @@
 
 	<div class="content-backdrop fade"></div>
 </div>
+
+
+<!-- modal -->
+<div class="modal fade" id="modalToggle"
+	aria-labelledby="modalToggleLabel" tabindex="-1" style="display: none;"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modalToggleLabel">발급상태변경</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal"
+					aria-label="Close"></button>
+			</div>
+			<div class="modal-body resultHtml">
+				<div class="mt-2">
+					<select class="form-select" name="couponState">
+						<option value="" style="text-align: center;">::쿠폰 상태 변경::</option>
+						<option value="0" style="text-align: center;">발급 진행</option>
+						<option value="1" style="text-align: center;">발급 중단</option>
+						<option value="2" style="text-align: center;">발급 종료</option>
+					</select>
+				</div>
+				<div class="col-12  mt-3" style="margin: auto;">
+					<input style="text-align: center;" type="text" name="couponMemo" class="form-control" placeholder="메모">
+				</div>
+			</div>
+
+			<div class="modal-footer changeCoupon">
+			
+			</div>
+			
+		</div>
+	</div>
+</div>
+
+
 
 <script type="text/javascript">
 function ajaxFun(url, method, formData, dataType, fn, file = false) {
@@ -413,5 +457,66 @@ $(function () {
 		
 	});
 });
+
+$(function(){
+	$('.container').on('click', '.updateCoupon', function() {
+		// 쿠폰 상태 모달
+		$("select[name=couponState]").val('');
+		$('input[name=couponMemo]').val('');
+		
+		let couponNum = $(this).attr('data-couponNum');
+		
+		let result = "";
+		result += '<button class="btn btn-primary stateCoupon" data-couponNum="'+ couponNum +'" >변경</button>'
+		$('#modalToggle .changeCoupon').html(result);
+		
+		let url = '${pageContext.request.contextPath}/admin/couponManage/findByCoupon';
+		let query = 'couponNum=' + couponNum ;
+		const fn = function(data){
+			
+			let couponState = data.dto.couponState;
+			let couponMemo = data.dto.couponMemo;
+			console.log(couponState);
+			console.log(couponMemo);
+			$("select[name=couponState]").val(couponState);
+			
+			if (couponMemo !== null) {
+				$('input[name=couponMemo]').attr('placeholder', couponMemo);
+			}
+		}; 
+		
+		ajaxFun(url, 'post', query, 'json', fn);
+	});
+});
+
+$(function(){
+	$('#modalToggle').on('click', '.stateCoupon', function() {
+		
+		//  쿠폰 상태변경
+		let couponNum = $(this).attr('data-couponNum');
+		let couponState = $("select[name=couponState]").val();
+		let couponMemo = $('input[name=couponMemo]').val();
+		
+		console.log(couponNum);
+		console.log(couponState);
+		console.log(couponMemo);
+		
+		let url = '${pageContext.request.contextPath}/admin/couponManage/stateCoupon';
+		let query = 'couponNum=' + couponNum + '&couponState=' + couponState+'&couponMemo='+couponMemo;
+		
+		
+		const fn = function(data){
+			listPage(1);
+			console.log(data);
+			
+	    	$('#modalToggle').modal('hide');
+		}; 
+		
+		
+		ajaxFun(url, 'post', query, 'json', fn);
+	});
+});
+
+
 
 </script>

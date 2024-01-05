@@ -1,6 +1,5 @@
 package com.fp.pet.admin.controller;
 
-import java.io.File;
 import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
@@ -142,5 +141,54 @@ public class CouponManageController {
 
 		return model;
 	}   
+	
+	
+	// AJAX-JSON
+	@PostMapping("stateCoupon")
+	@ResponseBody
+	public Map<String, Object> updateCoupon(@RequestParam long couponNum,@RequestParam int couponState,
+			@RequestParam String couponMemo,HttpSession session) throws Exception {
+		Map<String, Object> model = new HashMap<String, Object>();
+				
+		String state = "false";
+		try {
+			Map<String,Object> map = new HashMap<String, Object>();
+			map.put("couponNum",couponNum);
+			map.put("couponState",couponState);
+			map.put("couponMemo",couponMemo);
+			
+			service.updateCoupon(map);
+			
+			
+			state = "true";
+		} catch (Exception e) {
+		}
+		
+		model.put("state", state);
+		return model;
+	}
+	
+	@PostMapping("findByCoupon")
+	@ResponseBody
+	public Map<String, Object> findByCoupon(@RequestParam long couponNum) throws Exception {
+		Map<String, Object> model = new HashMap<String, Object>();
+				
+		String state = "false";
+		Coupon dto = null;	
+		try {
+			Map<String,Object> map = new HashMap<String, Object>();
+			map.put("couponNum",couponNum);
+			
+			dto = service.findByCoupon(map);
+			
+			
+			state = "true";
+		} catch (Exception e) {
+		}
+		
+		model.put("dto", dto);
+		model.put("state", state);
+		return model;
+	}
 	   
 }

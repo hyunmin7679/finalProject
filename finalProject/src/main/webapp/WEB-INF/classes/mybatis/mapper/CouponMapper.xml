@@ -5,10 +5,13 @@
 
 	<sql id="where-list">
 		<if test="category== 'open' ">
-			TRUNC(startCouponDate) &lt;= TRUNC(SYSDATE)
+			TRUNC(startCouponDate) &lt;= TRUNC(SYSDATE) AND couponState = 0
+		</if>
+		<if test="category== 'stop' ">
+			TRUNC(startCouponDate) &lt;= TRUNC(SYSDATE) AND couponState = 1
 		</if>
 		<if test="category== 'end' ">
-			TRUNC(endCouponDate) &lt; TRUNC(SYSDATE)
+			TRUNC(endCouponDate) &lt; TRUNC(SYSDATE) OR couponState = 2
 		</if>
 	</sql>
 
@@ -22,8 +25,8 @@
 	<select id="dataCount" parameterType="map" resultType="Integer" >
 		SELECT NVL(COUNT(*), 0) from coupon
 		<where>
+		
 			<include refid="where-list"/>
-			
 			
 			<if test="kwd != null and kwd!=''  ">
 				<if test="schType=='couponCode'">
@@ -70,6 +73,7 @@
 				</if>
 			</if>
 		</where>
+		
 		GROUP BY
 		c.couponNum, c.categoryNum, c.couponCode, c.couponName, c.couponDiscount,
 		c.startCouponDate, c.endCouponDate, c.couponState
@@ -83,6 +87,20 @@
 	<delete id="deleteCoupon" parameterType="Long">
 		delete from coupon where couponNum = #{couponNum}
 	</delete>
+	
+	<update id="updataCoupon" parameterType="map">
+		update coupon set couponState = #{couponState},couponMemo = #{couponMemo} where couponNum = #{couponNum}
+	</update>
+	
+	<update id="updateCouponState">
+		UPDATE coupon
+		SET couponState = 2
+		WHERE TRUNC(endCouponDate) &lt; TRUNC(SYSDATE)
+	</update>
+	
+	<select id="findByCoupon" parameterType="map" resultType="com.fp.pet.admin.domain.Coupon">
+		select couponNum,couponName,couponState,couponMemo from coupon where couponNum = #{couponNum}
+	</select>
 	
 	
 </mapper>

@@ -44,19 +44,14 @@
 				style="width: 130px;"
 				aria-label="progress: activate to sort column ascending">사용수</th>
 				
-			<c:if test="${category eq 'all' || category eq 'open'}">	
+				
 			<th class="w-20 sorting" tabindex="0"
 				aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
 				style="width: 160px;"
 				aria-label="progress: activate to sort column ascending">발급상태</th>
-			</c:if>
 			
-			<c:if test="${category eq 'end'}">	
-				<th class="w-20 sorting" tabindex="0"
-				aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-				style="width: 100px;"
-				aria-label="progress: activate to sort column ascending">삭제</th>
-			</c:if>
+			
+			
 		</tr>
 
 	</thead>
@@ -136,18 +131,54 @@
 			<td><div class="text-body">${dto.endCouponDate}</div></td>
 			<td><div class="text-body">${dto.issuedCoupon }</div></td>
 			<td><div class="text-body">${dto.useCoupon }</div></td>
-			<c:if test="${category eq 'all' || category eq 'open'}">
-			<td><div class="text-body">발급가능</div></td>
-			</c:if>
-			<c:if test="${category eq 'end'}">
-			<td>
-				<div class="text-body">
-					<button class="btn btn-sm btn-icon delete-record me-2 deleteCoupon" data-couponNum="${dto.couponNum}">
-						<i class="bx bx-trash"></i>
-					</button>
-				</div>
-			</td>
-			</c:if>
+			
+			
+				<td>
+				
+					<div class="text-body">
+
+						<c:choose>
+
+							<c:when test="${category eq 'end' ||dto.couponState == 2 }">
+							종료
+							<button
+									class="btn btn-sm btn-icon delete-record me-2 deleteCoupon"
+									data-couponNum="${dto.couponNum}">
+									<i class="bx bx-trash"></i>
+								</button>
+							</c:when>
+
+							<c:when test="${dto.couponState == 0 }">
+							가능
+							<button type="button" class="updateCoupon"
+									style="background-color: transparent; border: none;"
+									data-bs-toggle="modal" data-bs-target="#modalToggle"
+									data-couponNum="${dto.couponNum}">
+									<i class='bx bx-info-circle'></i>
+								</button>
+							</c:when>
+
+							<c:when test="${dto.couponState == 1 }">
+							중단
+							<button type="button" class="updateCoupon"
+									style="background-color: transparent; border: none;"
+									data-bs-toggle="modal" data-bs-target="#modalToggle"
+									data-couponNum="${dto.couponNum}">
+									<i class='bx bx-info-circle'></i>
+								</button>
+							</c:when>
+
+
+
+						</c:choose>
+
+
+
+					</div>
+				
+				</td>
+			
+			
 
 		</tr>
 		<!--  -->
@@ -156,6 +187,8 @@
 
 	</tbody>
 </table>
+
+
 
 <div class="row d-flex align-items-center">
 
@@ -191,3 +224,4 @@
 		</div>
 	</div>
 </div>
+

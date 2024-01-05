@@ -113,9 +113,13 @@
 						let iconCategory = button.data('icon-category');
 						let iconNum = button.data('icon-num');
 						let iconImage = button.data('icon-iconimage');
+						
 
 						// 버튼의 데이터 속성에서 이미지 소스 가져오기
 						let imageSrc = button.find('img').attr('src');
+						
+						
+						
 
 						let result = '<img style="max-width: 100%;" src="'
 								+ imageSrc + '">';

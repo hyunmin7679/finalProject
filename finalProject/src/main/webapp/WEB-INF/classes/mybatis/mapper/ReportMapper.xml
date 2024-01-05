@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fp.pet.admin.mapper.ReportMapper">
+
+	<select id="listReport" resultType="com.fp.pet.admin.domain.Report">
+	SELECT DISTINCT
+	r.reasonNum,
+	r.memberIdx,
+	r.declUrl,
+	r.reason,
+	r.content,
+	r.reg_date,
+	p.reg_date as preg_date,
+	m.userName,
+	CASE WHEN LENGTH(p.productName) &lt; =  15 THEN p.productName
+	ELSE SUBSTR(p.productName, 1, 15) || '...'
+	END AS productName,
+	p.productNum
+	FROM
+	report r
+	JOIN
+	member1 m ON r.memberIdx = m.memberIdx
+	JOIN
+	product p ON TO_NUMBER(REGEXP_SUBSTR(r.declUrl, '\d+')) = p.productNum
+	</select>
+
+</mapper>

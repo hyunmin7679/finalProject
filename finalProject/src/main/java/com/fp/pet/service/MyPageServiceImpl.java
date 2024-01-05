@@ -188,8 +188,6 @@ public class MyPageServiceImpl implements MyPageService {
 				//dto.setReg_date(dto.getReg_date().replaceAll("-", ".").substring(5,10));
 				//dto.setCom_date(dto.getCom_date().replaceAll("-", ".").substring(5,10));
 				
-				dto.setChangeSortInfo(OrderState.CANCELSTATEINFO[dto.getChangeSort()]);   // 주문취소 구분 정보들
-				dto.setChangeStateInfo(OrderState.CANCELSTATEINFO[dto.getChangeState()]);  // 주문취소 상태 정보들
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

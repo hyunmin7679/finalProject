@@ -69,4 +69,26 @@ public class CouponServiceImpl implements CouponService{
 		
 	}
 
+	@Override
+	public void updateCoupon(Map<String,Object>map) throws Exception {
+		try {
+			mapper.updataCoupon(map);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public Coupon findByCoupon(Map<String, Object> map){
+		Coupon dto = null;
+		try {
+			dto = mapper.findByCoupon(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
+	}
+
 }

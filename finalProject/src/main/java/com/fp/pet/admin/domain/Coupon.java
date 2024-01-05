@@ -9,6 +9,7 @@ public class Coupon {
 	private int couponDiscount;
 	private String startCouponDate;
 	private String endCouponDate;
+	private String couponMemo;
 	
 	private int sort;
 	private String categoryName;
@@ -22,6 +23,12 @@ public class Coupon {
 	
 	
 	
+	public String getCouponMemo() {
+		return couponMemo;
+	}
+	public void setCouponMemo(String couponMemo) {
+		this.couponMemo = couponMemo;
+	}
 	public int getIssuedCoupon() {
 		return issuedCoupon;
 	}

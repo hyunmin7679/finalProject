@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fp.pet.admin.mapper.ReturnMapper">
+	<select id="listOrder" parameterType="map"
+		resultType="com.fp.pet.admin.domain.OrderDetailManage">
+		
+		SELECT
+		usedSaved,
+		od.savedMoney,
+		od.orderNum,
+		od.orderDetailNum,
+		od.qty,
+		od.price,
+		od.couponPrice,
+		od.salePrice,
+		od.productMoney,
+		od.savedMoney,
+		op.detailNum,
+		op.optionValue,
+		od.detailNum2,
+		op2.optionValue AS optionValue2,
+		od.productNum,
+		p.productName,
+		od.detailState,
+	    dsi.changeSort,dsi.changeState,dsi.reg_date,dsi.com_date,adminMemo,cancelCost,dsi.changeNum,
+		
+		pd.payMethod,
+		po.memberIdx,
+		m.userName,productCancelM,deliveryCharge
+		FROM
+		orderDetail od
+		JOIN
+		product p ON od.productNum = p.productNum
+		JOIN
+		optionDetail op ON od.detailNum = op.detailNum
+		JOIN
+		optionDetail op2 ON od.detailNum2 = op2.detailNum
+		LEFT JOIN
+			
+				orderChange dsi ON od.orderDetailNum = dsi.orderDetailNum
+			
+		LEFT JOIN
+		payDetail pd ON od.orderNum = pd.orderNum
+		LEFT JOIN
+		productOrder po ON od.orderNum = po.orderNum
+		LEFT JOIN
+		member1 m ON po.memberIdx = m.memberIdx
+
+		<where>
+			<if test="state == 'returnApply'">
+				dsi.changeState = 10
+			</if>
+			<if test="state == 'returnReceipt'">
+				dsi.changeState = 11
+			</if>
+			<if test="state == 'returnComplete'">
+				dsi.changeState = 12
+			</if>
+			<if test="state == 'returnNo'">
+				dsi.changeState = 13
+			</if>
+		</where>
+		ORDER BY od.orderNum DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size}
+		ROWS ONLY
+	</select>
+	
+	
+	<select id="listFile" parameterType="Long" resultType="map">
+		select fileNum, changeNum, fileName 
+		from cancelFile where changeNum = #{changeNum}
+	</select>
+
+	<update id="updateChange" parameterType="map">
+		UPDATE
+		orderChange SET changeState = #{changeState}
+			<if test="PchangeState == 11">
+				, com_date = sysdate, adminMemo = #{adminMemo}, shipCost = #{deliveryCharge}
+			</if>
+		WHERE changeNum = #{changeNum}
+	</update>
+	
+	<update id="updateOrderDetailState" parameterType="map">
+		UPDATE
+		orderDetail SET detailState = #{changeState}
+			<if test="PchangeState == 11 and changeState == 12">
+				, productCancelM = #{cancelCost}
+			</if>
+		WHERE orderDetailNum =
+		#{orderDetailNum}
+	</update>
+	
+	<update id="updateOrder" parameterType="map">
+		UPDATE
+		productOrder SET cancelAmount = #{cancelCost}
+		WHERE orderNum = 
+		#{orderNum}
+	</update>
+	
+	<select id="findByMoney" parameterType="String" resultType="Integer">
+		select cancelAmount from productOrder where orderNum = #{orderNum}
+	</select>
+	
+		<!-- 주문에 대한 상세 주문의 주문 취소 이외의 개수 -->
+	<select id="totalOrderCount" parameterType="String" resultType="Integer">
+		SELECT NVL(COUNT(*), 0) orderCount
+		FROM orderDetail 
+		WHERE orderNum = #{orderNum} AND (detailState != 3 AND detailState != 5 AND detailState != 12)
+	</select>
+	
+	<update id="updateOrderState" parameterType="map">
+		UPDATE
+		productOrder SET orderState = 6
+		WHERE orderNum =
+		#{orderNum}
+	</update>
+	
+	<insert id="updatePoint" parameterType="map">
+		insert into
+		point(pointNum,orderNum,memberIdx,reg_date,memo,p_qyt,p_sort)
+		values(point_seq.NEXTVAL,#{orderNum},#{memberIdx},
+		sysdate,'반품 으로 인한 포인트 회수',#{savedMoney},NULL)
+	</insert>
+	
+	<select id="findByStock" parameterType="map" resultType="map">
+		select
+		stockNum,totalStock from productStock
+		where productNum = #{productNum}
+		and detailNum = #{detailNum} and detailNum2 = #{detailNum2}
+	</select>
+	
+	<update id="updateStock" parameterType="map">
+		update productStock set 
+		totalStock = #{totalStock} where stockNum = #{stockNum}
+	</update>
+	
+	<insert id="updateUsedSaved" parameterType="map">
+		insert into
+		point(pointNum, orderNum ,memberIdx,reg_date,memo,p_qyt,p_sort)
+		values(point_seq.NEXTVAL,#{orderNum},#{memberIdx},sysdate,
+		'반품으로 인한 포인트 복구',#{usedSaved},NULL)
+	</insert>
+	
+</mapper>

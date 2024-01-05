@@ -13,4 +13,7 @@ public interface CouponService {
 	public List<Coupon> couponDetail(long sort);
 	
 	public void deleteCoupon(long couponNum) throws Exception;
+	
+	public void updateCoupon(Map<String,Object>map) throws Exception;
+	public Coupon findByCoupon(Map<String,Object>map) ;
 }

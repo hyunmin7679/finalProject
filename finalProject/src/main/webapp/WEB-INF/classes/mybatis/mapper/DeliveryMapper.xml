@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fp.pet.admin.mapper.DeliveryMapper">
+
+		<select id="listOrder" parameterType="map" resultType="com.fp.pet.admin.domain.OrderManage">
+		SELECT po.orderNum, po.memberIdx, NVL(userName,'손님') userName, totalMoney,  
+			usedSaved, deliveryCharge, payment, cancelAmount,
+            TO_CHAR(orderDate, 'YYYY-MM-DD HH24:MI') orderDate,
+            orderState, deliveryName, invoiceNumber,
+            NVL(totalOrderCount, 0) totalOrderCount, NVL(totalQty, 0) totalQty,
+            NVL(detailCancelCount, 0) detailCancelCount
+		FROM productOrder po
+		LEFT OUTER JOIN member1 m ON po.memberIdx = m.memberIdx 
+        LEFT OUTER JOIN (
+            SELECT orderNum, COUNT(*) totalOrderCount, SUM(qty) totalQty,
+            	COUNT(DECODE(detailState,3,1,4,1,5,1,10,1,11,1,12,1)) detailCancelCount
+            FROM orderDetail
+            GROUP BY orderNum
+        ) od ON po.orderNum = od.orderNum
+		<where>
+			<if test="state == 'ready'">
+				po.orderState = 2  
+			</if>
+			<if test="state == 'start'">
+				po.orderState = 3 OR po.orderState = 4  
+			</if>
+			<if test="state == 'complete'">
+				po.orderState = 5
+			</if>
+		</where>  
+        ORDER BY po.orderNum DESC
+        OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<select id="findById" parameterType="String" resultType="com.fp.pet.admin.domain.OrderManage">
+		SELECT po.orderNum, po.memberIdx, NVL(userName,'손님') userName, orderDate, totalMoney, 
+			usedSaved, deliveryCharge, payment, cancelAmount, orderState,
+			TO_CHAR(orderStateDate, 'YYYY-MM-DD HH24:MI:SS') orderStateDate, deliveryName, invoiceNumber, 
+			payMethod, cardName, authNumber, authDate
+		FROM productOrder po
+		LEFT OUTER JOIN member1 m ON po.memberIdx = m.memberIdx
+		LEFT OUTER JOIN payDetail pd ON po.orderNum = pd.orderNum 
+		WHERE po.orderNum = #{orderNum}
+	</select>
+	
+	<select id="findByOrderDetails" parameterType="String" resultType="com.fp.pet.admin.domain.OrderDetailManage">
+		SELECT od.orderNum, od.orderDetailNum, qty, od.price, salePrice, productMoney, od.savedMoney,
+			op.detailNum, op.optionValue, od.detailNum2, op2.optionValue optionValue2,
+			od.productNum, productName, 
+			od.detailState
+		FROM orderDetail od
+		JOIN product p ON od.productNum = p.productNum
+		JOIN optionDetail op ON od.detailNum = op.detailNum
+		JOIN optionDetail op2 ON od.detailNum2 = op2.detailNum
+		WHERE od.orderNum = #{orderNum}
+	</select>
+	
+	<update id="updateOrderState" parameterType="map">
+		UPDATE productOrder SET orderState = #{orderState}, orderStateDate = SYSDATE
+		WHERE orderNum = #{orderNum}
+	</update>
+	
+</mapper>

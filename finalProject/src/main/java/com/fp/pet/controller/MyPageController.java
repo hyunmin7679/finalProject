@@ -165,8 +165,6 @@ public class MyPageController {
 		
 		String orderState[] = OrderState.ORDERSTATEINFO;  // 주문상태
 		String detailState[] = OrderState.DETAILSTATEINFO;  // 주문상태
-		String changeSort[] = OrderState.CANCELSTATEINFO;
-		String changeSate[] = OrderState.CANCELSATE;
 		
 		model.addAttribute("list", list);
 		model.addAttribute("cancelList", cancelList);	
@@ -179,8 +177,6 @@ public class MyPageController {
 		
 		model.addAttribute("orderState", orderState);	 // OrderState
 		model.addAttribute("detailState", detailState);	 // OrderState
-		model.addAttribute("changeSort", changeSort);	 // OrderState
-		model.addAttribute("changeSate", changeSate);	 // OrderState
 		
 		return ".myPage.paymentList";
 	}

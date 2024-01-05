@@ -17,4 +17,8 @@ public interface CouponMapper {
 	public List<Coupon> couponDetail(long sort);
 	public void deleteCoupon(long couponNum) throws SQLException;
 
+	public void updataCoupon(Map<String,Object>map) throws SQLException;
+	public void updateCouponState() throws SQLException;
+	
+	public Coupon findByCoupon(Map<String,Object>map);
 }
