@@ -9,8 +9,20 @@ public class Friend{
 	private String friend_date;
 	private String identifyDay;
 	
+	private String iconImage;
+	
 	private String userId;
 	private String userName;
+	
+	
+	public String getIconImage() {
+		return iconImage;
+	}
+
+	public void setIconImage(String iconImage) {
+		this.iconImage = iconImage;
+	}
+
 	public long getFriendNum() {
 		return friendNum;
 	}

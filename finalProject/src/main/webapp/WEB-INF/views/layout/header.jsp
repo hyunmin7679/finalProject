@@ -198,7 +198,7 @@ $(function(){
          </li>
          
          <li class='sub-menu'>
-            <a href="#">
+            <a href="${pageContext.request.contextPath}/myPage/paymentList">
                    MyPage<i class='fa fa-angle-down'></i>
                 </a>
                   <ul>

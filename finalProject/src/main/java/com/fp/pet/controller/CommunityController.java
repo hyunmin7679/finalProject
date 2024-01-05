@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fp.pet.common.FileManager;
 import com.fp.pet.common.MyUtil;
 import com.fp.pet.domain.Community;
-import com.fp.pet.domain.Region;
+import com.fp.pet.domain.Friend;
 import com.fp.pet.domain.Reply;
 import com.fp.pet.domain.SessionInfo;
 import com.fp.pet.service.CommunityService;
@@ -41,12 +41,22 @@ public class CommunityController {
 	@Autowired
 	private FileManager fileManager;
 	
-	// 리스트
-	@RequestMapping("list")
-	public String list(@RequestParam(value = "page", defaultValue = "1") int current_page,
+	@GetMapping("main")
+	public String main(Model model) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<Community> listCategory = service.listCategory(map);
+		
+		model.addAttribute("listCategory", listCategory);		
+		model.addAttribute("categoryNum", "0");
+		
+		return ".bbs.main";
+	}
+	
+	@GetMapping("list")
+	public String list(@RequestParam(value = "pageNo", defaultValue = "1") int current_page,
 					   @RequestParam(defaultValue = "all") String schType,
 					   @RequestParam(defaultValue = "") String kwd,
-					   @RequestParam(defaultValue = "0") int categoryNum, 
+					   @RequestParam int categoryNum, 
 					   HttpServletRequest req,
 					   HttpSession session, Model model) throws Exception {
 		
@@ -56,7 +66,6 @@ public class CommunityController {
 		int size = 5; // 한 화면에 보여주는 게시물 수
 		int total_page = 0;
 		int dataCount = 0;
-		List<Community> listCategory = service.listCategory(map);
 
 		if (req.getMethod().equalsIgnoreCase("GET")) { // GET 방식인 경우
 			kwd = URLDecoder.decode(kwd, "utf-8");
@@ -97,20 +106,21 @@ public class CommunityController {
 					dto.setDeletePermit(true);
 				}
 			}
-		}  
+		}
+		
+		String paging = myUtil.pagingMethod(current_page, total_page, "listPage");
 				
 		model.addAttribute("list", list);
 		model.addAttribute("dataCount", dataCount);
 		model.addAttribute("size", size);
-		model.addAttribute("page", current_page);
+		model.addAttribute("pageNo", current_page);
 		model.addAttribute("total_page", total_page);
-		model.addAttribute("categoryNum", "0");
-		model.addAttribute("listCategory", listCategory);
-
+		model.addAttribute("categoryNum", categoryNum);
+		model.addAttribute("paging", paging);
 		model.addAttribute("schType", schType);
 		model.addAttribute("kwd", kwd);
 
-		return ".bbs.list";
+		return "bbs/list";
 	}
 	
 	// 등록 폼
@@ -119,56 +129,40 @@ public class CommunityController {
 
 		model.addAttribute("mode", "write");
 
-		return ".bbs.write";
+		return "bbs/write";
 	}
 	
 	// 등록 완료
 	@PostMapping("write")
-	public String writeSubmit(Community dto, HttpSession session) throws Exception {
+	@ResponseBody
+	public Map<String, Object> writeSubmit(Community dto, HttpSession session) throws Exception {
+		Map<String, Object> model = new HashMap<String, Object>();
 		
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
 		
 		String root = session.getServletContext().getRealPath("/");
 		String pathname = root + "uploads" + File.separator + "bbs";
 
+		String state = "true";
 		try {
 			dto.setUserId(info.getUserId());
 			service.insertCommunity(dto, pathname);
 			
-			
 		} catch (Exception e) {
 			e.printStackTrace();
+			state = "false";
 		}
 
-		return "redirect:/bbs/list";
+		model.put("state", state);
+
+		return model;
 	}
 	
-	@GetMapping("regions")
-	@ResponseBody
-	public Map<String, Object> regions(
-			@RequestParam(defaultValue = "") String keyword
-			) throws Exception {
-
-		// 지도를 표시할 리전
-		List<Region> list = null;
-		
-		if(keyword.length() == 0) {
-			list = service.listRegion();
-		} else {
-			list = service.listRegion(keyword);
-		}
-
-		Map<String, Object> model = new HashMap<String, Object>();
-
-		model.put("list", list);
-		
-		return model;
-	}	
 	
 	// 글보기
 	@GetMapping("article")
-	public String article(@RequestParam long communityNum,
-			@RequestParam String page,
+	public String article(@RequestParam long communityNum, // @RequestParam String userName,
+			@RequestParam String pageNo,
 			@RequestParam(defaultValue = "all") String schType,
 			@RequestParam(defaultValue = "") String kwd,
 			HttpSession session,
@@ -178,7 +172,7 @@ public class CommunityController {
 		
 		kwd = URLDecoder.decode(kwd, "utf-8");
 
-		String query = "page=" + page;
+		String query = "page=" + pageNo;
 		if (kwd.length() != 0) {
 			query += "&schType=" + schType + 
 					"&kwd=" + URLEncoder.encode(kwd, "UTF-8");
@@ -197,15 +191,19 @@ public class CommunityController {
 		map.put("schType", schType);
 		map.put("kwd", kwd);
 		map.put("communityNum", communityNum);
-
+		
 		Community prevDto = service.findByPrev(map);
 		Community nextDto = service.findByNext(map);
+		
+	//	map.put("userName2", userName);
+	//	map.put("userId2", info.getUserName());
+		
+	//	int friendCount;
+	//	friendCount = service.findByFriend(map);
 
 		List<Community> listFile = service.listCommunityFile(communityNum);
 		
-		
 		// 게시글 좋아요 여부
-		map.put("userId", info.getUserId());
 		boolean userBoardLiked = service.userBoardLiked(map);
 		
 		model.addAttribute("dto", dto);
@@ -213,96 +211,110 @@ public class CommunityController {
 		model.addAttribute("nextDto", nextDto);
 		model.addAttribute("listFile", listFile);
 
-		model.addAttribute("page", page);
+	//	model.addAttribute("friendCount", friendCount);
+		
+		model.addAttribute("pageNo", pageNo);
 		model.addAttribute("query", query);
 
 		model.addAttribute("userBoardLiked", userBoardLiked);
 		
-		return ".bbs.article";
+		return "bbs/article";
 	}  
 
 	// 수정 폼
 	@GetMapping("update")
 	public String updateForm(@RequestParam long communityNum,
-						     @RequestParam String page,
+						     @RequestParam String pageNo,
 						     HttpSession session, Model model) throws Exception {
 		
 		SessionInfo info = (SessionInfo)session.getAttribute("member");
 		
 		Community dto = service.findById(communityNum);
 		if(dto == null || ! info.getUserId().equals(dto.getUserId())) {
-			return "redirect:/bbs/list?page=" + page;
+			return "redirect:/bbs/list?page=" + pageNo;
 		}
 		
 		List<Community> listFile = service.listCommunityFile(communityNum);
 
 		
+		model.addAttribute("mode", "update"); 
+		model.addAttribute("pageNo", pageNo); 
+
 		model.addAttribute("dto", dto); 
 		model.addAttribute("listFile", listFile);
 		
-		model.addAttribute("mode", "update"); 
-		model.addAttribute("page", page); 
-		
-		return ".bbs.write";
+		return "bbs/write";
 	}
 	
-	// **수정완료
+	// 수정완료
 	@PostMapping("update")
-	public String updateSubmit(Community dto, 
-							   @RequestParam String page,
-							   HttpSession session) throws Exception {
+	@ResponseBody
+	public Map<String, Object> updateSubmit(Community dto, HttpSession session) throws Exception {
 		
-		String root = session.getServletContext().getRealPath("/");
-		String pathname = root + "uploads" + File.separator + "bbs";
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		String state = "false";
+		
 		
 		try {
+			String root = session.getServletContext().getRealPath("/");
+			String pathname = root + "uploads" + File.separator + "bbs";
+			
+			dto.setUserId(info.getUserId());
 			service.updateCommunity(dto, pathname);
+			
+			state = "true";
 	
 		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
 		}
 		
-		return "redirect:/bbs/article?communityNum=" + dto.getCommunityNum() + "&page=" + page;
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("state", state);
+		
+		return model;
 	}
 	
 	// 커뮤니티 삭제 (파일있으면 파일도 삭제)
-	@GetMapping("delete")
-	public String delete (@RequestParam long communityNum,
-						  @RequestParam String page,
-						  @RequestParam(defaultValue = "all") String schType,
-						  @RequestParam(defaultValue = "") String kwd,
-						  HttpSession session) throws Exception {
+	@PostMapping("delete")
+	@ResponseBody
+	public Map<String, Object> delete (@RequestParam long communityNum,
+						  			   @RequestParam String pageNo,
+						  			   @RequestParam(defaultValue = "all") String schType,
+						  			   @RequestParam(defaultValue = "") String kwd,
+						  			   HttpSession session) throws Exception {
 		
 		kwd = URLDecoder.decode(kwd, "utf-8");
-		String query = "page=" + page;
+		String query = "pageNo=" + pageNo;
 		if (kwd.length() != 0) {
 			query += "&schType=" + schType + "&kwd=" + URLEncoder.encode(kwd, "UTF-8");
 		}
 		
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
-		
-		String root = session.getServletContext().getRealPath("/");
-		String pathname = root + "uploads" + File.separator + "bbs";
-
-		Community dto = service.findById(communityNum);
-		if(dto == null) {
-			return "redirect:/bbs/list?page=" + page;
-		}
-		
-		if (!dto.getUserId().equals(info.getUserId())) {
-			return "redirect:/";
-		}
+		String state ="false";
 		
 		try {
-			service.deleteCommunity(communityNum, pathname);
+			String root = session.getServletContext().getRealPath("/");
+			String pathname = root + "uploads" + File.separator + "bbs";
+			
+			
+			service.deleteCommunity(communityNum, pathname, info.getUserId());
+			state = "true";
 			
 		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
 		}
 		
-		return "redirect:/bbs/list?" + query;
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("state", state);
+		model.put("query", query);
+		
+		return model;
 		
 	}
 	
-	// **수정폼에서 파일삭제
+	// 수정폼에서 파일삭제
 	@PostMapping("deleteFile")
 	@ResponseBody
 	public Map<String, Object> deleteFile(@RequestParam long fileNum,
@@ -317,8 +329,10 @@ public class CommunityController {
 		}
 		
 		Map<String, Object> map = new HashMap<String, Object>();
+		
 		map.put("field", "fileNum");
 		map.put("communityNum", fileNum);
+		
 		service.deleteCommunityFile(map);
 		
 		Map<String, Object> model = new HashMap<>();
@@ -331,13 +345,15 @@ public class CommunityController {
 	@PostMapping("insertBoardLike")
 	@ResponseBody
 	public Map<String, Object> insertBoardLike(@RequestParam long communityNum, 
-			@RequestParam boolean userLiked,
-			HttpSession session) {
-		String state = "true";
+												@RequestParam boolean userLiked,
+												HttpSession session) {
+		
 		int boardLikeCount = 0;
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
 
 		Map<String, Object> paramMap = new HashMap<>();
+		String state = "true";
+		
 		paramMap.put("communityNum", communityNum);
 		paramMap.put("userId", info.getUserId());
 
@@ -349,7 +365,9 @@ public class CommunityController {
 			}
 		} catch (DuplicateKeyException e) {
 			state = "liked";
+			
 		} catch (Exception e) {
+			e.printStackTrace();
 			state = "false";
 		}
 
@@ -399,7 +417,7 @@ public class CommunityController {
 			dto.setContent(dto.getContent().replaceAll("\n", "<br>"));
 			
 			// AJAX 용 페이징
-			String paging = myUtil.pagingMethod(current_page, total_page, "listPage");
+			String paging = myUtil.pagingMethod(current_page, total_page, "replyListPage");
 
 			// 포워딩할 jsp로 넘길 데이터
 			model.addAttribute("listReply", listReply);
@@ -414,25 +432,25 @@ public class CommunityController {
 	}
 	
 	// 댓글 및 댓글의 답글 등록 JSON
-		@PostMapping("insertReply")
-		@ResponseBody
-		public Map<String, Object> insertReply(Reply dto, HttpSession session) {
+	@PostMapping("insertReply")
+	@ResponseBody
+	public Map<String, Object> insertReply(Reply dto, HttpSession session) {
+		
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
+		String state = "true";
+
+		try {
+			dto.setUserId(info.getUserId());
+			service.insertReply(dto);
 			
-			SessionInfo info = (SessionInfo) session.getAttribute("member");
-			String state = "true";
-
-			try {
-				dto.setUserId(info.getUserId());
-				service.insertReply(dto);
-				
-			} catch (Exception e) {
-				state = "false";
-			}
-
-			Map<String, Object> model = new HashMap<>();
-			model.put("state", state);
-			return model;
+		} catch (Exception e) {
+			state = "false";
 		}
+
+		Map<String, Object> model = new HashMap<>();
+		model.put("state", state);
+		return model;
+	}
 	
 	 // 댓글 및 답글 삭제 
 	@PostMapping("deleteReply")
@@ -452,68 +470,112 @@ public class CommunityController {
 		return map;
 	}	
 	
-	    // 댓글의 답글 리스트 : AJAX-TEXT
-		@GetMapping("listReplyAnswer")
-		public String listReplyAnswer(@RequestParam Map<String, Object> paramMap, 
-								      HttpSession session, Model model) throws Exception {
-			
-			SessionInfo info = (SessionInfo)session.getAttribute("member");
-			
-			paramMap.put("membership", info.getMembership());
-			paramMap.put("userId", info.getUserId());
-			
-			List<Reply> listReplyAnswer = service.listReplyAnswer(paramMap);
-			
-			for (Reply dto : listReplyAnswer) {
-				dto.setContent(dto.getContent().replaceAll("\n", "<br>"));
-			}
+    // 댓글의 답글 리스트 : AJAX-TEXT
+	@GetMapping("listReplyAnswer")
+	public String listReplyAnswer(@RequestParam Map<String, Object> paramMap, 
+							      HttpSession session, Model model) throws Exception {
+		
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		
+		paramMap.put("membership", info.getMembership());
+		paramMap.put("userId", info.getUserId());
+		
+		List<Reply> listReplyAnswer = service.listReplyAnswer(paramMap);
+		
+		for (Reply dto : listReplyAnswer) {
+			dto.setContent(dto.getContent().replaceAll("\n", "<br>"));
+		}
 
-			model.addAttribute("listReplyAnswer", listReplyAnswer);
+		model.addAttribute("listReplyAnswer", listReplyAnswer);
+		
+		return "bbs/listReplyAnswer";
+	}
+	
+	// 댓글의 답글 개수 JSON
+	@PostMapping(value = "countReplyAnswer")
+	@ResponseBody
+	public Map<String, Object> countReplyAnswer(@RequestParam Map<String, Object> paramMap,
+											    HttpSession session) {
+		
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		
+		paramMap.put("membership", info.getMembership());
+		paramMap.put("userId", info.getUserId());
+		
+		int count = service.replyAnswerCount(paramMap);
+
+		Map<String, Object> model = new HashMap<>();
+		model.put("count", count);
+		
+		return model;
+	}
+	
+	// 댓글 숨김/표시 추가 JSON
+	@PostMapping("replyShowHide")
+	@ResponseBody
+	public Map<String, Object> replyShowHide(@RequestParam Map<String, Object> paramMap,
+										     HttpSession session) {
+		String state = "true";
+
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
+
+		try {
+			paramMap.put("userId", info.getUserId());
+			service.updateReplyShowHide(paramMap);
 			
-			return "bbs/listReplyAnswer";
+		} catch (Exception e) {
+			state = "false";
+		}
+
+		Map<String, Object> model = new HashMap<>();
+		model.put("state", state);
+		
+		return model;
+	}	
+	
+	
+	/*
+	// 친구목록
+	@PostMapping("friend")
+	@ResponseBody
+	public String friend(@RequestParam String userName, Model model, HttpSession session) throws Exception {
+		
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userName2", userName);
+		map.put("userId2", info.getUserName());
+		
+		int friendCount;  
+		
+		friendCount = service.findByFriend(map);
+		
+		model.addAttribute("friendCount", friendCount);
+		
+		return "bbs/article";
+	}
+	*/
+	
+	// 작성자 클릭 시 친구추가
+	@PostMapping("addfriend")
+	public Map<String, Object> addFriend (Friend dto, HttpSession session) throws Exception {
+		Map<String, Object> model = new HashMap<String, Object>();
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		
+		String state = "true";
+		
+		try {
+			dto.setUserId(info.getUserName());
+			service.addFriend(dto);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			state = "false";
 		}
 		
-		// 댓글의 답글 개수 JSON
-		@PostMapping(value = "countReplyAnswer")
-		@ResponseBody
-		public Map<String, Object> countReplyAnswer(@RequestParam Map<String, Object> paramMap,
-												    HttpSession session) {
-			
-			SessionInfo info = (SessionInfo)session.getAttribute("member");
-			
-			paramMap.put("membership", info.getMembership());
-			paramMap.put("userId", info.getUserId());
-			
-			int count = service.replyAnswerCount(paramMap);
-
-			Map<String, Object> model = new HashMap<>();
-			model.put("count", count);
-			
-			return model;
-		}
+		model.put("state", state);
 		
-		// 댓글 숨김/표시 추가 JSON
-		@PostMapping("replyShowHide")
-		@ResponseBody
-		public Map<String, Object> replyShowHide(@RequestParam Map<String, Object> paramMap,
-											     HttpSession session) {
-			String state = "true";
-
-			SessionInfo info = (SessionInfo) session.getAttribute("member");
-
-			try {
-				paramMap.put("userId", info.getUserId());
-				service.updateReplyShowHide(paramMap);
-				
-			} catch (Exception e) {
-				state = "false";
-			}
-
-			Map<String, Object> model = new HashMap<>();
-			model.put("state", state);
-			
-			return model;
-		}	
-		
-
+		return model;
+	}
+	
 }

@@ -23,8 +23,10 @@ public class Community {
 	private int hitCount;
 	private String userName;
 	private String parkname;
+	private int friendCount;
 	
-	
+	// 아이콘
+	private String iconImage;
 
 	// 커뮤니티 파일
 	private long fileNum;
@@ -39,6 +41,24 @@ public class Community {
 	private int boardLikeCount;
 	
 	
+	public int getFriendCount() {
+		return friendCount;
+	}
+	public void setFriendCount(int friendCount) {
+		this.friendCount = friendCount;
+	}
+	public String getIconImage() {
+		return iconImage;
+	}
+	public void setIconImage(String iconImage) {
+		this.iconImage = iconImage;
+	}
+	public int getBoardLikeCount() {
+		return boardLikeCount;
+	}
+	public void setBoardLikeCount(int boardLikeCount) {
+		this.boardLikeCount = boardLikeCount;
+	}
 	public long getCategoryNum() {
 		return categoryNum;
 	}

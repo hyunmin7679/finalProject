@@ -3,6 +3,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fp.pet.mapper.CommunityMapper">
 
+
 	<!-- 커뮤니티 등록 -->
 	<insert id="insertCommunity" parameterType="com.fp.pet.domain.Community">
 		INSERT INTO community(communityNum, categoryNum, userId, subject, content, park, parkname,
@@ -55,12 +56,14 @@
 		JOIN member1 m ON c.userId = m.userId
 		JOIN communityCategory cc ON cc.categoryNum = c.categoryNum
 		<where>
-			<if test="kwd != null and kwd != '' ">
-				<include refid="where-list"/>
-			</if>
-		</where>  
-		AND cc.use = 1 
-		AND c.showNo = 1
+         cc.use = 1  AND c.showNo = 1
+         <if test="categoryNum!=0">
+            AND ( c.categoryNum = #{categoryNum} )
+         </if>
+         <if test="kwd!=null and kwd!='' ">
+            AND <include refid="where-list"/>
+         </if>
+      </where>
 	</select>
 	
 	<!-- 커뮤니티 리스트 -->
@@ -82,9 +85,9 @@
 			GROUP BY communityNum
 		) r ON r.communityNum = c.communityNum
 		<where>
+         cg.use = 1  AND c.showNo = 1
          <if test="categoryNum!=0">
-            ( c.categoryNum = #{categoryNum} )
-         AND cg.use = 1
+            AND ( c.categoryNum = #{categoryNum} )
          </if>
          <if test="kwd!=null and kwd!='' ">
             AND <include refid="where-list"/>
@@ -97,10 +100,15 @@
 	<!-- 글보기 -->
 	<select id="findById" parameterType="Long" resultType="com.fp.pet.domain.Community">
 		SELECT c.communityNum, c.categoryNum, c.userId, m.userName, subject, content, NVL(park, ' ') park, parkname, 
-		       cg.categoryName, TO_CHAR(reg_date, 'YYYY-MM-DD') reg_date 
+        	cg.categoryName, TO_CHAR(reg_date, 'YYYY-MM-DD') reg_date, hitCount,
+        	NVL(boardLikeCount, 0) boardLikeCount
 		FROM community c   
 		JOIN member1 m ON c.userId = m.userId    
 		JOIN communityCategory cg ON cg.categoryNum = c.categoryNum
+        LEFT OUTER JOIN (
+			SELECT communityNum, COUNT(*) boardLikeCount FROM communityLike
+			GROUP BY communityNum
+		) bc ON c.communityNum = bc.communityNum
 		WHERE c.communityNum = #{communityNum}
 	</select>
 	
@@ -220,7 +228,7 @@
 	
 	<!-- 댓글리스트 -->
 	<select id="listReply" parameterType="map" resultType="com.fp.pet.domain.Reply">
-    	SELECT r.replyNum, r.userId, userName, communityNum, content, r.reg_date, NVL(showReply, 1) showReply, 
+    	SELECT r.replyNum, r.userId, userName, r.communityNum, content, r.reg_date, NVL(showReply, 1) showReply, 
 			   NVL(answerCount, 0) answerCount
 		FROM communityReply r
 		JOIN member1 m ON r.userId = m.userId
@@ -233,9 +241,9 @@
 			</if>
 			GROUP BY answer
 		) a ON r.replyNum = a.answer
-		WHERE communityNum= #{communityNum} AND r.answer=0
+		WHERE r.communityNum= #{communityNum} AND r.answer=0
 		<if test="membership lt 51">
-				AND ( showReply=1 OR ( showReply=0 AND userId=#{userId} ) )
+				AND ( showReply=1 OR ( showReply=0 AND m.userId=#{userId} ) )
 		</if>
 		ORDER BY r.replyNum DESC
 	</select>
@@ -284,4 +292,33 @@
 		WHERE communityNum = #{communityNum}	
 	</select>
 
+	<!-- 친구신청 > 친구 신청했을 때 -->
+	<insert id="addFriend" parameterType="com.fp.pet.domain.Friend">
+		INSERT INTO friendlist(friendNum, from_friend, to_friend, is_friend, reg_date)
+			values(friendlist_seq.NEXTVAL, #{userId}, #{userName}, 1, SYSDATE)
+	</insert>
+	
+	<!-- 친구신청 > 친구 신청 받았을 때 -->
+	<insert id="addFriend2" parameterType="com.fp.pet.domain.Friend">
+		INSERT INTO friendlist(friendNum, from_friend, to_friend, is_friend, reg_date)
+			values(friendlist_seq.NEXTVAL, #{userName}, #{userId}, 0, SYSDATE)
+	</insert>
+	
+	<!-- 친구정보 -->
+	<select id="findByfriend" parameterType="map" resultType="Integer">
+		select nvl(count(*),0) 
+        from friendlist fl, member1 m, member1 m2
+        where fl.from_friend(+) = m.userName
+        and fl.to_friend = m2.userName
+        and m.userName= #{userId2}
+        and m2.userName = #{userName2};
+	</select>
+	
+	<select id="findName" parameterType="Long" resultType="com.fp.pet.domain.Friend">
+		select userName 
+		from community c, member1 m
+        where c.userId = m.userId
+        and communityNum = #{communityNum}
+	</select>
+	
 </mapper>

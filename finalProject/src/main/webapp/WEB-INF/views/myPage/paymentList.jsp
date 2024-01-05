@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
 
 <style type="text/css">
@@ -46,7 +45,7 @@
 	 color: #ccc; text-decoration: none;
 }
 .review-form .star a:first-child { margin-left: 0; }
-.star a.on { color: #FFBB00; }
+.star a.on { color: #FFBB00;}
 
 .review-form .img-grid {
 	display: grid;
@@ -69,19 +68,25 @@ ul, li, p { list-style:none; padding:0; margin:0; }
 .body-container {max-width: 800px; }
 .fa-regular {text-align: center;}
 
-i { color:#848484; width: 15px;}
-a { color:#848484; font-size: 15px;}
+i { color:#003166; width: 25px;}
+a { color:#003166; font-size: 15px;}
 a:hover {color: black; text-decoration: none;}
-.category-bar { margin-top: 40px; margin-bottom:20px; display: flex;  align-items: center; border:1px solid #D8D8D8; border-radius: 30px; padding-bottom: 5px;}
-.bar-item{ width:100px; height:auto; text-align:center; margin: 10px; }
+.category-bar { margin-top: 40px; margin-bottom:20px; display: flex;
+				align-items: center; border:1px solid #D8D8D8; border-radius: 30px; 
+				background: #ffc303; position: relative;}
+				
+.bar-item{ width:150px; height:auto; text-align:center; margin: 10px; }
 .title {display: flex; justify-content: center; }
 h3{font-weight: 900;}
 
 .icombox {padding: 30px;}
-.icon {padding-left : 30px;  width: 100px; height:auto; text-align:left; padding: 0}
-p:nth-child(2) {font-size: 10px;}
-.itembox {display: flex; justify-content: center; width: 70%;} 
+.icon { width: 100px; height:auto;}
 
+.itembox {display: flex; justify-content: center; width: 43%;} 
+.point-item{height:auto; text-align:center; margin: 10px; display: flex; align-items: center;}
+
+.category-bar .mem_info { float: left; width: 50%; height: 100%;
+  							  background:#ffffff; border-radius: 0 141px 141px 0;}
 
 </style>
 
@@ -241,32 +246,39 @@ $(function(){
 });
 </script>
 
+
 <div class="container">
 
 	<div class="category-bar">
-		<div >
+		<div class="mem_info">
+			<div style="display: flex; justify-content :center;">
 			<a href="${pageContext.request.contextPath}/"><img class="icon" src="${pageContext.request.contextPath}/resources/images/아이콘1.gif"></a>
-			<div style="text-align: center;">
-			<p>현주님</p>
-			<p>VIP등급</p>
+			<div style="align-items: center; display: flex;">
+				<p>현주님 &nbsp;|</p>
+				<p>&nbsp;VIP등급</p>
 			</div>
-		</div>
-		
-		<div style="margin: 100px">
+			</div>
 		</div>
 		
 		<div class="itembox">
 		<div class="bar-item p-3">
-			<a href="${pageContext.request.contextPath}/faq/main"><i class="fa-regular fa-circle-question fa-lg"></i><br>FAQ</a>
+			<a href="${pageContext.request.contextPath}/faq/main"><i class="fa-solid fa-heart"></i><br>위시리스트</a>
+		</div>
+		<div class="point-item">
+			<i class="fa-solid fa-angle-right"></i>
 		</div>
 		<div class="bar-item p-3">
-			<a href="${pageContext.request.contextPath}/notice/list" ><i class="fa-regular fa-file-lines fa-lg"></i><br>공지사항</a>
+			<a href="${pageContext.request.contextPath}/notice/list" ><i class="fa-solid fa-user-group"></i><br>친구목록</a>
+		</div>
+		<div class="point-item">
+			<i class="fa-solid fa-angle-right"></i>
 		</div>
 		<div class="bar-item p-3">
-			<a href="#"><i class="fa-solid fa-file-pen fa-lg"></i><br>문의사항</a>
+			<a href="#"><i class="fa-solid fa-piggy-bank"></i><br>포인트</a>
 		</div>
 		</div>
     </div>
+
 	
 	
 	<!-- 탭버튼 -->
@@ -274,11 +286,7 @@ $(function(){
 			<li class="nav-item" role="presentation">
 				<button class="nav-link active" id="tab-1" data-bs-toggle="tab" data-bs-target="#tab-pane-1" type="button" role="tab" aria-controls="1" aria-selected="true">주문 내역</button>
 			</li>
-		<!-- 
-			<li class="nav-item" role="presentation">
-				<button class="nav-link" id="tab-3" data-bs-toggle="tab" data-bs-target="#tab-pane-2" type="button" role="tab" aria-controls="2" aria-selected="false">배송조회</button>
-			</li>
-		 -->	
+
 			<li class="nav-item" role="presentation">
 				<button class="nav-link" id="tab-2" data-bs-toggle="tab" data-bs-target="#tab-pane-2" type="button" role="tab" aria-controls="3" aria-selected="false">취소/반품 내역</button>
 			</li>
@@ -391,48 +399,6 @@ $(function(){
 				</div>				
 			</div>
 			
-			<!-- 
-			<div class="tab-pane fade" id="tab-pane-2" role="tabpanel" aria-labelledby="tab-2" tabindex="0">
-				<div class="mt-3 pt-3 border-bottom">
-					<p class="fs-4 fw-semibold">배송조회</p> 
-				</div>
-				<div class="mt-3 p-2 border-bottom payment-list">
-							<div class="row pb-2">
-								<div class="col-6">
-									<div class="fs-6 fw-semibold text-black-50"><label>${dto.stateProduct}</label><label></label></div>
-								</div>
-								<div class="col-6 text-end">
-									<label class='payment-delete' title="주문내역삭제" data-orderDetailNum="${dto.orderDetailNum}"><i class="fa-solid fa-rectangle-xmark"></i></label>
-								</div>
-							</div>
-								<div class="row">
-									<div class="pt-1 pb-2">
-										<label class="text-black-50">2023-12-15 주문</label>
-									</div>
-								<div class="col-auto">
-								
-									<img class="border rounded md-img" src="${pageContext.request.contextPath}/resources/images/상품배너4.PNG">
-								</div>
-								<div class="col">
-									<div class="fw-semibold pt-2">사료계량저울-(상품명)</div>
-									<div class="pt-1">
-										<label>주문수량 : 1개 &nbsp; |</label>
-										<label class="fw-semibold ps-3"><fmt:formatNumber value="${dto.productMoney}"/>32,000원</label>
-									</div>
-									<div class="pt-1">
-										옵션 : 하얀색(옵션1) / - (옵션2)
-									</div>
-									<div class="mt-3 mb-0 text-end">
-										<p>배송중</p>
-									</div>
-									<div class="text-end">
-									</div>
-								</div>
-							</div>
-					</div>				
-				</div>
-				 -->
-				
 		  <!--주문취소/반품내역 -->
 			<div class="tab-pane fade" id="tab-pane-2" role="tabpanel" aria-labelledby="tab-2" tabindex="0">
 				<div class="mt-3 pt-3 border-bottom">
@@ -542,7 +508,7 @@ $(function(){
 
 <script type="text/javascript">
 
-// 상품등록(수정)대화상자 - 검색
+// 배송조회 모달 
 $(".deliveryTracking").click(function(){
 
 	$("#deliveryTrackingModal").modal("show");

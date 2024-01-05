@@ -1,6 +1,5 @@
 package com.fp.pet.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fp.pet.common.FileManager;
 import com.fp.pet.domain.Community;
-import com.fp.pet.domain.Region;
+import com.fp.pet.domain.Friend;
 import com.fp.pet.domain.Reply;
 import com.fp.pet.mapper.CommunityMapper;
 
@@ -28,6 +27,7 @@ public class CommunityServiceImpl implements CommunityService {
 	@Override
 	public void insertCommunity(Community dto, String pathname) throws Exception {
 		try {
+			
 			mapper.insertCommunity(dto);
 
 			// 파일 업로드
@@ -80,21 +80,6 @@ public class CommunityServiceImpl implements CommunityService {
 
 		return result;
 	}
-
-	// 카테고리 리스트
-/*	@Override
-	public List<Community> listCategory(Map<String, Object> map) {
-		List<Community> listCategory = null;
-		
-		try {
-			listCategory = mapper.listCategory(map);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return listCategory;
-	}	*/
 
 	// 조회수 증가
 	@Override
@@ -197,9 +182,14 @@ public class CommunityServiceImpl implements CommunityService {
 
 	// 커뮤니티 삭제
 	@Override
-	public void deleteCommunity(long communityNum, String pathname) throws Exception {
+	public void deleteCommunity(long communityNum, String pathname, String userId) throws Exception {
 		try {
 
+				Community vo = findById(communityNum);
+				if(vo == null) {
+					return;
+				}
+				
 				List<Community> listFile = listCommunityFile(communityNum);
 				if (listFile != null) {
 					for (Community dto : listFile) {
@@ -279,9 +269,12 @@ int result = 0;
 	@Override
 	public boolean userBoardLiked(Map<String, Object> map) {
 		boolean result = false;
+		
 		try {
 			Community dto = mapper.userBoardLiked(map);
+			
 			if(dto != null) {
+				
 				result = true; 
 			}
 				
@@ -400,6 +393,7 @@ int result = 0;
 		return listCategory;
 	}
 
+	// 다중 이미지 파일 인서트
 	@Override
 	public void insertCommunityFile(Community dto) throws Exception {
 		try {
@@ -411,6 +405,7 @@ int result = 0;
 		}
 	}
 
+	// 다중 이미지 리스트
 	@Override
 	public List<Community> listCommunityFile(long communityNum) {
 		List<Community> listFile = null;
@@ -424,30 +419,49 @@ int result = 0;
 		return listFile;
 	}
 
+
+	// 친구추가
 	@Override
-	public List<Region> listRegion() {
-		// 지도를 표시할 리전
-		List<Region> list = new ArrayList<Region>();
+	public void addFriend(Friend dto) throws Exception {
+		try {
+			mapper.addFriend(dto);   // 친구신청 보낸사람
+			mapper.addFriend2(dto);	 // 친구신청 받은사람
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 		
-		list.add(new Region(1, "홍대입구역", "서울특별시 마포구 양화로 지하 160", "(우) 04050,  지번 (동교동 165)", "water.png", 37.557714093880406, 126.92450981105797));
-		list.add(new Region(2, "쌍용 강북 교육센터", "서울특별시 마포구 월드컵북로 21", "(우) 04001, 지번 (서교동 447-5)", "water.png", 37.55667974381328, 126.919460553798));
+	}
+
+	// 친구정보
+	@Override
+	public int findByFriend(Map<String, Object> map) {
+		int result = 0;
 		
-		return list;
+		try {
+			result = mapper.findByFriend(map);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 
 	@Override
-	public List<Region> listRegion(String keyword) {
-		// 지도를 표시할 리전
-		List<Region> searchList = new ArrayList<Region>();
+	public Community findName(long communityNum) {
+		Community dto = null;
 		
-		List<Region> list = listRegion();
-		for(Region dto : list) {
-			if( dto.getSubject().indexOf(keyword) >= 0 || dto.getAddr().indexOf(keyword) >= 0 ) {
-				searchList.add(dto);
-			}
+		try {
+			mapper.findName(communityNum);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		
-		return searchList;
+		
+		return dto;
 	}
 
 
