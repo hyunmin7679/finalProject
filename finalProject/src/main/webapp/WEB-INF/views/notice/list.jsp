@@ -4,10 +4,15 @@
 
 
 <style type="text/css">
+@import url('http://fonts.googleapis.com/earlyaccess/notosanskr.css');
+
 .body-container {
 	max-width: 800px;
 }
 
+i { color:#848484; width: 15px;}
+a { color:#848484; font-size: 15px;}
+a:hover {color: black; text-decoration: none;}
 .category-bar { margin-top: 40px; margin-bottom:20px; display: flex; justify-content: center; border:1px solid #D8D8D8; border-radius: 30px;}
 .bar-item{ width:100px; height:70px; text-align:center;  margin: 10px;}
 .title {display: flex; justify-content: center; }
@@ -29,7 +34,7 @@ function searchList() {
 	<div class="body-container">
 		
 		<div class="title">
-			<h3><i class="fa-regular fa-file-lines fa-lg"></i> 공지사항 </h3>
+			<h3>공지사항 </h3>
 		</div>
 		
 		<div class="category-bar">

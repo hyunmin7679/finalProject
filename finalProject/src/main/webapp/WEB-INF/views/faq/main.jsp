@@ -56,7 +56,7 @@ h3{font-weight: 900;}
 			<a href="${pageContext.request.contextPath}/notice/list" ><i class="fa-regular fa-file-lines fa-lg"></i><br>공지사항</a>
 		</div>
 		<div class="bar-item p-3">
-			<a href="#"><i class="fa-solid fa-file-pen fa-lg"></i><br>문의사항</a>
+			<a href="${pageContext.request.contextPath}/qna/list"><i class="fa-solid fa-file-pen fa-lg"></i><br>문의사항</a>
 		</div>
     </div>
 	<form name="faqSearchForm" method="post">

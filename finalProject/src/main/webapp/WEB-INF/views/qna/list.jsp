@@ -3,6 +3,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <style type="text/css">
+@import url('http://fonts.googleapis.com/earlyaccess/notosanskr.css');
+
 .body-container {
 	max-width: 800px;
 }
@@ -12,6 +14,15 @@ table td { vertical-align: middle;  word-break: keep-all;
 .product img{margin-right:3px; vertical-align: middle; float: left;}
 .product span {vertical-align: middle;}
 table tr td:nth-child(2) {font-size: 12px;} 
+
+
+i { color:#848484; width: 15px;}
+a { color:#848484; font-size: 15px;}
+a:hover {color: black; text-decoration: none;}
+.category-bar { margin-top: 40px; margin-bottom:20px; display: flex; justify-content: center; border:1px solid #D8D8D8; border-radius: 30px;}
+.bar-item{ width:100px; height:70px; text-align:center;  margin: 10px;}
+.title {display: flex; justify-content: center; }
+h3{font-weight: 900;}
 
 </style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/boot-board.css" type="text/css">
@@ -25,10 +36,20 @@ function searchList() {
 
 <div class="container">
 	<div class="body-container">	
-		<div class="body-title">
-			<h3><i class="bi bi-question-diamond"></i> 문의사항 </h3>
+		<div class="title">
+			<h3>문의사항 </h3>
 		</div>
-		
+		<div class="category-bar">
+			<div class="bar-item p-3">
+				<a href="${pageContext.request.contextPath}/faq/main"><i class="fa-regular fa-circle-question fa-lg"></i><br>FAQ</a>
+			</div>
+			<div class="bar-item p-3">
+				<a href="${pageContext.request.contextPath}/notice/list" ><i class="fa-regular fa-file-lines fa-lg"></i><br>공지사항</a>
+			</div>
+			<div class="bar-item p-3">
+				<a href="${pageContext.request.contextPath}/qna/list"><i class="fa-solid fa-file-pen fa-lg"></i><br>문의사항</a>
+			</div>
+	    </div>
 		<div class="body-main">
 
 	        <div class="row board-list-header">
