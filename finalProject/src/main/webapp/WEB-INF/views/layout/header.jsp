@@ -22,6 +22,7 @@ nav ul {
 nav ul li {
     display: inline-block;
     position: relative;
+    z-index: 999;
 }
 nav ul li a {
     color: #fff;
