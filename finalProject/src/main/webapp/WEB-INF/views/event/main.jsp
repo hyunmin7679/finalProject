@@ -97,16 +97,52 @@ $(function(){
 	<h2>이벤트</h2>
     <div class="inner-page">
 		<div class="row mt-1">
-			<c:forEach var="dto" items="${list}" varStatus="status">
 				<div class="col-md-4 col-lg-3 mt-4 rounded">
 					<div class="border rounded product-item item" data-productNum="1"  style="background-color: #fff;">
-						<img class="thumbnail-img" src="${pageContext.request.contextPath}/uploads/event/${dto.imageFileName}">
+						<img class="thumbnail-img" src="${pageContext.request.contextPath}/resources/images/5월리뷰_정사각.jpg">
 						<div class="caption">
-								<a>${dto.subject}</a>
+								<a>쓰페샬이벤트</a>
 							</div>
 					</div>
 				</div>
-			</c:forEach>	
+				
+				<div class="col-md-4 col-lg-3 mt-4 rounded">
+					<div class="border rounded product-item item" data-productNum="1"  style="background-color: #fff;">
+						<img class="thumbnail-img" src="${pageContext.request.contextPath}/resources/images/4월리뷰_홈페이지용.jpg">
+						<div class="caption">
+								<a>쓰페샬이벤트</a>
+							</div>
+					</div>
+				</div>
+				
+				<div class="col-md-4 col-lg-3 mt-4 rounded">
+					<div class="border rounded product-item item" data-productNum="1"  style="background-color: #fff;">
+						<img class="thumbnail-img" src="${pageContext.request.contextPath}/resources/images/불독전용사이즈2_001.jpg">
+						<div class="caption">
+								<a>쓰페샬이벤트</a>
+							</div>
+					</div>
+				</div>
+				
+				<div class="col-md-4 col-lg-3 mt-4 rounded">
+					<div class="border rounded product-item item" data-productNum="1"  style="background-color: #fff;">
+						<img class="thumbnail-img" src="${pageContext.request.contextPath}/resources/images/2월리뷰_홈페이지용.jpg">
+						<div class="caption">
+								<a>쓰페샬이벤트</a>
+							</div>
+					</div>
+				</div>
+				
+				
+				<div class="col-md-4 col-lg-3 mt-4 rounded">
+					<div class="border rounded product-item item" data-productNum="1"  style="background-color: #fff;">
+						<img class="thumbnail-img" src="${pageContext.request.contextPath}/resources/images/2월리뷰_홈페이지용.jpg">
+						<div class="caption">
+								<a>쓰페샬이벤트</a>
+							</div>
+					</div>
+				</div>
+				
 		</div>
 		
 		<div class="page-navigation mt-5">
