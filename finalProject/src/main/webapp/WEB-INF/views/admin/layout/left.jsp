@@ -1,7 +1,7 @@
 ﻿<%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
+=
 <aside id="layout-menu"
 	class="layout-menu menu-vertical menu bg-menu-theme">
 	<div class="app-brand demo">
@@ -27,7 +27,7 @@
 			</li>
 			
 		<!-- 상품 관리 -->
-		<li class="menu-item ${left=='productManage'? 'active open':''}"><a href="${pageContext.request.contextPath}/admin/inquiryManage/productManage"
+		<li class="menu-item ${left=='productManage'? 'active open':''}"><a href="${pageContext.request.contextPath}/admin/productManage/"
 			class="menu-link"> <i class='menu-icon tf-icons bx bx-cart-alt'></i>
 				<div data-i18n="productManage">상품 관리</div>
 		
@@ -45,23 +45,23 @@
                 </a>
                 </li>
             <li class="menu-item ${sub=='productdpManage'? 'active':''}">
-                <a href="${pageContext.request.contextPath}/admin/inquiryManage/productdpManage" class="menu-link">
+                <a href="${pageContext.request.contextPath}/admin/orderManage/orderManagelist" class="menu-link">
                         <div data-i18n="Basic">상품준비중 관리</div>
                 </a>
                 </li>
 
                 <li class="menu-item ${sub=='dpManage'? 'active ':''}">
-                <a href="${pageContext.request.contextPath}/admin/inquiryManage/dpManage" class="menu-link">
+                <a href="${pageContext.request.contextPath}/admin/deliveryManage/dpManage" class="menu-link">
                         <div data-i18n="Basic">배송준비중 관리</div>
                 </a>
                 </li>
-                <li class="menu-item ${sub=='dpingManage'? 'active ':''}">
-                <a href="${pageContext.request.contextPath}/admin/inquiryManage/dpingManage" class="menu-link">
+               <%--  <li class="menu-item ${sub=='dpingManage'? 'active ':''}">
+                <a href="${pageContext.request.contextPath}/admin/deliveryManage/dpingManage" class="menu-link">
                         <div data-i18n="Basic">배송중 관리</div>
                 </a>
-                </li>
+                </li> --%>
                 <li class="menu-item ${sub=='dpEndManage'? 'active ':''}">
-                <a href="${pageContext.request.contextPath}/admin/inquiryManage/dpEndManage" class="menu-link">
+                <a href="${pageContext.request.contextPath}/admin/deliveryManage/dpEndManage" class="menu-link">
                         <div data-i18n="Basic">배송완료 조회</div>
                 </a>
                 </li>
@@ -81,12 +81,12 @@
         </a>
             <ul class="menu-sub">
               	<li class="menu-item ${sub == 'cancleProduct' ? 'active':''}">
-                <a href="${pageContext.request.contextPath}/admin/inquiryManage/cancleProduct" class="menu-link">
+                <a href="${pageContext.request.contextPath}/admin/cancleManage/order" class="menu-link">
                         <div data-i18n="Basic">취소관리</div>
                 </a>
                 </li>
             	<li class="menu-item menu-item ${sub == 'returnProduct' ? 'active':''}">
-                <a href="${pageContext.request.contextPath}/admin/inquiryManage/returnProduct" class="menu-link">
+                <a href="${pageContext.request.contextPath}/admin/returnManage/returnProduct" class="menu-link">
                         <div data-i18n="Basic">반품 관리</div>
                 </a>
                 </li>
@@ -100,7 +100,7 @@
         </li>
 		
 		<!-- 리뷰 관리 -->
-		<li class="menu-item ${left=='reviewManage'? 'active open':''}"><a href="${pageContext.request.contextPath}/admin/inquiryManage/reviewManage"
+		<li class="menu-item ${left=='reviewManage'? 'active open':''}"><a href="${pageContext.request.contextPath}/admin/reviewManage/"
 			class="menu-link"> <i class='menu-icon tf-icons bx bx-star'></i>
 				<div data-i18n="reviewManage">리뷰 관리</div>
 		</a></li>
@@ -112,7 +112,7 @@
 		</a></li>
 			
 		<!-- 일반 관리 -->
-		<li class="menu-item ${left=='csManage'? 'active':''}" ><a href="${pageContext.request.contextPath}/admin/inquiryManage/csManage"
+		<li class="menu-item ${left=='csManage'? 'active':''}" ><a href="${pageContext.request.contextPath}/admin/csManage/"
 			class="menu-link"> <i class='menu-icon tf-icons bx bx-cube-alt'></i>
 				<div data-i18n="csManage">일반 관리</div>
 		</a></li>
@@ -132,7 +132,7 @@
 		</li>
 		
 		<!-- 신고관리 -->
-		<li class="menu-item ${left=='reportManage'? 'active':''}"><a href="${pageContext.request.contextPath}/admin/inquiryManage/reportManage"
+		<li class="menu-item ${left=='reportManage'? 'active':''}"><a href="${pageContext.request.contextPath}/admin/reportManage/list"
 			class="menu-link"> <i class='menu-icon tf-icons bx bx-info-circle'></i>
 				<div data-i18n="communityManage">신고 관리</div>
 		</a>
@@ -159,11 +159,11 @@
 				<div data-i18n="adminAuthentication">계정 관리</div>
 		</a>
 			<ul class="menu-sub">
-				<li class="menu-item ${sub=='adminList'?'active':''}"><a href="${pageContext.request.contextPath}/admin/inquiryManage/adminList"
+				<li class="menu-item ${sub=='adminList'?'active':''}"><a href="${pageContext.request.contextPath}/admin/adminManage/"
 					class="menu-link">
 						<div data-i18n="adminList">관리자 리스트</div>
 				</a></li>
-				<li class="menu-item ${sub=='adminAccount'?'active':''}"><a href="${pageContext.request.contextPath}/admin/inquiryManage/adminMypage"
+				<li class="menu-item ${sub=='adminAccount'?'active':''}"><a href="${pageContext.request.contextPath}/admin/adminManage/adminMypage2"
 					class="menu-link">
 						<div data-i18n="adminAccount">마이페이지</div>
 				</a></li>
@@ -172,3 +172,4 @@
 		
 	</ul>
 </aside>
+
