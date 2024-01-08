@@ -68,21 +68,21 @@ ul, li, p { list-style:none; padding:0; margin:0; }
 .body-container {max-width: 800px; }
 .fa-regular {text-align: center;}
 
-i { color:#003166; width: 25px;}
+i { width: 25px;}
 a { color:#003166; font-size: 15px;}
 a:hover {color: black; text-decoration: none;}
 .category-bar { margin-top: 40px; margin-bottom:20px; display: flex;
 				align-items: center; border:1px solid #D8D8D8; border-radius: 30px; 
 				background: #ffc303; position: relative;}
 				
-.bar-item{ width:150px; height:auto; text-align:center; margin: 10px; }
+.bar-item{ width:150px; height:auto; text-align:center;}
 .title {display: flex; justify-content: center; }
 h3{font-weight: 900;}
 
 .icombox {padding: 30px;}
 .icon { width: 100px; height:auto;}
 
-.itembox {display: flex; justify-content: center; width: 43%;} 
+.itembox {display: flex; justify-content: center; width: 65%;} 
 .point-item{height:auto; text-align:center; margin: 10px; display: flex; align-items: center;}
 
 .category-bar .mem_info { float: left; width: 50%; height: 100%;
@@ -167,7 +167,7 @@ $(function(){
 $(function(){
 	$(".payment-confirmation").click(function(){
 		// 구매 확정
-		if(! confirm("구메확정을 진행하시겠습니까 ?")) {
+		if(! confirm("구매확정을 진행하시겠습니까 ?")) {
 			return false;
 		}
 		
@@ -275,6 +275,12 @@ $(function(){
 		</div>
 		<div class="bar-item p-3">
 			<a href="#"><i class="fa-solid fa-piggy-bank"></i><br>포인트</a>
+		</div>
+		<div class="point-item">
+			<i class="fa-solid fa-angle-right"></i>
+		</div>
+		<div class="bar-item p-3">
+			<a href="${pageContext.request.contextPath}/myPage/iconStore"><i class="fa-brands fa-shopify"></i></i><br>아이콘 상점</a>
 		</div>
 		</div>
     </div>
