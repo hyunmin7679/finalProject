@@ -99,22 +99,24 @@ public class MyUtilBootstrap extends MyUtil {
 			currentPageSetUp = currentPageSetUp - numPerBlock;
 		}
 
-		sb.append("<ul class='pagination justify-content-center'>");
+		sb.append("<ul class='pagination justify-content-end pe-2'>");
 
 		// 처음페이지
 		if (current_page > 1) {
-			sb.append("<li class='page-item'><a class='page-link' onclick='" 
-					+ methodName + "(1);' aria-label='First'><i class='bi bi-chevron-bar-left'></i></a></li>");
+			sb.append("<li class='paginate_button page-item previous'>"
+					+ "<a class='page-link' onclick='" 
+					+ methodName + "(1);' aria-label='First'><i class='bx bx-first-page'></i></a></li>");
 		} else {
-			sb.append("<li class='page-item disabled'><a class='page-link' href='#' aria-disabled='true'><i class='bi bi-chevron-bar-left'></i></a></li>");
+			sb.append("<li class='page-item disabled'><a class='page-link' href='#' aria-disabled='true'><i class='bx bx-first-page'></i></a></li>");
 		}
-		// 이전(10페이지 전)
-		n = current_page - numPerBlock;
+		// 이전(5페이지 전)
+		n = current_page - 5;
+		int m = current_page - 1 ;
 		if (total_page > numPerBlock && currentPageSetUp > 0) {
 			sb.append("<li class='page-item'><a class='page-link' onclick='" 
-					+ methodName + "(" + n + ");' aria-label='Previous'><i class='bi bi-chevron-double-left'></i></a></li>");
+					+ methodName + "(" + n + ");' aria-label='Previous'><i class='bx bx-chevrons-left'></i></a></li>");
 		} else {
-			sb.append("<li class='page-item disabled'><a class='page-link'  href='#' aria-disabled='true'><i class='bi bi-chevron-double-left'></i></a></li>");
+			sb.append("<li class='page-item enabled'><a class='page-link' onclick='"+ methodName+"("+m+");'  aria-disabled='true'><i class='bx bx-chevron-left' ></i></a></li>");
 		}
 
 		// 바로가기 페이지 구현
@@ -129,22 +131,23 @@ public class MyUtilBootstrap extends MyUtil {
 			page++;
 		}
 
-		// 다음(10페이지 후)
-		n = current_page + numPerBlock;
+		// 다음(5페이지 후)
+		n = current_page + 5;
+		int s = current_page + 1;
 		if (n > total_page)
 			n = total_page;
 		if (total_page - currentPageSetUp > numPerBlock) {
 			sb.append("<li class='page-item'><a class='page-link' onclick='" 
-					+ methodName + "(" + n + "); aria-label='Next'><i class='bi bi-chevron-double-right'></i></a></li>");
+					+ methodName + "(" + n + "); aria-label='Next'><i class='bx bx-chevron-right'></i></a></li>");
 		} else {
-			sb.append("<li class='page-item disabled'><a class='page-link' href='#' aria-disabled='true'><i class='bi bi-chevron-double-right'></i></a></li>");
+			sb.append("<li class='page-item enabled'><a class='page-link' onclick='"+ methodName+"("+ s +");' aria-disabled='true'><i class='bx bx-chevron-right'></i></a></li>");
 		}
 		// 마지막 페이지
 		if (current_page < total_page) {
 			sb.append("<li class='page-item'><a class='page-link' onclick='" 
-					+ methodName + "(" + total_page + ");' aria-label='Last'><i class='bi bi-chevron-bar-right'></i></a></li>");
+					+ methodName + "(" + total_page + ");' aria-label='Last'><i class='bx bx-last-page'></i></a></li>");
 		} else {
-			sb.append("<li class='page-item disabled'><a class='page-link' href='#' aria-disabled='true'><i class='bi bi-chevron-bar-right'></i></a></li>");
+			sb.append("<li class='page-item disabled'><a class='page-link' href='#' aria-disabled='true'><i class='bx bx-last-page'></i></a></li>");
 		}
 
 		sb.append("</ul>");
