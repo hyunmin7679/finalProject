@@ -38,16 +38,21 @@ public class CommunityController {
 	@Autowired
 	private MyUtil myUtil;
 	
+	
 	@Autowired
 	private FileManager fileManager;
 	
 	@GetMapping("main")
-	public String main(Model model) {
+	public String main(
+			@RequestParam(defaultValue = "0") long communityNum,
+			@RequestParam(defaultValue = "0") long categoryNum,
+			Model model) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<Community> listCategory = service.listCategory(map);
 		
 		model.addAttribute("listCategory", listCategory);		
-		model.addAttribute("categoryNum", "0");
+		model.addAttribute("categoryNum", categoryNum);
+		model.addAttribute("communityNum", communityNum);
 		
 		return ".bbs.main";
 	}

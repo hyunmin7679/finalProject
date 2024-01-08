@@ -35,6 +35,7 @@
     border-radius: 10px;
 }
 
+
 img, svg {
     vertical-align: middle;
 }
@@ -123,7 +124,13 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 // ----------------------------------------------------
 //### 게시판 #########
 $(function(){
-	listPage(1);
+	let communityNum = '${communityNum}';
+	
+	if(communityNum != '0'){
+		articleView(communityNum,1);
+	}else{
+		listPage(1);		
+	}
 	
     $("button[role='tab']").on("click", function(e){
 		// const tab = $(this).attr("aria-controls");
