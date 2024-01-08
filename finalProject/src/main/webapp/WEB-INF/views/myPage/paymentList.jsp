@@ -257,7 +257,7 @@ $(function(){
 				<p>현주님 &nbsp;|</p>
 				<p>&nbsp;VIP등급</p>
 			</div>
-			</div>
+			</div> 
 		</div>
 		
 		<div class="itembox">
