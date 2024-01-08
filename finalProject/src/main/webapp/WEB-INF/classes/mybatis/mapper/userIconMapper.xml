@@ -10,5 +10,24 @@
 		WHERE memberIdx = #{memberIdx}
 		ORDER BY iconNum DESC
 	</select>
-
+	
+	<select id="insertIcon">
+		INSERT into iconList (iconSeq,iconNum,memberIdx,iconUse) values(iconlist_seq.nextval,32,#{memberIdx},1)
+	</select>
+	
+	<update id="updateIcon1" parameterType="long">
+		UPDATE iconList SET iconUse = 0 WHERE memberIdx = #{memberIdx}
+	</update>
+	
+	<update id="updateIcon2" parameterType="com.fp.pet.domain.Icon">
+		UPDATE iconList SET iconUse = 1 WHERE iconNum=#{iconNum} AND memberIdx = #{memberIdx}
+	</update>
+	
+	<select id="findByIcon" parameterType="long" resultType="com.fp.pet.domain.Icon">
+		SELECT i.iconNum,memberIdx,iconUse,iconImage 
+		FROM iconList il 
+		JOIN icon i on i.iconNum=il.iconNum
+		WHERE memberIdx=#{memberIdx} and iconUse = 1
+	</select>
+	
 </mapper>

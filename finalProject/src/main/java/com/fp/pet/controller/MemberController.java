@@ -54,10 +54,11 @@ public class MemberController {
 	public String memberSubmit(Member dto,
 			final RedirectAttributes reAttr,
 			Model model) {
-
+		
 		try {
-			
 			service.insertMember(dto);
+			// 회원가입시 기본이미지 설정
+			iconService.insertIcon(dto.getMemberIdx());
 			
 		} catch (DuplicateKeyException e) {
 			// 기본키 중복에 의한 제약 조건 위반
@@ -151,8 +152,6 @@ public class MemberController {
 		return ".member.nonmember";
 	}
 	
-	
-	
 
 	@GetMapping("pwd")
 	public String pwdForm(String dropout, Model model) {
@@ -175,6 +174,7 @@ public class MemberController {
 		
 		SessionInfo info = (SessionInfo)session.getAttribute("member");
 		Member dto = service.findById(info.getUserId());
+		Icon vo = iconService.findByIcon(info.getMemberIdx());
 		
 		long memberIdx = info.getMemberIdx();
 		List<Icon> list = iconService.listIcon(memberIdx);
@@ -212,6 +212,7 @@ public class MemberController {
 		}
 		
 		// 회원 수정 폼
+		model.addAttribute("vo", vo);
 		model.addAttribute("dto", dto);
 		model.addAttribute("list",list);
 		model.addAttribute("mode", "update");
@@ -221,11 +222,23 @@ public class MemberController {
 	
 	@PostMapping("update")
 	public String updateSubmit(Member dto,
+			long iconNum,
+			//String iconImage,
 			final RedirectAttributes reAttr,
+			HttpSession session,
 			Model model) {
-
+		
+		Icon vo = new Icon();
+		
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
+		vo.setMemberIdx(info.getMemberIdx());
+		vo.setIconNum(iconNum);
+		
+		
 		try {
 			service.updateMember(dto);
+			iconService.updateIcon1(info.getMemberIdx()); // iconUse=0 으로 리셋
+			iconService.updateIcon2(vo); // 선택한 아이콘만 iconUse=1
 		} catch (Exception e) {
 		}
 
@@ -253,6 +266,4 @@ public class MemberController {
 		model.put("list", list);
 		return model;
 	}
-	
-
 }

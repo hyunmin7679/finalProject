@@ -24,5 +24,51 @@ public class UserIconServiceImpl implements UserIconService{
 		}
 		return list;
 	}
+	
+	@Override
+	public void updateIcon1(long memberIdx) {
+		try {
+			mapper.updateIcon1(memberIdx);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
+	
+	@Override
+	public void updateIcon2(Icon icon) {
+		try {
+			mapper.updateIcon2(icon);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	@Override
+	public void insertIcon(long memberIdx) {
+		try {
+			mapper.insertIcon(memberIdx);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
+
+	@Override
+	public Icon findByIcon(long memberIdx) {
+		Icon vo = null;
+		try {
+			vo = mapper.findByIcon(memberIdx);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		return vo;
+	}
+
+	
 
 }

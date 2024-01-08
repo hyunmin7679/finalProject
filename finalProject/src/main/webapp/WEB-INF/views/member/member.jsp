@@ -17,7 +17,14 @@
 	height: 100px;
 	margin: 30px auto;
 	position: relative;
-	cursor: pointer;
+	
+}
+.jss11 {
+	width: 100px;
+	height: 100px;
+	margin: 30px auto;
+	position: relative;
+	
 }
 
 .jss2 {
@@ -85,12 +92,6 @@ function memberOk() {
 		return;
 	}
 	
-	str = f.userPwd.value;
-	if( !/^(?=.*[a-z])(?=.*[!@#$%^*+=-]|.*[0-9]).{5,10}$/i.test(str) ) { 
-		alert("패스워드를 다시 입력 하세요. ");
-		f.userPwd.focus();
-		return;
-	}
 
 	if( str !== f.userPwd2.value ) {
         alert("패스워드가 일치하지 않습니다. ");
@@ -147,7 +148,7 @@ function memberOk() {
         return;
     }
 
-   	f.action = "${pageContext.request.contextPath}/member/${mode}";
+   	f.action = "${pageContext.request.contextPath}/member/${mode}";   
     f.submit();
 }
 
@@ -210,28 +211,33 @@ function userIdCheck() {
 				<i class="bi bi-person-check-fill"></i> 두다뽀코별의 회원이 되시면 회원만의 혜택을 누릴 수
 				있습니다.
 			</div>
+			<div class="jss11">
+				<div class="jss2 jss22">
+					<img class="jss3 jss33 img-fluid" style="border: none; width: 80px; height: 80px;" alt="프로필" 
+						src="${pageContext.request.contextPath}/resources/images/profile_empty.png">
+				</div>
+				
+			</div>
 		</c:if>
 
 		<div class="body-main">
-		
-			<c:if test="${mode == 'update'}">
-				<form name="iconForm" action="${pageContext.request.contextPath}/member/updateIcon" method="post">
-				<div class="jss1">
-					<div class="jss2 jss22">
-						<img class="jss3 jss33 img-fluid" style="border: none; width: 80px; height: 80px;" alt="프로필" 
-							src="${pageContext.request.contextPath}/uploads/photo/202401042359121810170527049600.png"
-							id="icon-image">
+			
+			<form name="memberForm" class="memberForm" method="post">
+				<c:if test="${mode == 'update'}">
+					<div class="jss1">
+						<div class="jss2 jss22">
+							<img class="jss3 jss33 img-fluid" style="border: none; width: 80px; height: 80px;" alt="프로필" 
+								src="${pageContext.request.contextPath}/uploads/photo/${vo.iconImage}"
+								id="icon-image">
+						</div>
+						<span class="jss4"> 
+							<svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="img">
+							    <path d="M2 3.993c.004-.546.446-.989.992-.993h18.016c.548 0 .992.445.992.993v16.014c-.004.546-.446.989-.992.993H2.992C2.444 21 2 20.555 2 20.007V3.993zM4 5v14h16V5H4zm8 10c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm0 2c-2.761 0-5-2.239-5-5s2.239-5 5-5 5 2.239 5 5-2.239 5-5 5zm5-11h2v2h-2V6z"></path>
+							</svg>
+						</span>
 					</div>
-					<span class="jss4"> 
-						<svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="img">
-						    <path d="M2 3.993c.004-.546.446-.989.992-.993h18.016c.548 0 .992.445.992.993v16.014c-.004.546-.446.989-.992.993H2.992C2.444 21 2 20.555 2 20.007V3.993zM4 5v14h16V5H4zm8 10c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm0 2c-2.761 0-5-2.239-5-5s2.239-5 5-5 5 2.239 5 5-2.239 5-5 5zm5-11h2v2h-2V6z"></path>
-						</svg>
-					</span>
-				</div>
-				</form>
-			</c:if>
-		
-			<form name="memberForm" method="post">
+					<input type="hidden" name="iconNum" value="${vo.iconNum}">
+				</c:if>
 				<div class="row mb-3">
 					<label class="col-sm-2 col-form-label" for="userId">아이디</label>
 					<div class="col-sm-10 userId-box">
@@ -407,12 +413,8 @@ function userIdCheck() {
 
 				<div class="row">
 					<p class="form-control-plaintext text-center">${message}</p>
-				</div>
-				
-				
-				
+				</div>			
 			</form>
-
 		</div>
 	</div>
 </div>
@@ -547,22 +549,23 @@ function userIdCheck() {
     		
     		ajaxFun(url, "get", query, "json", fn);
     		
+    		$(".memberForm input[name=iconNum]").val("");
     		$("#iconSelectModal").modal("show");
     	});
     	
     	
-    	// 모달의 선택 버튼 클릭한 경우 -> 그 아이콘의 정보 넘겨주기
+    	// 모달의 선택 버튼 클릭한 경우 -> 버튼 속성을 통해 이미지경로 바꿔주기.
     	$("body").on("click", '.btn-iconSelect', function(){
     		let iconNum = $(this).data("icon-num");
     		let iconImage = $(this).data("icon-iconimage");
     		let iconPrice = $(this).data("icon-price");
     		let iconName = $(this).data("icon-name");
-    		//let productName = $(this).text().trim();
+    		
+    		console.log(iconNum);
     		
     		let imageSrc = "${pageContext.request.contextPath}/uploads/photo/"+iconImage;
     		$("#icon-image").attr("src",imageSrc);
-    		
-    		//$(".memberForm input[name=productName]").val(productName);
+    		$(".memberForm input[name=iconNum]").val(iconNum);
     		
     		$("#iconSelectModal").modal("hide");
     		
