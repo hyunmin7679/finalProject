@@ -33,32 +33,14 @@ public class Community {
 	private String filename;
 	private List<MultipartFile> selectFile;
 	
+	private String[] listFilename;
+	
 	private boolean deletePermit;
 	
 	// 좋아요
 	private long memberIdx;	
 	private int replyCount;
 	private int boardLikeCount;
-	
-	
-	public int getFriendCount() {
-		return friendCount;
-	}
-	public void setFriendCount(int friendCount) {
-		this.friendCount = friendCount;
-	}
-	public String getIconImage() {
-		return iconImage;
-	}
-	public void setIconImage(String iconImage) {
-		this.iconImage = iconImage;
-	}
-	public int getBoardLikeCount() {
-		return boardLikeCount;
-	}
-	public void setBoardLikeCount(int boardLikeCount) {
-		this.boardLikeCount = boardLikeCount;
-	}
 	public long getCategoryNum() {
 		return categoryNum;
 	}
@@ -137,6 +119,24 @@ public class Community {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
+	public String getParkname() {
+		return parkname;
+	}
+	public void setParkname(String parkname) {
+		this.parkname = parkname;
+	}
+	public int getFriendCount() {
+		return friendCount;
+	}
+	public void setFriendCount(int friendCount) {
+		this.friendCount = friendCount;
+	}
+	public String getIconImage() {
+		return iconImage;
+	}
+	public void setIconImage(String iconImage) {
+		this.iconImage = iconImage;
+	}
 	public long getFileNum() {
 		return fileNum;
 	}
@@ -154,6 +154,12 @@ public class Community {
 	}
 	public void setSelectFile(List<MultipartFile> selectFile) {
 		this.selectFile = selectFile;
+	}
+	public String[] getListFilename() {
+		return listFilename;
+	}
+	public void setListFilename(String[] listFilename) {
+		this.listFilename = listFilename;
 	}
 	public boolean isDeletePermit() {
 		return deletePermit;
@@ -173,17 +179,11 @@ public class Community {
 	public void setReplyCount(int replyCount) {
 		this.replyCount = replyCount;
 	}
-	public int getboardLikeCount() {
+	public int getBoardLikeCount() {
 		return boardLikeCount;
 	}
-	public void setboardLikeCount(int boardLikeCount) {
+	public void setBoardLikeCount(int boardLikeCount) {
 		this.boardLikeCount = boardLikeCount;
-	}
-	public String getParkname() {
-		return parkname;
-	}
-	public void setParkname(String parkname) {
-		this.parkname = parkname;
 	}
 
 }

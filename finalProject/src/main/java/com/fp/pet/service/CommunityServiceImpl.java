@@ -14,6 +14,7 @@ import com.fp.pet.domain.Friend;
 import com.fp.pet.domain.Reply;
 import com.fp.pet.mapper.CommunityMapper;
 
+
 @Service
 public class CommunityServiceImpl implements CommunityService {
 	@Autowired
@@ -464,6 +465,79 @@ int result = 0;
 		return dto;
 	}
 
+ // ------------------------------------------------------------------
+	// 내활동 
+	
+	@Override
+	public int dataCount2(Map<String, Object>map) {
+		int result = 0;
+		
+		try {
+			mapper.dataCount2(map);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public List<Community> listCommunity2(Map<String, Object> map) {
+		List<Community> list = null;
+		
+		try {
+			list = mapper.listCommunity2(map);
+			
+			for (Community dto : list) {
+				if(dto.getFilename() != null) {
+					dto.setListFilename(dto.getFilename().split(",")); 
+				}
+				
+				dto.setContent(dto.getContent().replaceAll("\n", "<br>"));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+	// 좋아요 개수
+	@Override
+	public int likeCount2(Map<String, Object> map) {
+		int result = 0;
+		
+		try {
+			mapper.likeCount2(map);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	// 좋아요 리스트
+	@Override
+	public List<Community> listLike2(Map<String, Object> map) {
+		List<Community> list = null;
+		
+		try {
+			list = mapper.listLike2(map);
+			
+			for (Community dto : list) {
+				if(dto.getFilename() != null) {
+					dto.setListFilename(dto.getFilename().split(",")); 
+				}
+				
+				dto.setContent(dto.getContent().replaceAll("\n", "<br>"));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 
 
 }

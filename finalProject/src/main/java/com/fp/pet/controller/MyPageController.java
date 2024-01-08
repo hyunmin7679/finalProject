@@ -183,5 +183,16 @@ public class MyPageController {
 	
 	// 구매확정
 	
+	
+	// -----------------------------------------------------------------------
+	// 리뷰
+	@GetMapping("review")
+	public String review(
+			@RequestParam(defaultValue = "review") String mode,
+			Model model) throws Exception {
+		
+		model.addAttribute("mode", mode);
+		return ".myPage.review";
+	}
 
 }

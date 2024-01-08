@@ -56,5 +56,15 @@ public interface CommunityService {
 	public void addFriend(Friend dto) throws Exception;
 	public int findByFriend(Map<String, Object> map);
 	public Community findName (long communityNum);
+	
+	// ----------------------------------------------------------
+	// 내활동 리스트
+	public int dataCount2(Map<String, Object>map);
+	public List<Community>listCommunity2(Map<String, Object>map);
+	
+	public int likeCount2(Map<String, Object>map);
+	public List<Community>listLike2(Map<String, Object>map);
+	
+	
 
 }

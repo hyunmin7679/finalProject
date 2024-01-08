@@ -321,4 +321,61 @@
         and communityNum = #{communityNum}
 	</select>
 	
+	
+	
+	
+	<!-- 데이터 개수 -->
+	<select id="dataCount2" parameterType="map" resultType="Integer">
+		SELECT count(*)
+		FROM community
+		WHERE userId = #{userId}
+	</select>
+	
+	<!-- 내가쓴 글 리스트  -->
+	<select id="listCommunity2" parameterType="map" resultType="com.fp.pet.domain.Community">
+	SELECT c.communityNum, c.userId, m.userName, 
+			   subject, content, hitCount, TO_CHAR(reg_date, 'YYYY-MM-DD') reg_date,
+			   NVL(replyCount, 0) replyCount ,f.filename
+		FROM community c
+		JOIN member1 m ON c.userId = m.userId
+		LEFT OUTER JOIN (
+			SELECT communityNum, LISTAGG(filename, ',') WITHIN GROUP(ORDER BY fileNum) filename
+            FROM communityFile
+            GROUP BY communityNum	
+		) f ON c.communityNum = f.communityNum 
+		LEFT OUTER JOIN (
+			SELECT communityNum, COUNT(*) replyCount FROM communityReply
+			WHERE answer = 0 AND showReply=1
+			GROUP BY communityNum
+		) r ON r.communityNum = c.communityNum
+        WHERE c.userId = #{userId}
+		ORDER BY reg_date DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select> 
+	
+	<!-- 좋아요 개수 -->
+	<select id="likeCount2" parameterType="map" resultType="Integer">
+		SELECT COUNT(*) 
+		FROM communityLike
+		WHERE userId = #{userId}
+	</select>
+	
+	<!-- 좋아요 누른 커뮤니티 글 -->
+	<select id="listLike2" parameterType="map" resultType="com.fp.pet.domain.Community">
+		SELECT c.communityNum, c.userId, 
+           subject, content, hitCount, TO_CHAR(reg_date, 'YYYY-MM-DD') reg_date,
+           f.filename
+		FROM community c
+		LEFT OUTER JOIN (
+			SELECT communityNum, LISTAGG(filename, ',') WITHIN GROUP(ORDER BY fileNum) filename
+            FROM communityFile
+            GROUP BY communityNum	
+		) f ON c.communityNum = f.communityNum 
+		JOIN communityLike cl ON c.communityNum = cl.communityNum
+        WHERE cl.userId = #{userId}
+		ORDER BY reg_date DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	
 </mapper>
