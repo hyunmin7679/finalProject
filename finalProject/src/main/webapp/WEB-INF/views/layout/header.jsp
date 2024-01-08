@@ -204,7 +204,7 @@ $(function(){
                 </a>
                   <ul>
                     <li><a href="${pageContext.request.contextPath}/member/pwd">회원정보</a></li>
-                    <li><a href="${pageContext.request.contextPath}/myPage/paymentList">내활동</a></li>
+                    <li><a href="${pageContext.request.contextPath}/myPage/review">내활동</a></li>
                     <li><a href="#">장바구니</a></li>
                     <li><a href="#">위시리스트</a></li>
                     <li><a href="${pageContext.request.contextPath}/myPage/paymentList">주문내역</a></li>
