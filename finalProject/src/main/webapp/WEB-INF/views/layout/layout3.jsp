@@ -8,6 +8,8 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title><tiles:insertAttribute name="title"/></title>
+	
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrapTemp/assets/vendor/fonts/boxicons.css" />
 	<link rel="icon" href="data:;base64,iVBORw0KGgo=">
 	
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendor/bootstrap5/css/bootstrap.min.css" type="text/css">
