@@ -53,7 +53,7 @@ img, svg {
 	<form name="bbsSearchForm" method="post">
 		<input type="hidden" name="schType" value="all">
 	    <input type="hidden" name="kwd" value="">
-	</form> 
+	</form>  
 	
 		<div class="nav-align-top mb-4">
 		  <ul class="nav nav-pills mb-3" role="tablist">   
