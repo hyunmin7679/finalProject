@@ -60,6 +60,26 @@
 	cursor: pointer;
 }
 
+.img-grid .item {
+    object-fit: cover;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    border: 1px solid #c2c2c2;
+    border-radius: 10px;
+}
+
+.img-box img {
+    width: 50px;
+    height: 50px;
+    margin-right: 5px;
+    flex: 0 0 auto;
+    cursor: pointer;
+    border: 1px solid #c2c2c2;
+    border-radius: 10px;
+}
+
+
 /* ------------------------------------------------------------------------------ */
 
 @import url('http://fonts.googleapis.com/earlyaccess/notosanskr.css');
@@ -234,9 +254,9 @@ $(function(){
 		// 주문취소/교환요청/반품요청 완료
 		const f = document.userOrderDetailForm;
 
-		if(! f.stateMemo.value.trim()) {
-			alert('요청 사유를 입력 하세세요');
-			f.stateMemo.focus();
+		if(! f.changeSort.value.trim()) {
+			alert('취소구분을 선택해주세요.');
+			f.changeSort.focus();
 			return false;
 		}
 		
@@ -280,7 +300,7 @@ $(function(){
 			<i class="fa-solid fa-angle-right"></i>
 		</div>
 		<div class="bar-item p-3">
-			<a href="${pageContext.request.contextPath}/myPage/iconStore"><i class="fa-brands fa-shopify"></i></i><br>아이콘 상점</a>
+			<a href="${pageContext.request.contextPath}/iconStore/list"><i class="fa-brands fa-shopify"></i><br>아이콘 상점</a>
 		</div>
 		</div>
     </div>
@@ -418,6 +438,7 @@ $(function(){
 								</div>
 								<div class="col-6 text-end">
 									<label class='payment-delete' title="주문내역삭제" data-orderDetailNum="${dto.orderDetailNum}"><i class="fa-solid fa-rectangle-xmark"></i></label>
+									<input type="hidden" data-orderNum="${dto.orderNum}" value="${dto.orderNum}">
 								</div>
 							</div>
 								<div class="row">
@@ -496,9 +517,49 @@ $(function(){
 			<div class="modal-body pt-1">
 				<div class="p-1">
 					<form name="userOrderDetailForm" method="post" class="row justify-content-center">
-						<div class="col-7 p-1">
+						<div>
+						<div class="col-8 p-1">
+							<select name="changeSort " class="form-select">
+								<option >::선택::</option>
+								<option value="0" >물건하자로 인한 교환</option>
+								<option value="1" >옵션변경을 위한 교환 </option>
+								<option value="2" >단순변심에 의한 반품</option>
+								<option value="3" >귀책사유에 의한 반품 </option>
+								<option value="4" >단순변심으로 인한 환불 </option>
+								<option value="5" >귀책사유에 의한 환불</option>
+								<option value="6" >단순 변심에 의한 주문취소</option>
+								<option value="7" >옵션 선택 실수로 주문 취소</option>
+							</select>
+						</div>
+						<div class="col p-1">
 							<input type="text" name="stateMemo" class="form-control" placeholder="사유를 입력 하세요">
 						</div>
+					
+										
+					<table>
+					<tr>
+						<td class="bg-light col-sm-2" scope="row">이미지</td>
+						<td>
+							<div class="img-grid"><img class="item img-add rounded" src="${pageContext.request.contextPath}/resources/images/add_photo.png"></div>
+							<input type="file" name="selectFile" accept="image/*" multiple style="display: none;" class="form-control">
+						</td>
+					</tr>
+					
+						<tr>
+							<td class="bg-light col-sm-2" scope="row">등록이미지</td>
+							<td> 
+								<div class="img-box">
+									<c:forEach var="vo" items="${listFile}">
+										<img src="${pageContext.request.contextPath}/uploads/bbs/${vo.filename}"
+											class="delete-img"
+											data-fileNum="${vo.fileNum}">
+									</c:forEach>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>	
+						
 						<div class="col-auto p-1">
 							<input type="hidden" name="page" value="${page}">
 							<input type="hidden" name="orderDetailNum">
@@ -664,4 +725,6 @@ $(function(){
 		ajaxFun(url, "post", query, "json", fn, true);
 	});
 });
+
+
 </script>
