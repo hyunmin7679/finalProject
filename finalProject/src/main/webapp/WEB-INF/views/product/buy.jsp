@@ -132,7 +132,7 @@ $(function(){
 				let optionValue2 = item.optionValue2;
 				let totalStock = item.totalStock;
 				
-				if(totalStock != 0){
+				if(totalStock > 0){
 					$(".requiredOption2").append("<option value='"+detailNum+"'>"+optionValue2+"</option>");
 				}
 				else {
