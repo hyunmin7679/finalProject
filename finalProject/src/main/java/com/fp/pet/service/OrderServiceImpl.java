@@ -81,6 +81,10 @@ public class OrderServiceImpl implements OrderService{
 				dto.setSavedMoney(dto.getSavedMoneys().get(i));
 				
 				mapper.insertOrderDetail(dto);
+				for(int k = 0; k<dto.getBuyQtys().get(i); k++) {
+					mapper.stockReduction(dto);
+				}
+				
 			}
 			
 			mapper.earnPoints(dto);

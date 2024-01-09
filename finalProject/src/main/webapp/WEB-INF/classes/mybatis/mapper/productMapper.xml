@@ -96,9 +96,8 @@
 		join optionDetail dp on op.optionNum = dp.optionNum
 		left outer join optionDetail ds on os.optionNum = ds.optionNum
 		left outer join productStock ps on dp.detailNum = ps.detailNum and ds.detailNum = ps.detailNum2
-		where os.optionNum = #{optionNum2}  and dp.detailNum = #{detailNum} and NVL(ps.totalStock, 0) &gt; 0 
+		where os.optionNum = #{optionNum2}  and dp.detailNum = #{detailNum}
 		order by detailNum, detailNum2
 	</select>
-	
 
 </mapper>

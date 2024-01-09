@@ -88,4 +88,10 @@
 	<select id="memberPoint" parameterType="Long" resultType="com.fp.pet.domain.Order">
 		select sum(p_qyt) as point from point where memberidx = #{memberIdx}
 	</select>
+	
+	<update id="stockReduction" parameterType="com.fp.pet.domain.Order">
+		update productstock set totalstock = totalstock-1
+		where detailNum = #{detailNum} and detailNum2 = #{detailNum2}
+	
+	</update>
 </mapper>

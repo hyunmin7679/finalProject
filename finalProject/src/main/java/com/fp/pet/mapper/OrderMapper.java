@@ -14,6 +14,7 @@ public interface OrderMapper {
 	public void insertPayDetail(Order dto) throws SQLException;
 	public void insertOrderDetail(Order dto) throws SQLException;
 	public void insertOrderDelivery(Order dto) throws SQLException;
+	public void stockReduction(Order dto) throws SQLException;
 	
 	public void earnPoints(Order dto) throws SQLException;
 	public void usePoints(Order dto) throws SQLException;

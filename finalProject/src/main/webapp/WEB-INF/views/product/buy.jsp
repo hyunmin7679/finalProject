@@ -130,8 +130,14 @@ $(function(){
 			$(data).each(function(index, item){
 				let detailNum = item.detailNum;
 				let optionValue2 = item.optionValue2;
+				let totalStock = item.totalStock;
 				
-				$(".requiredOption2").append("<option value='"+detailNum+"'>"+optionValue2+"</option>");
+				if(totalStock != 0){
+					$(".requiredOption2").append("<option value='"+detailNum+"'>"+optionValue2+"</option>");
+				}
+				else {
+					$(".requiredOption2").append("<option value='"+detailNum+"' disabled='disabled'>"+optionValue2+" -품절-</option>");
+				}
 			});
 		});
 	});
