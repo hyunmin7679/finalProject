@@ -15,7 +15,11 @@ public interface ProductMapper {
 	public Product findByProduct(long num);
 	public Product findByCategoryName(long num);
 	
+	public List<Product> listProductFile(long productNum);
+	
 	public List<Product> listProductOption(long productNum);
 	public List<Product> listOptionDetail(long optionNum);
+	
+	public List<Product> listOptionDetailStock(Map<String, Object> map);
 
 }

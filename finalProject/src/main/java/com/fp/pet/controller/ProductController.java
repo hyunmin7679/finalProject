@@ -86,7 +86,10 @@ public class ProductController {
 	@ResponseBody
 	public List<Product> listOptionDetail2(@RequestParam long optionNum,
 			@RequestParam long optionNum2, @RequestParam long detailNum) {
-		List<Product> list = service.listOptionDetail(optionNum2);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("optionNum2", optionNum2);
+		map.put("detailNum", detailNum);
+		List<Product> list = service.listOptionDetailStock(map);
 		return list;
 	}
 	
@@ -96,6 +99,9 @@ public class ProductController {
 		try {
 			long longNum = Long.parseLong(productNum);
 			Product dto = service.findByProduct(longNum);
+			
+			// 추가 이미지
+			List<Product> listFile = service.listProductFile(longNum);
 			// 옵션명
 			List<Product> listOption = service.listProductOption(longNum);
 			// 상위 옵션값
@@ -103,11 +109,14 @@ public class ProductController {
 			if(listOption.size() > 0) {
 				listOptionDetail = service.listOptionDetail(listOption.get(0).getOptionNum());
 			}
+			dto.setFilename(dto.getThumbnail());
+			listFile.add(0, dto);
 		
 			model.addAttribute("dto", dto);
 			model.addAttribute("productNum",productNum);
 			model.addAttribute("listOption", listOption);
 			model.addAttribute("listOptionDetail", listOptionDetail);
+			model.addAttribute("listFile", listFile);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -16,19 +16,23 @@
 function pointOk() {
 	const f = document.paymentForm;
 	
-	let point = ${point.point}; 
+	let point = parseInt(${point.point}); 
+	let usePoint = parseInt(f.usePoint.value);
 	
 	if(f.usePoint.value > point){
 		alert("보유포인트보다 많은 포인트를 사용할 수 없습니다.")
 		return;
 	}
 	
-	if(f.usePoint.value > f.payment.value){
-		alert("결제금액보다 많은 포인트를 사용할 수 없습니다.")
+	let totalvalue = parseInt(f.payment.value);
+	
+	if(f.usePoint.value > totalvalue){
+		alert(f.usePoint.value)
+		alert(totalvalue)
 		return;
 	}
 	
-	let totalPayMent = f.payment.value - f.usePoint.value;
+	let totalPayMent = totalvalue - f.usePoint.value;
 	
 	$(".usePoint").text(f.usePoint.value.toLocaleString() + "원");
 	$(".product-totalAmount").text(totalPayMent.toLocaleString() + "원");	
@@ -76,6 +80,35 @@ function sendOk() {
 	f.action = "${pageContext.request.contextPath}/order/paymentOk"
 	f.submit();
 }
+
+$(function(){
+	$(".requiredOption").change(function(){
+		$(".requiredOption2 option").each(function(){
+			if($(this).is(":first-child")) {
+				return true; // continue
+			}
+			
+        	$(this).remove();
+        });
+		
+		let detailNum = $(this).val();
+		if(! detailNum) {
+			return false;
+		}
+		
+		let optionNum = $(".requiredOption").attr("data-optionNum");
+		
+		let url = "${pageContext.request.contextPath}/order/listOptionDetail2";
+		$.get(url, {optionNum:optionNum, optionNum2:optionNum2, detailNum:detailNum}, function(data){
+			$(data).each(function(index, item){
+				let detailNum = item.detailNum;
+				let optionValue = item.optionValue;
+				
+				$(".requiredOption2").append("<option value='"+detailNum+"'>"+optionValue+"</option>");
+			});
+		});
+	});
+});
 </script>
 
 <div class="container">
@@ -145,6 +178,15 @@ function sendOk() {
 								</label>
 							</td>
 						</tr>
+						<tr>
+							<td>
+								<div class="mt-2 border-bottom pb-2">
+									<select class="form-select requiredOption2" data-optionNum2="${listOption[1].optionNum}">
+										<option value="">${listOption[1].optionName}</option>
+									</select>
+								</div>
+							</td>
+						</tr>
 					</c:forEach>
 				</table>
 				
@@ -168,7 +210,7 @@ function sendOk() {
 						</tr>
 						
 						<tr>
-							<td><input type="text" name="usePoint" value="${usePoint}"></td>
+							<td><input type="text" name="usePoint" value="0"></td>
 							<td><button type="button" onclick="pointOk()">사용</button></td>
 						</tr>
 					</table>

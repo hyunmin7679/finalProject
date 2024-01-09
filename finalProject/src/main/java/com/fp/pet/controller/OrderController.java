@@ -190,6 +190,12 @@ public class OrderController {
 		
 		return ".order.complete";
 	}
+	
+	@GetMapping("coupon")
+	public String coupon(@RequestParam long productNum) {
+		
+		return "";
+	}
 
 
 }

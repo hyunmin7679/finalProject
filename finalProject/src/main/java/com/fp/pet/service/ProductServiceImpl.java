@@ -107,4 +107,31 @@ public class ProductServiceImpl implements ProductService{
 		
 		return list;
 	}
+
+
+	@Override
+	public List<Product> listProductFile(long productNum) {
+		List<Product> list = null;
+		
+		try {
+			list = mapper.listProductFile(productNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+
+	@Override
+	public List<Product> listOptionDetailStock(Map<String, Object> map) {
+		List<Product> list = null;
+		
+		try {
+			list = mapper.listOptionDetailStock(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 }

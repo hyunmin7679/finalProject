@@ -35,7 +35,11 @@ public class Product {
 	private String optionName;
 	private long detailNum;
 	private String optionValue;
+	private String optionValue2;
 	private long noOption;
+	
+	private String proDetail;
+	private long totalStock;
 	
 	public long getProductNum() {
 		return productNum;
@@ -211,11 +215,29 @@ public class Product {
 	public void setOptionValue(String optionValue) {
 		this.optionValue = optionValue;
 	}
+	public String getOptionValue2() {
+		return optionValue2;
+	}
+	public void setOptionValue2(String optionValue2) {
+		this.optionValue2 = optionValue2;
+	}
 	public long getNoOption() {
 		return noOption;
 	}
 	public void setNoOption(long noOption) {
 		this.noOption = noOption;
+	}
+	public String getProDetail() {
+		return proDetail;
+	}
+	public void setProDetail(String proDetail) {
+		this.proDetail = proDetail;
+	}
+	public long getTotalStock() {
+		return totalStock;
+	}
+	public void setTotalStock(long totalStock) {
+		this.totalStock = totalStock;
 	}
 	
 

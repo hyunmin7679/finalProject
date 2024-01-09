@@ -82,8 +82,11 @@ public class OrderServiceImpl implements OrderService{
 				
 				mapper.insertOrderDetail(dto);
 			}
+			
 			mapper.earnPoints(dto);
-			mapper.usePoints(dto);
+			if(dto.getUsePoint()!=0) {
+				mapper.usePoints(dto);
+			}
 			mapper.insertOrderDelivery(dto);
 		} catch (Exception e) {
 			e.printStackTrace();

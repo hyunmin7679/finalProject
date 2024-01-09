@@ -20,6 +20,8 @@ public class Qna {
 	private String answerName;
 	private String productName;
 	private String thumbnail;
+	
+	private String[] listFilename;
 
 	//private String userId;
 	//private String userName;
@@ -120,5 +122,12 @@ public class Qna {
 	public void setThumbnail(String thumbnail) {
 		this.thumbnail = thumbnail;
 	}
+	public String[] getListFilename() {
+		return listFilename;
+	}
+	public void setListFilename(String[] listFilename) {
+		this.listFilename = listFilename;
+	}
+	
 	
 }

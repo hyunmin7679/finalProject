@@ -129,9 +129,9 @@ $(function(){
 		$.get(url, {optionNum:optionNum, optionNum2:optionNum2, detailNum:detailNum}, function(data){
 			$(data).each(function(index, item){
 				let detailNum = item.detailNum;
-				let optionValue = item.optionValue;
+				let optionValue2 = item.optionValue2;
 				
-				$(".requiredOption2").append("<option value='"+detailNum+"'>"+optionValue+"</option>");
+				$(".requiredOption2").append("<option value='"+detailNum+"'>"+optionValue2+"</option>");
 			});
 		});
 	});
@@ -906,7 +906,7 @@ $(function(){
 // question -----
 function listQuestion(page) {
 	let productNum = '${dto.productNum}';
-	let url = '${pageContext.request.contextPath}/qna/list';
+	let url = '${pageContext.request.contextPath}/proqna/list';
 	let query = 'productNum='+productNum+'&pageNo='+page;
 	
 	const fn = function(data) {

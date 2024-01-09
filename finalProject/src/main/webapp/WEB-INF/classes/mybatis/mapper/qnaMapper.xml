@@ -48,6 +48,9 @@
 			<if test="kwd!=null and kwd!='' ">
 				AND <include refid="where-list"/>
 			</if>
+			<if test="productNum != null">
+				and p.productNum = #{productNum}
+			</if>
 		</where>
 	</select>
 	
@@ -64,15 +67,25 @@
 
 	<!-- 글리스트 -->
     <select id="listQna" parameterType="map" resultType="com.fp.pet.domain.Qna">
-		SELECT num, q.productNum, p.productName, thumbnail, q.memberIdx, secret, userName, q_subject,
-			   TO_CHAR(question_date, 'YYYY-MM-DD') question_date, answer_date
+		SELECT q.num, q.productNum, p.productName, thumbnail, q.memberIdx, secret, m.userName, q_subject, m2.userId answerId, m2.userName answerName,
+			   TO_CHAR(question_date, 'YYYY-MM-DD') question_date, answer_date, question, answer,
+			   filename, showQuestion
 		FROM productQna q
 		JOIN member1 m ON q.memberIdx=m.memberIdx
 		LEFT OUTER JOIN product p ON q.productNum=p.productNum
+		LEFT OUTER JOIN (
+			SELECT num, LISTAGG(filename, ',') WITHIN GROUP(ORDER BY fileNum) filename
+            FROM productQnaFile
+            GROUP BY num	
+		) f ON q.num=f.num
+		LEFT OUTER JOIN member1 m2 ON answerId = m2.userId
 		<where>
 			showQuestion = 1
 			<if test="kwd!=null and kwd!='' ">
 				AND <include refid="where-list"/>
+			</if>
+			<if test="productNum != null">
+				and p.productNum = #{productNum}
 			</if>
 		</where>   
 		ORDER BY num DESC
