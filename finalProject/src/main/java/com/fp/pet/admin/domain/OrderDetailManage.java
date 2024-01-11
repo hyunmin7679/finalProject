@@ -29,6 +29,13 @@ public class OrderDetailManage {
 	private Long detailNum2;
 	private String optionValue2;
 	
+	private long detailNum3;
+	private String optionValue3;
+	private Long detailNum4;
+	private String optionValue4;
+	
+	
+	
 	private int orderState;
 	private String orderStateInfo;
 	private int detailState;
@@ -55,9 +62,40 @@ public class OrderDetailManage {
 	private String fileName;
 	private int changeState;
 	
+	private long couponNum;
 	
 	
 	
+	public long getCouponNum() {
+		return couponNum;
+	}
+	public void setCouponNum(long couponNum) {
+		this.couponNum = couponNum;
+	}
+	public long getDetailNum3() {
+		return detailNum3;
+	}
+	public void setDetailNum3(long detailNum3) {
+		this.detailNum3 = detailNum3;
+	}
+	public String getOptionValue3() {
+		return optionValue3;
+	}
+	public void setOptionValue3(String optionValue3) {
+		this.optionValue3 = optionValue3;
+	}
+	public Long getDetailNum4() {
+		return detailNum4;
+	}
+	public void setDetailNum4(Long detailNum4) {
+		this.detailNum4 = detailNum4;
+	}
+	public String getOptionValue4() {
+		return optionValue4;
+	}
+	public void setOptionValue4(String optionValue4) {
+		this.optionValue4 = optionValue4;
+	}
 	public long getMemberIdx() {
 		return memberIdx;
 	}

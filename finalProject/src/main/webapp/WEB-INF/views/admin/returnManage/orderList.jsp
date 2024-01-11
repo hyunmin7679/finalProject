@@ -98,9 +98,10 @@
 										data-memberIdx="${dto.memberIdx}"
 										data-detailNum="${dto.detailNum}"
 										data-detailNum2="${dto.detailNum2}"
+										data-detailNum3="${dto.detailNum3}"
 										data-productNum="${dto.productNum }"
+										data-couponNum="${dto.couponNum}"
 										data-qty="${dto.qty}"
-										
 										>변경
 									</span>
 								</c:if>
@@ -168,33 +169,7 @@
 					style="padding-left: 500px; padding-top: 10px;">
 					<div class="dataTables_paginate paging_simple_numbers"
 						id="DataTables_Table_0_paginate">
-						<ul class="pagination">
-							<li class="paginate_button page-item previous disabled"
-								id="DataTables_Table_0_previous"><a
-								aria-controls="DataTables_Table_0" aria-disabled="true"
-								role="link" data-dt-idx="previous" tabindex="0"
-								class="page-link">Previous</a></li>
-							<li class="paginate_button page-item active"><a href="#"
-								aria-controls="DataTables_Table_0" role="link"
-								aria-current="page" data-dt-idx="0" tabindex="0"
-								class="page-link">1</a></li>
-							<li class="paginate_button page-item "><a href="#"
-								aria-controls="DataTables_Table_0" role="link" data-dt-idx="1"
-								tabindex="0" class="page-link">2</a></li>
-							<li class="paginate_button page-item "><a href="#"
-								aria-controls="DataTables_Table_0" role="link" data-dt-idx="2"
-								tabindex="0" class="page-link">3</a></li>
-							<li class="paginate_button page-item "><a href="#"
-								aria-controls="DataTables_Table_0" role="link" data-dt-idx="3"
-								tabindex="0" class="page-link">4</a></li>
-							<li class="paginate_button page-item "><a href="#"
-								aria-controls="DataTables_Table_0" role="link" data-dt-idx="4"
-								tabindex="0" class="page-link">5</a></li>
-							<li class="paginate_button page-item next"
-								id="DataTables_Table_0_next"><a href="#"
-								aria-controls="DataTables_Table_0" role="link"
-								data-dt-idx="next" tabindex="0" class="page-link">Next</a></li>
-						</ul>
+						${paging}
 					</div>
 				</div>
 			</div>

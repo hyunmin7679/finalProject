@@ -78,6 +78,8 @@
 		c.couponNum, c.categoryNum, c.couponCode, c.couponName, c.couponDiscount,
 		c.startCouponDate, c.endCouponDate, c.couponState
 		order by c.startCouponDate
+		OFFSET #{offset} ROWS FETCH FIRST #{size}
+		ROWS ONLY
 	</select>
 	
 	<select id="couponDetail" parameterType="Long" resultType="com.fp.pet.admin.domain.Coupon">

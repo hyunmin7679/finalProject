@@ -15,6 +15,18 @@ import com.fp.pet.state.OrderState;
 public class ReturnServiceImpl implements ReturnService{
 	@Autowired
 	private ReturnMapper mapper;
+	
+	
+	@Override
+	public int orderCount(Map<String, Object> map) throws Exception {
+		int result = 0;
+		try {
+			result = mapper.orderCount(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 
 	@Override
 	public List<OrderDetailManage> listOrder(Map<String, Object> map) {
@@ -68,7 +80,9 @@ public class ReturnServiceImpl implements ReturnService{
 				int usedSaved = Integer.parseInt((String) map.get("usedSaved"));
 
 				int qty = Integer.parseInt((String) map.get("qty"));
+				int couponNum = Integer.parseInt((String) map.get("couponNum"));
 				
+				System.out.println(couponNum + "couponNum couponNum couponNum couponNum couponNum couponNum ");
 				System.out.println(usedSaved+"usedSavedusedSavedusedSavedusedSaved");
 				System.out.println(cancelCost+"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 				System.out.println(orderNum+"orderNumorderNumorderNumorderNumorderNum");
@@ -125,7 +139,11 @@ public class ReturnServiceImpl implements ReturnService{
 					map.put("cancelCost", cancelCost);
 					mapper.updateOrder(map);
 					
-
+					// 쿠폰 돌려주기 
+					if(couponNum != 0 ) {
+						mapper.updateCoupon(map);
+					}
+					
 					// 포인트 회수하기
 					int savedMoney = -savedMoney1;
 					System.out.println(savedMoney+"savedMoneysavedMoneysavedMoneysavedMoney");

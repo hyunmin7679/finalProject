@@ -321,8 +321,9 @@ $(function(){
 $(function(){
 	$('.offcanvas-container').on('click', '.btnSendOk', function() {
 		//  쿠폰 등록 완료
+		
 		const f = document.couponForm;
-		    
+				    
 		let url = "${pageContext.request.contextPath}/admin/couponManage/couponRegi";
 		
 	    let formData = new FormData(f);
@@ -349,6 +350,7 @@ $(function(){
 			
 			listPage(1);
 			
+			
 	    	$('#offcanvasEcommerceCategoryList').offcanvas('hide');
 	    	
 		};
@@ -370,7 +372,7 @@ $(function(){
 
 //글리스트 및 페이징 처리
 function listPage(page) {
-	
+	console.log('asdasdas'+page);
 	const $tab = $(".tabs .active");
 	let category = $tab.attr("data-category");
 	

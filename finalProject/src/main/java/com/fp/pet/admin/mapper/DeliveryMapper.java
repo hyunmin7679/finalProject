@@ -11,7 +11,7 @@ import com.fp.pet.admin.domain.OrderManage;
 
 @Mapper
 public interface DeliveryMapper {
-	//public int orderCount(Map<String,Object>map) throws Exception;
+	public int dataCount(Map<String,Object>map) throws Exception;
 	public List<OrderManage> listOrder(Map<String,Object>map);
 
 	public OrderManage findById(String orderNum);

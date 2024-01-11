@@ -253,6 +253,7 @@ $(function(){
 							<input type="hidden" name="detailNum">
 							<input type="hidden" name="detailNum2">
 							<input type="hidden" name="productNum">
+							<input type="hidden" name="couponNum">
 							<input type="hidden" name="qty">
 						
 							<button class="btn btn-secondary p-6 m-0 btnDetailStateUpdateOk" type="button">변경</button>
@@ -358,6 +359,7 @@ $(function(){
 		let detailNum = $(this).attr("data-detailNum");
 		let detailNum2 = $(this).attr("data-detailNum2");
 		let productNum = $(this).attr("data-productNum");
+		let couponNum = $(this).attr("data-couponNum"); 
 		let qty = $(this).attr("data-qty");
 		
 		
@@ -387,6 +389,7 @@ $(function(){
 		f.orderDetailNum.value = orderDetailNum;
 		f.cancelCost.value = cancelCost;
 		f.deliveryCharge.value = deliveryCharge;
+		f.couponNum.value = couponNum ;
 
 		f.usedSaved.value = usedSaved;
 		f.savedMoney.value = savedMoney;

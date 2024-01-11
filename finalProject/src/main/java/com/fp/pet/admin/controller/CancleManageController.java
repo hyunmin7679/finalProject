@@ -58,7 +58,9 @@ public class CancleManageController {
 		if (req.getMethod().equalsIgnoreCase("GET")) { // GET 방식인 경우
 			state = URLDecoder.decode(state, "utf-8");
 		}
-		
+		if (req.getMethod().equalsIgnoreCase("GET")) { // GET 방식인 경우
+			kwd = URLDecoder.decode(kwd, "utf-8");
+		}
 		// cancleStatus /  order - 주문취소 , sale - 판매취소 
 		// state { ordercancle : 주문취소신청 / ordercanclecom : 주문취소신청완료 / salecancle : 판매취소완료}
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -66,8 +68,10 @@ public class CancleManageController {
 		map.put("schType", schType);
 		map.put("kwd", kwd);
 		
-		// dataCount = service.orderCount(map);
-		total_page = myUtil.pageCount(dataCount, size);
+		dataCount = service.orderCount(map);
+		if (dataCount != 0) {
+			total_page = myUtil.pageCount(dataCount, size);
+		}
 		if(current_page > total_page) {
 			current_page = total_page;
 		}
@@ -80,10 +84,17 @@ public class CancleManageController {
 		
 		List<OrderDetailManage> list = service.listOrder(map);
 		
+		String paging = myUtil.pagingMethod(current_page, total_page, "listPage");
+
+		
 		model.addAttribute("state",state);
 		model.addAttribute("list", list);
+		model.addAttribute("page", current_page);
 		model.addAttribute("dataCount", dataCount);
-		
+		model.addAttribute("total_page", total_page);
+		model.addAttribute("paging", paging);
+		model.addAttribute("schType",schType);
+		model.addAttribute("kwd",kwd);
 		
 		return "/admin/cancleManage/orderList";
 	}

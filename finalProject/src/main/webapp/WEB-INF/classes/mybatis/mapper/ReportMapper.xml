@@ -3,26 +3,75 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fp.pet.admin.mapper.ReportMapper">
 
-	<select id="listReport" resultType="com.fp.pet.admin.domain.Report">
-	SELECT DISTINCT
-	r.reasonNum,
-	r.memberIdx,
-	r.declUrl,
-	r.reason,
-	r.content,
-	r.reg_date,
-	p.reg_date as preg_date,
-	m.userName,
-	CASE WHEN LENGTH(p.productName) &lt; =  15 THEN p.productName
-	ELSE SUBSTR(p.productName, 1, 15) || '...'
-	END AS productName,
-	p.productNum
-	FROM
-	report r
-	JOIN
-	member1 m ON r.memberIdx = m.memberIdx
-	JOIN
-	product p ON TO_NUMBER(REGEXP_SUBSTR(r.declUrl, '\d+')) = p.productNum
+	<select id="dataCount" resultType="int">
+		SELECT COUNT(*) AS count
+		FROM (
+		SELECT
+		TO_NUMBER(REGEXP_SUBSTR(declUrl, '\d+')) as communitynum,
+		ROW_NUMBER() OVER (PARTITION BY TO_NUMBER(REGEXP_SUBSTR(declUrl, '\d+')) ORDER BY
+		r.reg_date) AS rn
+		FROM report r
+		JOIN community p ON TO_NUMBER(REGEXP_SUBSTR(r.declUrl, '\d+')) =
+		p.communityNum
+		) WHERE rn = 1
 	</select>
+
+
+	<select id="listReport"
+		resultType="com.fp.pet.admin.domain.Report">
+		SELECT communitynum
+		FROM (
+		SELECT
+		TO_NUMBER(REGEXP_SUBSTR(declUrl, '\d+')) as communitynum,
+		ROW_NUMBER()
+		OVER (PARTITION BY TO_NUMBER(REGEXP_SUBSTR(declUrl, '\d+')) ORDER BY
+		r.reg_date) AS rn
+		FROM report r
+		JOIN community p ON
+		TO_NUMBER(REGEXP_SUBSTR(r.declUrl, '\d+')) =
+		p.communityNum
+		) WHERE rn =
+		1
+	</select>
+
+	<select id="listCommunity" parameterType="long"
+		resultType="com.fp.pet.admin.domain.Report">
+		select communityNum, m.userName as
+		postName,categoryNum,showNo,
+		subject,
+		reg_date as preg_date
+		From
+		community c
+		join member1 m on m.userId =
+		c.userId
+		where communityNum =
+		#{communityNum}
+	</select>
+
+	<select id="findReporyList" parameterType="map"
+		resultType="com.fp.pet.admin.domain.Report">
+		SELECT DISTINCT
+		r.reasonNum,
+		m.userid,
+		r.reason,
+		r.content,
+		r.reg_date,
+		m.userName as reportUser
+		FROM
+		report r
+		JOIN
+		member1 m ON
+		r.memberIdx = m.memberIdx
+		JOIN
+		community p ON
+		TO_NUMBER(REGEXP_SUBSTR(r.declUrl, '\d+')) = p.communitynum
+		where
+		communityNum = #{communityNum}
+	</select>
+
+	<update id="changeShow" parameterType="map">
+		update community set
+		showNo = #{showNo} where communityNum = #{communityNum}
+	</update>
 
 </mapper>

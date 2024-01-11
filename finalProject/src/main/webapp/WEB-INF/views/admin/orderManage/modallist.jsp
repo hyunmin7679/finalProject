@@ -79,10 +79,14 @@
 						</div>
 						<div class="text-end pe-4">
 							<button class="btn btn-secondary p-2 m-0 btn-cancel-order" 
-							data-orderNum="${order.orderNum}"
+							 data-orderNum="${order.orderNum}"
 							 data-payment="${order.payment}" 
 							 data-cancelAmount="${order.cancelAmount}" 
-							 data-usedSaved = "${order.usedSaved}" type="button">주문판매취소</button>
+							 data-usedSaved = "${order.usedSaved}"
+							 data-deliveryCharge="${order.deliveryCharge}" 
+							 data-memberIdx = "${order.memberIdx}"
+							 
+							  type="button">주문판매취소</button>
 						</div>
 						<div class="mt-2 border-top pt-2">
 							<div class="p-3 shadow bg-body rounded">
@@ -128,7 +132,19 @@
 														data-orderDetailNum="${dto.orderDetailNum}"
 														data-deliveryCharge="${order.deliveryCharge}" 
 														data-cancelAmount = "${order.cancelAmount}"
-														data-detailState="${dto.detailState}">수정</span></td>
+														data-detailState="${dto.detailState}"
+														
+														data-memberIdx = "${order.memberIdx}"
+														data-savedMoney = "${dto.savedMoney}"
+														data-usedSaved = "${order.usedSaved}"
+														data-qty = "${dto.qty}"
+														data-productNum="${dto.productNum}"
+														data-detailNum="${dto.detailNum}"
+														data-detailNum2="${dto.detailNum2}"
+														data-couponNum="${dto.couponNum}"
+														
+														
+														>수정</span></td>
 												<td>
 												
 													${order.orderState==0  && dto.detailState==0?"상품준비중": dto.detailStateInfo}

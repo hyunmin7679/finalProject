@@ -2,6 +2,20 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fp.pet.admin.mapper.OrderManageMapper">
+
+	<select id="dataCount" parameterType="map" resultType="Integer" >
+		SELECT NVL(COUNT(*), 0) from productOrder
+		<where>
+			<if test="state == 'before'">
+				orderState = 0
+			</if>
+			<if test="state == 'after'">
+				orderState = 1
+			</if>
+		</where>
+		
+	</select>
+
 	<select id="listOrder" parameterType="map"
 		resultType="com.fp.pet.admin.domain.OrderManage">
 		SELECT po.orderNum, po.memberIdx, NVL(userName,'손님') userName,
@@ -51,8 +65,8 @@
 
 	<select id="findByOrderDetails" parameterType="String"
 		resultType="com.fp.pet.admin.domain.OrderDetailManage">
-		SELECT od.orderNum, od.orderDetailNum, qty, od.price,couponPrice
-		salePrice, productMoney, od.savedMoney,productCancelM,
+		 SELECT od.orderNum, od.orderDetailNum, qty, od.price,couponPrice,couponNum
+		,od.salePrice, productMoney, od.savedMoney,productCancelM,
 		op.detailNum, op.optionValue, od.detailNum2, op2.optionValue optionValue2,
 		od.productNum, productName,
 		od.detailState
@@ -112,7 +126,7 @@
 
 	<insert id="insertDetailStateInfo" parameterType="map">	
 		INSERT INTO detailStateInfo(stateNum, orderDetailNum, memberIdx, detailState, stateMemo, detailStateDate) VALUES
-			(detailState_seq.NEXTVAL, #{orderDetailNum}, #{memberIdx}, #{detailState}, 
+			(detailState_seq.NEXTVAL, #{orderDetailNum}, #{memberIdx1}, #{detailState}, 
 				#{stateMemo,jdbcType=VARCHAR}, SYSDATE)
 	</insert>
 	
@@ -137,4 +151,35 @@
 		UPDATE productOrder SET orderState = #{orderState}, orderStateDate = SYSDATE
 		WHERE orderNum = #{orderNum}
 	</update>
+	
+	<insert id="updatePoint" parameterType="map">
+		insert into
+		point(pointNum,orderNum,memberIdx,reg_date,memo,p_qyt,p_sort)
+		values(point_seq.NEXTVAL,#{orderNum},#{memberIdx},
+		sysdate,'판매취소로 인한 포인트 회수',#{savedMoney},NULL)
+	</insert>
+	
+	
+	<select id="findByStock" parameterType="map" resultType="map">
+		select
+		stockNum,totalStock from productStock
+		where productNum = #{productNum}
+		and detailNum = #{detailNum} and detailNum2 = #{detailNum2}
+	</select>
+	
+	<update id="updateStock" parameterType="map">
+		update productStock set 
+		totalStock = #{totalStock} where stockNum = #{stockNum}
+	</update>
+	
+	<insert id="updateUsedSaved" parameterType="map">
+		insert into
+		point(pointNum, orderNum ,memberIdx,reg_date,memo,p_qyt,p_sort)
+		values(point_seq.NEXTVAL,#{orderNum},#{memberIdx},sysdate,
+		'판매취소로 인한 포인트 복구',#{usedSaved},NULL)
+	</insert>
+	<update id = "updateCoupon" parameterType="map">
+		update memberCoupon set use = 0 where couponNum = #{couponNum}
+	</update>
+	
 </mapper>

@@ -11,7 +11,7 @@ import com.fp.pet.admin.domain.OrderManage;
 
 @Mapper
 public interface OrderManageMapper {
-	// public int orderCount(Map<String,Object>map) throws SQLException;
+	public int dataCount(Map<String,Object>map) throws SQLException;
 	public List<OrderManage> listOrder(Map<String,Object>map);
 
 	public OrderManage findById(String orderNum);
@@ -30,5 +30,12 @@ public interface OrderManageMapper {
 	public void updateProductCancleAmount(Map<String, Object> map) throws SQLException;
 	public int totalOrderCount(String orderNum);
 	public void updateOrderState(Map<String, Object> map) throws SQLException;
+
+	
+	public void updatePoint(Map<String,Object>map) throws SQLException;
+	public Map<Integer,Object> findByStock(Map<String, Object> map)throws SQLException;
+	public void updateUsedSaved(Map<String,Object>map) throws SQLException;
+	public void updateStock(Map<String,Object>map) throws SQLException;
+	public void updateCoupon(Map<String,Object>map)throws SQLException;
 
 }

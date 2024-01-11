@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.fp.pet.admin.mapper.StatisticsManageMapper">
+	<select id="todayregcount" resultType="Integer">
+		SELECT COUNT(*) AS
+		newMemberCount
+		FROM member1
+		WHERE TRUNC(register_date) >= TRUNC(SYSDATE)
+	</select>
+
+
+	<select id="returnProduct" resultType="Integer">
+		SELECT SUM(productCancelM)
+		AS totalCancelAmount
+		FROM orderDetail
+		WHERE detailState = 12
+	</select>
+
+	<select id="giftProduct" resultType="Integer">
+		SELECT SUM(po.payment) AS
+		totalPayment
+		FROM orderDetail od
+		JOIN productOrder po ON od.orderNum =
+		po.orderNum
+		WHERE od.detailState IN (0, 1, 2, 6, 7, 8, 9, 14) and
+		po.orderSort = 1
+	</select>
+
+	<select id="allCommunity" resultType="Integer">
+		SELECT COUNT(*) AS
+		postCount
+		FROM community
+	</select>
+
+	<select id="yestCommunity" resultType="Integer">
+		SELECT COUNT(*) AS
+		postCount
+		FROM community
+		WHERE TRUNC(reg_date) = TRUNC(SYSDATE)
+	</select>
+
+	<select id="iconList" resultType="com.fp.pet.admin.domain.Icon">
+		SELECT il.iconNum, i.iconName,
+		i.iconImage, COUNT(il.iconSeq) AS iconCount
+		FROM iconlist il
+		JOIN icon i
+		ON il.iconNum = i.iconNum
+		GROUP BY il.iconNum, i.iconName, i.iconImage
+		ORDER BY iconCount DESC
+		FETCH FIRST 5 ROWS ONLY
+	</select>
+
+	<select id="paylist" parameterType="String"
+		resultType="com.fp.pet.admin.domain.Chart">
+		SELECT
+		TO_CHAR(MONTH, 'MM') AS months,
+		NVL(SUM(payment), 0)
+		AS pay
+		FROM
+		(
+		SELECT TO_DATE('${selectedYear}-' || LPAD(level, 2, '0'),
+		'YYYY-MM') AS MONTH
+		FROM dual
+		CONNECT BY LEVEL &lt;= 12
+		) months
+		LEFT JOIN
+		productOrder po ON TO_CHAR(po.orderDate, 'YYYY-MM') =
+		TO_CHAR(months.MONTH,
+		'YYYY-MM')
+		GROUP BY
+		TO_CHAR(months.MONTH, 'MM')
+		ORDER BY
+		TO_CHAR(months.MONTH, 'MM')
+	</select>
+
+	<select id="paylist2" parameterType="String"
+		resultType="com.fp.pet.admin.domain.Chart">
+		SELECT
+		TO_CHAR(MONTH, 'MM') AS months,
+		NVL(SUM(payment), 0)
+		AS pay
+		FROM
+		(
+		SELECT TO_DATE('${beforeYear}-' || LPAD(level, 2, '0'),
+		'YYYY-MM') AS MONTH
+		FROM dual
+		CONNECT BY LEVEL &lt;= 12
+		) months
+		LEFT JOIN
+		productOrder po ON TO_CHAR(po.orderDate, 'YYYY-MM') =
+		TO_CHAR(months.MONTH,
+		'YYYY-MM')
+		GROUP BY
+		TO_CHAR(months.MONTH, 'MM')
+		ORDER BY
+		TO_CHAR(months.MONTH, 'MM')
+	</select>
+
+	<select id="currentY" resultType="Integer">
+		select SUM(payment) from
+		productOrder where EXTRACT(YEAR FROM orderDate) =
+		2024
+	</select>
+
+	<select id="beforeY" resultType="Integer">
+		select SUM(payment) from
+		productOrder where EXTRACT(YEAR FROM orderDate) =
+		2023
+
+	</select>
+
+	<select id="dayChart" parameterType="map" resultType="com.fp.pet.admin.domain.Chart">
+		WITH DateList AS (
+		SELECT TO_DATE('${gogo}-01', 'YYYY-MM-DD') + LEVEL - 1 AS order_date
+		FROM dual
+		CONNECT BY LEVEL &lt;= TO_DATE('${result}', 'YYYY-MM-DD') -
+		TO_DATE('${gogo}-01', 'YYYY-MM-DD') + 1
+		)
+		SELECT TO_CHAR(dl.order_date, 'YYYY-MM-DD') AS daySale_date,
+		NVL(SUM(po.payment), 0) AS daySale
+		FROM DateList dl
+		LEFT JOIN productOrder po ON TO_CHAR(dl.order_date, 'YYYY-MM-DD') =
+		TO_CHAR(po.orderDate, 'YYYY-MM-DD')
+		GROUP BY TO_CHAR(dl.order_date, 'YYYY-MM-DD')
+		ORDER BY daySale_date
+	</select>
+
+
+
+
+
+	<select id="catafeed" parameterType="map"
+		resultType="com.fp.pet.admin.domain.MainManageStatic">
+		SELECT
+		COALESCE(
+		CASE
+		WHEN p.categoryNum BETWEEN 1 AND 4 THEN
+		'사료'
+		ELSE 'Other'
+		END,
+		'Total'
+		) AS categoryRangefeed,
+		COUNT(*) AS
+		categoryCountfeed
+		FROM
+		orderdetail od
+		JOIN
+		product p ON od.productNum =
+		p.productNum
+		WHERE
+		p.categoryNum BETWEEN 1 AND 4
+		GROUP BY
+		GROUPING SETS (
+		(CASE
+		WHEN p.categoryNum BETWEEN 1 AND 4 THEN '사료'
+		ELSE 'Other'
+		END)
+		)
+	</select>
+
+	<select id="catasnack" parameterType="map"
+		resultType="com.fp.pet.admin.domain.MainManageStatic">
+		SELECT
+		COALESCE(
+		CASE
+		WHEN p.categoryNum BETWEEN 5 AND 10 THEN
+		'간식'
+		ELSE 'Other'
+		END,
+		'Total'
+		) AS categoryRangesnack,
+		COUNT(*) AS
+		categoryCountsnack
+		FROM
+		orderdetail od
+		JOIN
+		product p ON od.productNum =
+		p.productNum
+		WHERE
+		p.categoryNum BETWEEN 5 AND 10
+		GROUP BY
+		GROUPING SETS (
+		(CASE
+		WHEN p.categoryNum BETWEEN 5 AND 10 THEN '간식'
+		ELSE 'Other'
+		END)
+		)
+	</select>
+
+	<select id="catastuff" parameterType="map"
+		resultType="com.fp.pet.admin.domain.MainManageStatic">
+		SELECT
+		COALESCE(
+		CASE
+		WHEN p.categoryNum BETWEEN 11 AND 18
+		THEN '용품'
+		ELSE 'Other'
+		END,
+		'Total'
+		) AS categoryRangestuff,
+		COUNT(*) AS
+		categoryCountstuff
+		FROM
+		orderdetail od
+		JOIN
+		product p ON od.productNum =
+		p.productNum
+		WHERE
+		p.categoryNum BETWEEN 11 AND 18
+		GROUP BY
+		GROUPING SETS
+		(
+		(CASE
+		WHEN p.categoryNum BETWEEN 11 AND 18 THEN '용품'
+		ELSE 'Other'
+		END)
+		)
+	</select>
+
+	<select id="dataCount" resultType="Integer">
+		SELECT
+		NVL(COUNT(*),0) FROM
+		orderdetail
+	</select>
+
+	<select id="currsales" resultType="Integer">
+		SELECT SUM(totalmoney) AS
+		total_money_sum
+		FROM productOrder where
+		to_char(orderdate,'yyyy')=to_char(sysdate,'yyyy')
+	</select>
+	<select id="lastsales" resultType="Integer">
+		SELECT SUM(totalmoney) AS
+		total_money_sum
+		FROM productOrder where
+		to_char(orderdate,'yyyy')=to_char(sysdate,'yyyy')-1
+	</select>
+
+	<select id="currpoints" resultType="Integer">
+		select sum(savedmoney)
+		savedmoney from orderdetail od join productorder po
+		on
+		od.ordernum=po.ordernum where productcancelm=0 and
+		to_char(orderdate,'yyyy')=to_char(sysdate,'yyyy')
+	</select>
+
+	<select id="lastpoints" resultType="Integer">
+		select sum(savedmoney)
+		savedmoney from orderdetail od
+		join productorder po
+		on
+		od.ordernum=po.ordernum where productcancelm=0
+		and
+		to_char(orderdate,'yyyy')=to_char(sysdate,'yyyy')-1
+	</select>
+
+	<select id="currexpense" resultType="Integer">
+		select sum(totalmoney*0.3)
+		totalmoney from productorder where cancelamount=0
+		and
+		to_char(orderdate,'yyyy')=to_char(sysdate,'yyyy')
+	</select>
+
+	<select id="lastexpense" resultType="Integer">
+		select sum(totalmoney*0.3)
+		totalmoney from productorder where cancelamount=0
+		and
+		to_char(orderdate,'yyyy')=to_char(sysdate,'yyyy')-1
+	</select>
+
+	<select id="currorders" resultType="Integer">
+		select count(*) from orderdetail od join productOrder po on
+		od.orderNum=po.orderNum where
+		to_char(orderdate,'yyyy')=to_char(sysdate,'yyyy')
+	</select>
+
+	<select id="lastorders" resultType="Integer">
+		select count(*) from orderdetail od join productOrder po on
+		od.orderNum=po.orderNum where
+		to_char(orderdate,'yyyy')=to_char(sysdate,'yyyy')-1
+	</select>
+</mapper>

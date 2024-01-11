@@ -7,7 +7,7 @@ import com.fp.pet.admin.domain.OrderDetailManage;
 import com.fp.pet.admin.domain.OrderManage;
 
 public interface CancleService {
-	// public int orderCount(Map<String,Object>map) throws Exception;
+		public int orderCount(Map<String,Object>map) throws Exception;
 		public List<OrderDetailManage> listOrder(Map<String,Object>map);
 		
 		public OrderManage findById(String orderNum);

@@ -20,6 +20,6 @@ public interface OrderManageService {
 	
 	public List<Map<String, Object>> listDetailStateInfo(long orderDetailNum);
 	public void updateOrderDetailState(Map<String, Object> map) throws Exception;
-
+	public int dataCount(Map<String,Object>map) throws Exception;
 
 }

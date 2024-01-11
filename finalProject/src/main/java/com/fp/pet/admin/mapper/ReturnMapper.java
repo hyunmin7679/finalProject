@@ -10,6 +10,7 @@ import com.fp.pet.admin.domain.OrderDetailManage;
 
 @Mapper
 public interface ReturnMapper {
+	public int orderCount(Map<String,Object>map) throws SQLException;
 	public List<OrderDetailManage> listOrder(Map<String,Object>map);
 
 	public List<Map<String, Object>> listFile(long changeNum);
@@ -29,4 +30,6 @@ public interface ReturnMapper {
 	public void updateStock(Map<String,Object>map) throws SQLException;
 	public void updateUsedSaved(Map<String,Object>map) throws SQLException;
 
+	
+	public void updateCoupon(Map<String,Object>map)throws SQLException;
 }

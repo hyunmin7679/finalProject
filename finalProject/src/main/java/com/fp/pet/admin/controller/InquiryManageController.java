@@ -64,12 +64,6 @@ public class InquiryManageController {
         return ".admin.inquiryManage.csManage";
     }
     
-    @RequestMapping(value = "communityManage")
-    public String communityManage(Model model) throws Exception {
-    	model.addAttribute("left","communityManage");
-		model.addAttribute("sub","communityManage");
-        return ".admin.inquiryManage.communityManage";
-    }
     
     @RequestMapping(value = "scheduleManage")
     public String scheduleManage(Model model) throws Exception {
@@ -80,27 +74,7 @@ public class InquiryManageController {
     
  
 
-    @RequestMapping(value = "dpManage")
-    public String dpManage(Model model) throws Exception {
-    	  model.addAttribute("left","productdpManage");
-          model.addAttribute("sub","dpManage");
-        return ".admin.inquiryManage.dpManage";
-    }
-    
-    @RequestMapping(value = "productdpManage")
-    public String productdpManage(Model model) throws Exception {
-    	  model.addAttribute("left","productdpManage");
-          model.addAttribute("sub","productdpManage");
-        return ".admin.inquiryManage.productdpManage";
-    }
-    
-    // dpingManage
-    @RequestMapping(value = "dpingManage")
-    public String dpingManage(Model model) throws Exception {
-    	  model.addAttribute("left","productdpManage");
-          model.addAttribute("sub","dpingManage");
-        return ".admin.inquiryManage.dpingManage";
-    }
+  
     
     // dpEndManage
     @RequestMapping(value = "dpEndManage")
@@ -110,45 +84,22 @@ public class InquiryManageController {
         return ".admin.inquiryManage.dpEndManage";
     }
     
-    // allproductManage
-    @RequestMapping(value = "allproductManage")
-    public String allproductManage(Model model) throws Exception {
-    	  model.addAttribute("left","productdpManage");
-          model.addAttribute("sub","allproductManage");
-        return ".admin.inquiryManage.allproductManage";
-    }
+   
     
-    //cancleProduct
-    @RequestMapping(value = "cancleProduct")
-    public String cancleProduct(Model model) throws Exception {
-    	  model.addAttribute("left","creProductManage");
-          model.addAttribute("sub","cancleProduct");
-        return ".admin.inquiryManage.cancleProduct";
-    }
+	/*
+	 * //cancleProduct
+	 * 
+	 * @RequestMapping(value = "{cancleStatus}") public String
+	 * cancleProduct(@PathVariable String cancleStatus, Model model) throws
+	 * Exception { model.addAttribute("left","creProductManage");
+	 * model.addAttribute("sub","cancleProduct"); return
+	 * ".admin.inquiryManage.cancleProduct"; }
+	 */
     
-    //returnProduct
-    @RequestMapping(value = "returnProduct")
-    public String returnProduct(Model model) throws Exception {
-    	  model.addAttribute("left","creProductManage");
-          model.addAttribute("sub","returnProduct");
-        return ".admin.inquiryManage.returnProduct";
-    }
+   
     
-    //exchangeProduct
-    @RequestMapping(value = "exchangeProduct")
-    public String exchangeProduct(Model model) throws Exception {
-    	  model.addAttribute("left","creProductManage");
-          model.addAttribute("sub","exchangeProduct");
-        return ".admin.inquiryManage.exchangeProduct";
-    }
-    
-    // reportManage
-    @RequestMapping(value = "reportManage")
-    public String reportManage(Model model) throws Exception {
-    	  model.addAttribute("left","reportManage");
-          model.addAttribute("sub","reportManage");
-        return ".admin.inquiryManage.reportManage";
-    }
+   
+   
     
     
     

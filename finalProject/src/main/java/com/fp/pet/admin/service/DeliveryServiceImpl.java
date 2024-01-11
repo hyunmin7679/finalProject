@@ -18,10 +18,10 @@ public class DeliveryServiceImpl implements DeliveryService{
 	private DeliveryMapper mapper;
 	
 	@Override
-	public int orderCount(Map<String, Object> map) {
+	public int dataCount(Map<String, Object> map) {
 		int result = 0;
 		try {
-			//result = mapper.orderCount(map);
+			result = mapper.dataCount(map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

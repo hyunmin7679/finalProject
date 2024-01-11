@@ -9,8 +9,20 @@ public class Icon {
 	private String iconImage;
 	private int iconPrice;
 	private String iconCategory;
+	private int iconCount;
+	
+	
 
 	private MultipartFile selectFile;
+
+	
+	public int getIconCount() {
+		return iconCount;
+	}
+
+	public void setIconCount(int iconCount) {
+		this.iconCount = iconCount;
+	}
 
 	public long getIconNum() {
 		return iconNum;

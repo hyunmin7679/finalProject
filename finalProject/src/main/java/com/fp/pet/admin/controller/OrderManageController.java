@@ -40,6 +40,8 @@ public class OrderManageController {
 		return ".admin.orderManage.orderManagelist";
 	}
 
+	
+    
 	@RequestMapping(value = "orderlist")
 	public String orderList(Model model, @RequestParam(value = "state") String state,
 			@RequestParam(value = "page", defaultValue = "1") int current_page,
@@ -53,6 +55,9 @@ public class OrderManageController {
 		if (req.getMethod().equalsIgnoreCase("GET")) { // GET 방식인 경우
 			state = URLDecoder.decode(state, "utf-8");
 		}
+		if (req.getMethod().equalsIgnoreCase("GET")) { // GET 방식인 경우
+			kwd = URLDecoder.decode(kwd, "utf-8");
+		}
 		
 		// state { before : 입금전 / after : 결제완료 }
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -60,8 +65,11 @@ public class OrderManageController {
 		map.put("schType", schType);
 		map.put("kwd", kwd);
 		
-		// dataCount = service.orderCount(map);
-		total_page = myUtil.pageCount(dataCount, size);
+		dataCount = service.dataCount(map);
+		
+		if (dataCount != 0) {
+			total_page = myUtil.pageCount(dataCount, size);
+		}
 		if(current_page > total_page) {
 			current_page = total_page;
 		}
@@ -73,13 +81,24 @@ public class OrderManageController {
 		map.put("size", size);
 		
 		List<OrderManage> list = service.listOrder(map);
-		
+		String paging = myUtil.pagingMethod(current_page, total_page, "listPage");
+
 		model.addAttribute("list", list);
+		model.addAttribute("page", current_page);
 		model.addAttribute("dataCount", dataCount);
+		model.addAttribute("total_page", total_page);
+		model.addAttribute("paging", paging);
+		model.addAttribute("schType",schType);
+		model.addAttribute("kwd",kwd);
 		
 		
 		return "/admin/orderManage/orderList";
 	}
+	
+	
+	
+	
+	
 	
 	@RequestMapping(value = "detailList")
 	public String detailList(@RequestParam String orderNum,
@@ -151,6 +170,7 @@ public class OrderManageController {
 	@ResponseBody
 	public Map<String, Object> updateDetailState(@RequestParam Map<String, Object> paramMap,
 			HttpSession session) {
+		System.out.println("일로오긴함 ??????????????????????????? ");
 		// 상세주문별 상태 변경
 		Map<String, Object> model = new HashMap<String, Object>();
 		
@@ -160,7 +180,7 @@ public class OrderManageController {
 		try {
 			int detailState = Integer.parseInt((String)paramMap.get("detailState"));
 			
-			paramMap.put("memberIdx", info.getMemberIdx());
+			paramMap.put("memberIdx1", info.getMemberIdx());
 			
 			service.updateOrderDetailState(paramMap);
 			

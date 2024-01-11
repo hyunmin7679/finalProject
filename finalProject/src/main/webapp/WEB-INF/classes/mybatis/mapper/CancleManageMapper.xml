@@ -2,6 +2,31 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fp.pet.admin.mapper.CancleMapper">
+	<select id="orderCount" parameterType="map" resultType="Integer">
+		SELECT COUNT(*) AS count
+		FROM orderDetail od
+		JOIN product p ON od.productNum = p.productNum
+		JOIN optionDetail op ON od.detailNum = op.detailNum
+		JOIN optionDetail op2 ON od.detailNum2 = op2.detailNum
+		LEFT JOIN detailStateInfo dsi ON od.orderDetailNum = dsi.orderDetailNum
+		LEFT JOIN orderChange dsi_change ON od.orderDetailNum =
+		dsi_change.orderDetailNum
+		LEFT JOIN payDetail pd ON od.orderNum = pd.orderNum
+		LEFT JOIN productOrder po ON od.orderNum = po.orderNum
+		LEFT JOIN member1 m ON po.memberIdx = m.memberIdx
+		<where>
+			<if test="state == 'salecancle'">
+				AND od.detailState = 3
+			</if>
+			<if test="state == 'ordercancle'">
+				AND dsi_change.changeState = 4
+			</if>
+			<if test="state == 'ordercanclecom'">
+				AND dsi_change.changeState = 5
+			</if>
+		</where>
+
+	</select>
 	<select id="listOrder" parameterType="map"
 		resultType="com.fp.pet.admin.domain.OrderDetailManage">
 		SELECT
@@ -12,6 +37,7 @@
 		od.qty,
 		od.price,
 		od.couponPrice,
+		od.couponNum,
 		od.salePrice,
 		od.productMoney,
 		od.savedMoney,
@@ -134,14 +160,16 @@
 		insert into
 		point(pointNum,orderNum,memberIdx,reg_date,memo,p_qyt,p_sort)
 		values(point_seq.NEXTVAL,#{orderNum},#{memberIdx},sysdate,'주문
-		취소로 인한 포인트 회수',#{savedMoney},NULL)
+		취소로 인한
+		포인트 회수',#{savedMoney},NULL)
 	</insert>
 
 	<insert id="updateUsedSaved" parameterType="map">
 		insert into
 		point(pointNum, orderNum ,memberIdx,reg_date,memo,p_qyt,p_sort)
 		values(point_seq.NEXTVAL,#{orderNum},#{memberIdx},sysdate,'주문
-		취소로 인한 포인트 복구',#{usedSaved},NULL)
+		취소로 인한
+		포인트 복구',#{usedSaved},NULL)
 	</insert>
 
 	<select id="findByStock" parameterType="map" resultType="map">
@@ -152,7 +180,12 @@
 	</select>
 
 	<update id="updateStock" parameterType="map">
-		update productStock set 
+		update productStock set
 		totalStock = #{totalStock} where stockNum = #{stockNum}
 	</update>
+	<update id="updateCoupon" parameterType="map">
+		update memberCoupon set
+		use = 0 where couponNum = #{couponNum}
+	</update>
+
 </mapper>

@@ -7,7 +7,7 @@ import java.util.Map;
 import com.fp.pet.admin.domain.OrderDetailManage;
 
 public interface CancleMapper {
-	// public int orderCount(Map<String,Object>map) throws Exception;
+	public int orderCount(Map<String,Object>map) throws Exception;
 	public List<OrderDetailManage> listOrder(Map<String,Object>map);
 	
 	public int totalOrderCount(String orderNum);
@@ -26,4 +26,6 @@ public interface CancleMapper {
 	
 	public Map<Integer,Object> findByStock(Map<String, Object> map)throws SQLException;
 	public void updateStock(Map<String,Object>map) throws SQLException;
+	public void updateCoupon(Map<String,Object>map)throws SQLException;
+
 }

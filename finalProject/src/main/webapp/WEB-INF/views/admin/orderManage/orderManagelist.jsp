@@ -198,11 +198,22 @@
 							<input type="text" name="stateMemo" class="form-control" placeholder="상태 메시지 입력">
 						</div>
 						<div class="col-auto p-1">
+						
 							<input type="hidden" name="orderNum">
 							<input type="hidden" name="orderDetailNum">
 							<input type="hidden" name="productMoney">
 							<input type="hidden" name="cancelAmount">
 							<input type="hidden" name="deliveryCharge">
+
+							<input type="hidden" name="memberIdx">
+							<input type="hidden" name="savedMoney">
+							<input type="hidden" name="usedSaved">
+							<input type="hidden" name="qty">
+							<input type="hidden" name="productNum">
+							<input type="hidden" name="detailNum">
+							<input type="hidden" name="detailNum2">
+							<input type="hidden" name="couponNum">
+							
 							<button class="btn btn-secondary p-6 m-0 btnDetailStateUpdateOk" type="button">변경</button>
 							
 						</div>
@@ -319,12 +330,29 @@
 		const f = document.detailStateForm;
 		f.reset();
 		
+		
+		
+
 		let orderNum = $(this).attr("data-orderNum");
 		let orderState = $(this).attr("data-orderState");
 		let orderDetailNum = $(this).attr("data-orderDetailNum");
 		let detailState = $(this).attr("data-detailState");
 		let productMoney = $(this).attr("data-productMoney");
 		let deliveryCharge = $(this).attr("data-deliveryCharge");
+
+		
+		let memberIdx = $(this).attr("data-memberIdx");
+		let savedMoney = $(this).attr("data-savedMoney");
+		let usedSaved = $(this).attr("data-usedSaved");
+		let qty = $(this).attr("data-qty");
+		let productNum = $(this).attr("data-productNum");
+		let detailNum = $(this).attr("data-detailNum");
+		let detailNum2 = $(this).attr("data-detailNum2");
+		let couponNum = $(this).attr("data-couponNum");
+
+		
+		
+		
 		
 		let cancelAmount = $(".order-cancelAmount").attr("data-cancelAmount");
 		
@@ -333,6 +361,24 @@
 		f.orderDetailNum.value = orderDetailNum;
 		f.productMoney.value = productMoney;
 		f.cancelAmount.value = cancelAmount;
+		
+		f.memberIdx.value = memberIdx;
+		f.savedMoney.value = savedMoney;
+		f.usedSaved.value = usedSaved;
+		f.qty.value = qty;
+		f.productNum.value = productNum;
+		f.detailNum.value = detailNum;
+		f.detailNum2.value = detailNum2;
+		f.couponNum.value = couponNum;
+		
+		console.log(orderNum+"orderNum");
+		console.log(memberIdx+"memberIdx");
+		console.log(savedMoney+"savedMoney");
+		console.log(usedSaved+"usedSaved");
+		console.log(qty+"qty");
+		console.log(productNum+"productNum");
+		console.log(detailNum+"detailNum");
+		console.log(detailNum2+"detailNum2");
 		
 		let opt = $(this).closest("tr").find("td").eq(5).text();
 
@@ -487,17 +533,21 @@
 	    	let payment = $(this).attr('data-payment');
 	    	let cancelAmount = $(this).attr('data-cancelAmount');
 	    	let usedSaved = $(this).attr('data-usedSaved');
-	        
+	    	let deliveryCharge = $(this).attr('data-deliveryCharge');
+	    	
+			console.log(deliveryCharge);
 	        console.log("주문번호: " + orderNum);
             console.log("결제금액: " + payment);
             console.log("취소금액: " + cancelAmount);
-            console.log("적립금: " + usedSaved);
+            console.log("적립금 사용액 : " + usedSaved);
 	    	
 			if(!confirm('전체 주문 취소를 하시겠습니까 ? ')){
 				return;
 			};
 			
-			let query = 'orderNum='+orderNum+'&payment='+payment+'&cancelAmount='+cancelAmount+'&usedSaved='+usedSaved;
+			let query = 'orderNum='+orderNum+'&payment='+payment+'&cancelAmount='+cancelAmount+
+			'&usedSaved='+usedSaved+'&deliveryCharge='+deliveryCharge;
+			
 			let url = '${pageContext.request.contextPath}/admin/orderManage/cancleAllproduct';
 			
 			const fn = function(data) {

@@ -55,9 +55,9 @@ public class CouponManageController {
 			category = URLDecoder.decode(category, "utf-8");
 		}
 		
-		if (req.getMethod().equalsIgnoreCase("GET")) { // GET 방식인 경우
-		kwd = URLDecoder.decode(kwd, "utf-8");
-		}
+			if (req.getMethod().equalsIgnoreCase("GET")) { // GET 방식인 경우
+				kwd = URLDecoder.decode(kwd, "utf-8");
+			}
 		
 		// category  all : 전체쿠폰, 1: 발급중 쿠폰, 2: 발급끝난쿠폰
 		
@@ -83,6 +83,8 @@ public class CouponManageController {
 		List<Coupon> list = service.listCoupon(map);
 		
 		String paging = myUtil.pagingMethod(current_page, total_page, "listPage");
+		
+		System.out.println(dataCount + "dataCountdataCountdataCountdataCountdataCountdataCount");
 		
 		model.addAttribute("list", list);
 		model.addAttribute("page", current_page);

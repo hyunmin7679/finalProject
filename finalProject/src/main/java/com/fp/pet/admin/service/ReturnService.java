@@ -7,6 +7,7 @@ import com.fp.pet.admin.domain.OrderDetailManage;
 
 public interface ReturnService {
 	
+	public int orderCount(Map<String,Object>map) throws Exception;
 	public List<OrderDetailManage> listOrder(Map<String,Object>map);
 	public List<Map<String,Object>> listFile(Map<String,Object>map);
 

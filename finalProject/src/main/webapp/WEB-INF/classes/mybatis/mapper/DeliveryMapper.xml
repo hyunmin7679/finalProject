@@ -2,7 +2,21 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fp.pet.admin.mapper.DeliveryMapper">
-
+		<select id="dataCount" parameterType="map" resultType="Integer" >
+		SELECT NVL(COUNT(*), 0) from productOrder
+		<where>
+			<if test="state == 'ready'">
+				orderState = 2  
+			</if>
+			<if test="state == 'start'">
+				orderState = 3 OR orderState = 4  
+			</if>
+			<if test="state == 'complete'">
+				orderState = 5
+			</if>
+		</where>
+		
+	</select>
 		<select id="listOrder" parameterType="map" resultType="com.fp.pet.admin.domain.OrderManage">
 		SELECT po.orderNum, po.memberIdx, NVL(userName,'손님') userName, totalMoney,  
 			usedSaved, deliveryCharge, payment, cancelAmount,

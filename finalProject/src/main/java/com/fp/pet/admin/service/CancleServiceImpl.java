@@ -18,6 +18,17 @@ public class CancleServiceImpl implements CancleService{
 	@Autowired
 	private CancleMapper mapper;
 	
+	
+	@Override
+	public int orderCount(Map<String, Object> map) throws Exception {
+		int result = 0;
+		try {
+			result = mapper.orderCount(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 	@Override
 	public List<OrderDetailManage> listOrder(Map<String, Object> map) {
 		List<OrderDetailManage> list = null;
@@ -86,7 +97,8 @@ public class CancleServiceImpl implements CancleService{
 			int detailNum = Integer.parseInt((String) map.get("detailNum"));
 			int detailNum2 = Integer.parseInt((String) map.get("detailNum2"));
 			int qty = Integer.parseInt((String) map.get("qty"));
-			
+			int couponNum = Integer.parseInt((String) map.get("couponNum"));
+
 			System.out.println(orderNum + "orderNum");
 			System.out.println(changeNum + "changeNum");
 			System.out.println(orderDetailNum + "orderDetailNum ");
@@ -124,7 +136,10 @@ public class CancleServiceImpl implements CancleService{
 			map.put("cancelCost", cancelCost);
 			mapper.updateOrder(map);
 			
-			
+			// 쿠폰 돌려주기 
+			if(couponNum != 0 ) {
+				mapper.updateCoupon(map);
+			}
 			
 			// 상품에 대해 주문취소일 경우 취소완료가 되는순간 포인트도 memberIdx에서 - 해줘야한다.
 			 int savedMoney = -savedMoney1;

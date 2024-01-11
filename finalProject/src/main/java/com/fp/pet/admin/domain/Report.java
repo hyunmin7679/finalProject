@@ -3,26 +3,39 @@ package com.fp.pet.admin.domain;
 public class Report {
 
 	private long reasonNum; // 신고번호
+
+	private String declUrl; // 신고주소
+	private int reason; // 신고 사유
+	private String content; // 신고 내용
+	private String reg_date; // 신고 날짜
+	private long memberIdx; // 신고한 user
+	private String reportUser;
+
+	private String preg_date; // 게시글 등록일자
+	private String postName; // 게시글 등록user 이름
+	private String subject; // 게시글 제목
+	private long communityNum; // 게시글 번호
+	private int categoryNum;
+	private int showNo;
 	
-	private String declUrl;
-	private int reason;
-	private String content;
-	private String reg_date;
-	private String preg_date;
 	
-	private String userName;
-	private long memberIdx;
-	
-	private String productName;
-	private long productNum;
-	
-	
-	
-	public String getPreg_date() {
-		return preg_date;
+	public int getShowNo() {
+		return showNo;
 	}
-	public void setPreg_date(String preg_date) {
-		this.preg_date = preg_date;
+	public void setShowNo(int showNo) {
+		this.showNo = showNo;
+	}
+	public int getCategoryNum() {
+		return categoryNum;
+	}
+	public void setCategoryNum(int categoryNum) {
+		this.categoryNum = categoryNum;
+	}
+	public String getReportUser() {
+		return reportUser;
+	}
+	public void setReportUser(String reportUser) {
+		this.reportUser = reportUser;
 	}
 	public long getReasonNum() {
 		return reasonNum;
@@ -54,31 +67,39 @@ public class Report {
 	public void setReg_date(String reg_date) {
 		this.reg_date = reg_date;
 	}
-	public String getUserName() {
-		return userName;
-	}
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
 	public long getMemberIdx() {
 		return memberIdx;
 	}
 	public void setMemberIdx(long memberIdx) {
 		this.memberIdx = memberIdx;
 	}
-	public String getProductName() {
-		return productName;
+	public String getPreg_date() {
+		return preg_date;
 	}
-	public void setProductName(String productName) {
-		this.productName = productName;
+	public void setPreg_date(String preg_date) {
+		this.preg_date = preg_date;
 	}
-	public long getProductNum() {
-		return productNum;
+	public String getPostName() {
+		return postName;
 	}
-	public void setProductNum(long productNum) {
-		this.productNum = productNum;
+	public void setPostName(String postName) {
+		this.postName = postName;
+	}
+	public String getSubject() {
+		return subject;
+	}
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+	public long getCommunityNum() {
+		return communityNum;
+	}
+	public void setCommunityNum(long communityNum) {
+		this.communityNum = communityNum;
 	}
 	
 	
 	
+	
+
 }

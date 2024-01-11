@@ -40,7 +40,7 @@
         </a>
             <ul class="menu-sub">
               <li class="menu-item ${sub == 'allproductManage' ? 'active':''}">
-                <a href="${pageContext.request.contextPath}/admin/inquiryManage/allproductManage" class="menu-link">
+                <a href="${pageContext.request.contextPath}/admin/allProduct/allproductList" class="menu-link">
                         <div data-i18n="Basic">전체주문조회</div>
                 </a>
                 </li>
@@ -92,7 +92,7 @@
                 </li>
 
                 <li class="menu-item menu-item ${sub == 'exchangeProduct' ? 'active':''}">
-                <a href="${pageContext.request.contextPath}/admin/inquiryManage/exchangeProduct" class="menu-link">
+                <a href="${pageContext.request.contextPath}/admin/ExchangeManage/exchangeProduct" class="menu-link">
                         <div data-i18n="Basic">교환 관리</div>
                 </a>
                 </li>
@@ -125,7 +125,7 @@
 		</a></li>
 		
 		<!-- 커뮤니티 관리 -->
-		<li class="menu-item ${left=='communityManage'? 'active':''}"><a href="${pageContext.request.contextPath}/admin/inquiryManage/communityManage"
+		<li class="menu-item ${left=='communityManage'? 'active':''}"><a href="${pageContext.request.contextPath}/admin/community/communityManage"
 			class="menu-link"> <i class='menu-icon tf-icons bx bx-been-here'></i>
 				<div data-i18n="communityManage">커뮤니티 관리</div>
 		</a>

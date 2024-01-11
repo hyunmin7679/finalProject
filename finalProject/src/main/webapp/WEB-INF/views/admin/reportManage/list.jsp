@@ -4,7 +4,14 @@
 
 
 
-
+<style>
+        /* 초기 스타일 설정 */
+        .highlight {
+            color: blue;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
 <!-- / Navbar -->
 
 
@@ -34,16 +41,7 @@
 								data-bs-toggle="tab" data-bs-target="#navs-pills-justified-home"
 								aria-controls="navs-pills-justified-home" aria-selected="false"
 								tabindex="-1">
-								<i class="tf-icons bx bx-home me-1"></i> 신고 당한 게시물 <span
-									class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger ms-1">3</span>
-							</button>
-						</li>
-						<li class="nav-item" role="presentation">
-							<button type="button" class="nav-link " role="tab"
-								data-bs-toggle="tab" data-bs-target="#navs-pills-justified-home"
-								aria-controls="navs-pills-justified-profile"
-								aria-selected="true">
-								<i class="tf-icons bx bx-user me-1"></i> 신고처리 게시물
+								<i class="tf-icons bx bx-home me-1"></i> 신고 당한 게시물 
 							</button>
 						</li>
 						<!-- 
@@ -163,8 +161,67 @@
 </div>
 
 
+<!-- Modal -->
+<div class="modal fade" id="backDropModal" 
+	tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog modal-xl">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="orderDialogModalLabel">신고상세보기</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal"
+					aria-label="Close"></button>
+			</div>
+			<div class="modal-body pt-1">
+				<div class="modal-order-detail">
 
 
+
+					<div>
+
+
+						<div class="mt-2 border-top pt-2">
+							<div class="mt-3 p-3">
+
+								<table class="table board-list order-detail-list">
+									<thead class="table-light">
+										<tr>
+											<th width="200">신고일</th>
+											<th width="100">신고자</th>
+											<th width="290">신고사유</th>
+											<th width="290">신고내용</th>
+										</tr>
+									</thead>
+
+									<tbody style="width: auto;" id="reportList">
+										
+									</tbody>
+								</table>
+								<table class="table table-borderless mb-1">
+									<tbody>
+										<tr>
+
+											<td class="text-end">
+												<div class="row justify-content-end delivery-update-area">
+													<div class="col-auto">
+														<button type="button"
+															class="btn btn-primary hiddenComu">게시글숨김
+															/ 숨겨져있으면 표시로</button>
+													</div>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- /Modal -->
 
 
 
@@ -242,6 +299,93 @@ function listPage(page) {
 	ajaxFun(url, "get", query, "text", fn);
 }
 
+// modalOn
+$('body').on('click', '.modalOn', function () {
+
+    let communityNum = $(this).attr("data-communityNum");
+    let showNo = $(this).attr("data-showNo");
+	console.log(showNo);
+    let query = "communityNum=" + communityNum;
+    let url = "${pageContext.request.contextPath}/admin/reportManage/findReporyList";
+
+    const fn = function (data) {
+        console.log(data);
+        let selector = "#reportList"
+        let rowHtml = '';
+        console.log(data.list.length);
+
+        for (let i = 0; i < data.list.length; i++) {
+            rowHtml += '<tr valign="middle" >';
+            rowHtml += '<td>' + data.list[i].reg_date + '</td>';
+            rowHtml += '<td>' + data.list[i].reportUser + '</td>';
+            rowHtml += '<td>' + data.list[i].reason + '</td>';
+            rowHtml += '<td>' + data.list[i].content + '</td>';
+            rowHtml += '</tr>';
+        }
+        $(selector).html(rowHtml);
+
+        // 동적으로 버튼 변경
+        let btnHtml = '<button type="button" class="btn btn-primary hiddenComu" ' +
+            'data-showNo='+showNo+' data-communityNum='+communityNum+'>';
+
+        if (showNo === "1") {
+            btnHtml += '숨김';
+        } else {
+            btnHtml += '표시';
+        }
+
+        btnHtml += '</button>';
+
+        $('.delivery-update-area .col-auto').html(btnHtml);
+    };
+
+    ajaxFun(url, "post", query, "json", fn);
+
+    $('#backDropModal').modal('show');
+
+});
+
+$('body').on('click', '.hiddenComu', function () {
+    let communityNum = $(this).attr("data-communityNum");
+    let showNo = $(this).attr("data-showNo");
+    
+    if(showNo == 1){
+    	showNo = 0 
+    }else{
+    	showNo = 1
+    }
+    
+    let query = "communityNum="+communityNum+"&showNo="+showNo;
+    let url = "${pageContext.request.contextPath}/admin/reportManage/changeShow";
+    
+    const fn = function (data) {
+    		
+    	listPage(1);
+    	$('#backDropModal').modal('hide');
+    };
+    
+    ajaxFun(url, "post", query, "json", fn);
+});
+
+
+
+
+
+//jQuery를 사용하여 이벤트 리스너 등록
+$(document).on("mouseover", ".article", handleMouseOver);
+$(document).on("mouseout", ".article", handleMouseOut);
+
+// 마우스를 올렸을 때 실행되는 함수
+function handleMouseOver(event) {
+    // 클래스를 추가하여 CSS 변경
+    $(this).addClass("highlight");
+}
+
+// 마우스를 내렸을 때 실행되는 함수
+function handleMouseOut() {
+    // 클래스를 제거하여 초기 상태로 돌아감
+    $(this).removeClass("highlight");
+}
 </script>
 
 

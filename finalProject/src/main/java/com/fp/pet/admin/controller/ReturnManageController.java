@@ -52,7 +52,10 @@ public class ReturnManageController {
   		if (req.getMethod().equalsIgnoreCase("GET")) { // GET 방식인 경우
   			state = URLDecoder.decode(state, "utf-8");
   		}
-  		
+  		if (req.getMethod().equalsIgnoreCase("GET")) { // GET 방식인 경우
+			kwd = URLDecoder.decode(kwd, "utf-8");
+		}
+	
   		// cancleStatus /  order - 주문취소 , sale - 판매취소 
   		// state { ordercancle : 주문취소신청 / ordercanclecom : 주문취소신청완료 / salecancle : 판매취소완료}
   		Map<String, Object> map = new HashMap<String, Object>();
@@ -61,7 +64,11 @@ public class ReturnManageController {
   		map.put("schType", schType);
   		map.put("kwd", kwd);
   		
-  		// dataCount = service.orderCount(map);
+  		dataCount = service.orderCount(map);
+  		
+  		if (dataCount != 0) {
+			total_page = myUtil.pageCount(dataCount, size);
+		}
   		total_page = myUtil.pageCount(dataCount, size);
   		if(current_page > total_page) {
   			current_page = total_page;
@@ -74,10 +81,16 @@ public class ReturnManageController {
   		map.put("size", size);
   		
   		List<OrderDetailManage> list = service.listOrder(map);
-  		
+  		String paging = myUtil.pagingMethod(current_page, total_page, "listPage");
+  		System.out.println(paging+"sadasdasdasdas");
   		model.addAttribute("state",state);
   		model.addAttribute("list", list);
-  		model.addAttribute("dataCount", dataCount);
+		model.addAttribute("page", current_page);
+		model.addAttribute("dataCount", dataCount);
+		model.addAttribute("total_page", total_page);
+		model.addAttribute("paging", paging);
+		model.addAttribute("schType",schType);
+		model.addAttribute("kwd",kwd);
   		
   		
   		return "/admin/returnManage/orderList";
@@ -95,12 +108,14 @@ public class ReturnManageController {
 			Map<String, Object> firstFileMap = list.get(0);
 			String firstFileName;
 			
-			if (firstFileMap.containsKey("FILENAME")) {
-	            firstFileName = (String) firstFileMap.get("FILENAME");
-	            System.out.println(firstFileName);
-	            model.put("firstFileName", firstFileName);
-	        }
-			
+			if(firstFileMap != null) {
+				
+				if (firstFileMap.containsKey("FILENAME")) {
+		            firstFileName = (String) firstFileMap.get("FILENAME");
+		            System.out.println(firstFileName);
+		            model.put("firstFileName", firstFileName);
+		        }
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 

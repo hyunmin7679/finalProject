@@ -75,7 +75,7 @@ public class DeliveryManageController {
 		map.put("schType", schType);
 		map.put("kwd", kwd);
 
-		dataCount = service.orderCount(map);
+		dataCount = service.dataCount(map);
 		total_page = myUtil.pageCount(dataCount, size);
 		if (current_page > total_page) {
 			current_page = total_page;
@@ -89,9 +89,16 @@ public class DeliveryManageController {
 		map.put("size", size);
 
 		List<OrderManage> list = service.listOrder(map);
+		String paging = myUtil.pagingMethod(current_page, total_page, "listPage");
+
 
 		model.addAttribute("list", list);
+		model.addAttribute("page", current_page);
 		model.addAttribute("dataCount", dataCount);
+		model.addAttribute("total_page", total_page);
+		model.addAttribute("paging", paging);
+		model.addAttribute("schType",schType);
+		model.addAttribute("kwd",kwd);
 
 		return "/admin/deliveryManage/deliveryList";
 	}
