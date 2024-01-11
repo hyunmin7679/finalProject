@@ -183,9 +183,11 @@
 											enabled : true,
 											format : '{#unless point.custom.empty}{point.value:.0f} 원{/unless}',
 											style : {
+											
 												textOutline : 'none',
 												fontWeight : 'normal',
-												fontSize : '1rem'
+												fontSize : '1rem',
+												color : '#000000',
 											}
 										},
 										{

@@ -60,6 +60,26 @@ public class CommunityManageServiceImpl  implements CommunityManageService{
 		}
 		return result;
 	}
+
+	@Override
+	public void updateShow(Map<String, Object> map) {
+		
+		try {
+			int showNo = Integer.parseInt((String) map.get("showNo"));
+			int communityNum = Integer.parseInt((String) map.get("communityNum"));
+			System.out.println(showNo+"showNoshowNoshowNoshowNo");
+			System.out.println(communityNum+"communityNumcommunityNumcommunityNumcommunityNum");
+			map.put("showNo", showNo);
+			map.put("communityNum",communityNum);
+			
+			
+			
+			mapper.updateShow(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
 	
 	
 }

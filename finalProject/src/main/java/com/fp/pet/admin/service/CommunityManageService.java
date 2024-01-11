@@ -16,5 +16,7 @@ public interface CommunityManageService {
 	public List<CommunityManage> communityList2(Map<String,Object>map);
 	
 	public List<Chart> bestChart();
-
+	
+	public void updateShow(Map<String,Object>map);
+	
 }

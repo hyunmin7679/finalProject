@@ -1,5 +1,6 @@
 package com.fp.pet.admin.mapper;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -17,4 +18,5 @@ public interface CommunityManageMapper {
 	public int dataCount(Map<String,Object>map) throws Exception;
 	public List<CommunityManage> communityList2(Map<String,Object>map);
 	public List<Chart> bestChart();
+	public void updateShow(Map<String,Object>map);
 }

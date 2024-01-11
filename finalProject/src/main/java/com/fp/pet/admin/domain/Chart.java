@@ -13,6 +13,7 @@ public class Chart {
 	private String categoryName;
 	private int postCount;
 	private double postPercentage;
+	private String year;
 	
 	
 	
@@ -25,7 +26,16 @@ public class Chart {
 		this.daySale = daySale;
 	}
 	
+
 	
+	public String getYear() {
+		return year;
+	}
+
+	public void setYear(String year) {
+		this.year = year;
+	}
+
 	public int getCategoryNum() {
 		return categoryNum;
 	}

@@ -26,7 +26,7 @@ public class CommunityManageController {
 
 	@Autowired
 	private CommunityManageService service;
-	
+
 	@Autowired
 	private MyUtil myUtil;
 
@@ -34,19 +34,16 @@ public class CommunityManageController {
 	public String communityManage(Model model) throws Exception {
 
 		List<CommunityManage> list = null;
-		
 
 		list = service.communityList();
-	
-		
+
 		model.addAttribute("list", list);
-		
-		
+
 		model.addAttribute("left", "communityManage");
 		model.addAttribute("sub", "communityManage");
 		return ".admin.communityManage.communityManage";
 	}
-	
+
 	@RequestMapping(value = "bestCategoryList")
 	public String bestCategoryList(Model model) throws Exception {
 
@@ -59,31 +56,31 @@ public class CommunityManageController {
 		return "/admin/communityManage/bestCategory";
 	}
 
-	//bestChart
+	// bestChart
 	@GetMapping("bestChart")
 	@ResponseBody
 	public Map<String, Object> bestChart() throws Exception {
 		Map<String, Object> model = new HashMap<>();
-		
+
 		List<Chart> list = service.bestChart();
-		
+
 		model.put("list", list);
 		return model;
 	}
-	
+
 	// communityList
 	@RequestMapping(value = "communityList")
-	public String communityList(Model model,
-			@RequestParam(value = "page", defaultValue = "1") int current_page) throws Exception {
+	public String communityList(Model model, @RequestParam(value = "page", defaultValue = "1") int current_page)
+			throws Exception {
 
 		try {
-			
+
 			int size = 10;
 			int total_page = 0;
 			int dataCount = 0;
 			Map<String, Object> map = new HashMap<String, Object>();
 			dataCount = service.dataCount(map);
-			
+
 			if (dataCount != 0) {
 				total_page = myUtil.pageCount(dataCount, size);
 			}
@@ -91,20 +88,19 @@ public class CommunityManageController {
 				current_page = total_page;
 			}
 			int offset = (current_page - 1) * size;
-			if(offset < 0) offset = 0;
-			
+			if (offset < 0)
+				offset = 0;
+
 			map.put("offset", offset);
 			map.put("size", size);
-			
+
 			List<CommunityManage> list2 = null;
 			list2 = service.communityList2(map);
-			
+
 			String paging = myUtil.pagingMethod(current_page, total_page, "communityList");
+
 			
-		
-			System.out.println(dataCount+"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-			
-			
+
 			model.addAttribute("list2", list2);
 			model.addAttribute("page", current_page);
 			model.addAttribute("dataCount", dataCount);
@@ -116,31 +112,32 @@ public class CommunityManageController {
 
 		return "/admin/communityManage/communityList";
 	}
-	
-	
-	// showState 
-	// deleteCoupon
-		// AJAX-JSON
-	/*
-		@PostMapping("deleteCoupon")
-		@ResponseBody
-		public Map<String, Object> delete(@RequestParam long couponNum,
-				HttpSession session) throws Exception {
-			Map<String, Object> model = new HashMap<String, Object>();
-				
 
-			String state = "false";
-			try {
-				service.deleteCoupon(couponNum);
-				state = "true";
-			} catch (Exception e) {
-			}
-					
-			model.put("state", state);
+	// showState
+	// AJAX-JSON
 
-			return model;
-		}   
-	*/	
-	
-	
+	@PostMapping("showState")
+	@ResponseBody
+	public Map<String, Object> showState(@RequestParam Map<String,Object> paramap) throws Exception {
+		
+		
+		Map<String, Object> model = new HashMap<String, Object>();
+
+		String state = "false";
+		
+		try {
+			System.out.println("일로넘어오나 ???@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+			System.out.println(paramap+"paramapparamapparamapparamapparamapparamap");
+			
+			service.updateShow(paramap);
+			
+			state = "true";
+		} catch (Exception e) {
+		}
+
+		model.put("state", state);
+
+		return model;
+	}
+
 }

@@ -16,7 +16,9 @@
 						<div class="justify-content-between align-items-end w-100  gap-2">
 							<div class="d-flex flex-column onmouse">
 							
-								<span class="showNoState" data-showNo = "${dto2.showNo}">
+								<span class="showNoState" 
+								data-showNo = "${dto2.showNo}"
+								data-communityNum="${dto2.communityNum }">
 									<c:if test="${dto2.showNo == 1 }">
 										<i class="bx bxs-show clickable-icon"></i>
 									</c:if>

@@ -120,5 +120,10 @@
 		ORDER BY
 		postPercentage desc
 	</select>
+	
+	
+	<update id="updateShow" parameterType="map">
+		update community set showNo = #{showNo} where communityNum = #{communityNum}
+	</update>
 
 </mapper>

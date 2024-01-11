@@ -55,6 +55,7 @@
 	<select id="paylist" parameterType="String"
 		resultType="com.fp.pet.admin.domain.Chart">
 		SELECT
+		TO_CHAR(MONTH, 'YYYY') AS year,
 		TO_CHAR(MONTH, 'MM') AS months,
 		NVL(SUM(payment), 0)
 		AS pay
@@ -70,7 +71,7 @@
 		TO_CHAR(months.MONTH,
 		'YYYY-MM')
 		GROUP BY
-		TO_CHAR(months.MONTH, 'MM')
+		TO_CHAR(months.MONTH, 'MM'), TO_CHAR(MONTH, 'YYYY')
 		ORDER BY
 		TO_CHAR(months.MONTH, 'MM')
 	</select>
@@ -78,6 +79,7 @@
 	<select id="paylist2" parameterType="String"
 		resultType="com.fp.pet.admin.domain.Chart">
 		SELECT
+		TO_CHAR(MONTH, 'YYYY') AS year,
 		TO_CHAR(MONTH, 'MM') AS months,
 		NVL(SUM(payment), 0)
 		AS pay
@@ -93,7 +95,7 @@
 		TO_CHAR(months.MONTH,
 		'YYYY-MM')
 		GROUP BY
-		TO_CHAR(months.MONTH, 'MM')
+		TO_CHAR(months.MONTH, 'MM'), TO_CHAR(MONTH, 'YYYY')
 		ORDER BY
 		TO_CHAR(months.MONTH, 'MM')
 	</select>

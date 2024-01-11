@@ -201,8 +201,12 @@ function changeColor(element, onHover) {
         element.classList.remove('hovered'); // 기본 CSS 클래스로 복원
     }
 }
+
 $('body').on('click', '.showNoState', function() {    
+	
 	 let selectshowNo = $(this).data("showno");
+	 let communityNum = $(this).data("communitynum");
+	 
 	 let showNo;
 	 if(selectshowNo == 1 ){
 		 showNo = 0
@@ -210,9 +214,10 @@ $('body').on('click', '.showNoState', function() {
 		 showNo = 1
 	 }
 	 console.log(showNo);
+	 console.log(communityNum);
 	 
 	 
-	 let query = "showNo="+showNo
+	 let query = "showNo="+showNo+"&communityNum="+communityNum;
 	 let url = "${pageContext.request.contextPath}/admin/community/showState";
 	 
 	 const fn = function(data){
@@ -220,8 +225,7 @@ $('body').on('click', '.showNoState', function() {
 	 };
 	 
 	 ajaxFun(url, "post", query, "json", fn);
-	 
-	 
+	
 });
 
 

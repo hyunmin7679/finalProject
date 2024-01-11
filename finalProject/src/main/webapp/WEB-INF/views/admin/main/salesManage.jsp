@@ -17,10 +17,18 @@
 	 }
 	 let beforeYear = -selectedYear;
 	 
+	 
+	 
 	 let url = "${pageContext.request.contextPath}/admin/statistics/higtchart?selectedYear="+selectedYear;
 	 
 	 
 	 $.getJSON(url, function(data){
+		console.log(data);
+		
+		let year = data.list[0].year;
+		let year1 = data.list2[0].year;
+		console.log(year);
+		console.log(year1);
 		
 		var jsonData = data.list;
 		var monthsArray = [];
@@ -29,6 +37,8 @@
 	           monthsArray.push(item.pay);
 	    });
 		
+		
+		console.log(monthsArray);
 		var jsonData2 = data.list2;
 		var monthsArray2 = [];
 		
@@ -36,6 +46,7 @@
 	           monthsArray2.push(item.pay);
 	    });
 		
+		console.log(monthsArray2);
 		
         Highcharts.chart('hidgd', {
             chart: {
@@ -76,11 +87,11 @@
             },
             series: [
                 {
-                    name: '2024',
+                    name: year,
                     data: monthsArray
                 },
                 {
-                    name: '2023',
+                    name: year1,
                     data: monthsArray2
                 }
             ]
