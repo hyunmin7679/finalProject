@@ -41,6 +41,42 @@ public class Product {
 	private String proDetail;
 	private long totalStock;
 	
+	private String product_category;
+	private int three_weeks_ago;
+	private int two_weeks_ago;
+	private int one_week_ago;
+	private int this_week;
+	
+	public String getProduct_category() {
+		return product_category;
+	}
+	public void setProduct_category(String product_category) {
+		this.product_category = product_category;
+	}
+	public int getThree_weeks_ago() {
+		return three_weeks_ago;
+	}
+	public void setThree_weeks_ago(int three_weeks_ago) {
+		this.three_weeks_ago = three_weeks_ago;
+	}
+	public int getTwo_weeks_ago() {
+		return two_weeks_ago;
+	}
+	public void setTwo_weeks_ago(int two_weeks_ago) {
+		this.two_weeks_ago = two_weeks_ago;
+	}
+	public int getOne_week_ago() {
+		return one_week_ago;
+	}
+	public void setOne_week_ago(int one_week_ago) {
+		this.one_week_ago = one_week_ago;
+	}
+	public int getThis_week() {
+		return this_week;
+	}
+	public void setThis_week(int this_week) {
+		this.this_week = this_week;
+	}
 	public long getProductNum() {
 		return productNum;
 	}

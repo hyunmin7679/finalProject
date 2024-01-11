@@ -19,7 +19,14 @@ public class Review {
 	private int score_group_percentage_sum;
 	private String score_group;
 	private long num;
+	private long memberIdx;
 	
+	public long getMemberIdx() {
+		return memberIdx;
+	}
+	public void setMemberIdx(long memberIdx) {
+		this.memberIdx = memberIdx;
+	}
 	public long getNum() {
 		return num;
 	}

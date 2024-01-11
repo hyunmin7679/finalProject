@@ -6,7 +6,7 @@
 
 	<select id="dataCount" parameterType="map" resultType="Integer">
 		SELECT
-		NVL(COUNT(*),0) FROM member1 where memberIdx >= 31
+		NVL(COUNT(*),0) FROM member where membership >= 31
 	</select>
 
 	<select id="listAdmin" parameterType="map"
@@ -35,8 +35,9 @@
 		WHERE
 		m.membership >= 31
 		order by m.membership desc
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
-	
+		
 	<select id="adminInfo" parameterType="map"
 		resultType="com.fp.pet.admin.domain.Admin">
 	select m1.userName, m2.email, m.membership,

@@ -32,6 +32,8 @@ public interface ProductManageMapper {
 	public Integer findyByProNum(Map<String, Object> map);
 	
 	public List<Product> listCategory();
+	public List<Product> chart1();
+	public List<Product> chart2();
 	public List<Product> listSubCategory(long parentNum);
 	
 	public int dataCount(Map<String, Object> map);

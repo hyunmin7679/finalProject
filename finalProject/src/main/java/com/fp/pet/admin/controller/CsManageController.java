@@ -94,6 +94,19 @@ public class CsManageController {
 		return "redirect:/admin/csManage";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="updatenotice")
+	public String noticeupdateForm(@RequestParam(value="nnum")int nnum,
+			Model model) {
+		
+		CsBoard upno = service.findnoticebynum(nnum);
+		
+		
+		
+		model.addAttribute("upno",upno);
+		return "/admin/csManage";
+	}
+	
 	@RequestMapping(value="writefaq")
 	@ResponseBody
 	public String faqwrite( HttpSession session,

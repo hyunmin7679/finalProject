@@ -5,24 +5,24 @@
 
 <c:forEach var="dto" items="${list}" varStatus="status">
 	<tr class="odd">
-		<td class="control" tabindex="0" style=""></td>
-		<td class="  dt-checkboxes-cell"><c:if
+		<td class="" style="width: 20px; max-width: 30px;"><c:if
 				test="${dto.showreview==0}">
 				<button id="showtrigger" data-bs-target="#uneditUser"
 					data-bs-toggle="modal" data-num="${dto.num}"
 					class="dropdown-item delete-record "
-					style="background: none; border: none;">
+					style="background: none; border: none; width: 20px;">
 					<i class='bx bxs-hide'></i>
 				</button>
 			</c:if> <c:if test="${dto.showreview==1 }">
 				<button id="hidetrigger" data-bs-target="#editUser"
 					data-bs-toggle="modal" data-num="${dto.num}"
 					class="dropdown-item delete-record "
-					style="background: none; border: none;">
+					style="background: none; border: none; width: 20px;">
 					<i class='bx bxs-show'></i>
 				</button>
 			</c:if></td>
-		<td class="sorting_1">
+			
+		<td class="sorting_1" width="300px">
 			<div
 				class="d-flex justify-content-start align-items-center customer-name">
 				<div class="avatar-wrapper">
@@ -49,13 +49,13 @@
 					</div>
 				</div>
 				<div class="d-flex flex-column">
-					<a href="app-ecommerce-customer-details-overview.html"> <span
+					<a href="${pageContext.request.contextPath}/admin/userManage/userinfo?memberIdx=${dto.memberIdx}"> <span
 						class="fw-medium">${dto.userName}</span>
 					</a> <small class="text-muted text-nowrap">${dto.userId}</small>
 				</div>
 			</div>
 		</td>
-		<td>
+		<td style="">
 
 			<div>
 				<span class="text-warning-emphasis"> <c:if
@@ -153,7 +153,7 @@
 								class="dropdown-item delete-record ">답변</button>
 						</c:if>
 						<c:if test="${not empty dto.answer }">
-							<div style="margin:15px; text-align: center;">답변 완료된 리뷰</div>
+							<div style="margin: 15px; text-align: center;">답변 완료된 리뷰</div>
 						</c:if>
 					</div>
 				</div>
@@ -161,4 +161,13 @@
 		</td>
 	</tr>
 </c:forEach>
-
+<tr>
+<td>
+<div class="row mx-2">
+    <div class="page-navigation">
+        ${paging}
+    </div>
+    ${dataCount}개(${page}/${total_page}페이지)
+</div>
+</td>
+</tr>

@@ -32,16 +32,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-md-10">
-							<div
-								class="dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0">
-								<div id="DataTables_Table_0_filter" class="dataTables_filter">
-									<label> <input type="search" class="form-control"
-										placeholder="검색" aria-controls="DataTables_Table_0">
-									</label>
-								</div>
-							</div>
-						</div>
+
 					</div>
 					<table
 						class="datatables-users table border-top dataTable no-footer dtr-column"
@@ -86,18 +77,18 @@
 												</div>
 											</div>
 											<div class="d-flex flex-column">
-											<c:if test="${sessionScope.member.membership>90}">
-												<a href="${pageContext.request.contextPath}/admin/adminManage/adminMypage?memberIdx=${dto.memberIdx}"
-													class="text-body text-truncate"> <span
-													class="fw-medium">${dto.userName}</span>
-												</a>
-											</c:if>
-											<c:if test="${sessionScope.member.membership<90}">	
-												<a
-													class="text-body text-truncate"> <span
-													class="fw-medium">${dto.userName}</span>
-												</a>
-											</c:if>
+												<c:if test="${sessionScope.member.membership>90}">
+													<a
+														href="${pageContext.request.contextPath}/admin/adminManage/adminMypage?memberIdx=${dto.memberIdx}"
+														class="text-body text-truncate"> <span
+														class="fw-medium">${dto.userName}</span>
+													</a>
+												</c:if>
+												<c:if test="${sessionScope.member.membership<90}">
+													<a class="text-body text-truncate"> <span
+														class="fw-medium">${dto.userName}</span>
+													</a>
+												</c:if>
 												<c:if test="${!empty dto.email}">
 													<small class="text-muted">${dto.email}</small>
 												</c:if>
@@ -125,47 +116,15 @@
 							</c:forEach>
 						</tbody>
 					</table>
-					<div class="row mx-2" style="width: 100%;">
-						<div class="col-sm-12 col-md-6 mt-3">
-						</div>
-						<div class="col-sm-12 col-md-6 mt-3">
-							<div class="dataTables_paginate paging_simple_numbers"
-								id="DataTables_Table_0_paginate">
-								<ul class="pagination justify-content-end pe-2">
-									<li class="paginate_button page-item previous disabled"
-										id="DataTables_Table_0_previous"><a
-										aria-controls="DataTables_Table_0" aria-disabled="true"
-										role="link" data-dt-idx="previous" tabindex="0"
-										class="page-link">Previous</a></li>
-									<li class="paginate_button page-item active"><a href="#"
-										aria-controls="DataTables_Table_0" role="link"
-										aria-current="page" data-dt-idx="0" tabindex="0"
-										class="page-link">1</a></li>
-									<li class="paginate_button page-item "><a href="#"
-										aria-controls="DataTables_Table_0" role="link" data-dt-idx="1"
-										tabindex="0" class="page-link">2</a></li>
-									<li class="paginate_button page-item "><a href="#"
-										aria-controls="DataTables_Table_0" role="link" data-dt-idx="2"
-										tabindex="0" class="page-link">3</a></li>
-									<li class="paginate_button page-item "><a href="#"
-										aria-controls="DataTables_Table_0" role="link" data-dt-idx="3"
-										tabindex="0" class="page-link">4</a></li>
-									<li class="paginate_button page-item "><a href="#"
-										aria-controls="DataTables_Table_0" role="link" data-dt-idx="4"
-										tabindex="0" class="page-link">5</a></li>
-									<li class="paginate_button page-item next"
-										id="DataTables_Table_0_next"><a href="#"
-										aria-controls="DataTables_Table_0" role="link"
-										data-dt-idx="next" tabindex="0" class="page-link">Next</a></li>
-								</ul>
-							</div>
-						</div>
+
+					<div class="page-navigation">${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}
 					</div>
+
 				</div>
 			</div>
 		</div>
 	</div>
-	
+
 	<footer class="content-footer footer bg-footer-theme">
 		<div
 			class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">

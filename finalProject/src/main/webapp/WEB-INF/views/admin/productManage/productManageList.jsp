@@ -230,84 +230,18 @@ $(function() {
 
 		<!-- Product List Widget -->
 
-		<div class="card mb-4">
-			<div class="card-widget-separator-wrapper">
-				<div class="card-body card-widget-separator">
-					<div class="row gy-4 gy-sm-1">
-						<div class="col-sm-6 col-lg-3">
-							<div
-								class="d-flex justify-content-between align-items-start card-widget-1 border-end pb-3 pb-sm-0">
-								<div>
-									<h6 class="mb-2">올해 판매액</h6>
-									<h4 class="mb-2">₩ 얼마얼마</h4>
-									<p class="mb-0">
-										<span class="text-muted me-2">작년대비 증감 판매액</span><span
-											class="badge bg-label-success">+x%</span>
-									</p>
-								</div>
-								<div class="avatar me-sm-4">
-									<span class="avatar-initial rounded bg-label-secondary">
-										<i class="bx bx-money bx-sm"></i>
-									</span>
-								</div>
-							</div>
-							<hr class="d-none d-sm-block d-lg-none me-4">
-						</div>
-						<div class="col-sm-6 col-lg-3">
-							<div
-								class="d-flex justify-content-between align-items-start card-widget-2 border-end pb-3 pb-sm-0">
-								<div>
-									<h6 class="mb-2">프로모션 금액(특가/기획)</h6>
-									<h4 class="mb-2">₩ 얼마얼마</h4>
-									<p class="mb-0">
-										<span class="text-muted me-2">작년대비 증감 프로모션 금액</span><span
-											class="badge bg-label-success">+x%</span>
-									</p>
-								</div>
-								<div class="avatar me-lg-4">
-									<span class="avatar-initial rounded bg-label-secondary">
-										<i class="bx bxs-offer bx-sm"></i>
-									</span>
-								</div>
-							</div>
-							<hr class="d-none d-sm-block d-lg-none">
-						</div>
-						<div class="col-sm-6 col-lg-3">
-							<div
-								class="d-flex justify-content-between align-items-start border-end pb-3 pb-sm-0 card-widget-3">
-								<div>
-									<h6 class="mb-2">쿠폰 할인금액</h6>
-									<h4 class="mb-2">₩ 얼마얼마</h4>
-									<p class="mb-0 text-muted">쿠폰 사용량 x</p>
-								</div>
-								<div class="avatar me-sm-4">
-									<span class="avatar-initial rounded bg-label-secondary">
-										<i class="bx bxs-coupon bx-sm"></i>
-									</span>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-6 col-lg-3">
-							<div class="d-flex justify-content-between align-items-start">
-								<div>
-									<h6 class="mb-2">총 판매건수</h6>
-									<h4 class="mb-2">얼마얼마</h4>
-									<p class="mb-0">
-										<span class="text-muted me-2">작년대비 판매 증감</span><span
-											class="badge bg-label-danger">-x%</span>
-									</p>
-								</div>
-								<div class="avatar">
-									<span class="avatar-initial rounded bg-label-secondary">
-										<i class="bx bx-package bx-sm"></i>
-									</span>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+
+
+
+
+		<div class="card mb-5 me-3 first"
+			style="width: 50%; height: 400px; float: left;"></div>
+
+		<div class="card mb-5 second" style="width: 48%; height: 400px;">
+
 		</div>
+
+
 
 		<!-- Product List Table -->
 		<div class="card">
@@ -318,7 +252,7 @@ $(function() {
 					<div class="col-md-4 product_status">
 						<select id="ProductStatus"
 							class="form-select text-capitalize maincategory">
-							<option class="allcate" value="10">::메인 카테고리::</option>
+							<option class="allcate" value="100">::메인 카테고리::</option>
 
 							<option value="0">사료</option>
 							<option value="1">간식</option>
@@ -346,9 +280,9 @@ $(function() {
 					<div class="card-header d-flex border-top py-md-0">
 						<div class="" style="">
 							<div id="DataTables_Table_0_filter" class="dataTables_filter">
-								<label style="margin-top: 4%;"> <input type="search" id=kwd name="kwd"
-									class="form-control" placeholder="상품 검색"  value="${kwd}"
-									aria-controls="DataTables_Table_0">
+								<label style="margin-top: 4%;"> <input type="search"
+									id=kwd name="kwd" class="form-control" placeholder="상품 검색"
+									value="${kwd}" aria-controls="DataTables_Table_0">
 								</label>
 							</div>
 						</div>
@@ -624,7 +558,7 @@ $(function() {
 					</thead>
 					<tbody class="product-list">
 					</tbody>
-				</table>			
+				</table>
 			</div>
 		</div>
 	</div>
@@ -715,43 +649,47 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 
 
 
+
+
+var sort;
+var subsort;
+var stocksort;
+
 window.onload=function(){
-	var sort = 5;
-	productlist(1, sort);
+	sort = 100;
+	listPage(1);
 }
-
-
-
 
 $("#ProductStatus").on("change", function() {
     var selectedValue = $(this).val();   
-    var sort = selectedValue; 
+    sort = selectedValue; 
+    console.log(sort);
     
     
     
-    productlist(1, sort);
+    listPage(1);
 });
 
 $("#subStatus").on("change", function() {
     var subValue = $(this).val();
     
     
-    var subsort = subValue; 
+    subsort = subValue; 
     
-    productdetaillist(1, subsort);
+    subsortpage(1);
 });
 
 $("#StockStatus").on("change", function() {
     var stockValue = $(this).val();
     
     
-    var stocksort = stockValue; 
+    stocksort = stockValue; 
     
-    productstocklist(1, stocksort);
+    stockpage(1);
 });
 
 
-
+/*
 function productlist(page, sort){
 	
 	let url = "${pageContext.request.contextPath}/admin/productManage/"+sort+"/list"; 
@@ -767,10 +705,12 @@ function productlist(page, sort){
 	ajaxFun(url, "get", query, "html", fn);
 
 }
-
-function listPage(page,sort) {
-	let url = "${pageContext.request.contextPath}/admin/productManage/"+sort+"/list"; 
-	let query = "pageNo="+page;
+*/
+function listPage(page) {
+	let url = "${pageContext.request.contextPath}/admin/productManage/list"; 
+	let query = "sort="+sort+"&page="+page;
+	let search = $('form[name=searchForm]').serialize();
+	query = query+"&"+search;
 	let selector = ".product-list";
 	
 	const fn = function(data){
@@ -783,13 +723,14 @@ function listPage(page,sort) {
 function searchList(){
 	const f = document.searchForm; 
 	f.kwd.value = $.trim($("#kwd").val());	
-	productlist(1, 10);
+	subsort=20;
+	subsortpage(1);
 	
 }
-function productdetaillist(page, subsort){
+function subsortpage(page){
 	
-	let url = "${pageContext.request.contextPath}/admin/productManage/"+subsort+"/sublist"; 
-	let query = "pageNo="+page;
+	let url = "${pageContext.request.contextPath}/admin/productManage/sublist"; 
+	let query = "subsort="+subsort+"&page="+page;
 	let search = $('form[name=searchForm]').serialize();
 	query = query+"&"+search;
 	let selector = ".product-list";
@@ -803,10 +744,10 @@ function productdetaillist(page, subsort){
 }
 
 
-function productstocklist(page, stocksort){
+function stockpage(page){
 	
-	let url = "${pageContext.request.contextPath}/admin/productManage/"+stocksort+"/stocklist"; 
-	let query = "pageNo="+page;
+	let url = "${pageContext.request.contextPath}/admin/productManage/stocklist"; 
+	let query = "stocksort="+stocksort+"&page="+page;
 	let search = $('form[name=searchForm]').serialize();
 	query = query+"&"+search;
 	let selector = ".product-list";
@@ -966,7 +907,34 @@ $(function(){
 	});
 	
 });
+$(function(){
+	first();
+	second();
+})
 
+function first(){
+	let url="${pageContext.request.contextPath}/admin/productManage/first"
+	let query = "";
+	let selector = ".first";
+	
+	const fn = function(data){
+		$(selector).html(data);
+	};
+	
+	ajaxFun(url, "get", query, "html", fn);
+}
+
+function second(){
+	let url="${pageContext.request.contextPath}/admin/productManage/second"
+	let query = "";
+	let selector = ".second";
+	
+	const fn = function(data){
+		$(selector).html(data);
+	};
+	
+	ajaxFun(url, "get", query, "html", fn);
+}
 
 
 $(function () {

@@ -12,7 +12,7 @@
 	<select id="listReview" parameterType="map"
 		resultType="com.fp.pet.admin.domain.Review">
 		select pr.num, p.thumbnail, p.productName, p.content, m1.userName, 
-		m1.userId,
+		m1.userId, m1.memberIdx,
 		pr.score, pr.review, pr.answer, to_char(pr.review_date,'yyyy-mm-dd')
 		review_date,
 		pr.answer_date,
@@ -29,6 +29,7 @@
 			<when test="sort==5">ORDER BY m1.userName</when>
 			<otherwise>ORDER BY m1.userName</otherwise>
 		</choose>
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
 
 	<select id="reviewavg" parameterType="map"

@@ -81,7 +81,7 @@
 										<button class="accordion-button collapsed" type="button"
 											data-bs-toggle="collapse"
 											data-bs-target="#accordionPayment-${status.index}"
-											aria-controls="accordionPayment-${status.index}">${vo.nsubject }</button>
+											aria-controls="accordionPayment-${status.index}" value="${upno.nsubject}">${vo.nsubject }</button>
 									</h2>
 									<div id="accordionPayment-${status.index}"
 										class="accordion-collapse collapse">
@@ -95,8 +95,8 @@
 														class="bx bx-dots-vertical-rounded"></i>
 													</a>
 													<div class="dropdown-menu dropdown-menu-end">
-														<a href="javascript:;"
-															class="dropdown-item delete-record text">수정</a> <a
+														<a onclick="updatenotice(${vo.nnum})"
+															class="dropdown-item update-record text">수정</a> <a
 															href="javascript:;"
 															class="dropdown-item delete-record text-danger">삭제</a>
 													</div>
@@ -106,7 +106,7 @@
 												</div>
 											</div>
 										</div>
-										<div class="accordion-body" style="margin-right: 7%;">${vo.ncontent }</div>
+										<div class="accordion-body" style="margin-right: 7%;" >${vo.ncontent }</div>
 									</div>
 								</div>
 							</c:forEach>
@@ -561,9 +561,8 @@
 																					<button type="button"
 																						class="btn btn-secondary qanswer"
 																						data-qnum="${qo.qnum}" data-bs-toggle="modal"
-																						data-bs-target="#qna">답변
-																						등록</button> <input type="hidden" name="qnum"
-																					value="${qo.qnum}">
+																						data-bs-target="#qna">답변 등록</button> <input
+																					type="hidden" name="qnum" value="${qo.qnum}">
 																				</td>
 																			</tr>
 																		</tbody>
@@ -1054,8 +1053,8 @@
 					<div class="modal-content">
 						<div class="body-main">
 							<form name="qnaForm" method="post" enctype="multipart/form-data">
-							<input type="text" name="qnum" id="qnum" value=""
-								style="display: none;" />
+								<input type="text" name="qnum" id="qnum" value=""
+									style="display: none;" />
 								<table class="table table-border border-top2 table-form">
 									<tbody>
 										<tr>
@@ -1357,6 +1356,18 @@ $(function(){
 	});
 	
 });
+function updatenotice(nnum){
+	
+	let url = "${pageContext.request.contextPath}/admin/csManage/updatenotice";
+	let query="nnum="+nnum;
+	const fn = function(data){
+		return;
+	};
+	$('#notice').modal('hide');
+	location.reload();
+	
+	ajaxFun(url,"post",query,"json",fn);
+}
 
 
 

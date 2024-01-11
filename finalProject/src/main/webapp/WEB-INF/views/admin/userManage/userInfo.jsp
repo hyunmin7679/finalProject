@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 
 
@@ -22,7 +23,7 @@
 										height="110" width="110" alt="User avatar" />
 									<div class="user-info text-center">
 										<h4 class="mb-2">${dto.userName}</h4>
-										<div class="memberIdx" style="display: none;">${dto.memberIdx }</div>
+										<div class="memberIdx" id="memberIdx" style="display: none;">${dto.memberIdx }</div>
 										<img class="img-fluid rounded my-4"
 											src="../../bootstrapTemp/assets/img/avatars/robot.jpg"
 											height="50" width="50" alt="User avatar" />
@@ -42,8 +43,8 @@
 									<span class="badge bg-label-warning p-2 rounded"><i
 										class='bx bx-coin bx-sm'></i></span>
 									<div>
-										<h5 class="mb-0">${dto.userPoint}POINT</h5>
-										<span>마일리지</span>
+										<h5 class="mb-0">${point}</h5>	
+										<span>&nbsp;포인트</span>
 									</div>
 								</div>
 							</div>
@@ -100,7 +101,7 @@
 														aria-label="Project: activate to sort column ascending"
 														aria-sort="descending">카테고리</th>
 													<th class="text-nowrap sorting_disabled fs-6" rowspan="3"
-														colspan="1" style="width: 30%;" aria-label="Total Task">구매건수</th>
+														colspan="1" style="width: 30%;" aria-label="Total Task">리뷰건수</th>
 													<th class="sorting fs-6" tabindex="0"
 														aria-controls="DataTables_Table_0" rowspan="3" colspan="1"
 														style="width: 30%;"
@@ -108,8 +109,8 @@
 												</tr>
 
 											</thead>
-											<c:forEach var="vo" items="${catanaly}" varStatus="status">
 												<tbody>
+												<c:forEach var="vo" items="${catanaly}" varStatus="status">
 													<tr class="odd">
 														<td class="sorting_1">
 															<div
@@ -141,45 +142,16 @@
 															</div>
 														</td>
 													</tr>
-												</tbody>
-											</c:forEach>
+												</c:forEach>
+											</tbody>
 										</table>
-										<div class="d-flex justify-content-between mx-4 row mt-3 "
-											style="width: 100%;">
-											<div class="col-sm-12 col-md-6">
-												<div class="dataTables_info" id="DataTables_Table_0_info"
-													role="status" aria-live="polite">1-10개/15개 중</div>
-											</div>
-											<div class="col-sm-12 col-md-6" style="padding-left: 15%;">
-												<div class="dataTables_paginate paging_simple_numbers"
-													id="DataTables_Table_0_paginate">
-													<ul class="pagination">
-														<li class="paginate_button page-item previous disabled"
-															id="DataTables_Table_0_previous"><a
-															aria-controls="DataTables_Table_0" aria-disabled="true"
-															role="link" data-dt-idx="previous" tabindex="0"
-															class="page-link">Previous</a></li>
-														<li class="paginate_button page-item active"><a
-															href="#" aria-controls="DataTables_Table_0" role="link"
-															aria-current="page" data-dt-idx="0" tabindex="0"
-															class="page-link">1</a></li>
-														<li class="paginate_button page-item "><a href="#"
-															aria-controls="DataTables_Table_0" role="link"
-															data-dt-idx="1" tabindex="0" class="page-link">2</a></li>
-														<li class="paginate_button page-item next"
-															id="DataTables_Table_0_next"><a href="#"
-															aria-controls="DataTables_Table_0" role="link"
-															data-dt-idx="next" tabindex="0" class="page-link">Next</a></li>
-													</ul>
-												</div>
-											</div>
-										</div>
+										
 									</div>
 								</div>
 							</div>
 
 							<h5 class="card-header mt-3">&nbsp;&nbsp;구매 목록</h5>
-							<div class="card mb-4">
+							<div class="card mb-4 ">
 								<div class="table-responsive">
 									<div id="DataTables_Table_1_wrapper"
 										class="dataTables_wrapper dt-bootstrap5 no-footer">
@@ -218,63 +190,9 @@
 														aria-label="Actions">마일리지</th>
 												</tr>
 											</thead>
-											<c:forEach var="to" items="${purchaselist}"
-												varStatus="status">
-												<tbody>
-													<tr class="even">
-														<td class="sorting_1"><a
-															href="app-invoice-preview.html"> <span
-																class="fw-medium">${to.ordernum}</span>
-														</a></td>
-														<td>${to.productName }</td>
-														<td><span data-bs-toggle="tooltip"
-															data-bs-html="true"
-															aria-label="<span>배송완료<br> 
-	         		 			<span class=&quot;fw-medium&quot;>Balance:</span> 0<br> 
-	         		 			<span class=&quot;fw-medium&quot;>배송 일자:</span> 11/19/2020</span>"
-															data-bs-original-title="<span>배송완료<br> 
-	         		 			<span class=&quot;fw-medium&quot;>배송금액:</span> $20<br> 
-	         		 			<span class=&quot;fw-medium&quot;>배송일자:</span> 11/19/2020</span>">
-																<span
-																class="badge badge-center rounded-pill bg-label-secondary w-px-30 h-px-30 ">
-																	<i class="bx bx-package bx-xs"></i>
-															</span>
-														</span></td>
-														<td>${to.price}</td>
-														<td>${to.orderdate}</td>
-														<td>${to.savedmoney}</td>
-													</tr>
-												</tbody>
-											</c:forEach>
+											<tbody class="buy_list">
+											</tbody>
 										</table>
-										<div class="row ">
-											<div
-												class="col-md-12 col-lg-5 text-center text-lg-start pb-md-2 pb-lg-0 mt-3 ms-3 ps-4">
-												<div class="dataTables_info" id="DataTables_Table_1_info"
-													role="status" aria-live="polite">1-10개/15개 중</div>
-											</div>
-											<div
-												class="col-md-12 col-lg-6 mt-3 d-flex justify-content-center justify-content-lg-end">
-												<div class="dataTables_paginate paging_simple_numbers"
-													id="DataTables_Table_1_paginate">
-													<ul class="pagination">
-														<li class="paginate_button page-item previous disabled"
-															id="DataTables_Table_1_previous"><a
-															aria-controls="DataTables_Table_1" aria-disabled="true"
-															role="link" data-dt-idx="previous" tabindex="0"
-															class="page-link">Previous</a></li>
-														<li class="paginate_button page-item active"><a
-															href="#" aria-controls="DataTables_Table_1" role="link"
-															aria-current="page" data-dt-idx="0" tabindex="0"
-															class="page-link">1</a></li>
-														<li class="paginate_button page-item next"
-															id="DataTables_Table_1_next"><a href="#"
-															aria-controls="DataTables_Table_1" role="link"
-															data-dt-idx="next" tabindex="0" class="page-link">Next</a></li>
-													</ul>
-												</div>
-											</div>
-										</div>
 									</div>
 								</div>
 							</div>
@@ -325,6 +243,27 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 	}
 	
 	$.ajax(url, settings);
+}
+var memberIdx= document.getElementById('memberIdx').innerText;
+
+console.log(memberIdx);
+
+$(function(){
+	buylist(1);
+});
+
+function buylist(page) {
+	let url = "${pageContext.request.contextPath}/admin/userManage/buylist"; 
+	let query = "memberIdx="+memberIdx+"&page="+page;
+	let search = $('form[name=searchForm]').serialize();
+	query = query+"&"+search;
+	let selector = ".buy_list";
+	
+	const fn = function(data){
+		$(selector).html(data);
+	};
+	// ajaxFun(url, 'get', query, 'html', fn);
+	ajaxFun(url, 'get', query, 'html', fn);
 }
 
 

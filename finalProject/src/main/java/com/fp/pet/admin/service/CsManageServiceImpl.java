@@ -120,4 +120,17 @@ public class CsManageServiceImpl implements CsManageService {
 		
 	}
 
+	@Override
+	public CsBoard findnoticebynum(int nnum) {
+		CsBoard dto = null;
+		
+		try {
+			dto = mapper.findnoticebynum(nnum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
+	}
+
+
 }

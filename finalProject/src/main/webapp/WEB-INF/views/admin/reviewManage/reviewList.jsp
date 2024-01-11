@@ -88,12 +88,6 @@
 					<div
 						class="card-header d-flex align-items-md-center pb-md-2 flex-wrap justify-content-end"
 						style="width: 100%;">
-						<div class="me-2 ms-n2">
-							<div id="DataTables_Table_0_filter" class="dataTables_filter">
-							</div>
-						</div>
-						<div class="review_filter mb-2 mt-2">
-						</div>
 						<div
 							class="dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-end align-items-md-center justify-content-md-end pt-0 gap-3 flex-wrap">
 							<div class="slay dataTables_length  md-3 mb-2"
@@ -110,89 +104,41 @@
 						style="width: 100%;">
 						<thead>
 							<tr>
-							
-								<th class="control sorting_disabled pe-0" rowspan="1"
-									colspan="1" width="10px;" aria-label=""></th>
 								<th
-									class="sorting_disabled dt-checkboxes-cell dt-checkboxes-select-all"
-									rowspan="1" colspan="1" style="width: 20px;" data-col="1"
+									class=""
+									rowspan="1" colspan="1" width="5%;" 	
 									aria-label="">공개 여부</th>
 								<th class="sorting sorting_asc" tabindex="0"
 									aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-									width="50px;"
+									width="40%" style="padding-right: 200px;"
 									aria-label="Product: activate to sort column descending"
 									aria-sort="ascending">상품</th>
 								<th class="text-nowrap sorting" tabindex="0"
 									aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-									width="40px;"
+									width="15%;"
 									aria-label="Reviewer: activate to sort column ascending">작성자</th>
 								<th class="sorting" tabindex="0"
 									aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-									width="200px"
+									width="25%"
 									aria-label="Review: activate to sort column ascending">별점
 									<i class='that bx bx-chevron-up' data-sorter="1" style="cursor: pointer;"></i>
 									<i class='that bx bx-chevron-down' data-sorter="2" style="cursor: pointer;"></i></th>
 								<th class="sorting" tabindex="0"
 									aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-									style="width: 10px;"
+									width="15%;"
 									aria-label="Date: activate to sort column ascending">날짜
 									<i class='that bx bx-chevron-up' data-sorter="3" style="cursor: pointer;"></i>
 									<i class='that bx bx-chevron-down' data-sorter="4" style="cursor: pointer;"></i>
 									</th>
 								<th class="sorting_disabled dtr-hidden" rowspan="1" colspan="1"
-									style="width: 10px;" aria-label="Actions"></th>
+									width="5%" aria-label="Actions"></th>
 							</tr>
 						</thead>
 						<tbody class="review-list">
 
 						</tbody>
 					</table>
-					<div class="row mx-2 " style="width: 100%;">
-						<div class="col-sm-12 col-md-6">
-							<div class="dataTables_info mt-3" id="DataTables_Table_0_info"
-								role="status" aria-live="polite">1-10개/100개 중</div>
-						</div>
-						<div class="col-sm-12 col-md-6 mt-3 ">
-							<div class="dataTables_paginate paging_simple_numbers"
-								id="DataTables_Table_0_paginate">
-								<ul class="pagination justify-content-end">
-									<li class="paginate_button page-item previous disabled"
-										id="DataTables_Table_0_previous"><a
-										aria-controls="DataTables_Table_0" aria-disabled="true"
-										role="link" data-dt-idx="previous" tabindex="0"
-										class="page-link">Previous</a></li>
-									<li class="paginate_button page-item active"><a href="#"
-										aria-controls="DataTables_Table_0" role="link"
-										aria-current="page" data-dt-idx="0" tabindex="0"
-										class="page-link">1</a></li>
-									<li class="paginate_button page-item "><a href="#"
-										aria-controls="DataTables_Table_0" role="link" data-dt-idx="1"
-										tabindex="0" class="page-link">2</a></li>
-									<li class="paginate_button page-item "><a href="#"
-										aria-controls="DataTables_Table_0" role="link" data-dt-idx="2"
-										tabindex="0" class="page-link">3</a></li>
-									<li class="paginate_button page-item "><a href="#"
-										aria-controls="DataTables_Table_0" role="link" data-dt-idx="3"
-										tabindex="0" class="page-link">4</a></li>
-									<li class="paginate_button page-item "><a href="#"
-										aria-controls="DataTables_Table_0" role="link" data-dt-idx="4"
-										tabindex="0" class="page-link">5</a></li>
-									<li class="paginate_button page-item disabled"
-										id="DataTables_Table_0_ellipsis"><a
-										aria-controls="DataTables_Table_0" aria-disabled="true"
-										role="link" data-dt-idx="ellipsis" tabindex="0"
-										class="page-link">…</a></li>
-									<li class="paginate_button page-item "><a href="#"
-										aria-controls="DataTables_Table_0" role="link" data-dt-idx="9"
-										tabindex="0" class="page-link">10</a></li>
-									<li class="paginate_button page-item next"
-										id="DataTables_Table_0_next"><a href="#"
-										aria-controls="DataTables_Table_0" role="link"
-										data-dt-idx="next" tabindex="0" class="page-link">Next</a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
+					
 				</div>
 			</div>
 		</div>
@@ -313,15 +259,17 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 	
 	$.ajax(url, settings);
 }
+
+var sort;
 window.onload=function(){
-	var sort = 5;
-	reviewlist(1, sort);
+	sort=5;
+	reviewlist(1);
 }
 
-function reviewlist(page, sort){
+function reviewlist(page){
 	
-	let url = "${pageContext.request.contextPath}/admin/reviewManage/"+sort+"/list"; 
-	let query = "pageNo="+page;
+	let url = "${pageContext.request.contextPath}/admin/reviewManage/list"; 
+	let query = "sort="+sort+"&page="+page;
 	let search = $('form[name=searchForm]').serialize();
 	query = query+"&"+search;
 	let selector = ".review-list";
@@ -399,7 +347,7 @@ function hidereview(reviewnumber){
 	let url = "${pageContext.request.contextPath}/admin/reviewManage/"+reviewnumber+"/hide";
 	let query ="";
 	const fn = function(data){
-		reviewlist(1,5);
+		reviewlist(1);
 	};
 	ajaxFun(url, "post", query, "json", fn);
 }
@@ -409,7 +357,7 @@ function showreview(reviewnumber){
 	let url = "${pageContext.request.contextPath}/admin/reviewManage/"+reviewnumber+"/show";
 	let query ="";
 	const fn = function(data){
-		reviewlist(1,5);
+		reviewlist(1);
 	};
 	ajaxFun(url, "post", query, "json", fn);
 }
@@ -419,23 +367,23 @@ function answerreview(reviewnumber,sancMemo){
 	let url = "${pageContext.request.contextPath}/admin/reviewManage/"+reviewnumber+"/reviewanswer";
 	let query = "sancMemo="+encodeURIComponent(sancMemo);
 	const fn = function(data){
-		reviewlist(1,5);
+		reviewlist(1);
 	};
 	ajaxFun(url, "post", query, "json", fn);
 }
 
 $(".sort").on("click", "i.that", function() {
 	
-    var sort = $(this).attr("data-sorter");
+    sort = $(this).attr("data-sorter");
     
-    reviewlist(1, sort);
+    reviewlist(1);
 });
 
 $(".slay").on("click", "i.that", function() {
 	
-    var sort = $(this).attr("data-sorter");
+    sort = $(this).attr("data-sorter");
     
-    reviewlist(1, sort);
+    reviewlist(1);
 });
 
 

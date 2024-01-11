@@ -10,6 +10,7 @@ import com.fp.pet.domain.Purchase;
 public interface UserManageService {
 	
 	public int dataCount(Map<String, Object> map);
+	public int dataCountpurchase(Map<String, Object> map);
 	public int userCount(Map<String, Object> map);
 	public int todayregcount(Map<String, Object> map);
 	public int yesterdayregcount(Map<String, Object> map);
@@ -26,5 +27,7 @@ public interface UserManageService {
 	
 	public void sancuser(Map<String, Object> map);
 	public void unsancuser(Map<String, Object> map);
+	
+	public int findpoint(long memberIdx);
 	
 }

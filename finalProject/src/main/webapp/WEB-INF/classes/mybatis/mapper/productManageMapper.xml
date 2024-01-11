@@ -5,39 +5,49 @@
 
 	<select id="dataCount" parameterType="map" resultType="Integer">
 		SELECT COUNT(*) FROM (
-    SELECT DISTINCT
-        p.productNum,
-        p.categoryNum,
-        p.productname,
-        p.price,
-        p.thumbnail,
-        ps.totalstock,
-        p.discountRate,
-        p.special,
-        CASE
-            WHEN p.special = 0 THEN '일반'
-            WHEN p.special = 1 THEN '특가'
-            WHEN p.special = 2 THEN '기획'
-        END AS specialState,
-        po1.optionNum AS optionNum1,
-        po1.optionName AS optionName1,
-        od1.detailNum AS detailNum1,
-        od1.optionValue AS optionValue1,
-        po2.optionNum AS optionNum2,
-        po2.optionName AS optionName2,
-        od2.detailNum AS detailNum2,
-        od2.optionValue AS optionValue2
-    FROM
-        product p
-        LEFT OUTER JOIN productoption po1 ON p.productNum = po1.productNum
-        LEFT OUTER JOIN optiondetail od1 ON po1.optionNum = od1.optionNum
-        LEFT OUTER JOIN productoption po2 ON p.productNum = po2.productNum
-        LEFT OUTER JOIN optiondetail od2 ON po2.optionNum = od2.optionNum
-        LEFT OUTER JOIN productStock ps ON od1.detailNum = ps.detailNum AND od2.detailNum = ps.detailNum2
-        LEFT OUTER JOIN productCategory pc ON p.categoryNum = pc.categoryNum
-    WHERE (MOD(po1.optionNum, 2) = 1 AND po2.optionNum = po1.optionNum + 1)
-    <choose>
-    		<when test="sort==0">AND pc.sort=0</when>
+		SELECT DISTINCT
+		p.productNum,
+		p.categoryNum,
+		p.productname,
+		p.price,
+		p.thumbnail,
+		ps.totalstock,
+		p.discountRate,
+		p.special,
+		CASE
+		WHEN p.special = 0 THEN '일반'
+		WHEN p.special = 1 THEN '특가'
+		WHEN p.special = 2 THEN '기획'
+		END AS specialState,
+		po1.optionNum AS
+		optionNum1,
+		po1.optionName AS optionName1,
+		od1.detailNum AS detailNum1,
+		od1.optionValue AS optionValue1,
+		po2.optionNum AS optionNum2,
+		po2.optionName AS optionName2,
+		od2.detailNum AS detailNum2,
+		od2.optionValue AS optionValue2
+		FROM
+		product p
+		LEFT OUTER JOIN
+		productoption po1 ON p.productNum = po1.productNum
+		LEFT OUTER JOIN
+		optiondetail od1 ON po1.optionNum = od1.optionNum
+		LEFT OUTER JOIN
+		productoption po2 ON p.productNum = po2.productNum
+		LEFT OUTER JOIN
+		optiondetail od2 ON po2.optionNum = od2.optionNum
+		LEFT OUTER JOIN
+		productStock ps ON od1.detailNum = ps.detailNum AND
+		od2.detailNum =
+		ps.detailNum2
+		LEFT OUTER JOIN productCategory pc ON p.categoryNum =
+		pc.categoryNum
+		WHERE (MOD(po1.optionNum, 2) = 1 AND po2.optionNum =
+		po1.optionNum + 1)
+		<choose>
+			<when test="sort==0">AND pc.sort=0</when>
 			<when test="sort==1">AND pc.sort=1</when>
 			<when test="sort==2">AND pc.sort=2</when>
 			<when test="subsort==1">AND p.categoryNum=1</when>
@@ -58,9 +68,11 @@
 			<when test="subsort==16">AND p.categoryNum=16</when>
 			<when test="subsort==17">AND p.categoryNum=17</when>
 			<when test="subsort==18">AND p.categoryNum=18</when>
+			<when test="stocksort==0">AND ps.totalstock is null</when>
+			<when test="stocksort==1">AND ps.totalstock >=0</when>
 			<otherwise></otherwise>
 		</choose>
-)
+		)
 	</select>
 
 	<select id="sublistProduct" parameterType="map"
@@ -73,6 +85,139 @@
 		p.thumbnail,
 		ps.totalstock,
 		p.discountRate,
+		p.special,
+		CASE
+		WHEN p.special
+		= 0 THEN '일반'
+		WHEN p.special = 1 THEN '특가'
+		WHEN p.special = 2 THEN '기획'
+		END AS
+		specialState,
+		po1.optionNum AS optionNum1,
+		po1.optionName AS
+		optionName1,
+		od1.detailNum AS detailNum1,
+		od1.optionValue AS
+		optionValue1,
+		po2.optionNum AS optionNum2,
+		po2.optionName AS
+		optionName2,
+		od2.detailNum AS detailNum2,
+		od2.optionValue AS
+		optionValue2
+		FROM
+		product p
+		LEFT OUTER JOIN productoption po1 ON
+		p.productNum = po1.productNum
+		LEFT OUTER JOIN optiondetail od1 ON
+		po1.optionNum = od1.optionNum
+		LEFT OUTER JOIN productoption po2 ON
+		p.productNum = po2.productNum
+		LEFT OUTER JOIN optiondetail od2 ON
+		po2.optionNum = od2.optionNum
+		LEFT OUTER JOIN productStock ps ON
+		od1.detailNum = ps.detailNum AND
+		od2.detailNum=ps.detailNum2
+		LEFT OUTER
+		JOIN productCategory pc ON p.categoryNum = pc.categoryNum
+		WHERE
+		(MOD(po1.optionNum, 2) = 1 AND po2.optionNum = po1.optionNum + 1)
+		<choose>
+			<when test="subsort==1">AND p.categoryNum=1</when>
+			<when test="subsort==2">AND p.categoryNum=2</when>
+			<when test="subsort==3">AND p.categoryNum=3</when>
+			<when test="subsort==4">AND p.categoryNum=4</when>
+			<when test="subsort==5">AND p.categoryNum=5</when>
+			<when test="subsort==6">AND p.categoryNum=6</when>
+			<when test="subsort==7">AND p.categoryNum=7</when>
+			<when test="subsort==8">AND p.categoryNum=8</when>
+			<when test="subsort==9">AND p.categoryNum=9</when>
+			<when test="subsort==10">AND p.categoryNum=10</when>
+			<when test="subsort==11">AND p.categoryNum=11</when>
+			<when test="subsort==12">AND p.categoryNum=12</when>
+			<when test="subsort==13">AND p.categoryNum=13</when>
+			<when test="subsort==14">AND p.categoryNum=14</when>
+			<when test="subsort==15">AND p.categoryNum=15</when>
+			<when test="subsort==16">AND p.categoryNum=16</when>
+			<when test="subsort==17">AND p.categoryNum=17</when>
+			<when test="subsort==18">AND p.categoryNum=18</when>
+			<otherwise></otherwise>
+		</choose>
+		order by p.productNum
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS
+		ONLY
+	</select>
+
+	<select id="listProduct" parameterType="map"
+		resultType="com.fp.pet.admin.domain.Product">
+		SELECT DISTINCT
+		p.productNum,
+		p.categoryNum,
+		p.productname,
+		p.price,
+		p.thumbnail,
+		ps.totalstock,
+		p.discountRate,
+		p.special,
+		CASE
+		WHEN p.special
+		= 0 THEN '일반'
+		WHEN p.special = 1 THEN '특가'
+		WHEN p.special = 2 THEN '기획'
+		END AS
+		specialState,
+		po1.optionNum AS optionNum1,
+		po1.optionName AS
+		optionName1,
+		od1.detailNum AS detailNum1,
+		od1.optionValue AS
+		optionValue1,
+		po2.optionNum AS optionNum2,
+		po2.optionName AS
+		optionName2,
+		od2.detailNum AS detailNum2,
+		od2.optionValue AS
+		optionValue2
+		FROM
+		product p
+		LEFT OUTER JOIN productoption po1 ON
+		p.productNum = po1.productNum
+		LEFT OUTER JOIN optiondetail od1 ON
+		po1.optionNum = od1.optionNum
+		LEFT OUTER JOIN productoption po2 ON
+		p.productNum = po2.productNum
+		LEFT OUTER JOIN optiondetail od2 ON
+		po2.optionNum = od2.optionNum
+		LEFT OUTER JOIN productStock ps ON
+		od1.detailNum = ps.detailNum AND
+		od2.detailNum=ps.detailNum2
+		LEFT OUTER
+		JOIN productCategory pc ON p.categoryNum = pc.categoryNum
+		WHERE
+		(MOD(po1.optionNum, 2) = 1 AND po2.optionNum = po1.optionNum + 1)
+		<if test="kwd != null and kwd != ''">
+			AND INSTR(p.productName, #{kwd}) &gt; 0
+		</if>
+		<choose>
+			<when test="sort==0">AND pc.sort=0</when>
+			<when test="sort==1">AND pc.sort=1</when>
+			<when test="sort==2">AND pc.sort=2</when>
+			<otherwise></otherwise>
+		</choose>
+		order by p.productNum
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS
+		ONLY
+	</select>
+
+	<select id="stocklistProduct" parameterType="map"
+		resultType="com.fp.pet.admin.domain.Product">
+		SELECT DISTINCT
+		p.productNum,
+		p.categoryNum,
+		p.productname,
+		p.price,
+		p.thumbnail,
+		ps.totalstock,
 		p.special,
 		CASE
 		WHEN p.special = 0 THEN '일반'
@@ -105,116 +250,8 @@
 		LEFT OUTER JOIN productStock ps ON
 		od1.detailNum = ps.detailNum AND
 		od2.detailNum=ps.detailNum2
-		LEFT OUTER JOIN productCategory pc ON p.categoryNum = pc.categoryNum
-		WHERE
-		(MOD(po1.optionNum, 2) = 1 AND po2.optionNum = po1.optionNum + 1)
-		<choose>
-			<when test="subsort==1">AND p.categoryNum=1</when>
-			<when test="subsort==2">AND p.categoryNum=2</when>
-			<when test="subsort==3">AND p.categoryNum=3</when>
-			<when test="subsort==4">AND p.categoryNum=4</when>
-			<when test="subsort==5">AND p.categoryNum=5</when>
-			<when test="subsort==6">AND p.categoryNum=6</when>
-			<when test="subsort==7">AND p.categoryNum=7</when>
-			<when test="subsort==8">AND p.categoryNum=8</when>
-			<when test="subsort==9">AND p.categoryNum=9</when>
-			<when test="subsort==10">AND p.categoryNum=10</when>
-			<when test="subsort==11">AND p.categoryNum=11</when>
-			<when test="subsort==12">AND p.categoryNum=12</when>
-			<when test="subsort==13">AND p.categoryNum=13</when>
-			<when test="subsort==14">AND p.categoryNum=14</when>
-			<when test="subsort==15">AND p.categoryNum=15</when>
-			<when test="subsort==16">AND p.categoryNum=16</when>
-			<when test="subsort==17">AND p.categoryNum=17</when>
-			<when test="subsort==18">AND p.categoryNum=18</when>
-			<otherwise></otherwise>
-		</choose>
-		order by p.productNum
-		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
-	</select>
-
-	<select id="listProduct" parameterType="map"
-		resultType="com.fp.pet.admin.domain.Product">
-		SELECT DISTINCT
-		p.productNum,
-		p.categoryNum,
-		p.productname,
-		p.price,
-		p.thumbnail,
-		ps.totalstock,
-		p.discountRate,
-		p.special,
-		CASE
-		WHEN p.special = 0 THEN '일반'
-		WHEN p.special = 1 THEN '특가'
-		WHEN p.special = 2 THEN '기획'
-		END AS
-		specialState,
-		po1.optionNum AS optionNum1,
-		po1.optionName AS optionName1,
-		od1.detailNum AS detailNum1,
-		od1.optionValue AS optionValue1,
-		po2.optionNum AS optionNum2,
-		po2.optionName AS optionName2,
-		od2.detailNum AS detailNum2,
-		od2.optionValue AS optionValue2
-		FROM
-		product p
-		LEFT OUTER JOIN productoption po1 ON p.productNum = po1.productNum
-		LEFT OUTER JOIN optiondetail od1 ON po1.optionNum = od1.optionNum
-		LEFT OUTER JOIN productoption po2 ON p.productNum = po2.productNum
-		LEFT OUTER JOIN optiondetail od2 ON po2.optionNum = od2.optionNum
-		LEFT OUTER JOIN productStock ps ON od1.detailNum = ps.detailNum AND
-		od2.detailNum=ps.detailNum2
-		LEFT OUTER JOIN productCategory pc ON p.categoryNum = pc.categoryNum
-		WHERE
-		(MOD(po1.optionNum, 2) = 1 AND po2.optionNum = po1.optionNum + 1)
-		<if test="kwd != null and kwd != ''">
-			AND INSTR(p.productName, #{kwd}) &gt; 0
-		</if>
-		<choose>
-			<when test="sort==0">AND pc.sort=0</when>
-			<when test="sort==1">AND pc.sort=1</when>
-			<when test="sort==2">AND pc.sort=2</when>
-			<otherwise></otherwise>
-		</choose>
-		order by p.productNum
-		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
-	</select>
-	
-	<select id="stocklistProduct" parameterType="map"
-		resultType="com.fp.pet.admin.domain.Product">
-		SELECT DISTINCT
-		p.productNum,
-		p.categoryNum,
-		p.productname,
-		p.price,
-		p.thumbnail,
-		ps.totalstock,
-		p.special,
-		CASE
-		WHEN p.special = 0 THEN '일반'
-		WHEN p.special = 1 THEN '특가'
-		WHEN p.special = 2 THEN '기획'
-		END AS
-		specialState,
-		po1.optionNum AS optionNum1,
-		po1.optionName AS optionName1,
-		od1.detailNum AS detailNum1,
-		od1.optionValue AS optionValue1,
-		po2.optionNum AS optionNum2,
-		po2.optionName AS optionName2,
-		od2.detailNum AS detailNum2,
-		od2.optionValue AS optionValue2
-		FROM
-		product p
-		LEFT OUTER JOIN productoption po1 ON p.productNum = po1.productNum
-		LEFT OUTER JOIN optiondetail od1 ON po1.optionNum = od1.optionNum
-		LEFT OUTER JOIN productoption po2 ON p.productNum = po2.productNum
-		LEFT OUTER JOIN optiondetail od2 ON po2.optionNum = od2.optionNum
-		LEFT OUTER JOIN productStock ps ON od1.detailNum = ps.detailNum AND
-		od2.detailNum=ps.detailNum2
-		LEFT OUTER JOIN productCategory pc ON p.categoryNum = pc.categoryNum
+		LEFT OUTER
+		JOIN productCategory pc ON p.categoryNum = pc.categoryNum
 		WHERE
 		(MOD(po1.optionNum, 2) = 1 AND po2.optionNum = po1.optionNum + 1)
 		<choose>
@@ -223,7 +260,8 @@
 			<otherwise></otherwise>
 		</choose>
 		order by p.productNum
-		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS
+		ONLY
 	</select>
 
 
@@ -422,7 +460,8 @@
 		optionDetail WHERE detailNum = #{detailNum}
 	</delete>
 	<delete id="deleteOptionDetailStock" parameterType="Long">
-		DELETE FROM productStock where detailNum=#{detailNum} OR detailNum2=#{detailNum}
+		DELETE FROM
+		productStock where detailNum=#{detailNum} OR detailNum2=#{detailNum}
 	</delete>
 
 	<!-- 상품 재고 -->
@@ -477,18 +516,147 @@
 	</select>
 	<select id="findyByProNum" parameterType="map"
 		resultType="Integer">
-		select totalStock from productStock where 
-		detailNum=#{detailNumber1} and detailNum2=#{detailNumber2} and productNum=#{productNum}
+		select totalStock from productStock where
+		detailNum=#{detailNumber1} and detailNum2=#{detailNumber2} and
+		productNum=#{productNum}
 	</select>
-	
-	<update id="updateStock"  parameterType="Long">
-		UPDATE productStock set totalStock=#{sancMemo} where detailNum=#{detailNumber1} AND 
+
+	<update id="updateStock" parameterType="Long">
+		UPDATE productStock set
+		totalStock=#{sancMemo} where detailNum=#{detailNumber1} AND
 		detailNum2=#{detailNumber2} AND productNum=#{productNum}
 	</update>
-	
-	<insert id="insertStock"  parameterType="Long">
-		INSERT INTO productStock (stockNum, productNum, detailNum, detailNum2, totalStock)
-		VALUES (productStock_seq.NEXTVAL, #{productNum},#{detailNumber1},#{detailNumber2},#{sancMemo})
+
+	<insert id="insertStock" parameterType="Long">
+		INSERT INTO productStock
+		(stockNum, productNum, detailNum, detailNum2, totalStock)
+		VALUES
+		(productStock_seq.NEXTVAL,
+		#{productNum},#{detailNumber1},#{detailNumber2},#{sancMemo})
 	</insert>
+
+	<select id="chart1" resultType="com.fp.pet.admin.domain.Product">
+		SELECT
+		product_category,
+		SUM(NVL(CASE WHEN order_week = '3주전' THEN total_quantity END, 0)) AS
+		three_weeks_ago,
+		SUM(NVL(CASE WHEN order_week = '2주전' THEN
+		total_quantity END, 0)) AS
+		two_weeks_ago,
+		SUM(NVL(CASE WHEN order_week =
+		'1주전' THEN total_quantity END, 0)) AS one_week_ago,
+		SUM(NVL(CASE WHEN
+		order_week = '이번주' THEN total_quantity END, 0)) AS
+		this_week
+		FROM (
+		SELECT
+		CASE
+		WHEN p.categoryNum BETWEEN 1 AND 4 THEN '사료'
+		WHEN
+		p.categoryNum BETWEEN 5 AND 10 THEN '간식'
+		WHEN p.categoryNum BETWEEN 11
+		AND 18 THEN '용품'
+		ELSE '기타'
+		END AS product_category,
+		CASE
+		WHEN
+		TRUNC(po.orderdate, 'IW') = TRUNC(SYSDATE, 'IW') - 21 THEN '3주전'
+		WHEN
+		TRUNC(po.orderdate, 'IW') = TRUNC(SYSDATE, 'IW') - 14 THEN '2주전'
+		WHEN
+		TRUNC(po.orderdate, 'IW') = TRUNC(SYSDATE, 'IW') - 7 THEN '1주전'
+		WHEN
+		TRUNC(po.orderdate, 'IW') = TRUNC(SYSDATE, 'IW') THEN '이번주'
+		ELSE '이전'
+		END AS order_week,
+		SUM(od.qty) AS total_quantity
+		FROM
+		orderdetail od
+		JOIN
+		product p ON od.productNum = p.productNum
+		JOIN
+		productOrder po ON
+		od.ordernum = po.ordernum
+		WHERE
+		TRUNC(po.orderdate, 'IW') BETWEEN
+		TRUNC(SYSDATE, 'IW') - 21 AND TRUNC(SYSDATE, 'IW')
+		GROUP BY
+		CASE
+		WHEN
+		p.categoryNum BETWEEN 1 AND 4 THEN '사료'
+		WHEN p.categoryNum BETWEEN 5
+		AND 10 THEN '간식'
+		WHEN p.categoryNum BETWEEN 11 AND 18 THEN '용품'
+		ELSE
+		'기타'
+		END,
+		CASE
+		WHEN TRUNC(po.orderdate, 'IW') = TRUNC(SYSDATE, 'IW') - 21
+		THEN '3주전'
+		WHEN TRUNC(po.orderdate, 'IW') = TRUNC(SYSDATE, 'IW') - 14
+		THEN '2주전'
+		WHEN TRUNC(po.orderdate, 'IW') = TRUNC(SYSDATE, 'IW') - 7
+		THEN '1주전'
+		WHEN TRUNC(po.orderdate, 'IW') = TRUNC(SYSDATE, 'IW') THEN
+		'이번주'
+		ELSE '이전'
+		END
+		) grouped_data
+		GROUP BY product_category
+		ORDER BY
+		product_category
+	</select>
+
+	<select id="chart2" resultType="com.fp.pet.admin.domain.Product">
+		SELECT
+		allproduct_category,
+		NVL(SUM(CASE WHEN order_date = TRUNC(SYSDATE) - 7 THEN 1 ELSE 0 END), 0) AS seven,
+		NVL(SUM(CASE WHEN order_date = TRUNC(SYSDATE) - 6 THEN 1 ELSE 0 END),
+		0) AS six,
+		NVL(SUM(CASE WHEN order_date = TRUNC(SYSDATE) - 5 THEN 1 ELSE 0 END), 0) AS five,
+		NVL(SUM(CASE WHEN order_date = TRUNC(SYSDATE) - 4 THEN 1 ELSE 0 END),
+		0) AS four,
+		NVL(SUM(CASE WHEN order_date = TRUNC(SYSDATE) - 3 THEN 1 ELSE 0 END), 0) AS three,
+		NVL(SUM(CASE WHEN order_date = TRUNC(SYSDATE) - 2 THEN 1 ELSE 0 END),
+		0) AS two,
+		NVL(SUM(CASE WHEN order_date = TRUNC(SYSDATE) - 1 THEN 1 ELSE 0 END), 0) AS one,
+		NVL(SUM(CASE WHEN order_date = TRUNC(SYSDATE) THEN 1 ELSE 0 END), 0)
+		AS today
+		FROM (
+		SELECT
+		CASE
+		WHEN p.categoryNum=1 THEN '건식사료'
+		WHEN p.categoryNum=2 THEN '습식사료'
+		WHEN p.categoryNum=3 THEN '우유/분유'
+		WHEN p.categoryNum=4 THEN '고양이사료'
+		WHEN p.categoryNum=5 THEN '강아지껌'
+		WHEN p.categoryNum=6 THEN '육포/사시미'
+		WHEN p.categoryNum=7 THEN '수제간식'
+		WHEN p.categoryNum=8 THEN '비스켓/스낵'
+		WHEN p.categoryNum=9 THEN '캔/파우치'
+		WHEN p.categoryNum=10 THEN '고양이간식'
+		WHEN p.categoryNum=11 THEN '위생/배변'
+		WHEN p.categoryNum=12 THEN '건강관리'
+		WHEN p.categoryNum=13 THEN '장난감'
+		WHEN p.categoryNum=14 THEN '미용/목욕'
+		WHEN p.categoryNum=15 THEN '하우스'
+		WHEN p.categoryNum=16 THEN '급식기/급수기'
+		WHEN p.categoryNum=17 THEN '의류/액세서리'
+		WHEN p.categoryNum=18 THEN '목줄/가슴줄'
+		ELSE '기타'
+		END AS allproduct_category,
+		TRUNC(po.orderdate) AS order_date
+		FROM
+		orderdetail od
+		JOIN
+		product p ON od.productNum = p.productNum
+		JOIN
+		productOrder po ON od.ordernum = po.ordernum
+		WHERE
+		TRUNC(po.orderdate) BETWEEN TRUNC(SYSDATE) - 7 AND TRUNC(SYSDATE)
+		) grouped_data
+		GROUP BY allproduct_category
+		ORDER BY allproduct_category
+	</select>
 
 </mapper>

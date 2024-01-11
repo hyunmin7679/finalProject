@@ -218,23 +218,23 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 	
 	$.ajax(url, settings);
 }
-
+var orders;
 window.onload=function(){
-	var orders = 10;
-	userlist(1, orders);
+	orders = 10;
+	userlist(1);
 }
 
 $(".sort").on("click", "i.which", function() {
 	
-    var orders = $(this).attr("data-sorter");
+    orders = $(this).attr("data-sorter");
     
-    userlist(1, orders);
+    userlist(1);
 });
 
-function userlist(page, orders){
+function userlist(page){
 	
-	let url = "${pageContext.request.contextPath}/admin/userManage/"+orders+"/list"; 
-	let query = "pageNo="+page;
+	let url = "${pageContext.request.contextPath}/admin/userManage/list"; 
+	let query = "orders="+orders+"&page="+page;
 	let search = $('form[name=searchForm]').serialize();
 	query = query+"&"+search;
 	let selector = ".user-list";
@@ -251,7 +251,7 @@ function searchList(){
 	const f = document.searchForm; 
 	f.kwd.value = $.trim($("#kwd").val());
 	
-	userlist(1, 10);
+	userlist(1);
 	
 }
 
@@ -340,7 +340,7 @@ function usersanction(memberIdx,sancNum,sancMemo){
 	let url = "${pageContext.request.contextPath}/admin/userManage/"+memberIdx+"/sanction"; 
 	let query ="sancNum="+sancNum+"&sancMemo="+encodeURIComponent(sancMemo);
 	const fn = function(data){
-		userlist(1, 10);
+		userlist(1);
 	};
 	
 	ajaxFun(url, "post", query, "json", fn);
@@ -353,7 +353,7 @@ function userunsanction(memberIdx){
 	let url = "${pageContext.request.contextPath}/admin/userManage/"+memberIdx+"/unsanction"; 
 	let query ="";
 	const fn = function(data){
-		userlist(1, 10);
+		userlist(1);
 	};
 	
 	ajaxFun(url, "post", query, "json", fn);

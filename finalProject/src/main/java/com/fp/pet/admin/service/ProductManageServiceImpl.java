@@ -443,6 +443,29 @@ public class ProductManageServiceImpl implements ProductManageService {
 		return list;
 	}
 
+	@Override
+	public List<Product> chart1() {
+		List<Product> list = null;
+		
+		try {
+			list = mapper.chart1();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	@Override
+	public List<Product> chart2() {
+		List<Product> list = null;
+		
+		try {
+			list = mapper.chart2();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 
 	
 }

@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <c:forEach var="dto" items="${list}" varStatus="status">
-	<tr class="odd">
+	<tr class="odd" height="90px;">
 		<td class="sorting_1">
 			<div
 				class="d-flex justify-content-start align-items-center product-name">
@@ -73,14 +73,10 @@
 <tr>
 <td>
 <div class="row mx-2">
-	<div class="col-sm-12 col-md-6 mt-4">
-		<div class="dataTables_info" id="DataTables_Table_0_info"
-			role="status" aria-live="polite">1-10개/${dataCount}개 중</div>
-	</div>
-<div class="page-navigation">
+<div class="page-navigation justify-content-center"  >
 	${paging}
 </div>		
-${pageNo}/${total_page}
+${dataCount}개(${page}/${total_page}페이지)
 </div>
 </td>
 </tr>

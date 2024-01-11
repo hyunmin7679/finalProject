@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fp.pet.admin.service.UserManageService;
-import com.fp.pet.common.MyUtil;
+import com.fp.pet.common.MyUtilBootstrap;
 import com.fp.pet.domain.Member;
 import com.fp.pet.domain.Purchase;
 
@@ -28,14 +28,15 @@ public class UserManageController {
 	public UserManageService service;
 
 	@Autowired
-	private MyUtil myUtil;
+	private MyUtilBootstrap myUtil;
+
 
 	@RequestMapping(value = "/")
 	public String users(Model model, @RequestParam(value = "page", defaultValue = "1") int current_page,
 			@RequestParam(defaultValue = "") String kwd, @RequestParam(defaultValue = "all") String schType,
 			HttpServletRequest req) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
-		int size = 10;
+		int size = 5;
 		int total_page = 0;
 		int dataCount = 0;
 
@@ -62,7 +63,7 @@ public class UserManageController {
 
 		map.put("offset", offset);
 		map.put("size", size);
-
+		String paging = myUtil.pagingMethod(current_page, total_page, "userlist");
 		List<Member> list = service.listUser(map);
 
 		int result = service.userCount(map);
@@ -98,6 +99,7 @@ public class UserManageController {
 		} else {
 			purchasediff = Integer.toString(purchaseUserCountdiff);
 		}
+		model.addAttribute("paging", paging);
 		model.addAttribute("left","UserControl");
 		model.addAttribute("list", list);
 		model.addAttribute("page", current_page);
@@ -118,7 +120,8 @@ public class UserManageController {
 	}
 
 	@RequestMapping(value = "userinfo")
-	public String userinfo(@RequestParam long memberIdx, Model model) {
+	public String userinfo(@RequestParam long memberIdx, Model model,
+			@RequestParam(value = "page", defaultValue = "1") int current_page) {
 
 		Map<String, Object> map = new HashMap<String, Object>();
 
@@ -126,26 +129,63 @@ public class UserManageController {
 		List<Member> list = service.listUserinfo(map);
 		
 		List<Purchase> catanaly = service.catanaly(map);
-		List<Purchase> purchaselist = service.purchaselist(map);
-				
+		int point = service.findpoint(memberIdx);
+		
 		model.addAttribute("list", list);
+		model.addAttribute("point", point);
 		model.addAttribute("catanaly", catanaly);
-		model.addAttribute("purchaselist", purchaselist);
 		
 		return ".admin.userManage.userInfo";
 	}
 	
+	@RequestMapping(value="buylist")
+	public String buylist(
+			@RequestParam long memberIdx,
+			@RequestParam(value = "page", defaultValue = "1") int current_page,
+			Model model) throws Exception{
+		Map<String, Object> map = new HashMap<String, Object>();
+		int size = 5;
+		int total_page = 0;
+		int dataCount = 0;
+		map.put("memberIdx", memberIdx);
+		dataCount = service.dataCountpurchase(map);
 
-	@RequestMapping(value = "{orders}/list")
+		if (dataCount != 0) {
+			total_page = dataCount / size + (dataCount % size > 0 ? 1 : 0);
+		}
+
+		if (total_page < current_page) {
+			current_page = total_page;
+		}
+
+		int offset = (current_page - 1) * size;
+		if (offset < 0)
+			offset = 0;
+		map.put("size", size);
+		map.put("offset", offset);
+		List<Purchase> purchaselist = service.purchaselist(map);
+		String paging = myUtil.pagingMethod(current_page, total_page, "buylist");
+		System.out.println(purchaselist);
+		System.out.println(paging);
+		model.addAttribute("paging", paging);
+		model.addAttribute("purchaselist", purchaselist);
+		model.addAttribute("total_page", total_page);
+		model.addAttribute("page", current_page);
+		model.addAttribute("dataCount", dataCount);
+		
+		return "/admin/userManage/buylist";
+	}
+
+	@RequestMapping(value = "list")
 	public String userlist(Model model,
-			@PathVariable int orders,
+			@RequestParam(value = "orders", defaultValue = "10")int orders,
 			@RequestParam(value = "page", defaultValue = "1")int current_page,
 			@RequestParam(defaultValue = "") String kwd,
 			@RequestParam(defaultValue = "all") String schType,
 			HttpServletRequest req
 			) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
-		int size = 10;
+		int size = 5;
 		int total_page = 0;
 		int dataCount = 0;
 		System.out.println(orders);
@@ -173,7 +213,7 @@ public class UserManageController {
 		map.put("offset", offset);
 		map.put("size", size);
 		
-		
+		String paging = myUtil.pagingMethod(current_page, total_page, "userlist");
 		List<Member> list = service.listUser(map);
 	
 		
@@ -192,6 +232,7 @@ public class UserManageController {
 		int activeuser=service.activeuserCount(map);
 		int deactiveuser=service.deactiveuserCount(map);
 		
+		model.addAttribute("paging", paging);
 		model.addAttribute("list", list);
 		model.addAttribute("page", current_page);
 		model.addAttribute("dataCount", dataCount);

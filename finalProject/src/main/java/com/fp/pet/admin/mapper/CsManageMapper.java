@@ -21,5 +21,6 @@ public interface CsManageMapper {
 	public void insertFaq(CsBoard dto) throws SQLException;
 	
 	public void updateQna(CsBoard dto) throws SQLException;
-	
+	public CsBoard findnoticebynum(int nnum);
+
 }

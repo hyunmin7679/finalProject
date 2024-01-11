@@ -11,27 +11,27 @@ import com.fp.pet.domain.Member;
 import com.fp.pet.domain.Purchase;
 
 @Service
-public class UserManageServiceImpl implements UserManageService{
+public class UserManageServiceImpl implements UserManageService {
 
 	@Autowired
 	private UserManageMapper mapper;
-	
+
 	@Override
 	public int userCount(Map<String, Object> map) {
 		int result = 0;
-		
+
 		try {
-			result=mapper.userCount(map);
+			result = mapper.userCount(map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return result;
 	}
-	
+
 	public int todayregcount(Map<String, Object> map) {
 		int result = 0;
 		try {
-			result=mapper.todayregcount(map);
+			result = mapper.todayregcount(map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -42,7 +42,7 @@ public class UserManageServiceImpl implements UserManageService{
 	public int yesterdayregcount(Map<String, Object> map) {
 		int result = 0;
 		try {
-			result=mapper.yesterdayregcount(map);
+			result = mapper.yesterdayregcount(map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -53,18 +53,19 @@ public class UserManageServiceImpl implements UserManageService{
 	public int activeuserCount(Map<String, Object> map) {
 		int result = 0;
 		try {
-			result=mapper.activeuserCount(map);
+			result = mapper.activeuserCount(map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return result;
 	}
+
 	@Override
 	public int activeuserCountlastweek(Map<String, Object> map) {
-		int result=0;
-		
+		int result = 0;
+
 		try {
-			result= mapper.activeuserCountlastweek(map);
+			result = mapper.activeuserCountlastweek(map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -75,7 +76,7 @@ public class UserManageServiceImpl implements UserManageService{
 	public int deactiveuserCount(Map<String, Object> map) {
 		int result = 0;
 		try {
-			result=mapper.deactiveuserCount(map);
+			result = mapper.deactiveuserCount(map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -84,22 +85,22 @@ public class UserManageServiceImpl implements UserManageService{
 
 	@Override
 	public int dataCount(Map<String, Object> map) {
-		int result = 0 ;
-		
+		int result = 0;
+
 		try {
-			result=mapper.dataCount(map);
+			result = mapper.dataCount(map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return result;
 	}
-	
+
 	@Override
 	public int purchaseUserCount(Map<String, Object> map) {
 		int result = 0;
-		
+
 		try {
-			result=mapper.purchaseUserCount(map);
+			result = mapper.purchaseUserCount(map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -109,20 +110,21 @@ public class UserManageServiceImpl implements UserManageService{
 	@Override
 	public int purchaseuserCountweekbefore(Map<String, Object> map) {
 		int result = 0;
-		
+
 		try {
-			result=mapper.purchaseUserCountweekbefore(map);
+			result = mapper.purchaseUserCountweekbefore(map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return result;
 	}
+
 	@Override
 	public List<Member> listUser(Map<String, Object> map) {
 		List<Member> list = null;
-		
+
 		try {
-			list=mapper.listUser(map);
+			list = mapper.listUser(map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -132,9 +134,9 @@ public class UserManageServiceImpl implements UserManageService{
 	@Override
 	public List<Member> listUserinfo(Map<String, Object> map) {
 		List<Member> list = null;
-		
+
 		try {
-			list=mapper.listUserinfo(map);
+			list = mapper.listUserinfo(map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -144,38 +146,38 @@ public class UserManageServiceImpl implements UserManageService{
 	@Override
 	public List<Purchase> catanaly(Map<String, Object> map) {
 		List<Purchase> list = null;
-		
+
 		try {
 			list = mapper.catanaly(map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return list;
 	}
-	
+
 	@Override
 	public List<Purchase> purchaselist(Map<String, Object> map) {
 		List<Purchase> list = null;
-		
+
 		try {
 			list = mapper.purchaselist(map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return list;
 	}
-	
+
 	@Override
 	public void sancuser(Map<String, Object> map) {
-		
+
 		try {
 			mapper.sancUser(map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	@Override
@@ -186,14 +188,31 @@ public class UserManageServiceImpl implements UserManageService{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
+	@Override
+	public int dataCountpurchase(Map<String, Object> map) {
+		int result = 0;
 
+		try {
+			result = mapper.dataCountpurchase(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 
-
-
-
-	
+	@Override
+	public int findpoint(long memberIdx) {
+		int point=0;
+		
+		try {
+			point = mapper.findpoint(memberIdx);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return point;
+	}
 
 }

@@ -30,22 +30,22 @@ public class ProductManageController {
 
 	@Autowired
 	public ProductManageService service;
-	
+
 	@Autowired
 	private FileManager fileManager;
-	
+
 	@Autowired
 	private MyUtilBootstrap myUtil;
 
 	@RequestMapping(value = "/")
 	public String products(Model model) throws Exception {
-		model.addAttribute("left","productManage");
-		model.addAttribute("sub","icons");
+		model.addAttribute("left", "productManage");
+		model.addAttribute("sub", "icons");
 		return ".admin.productManage.productManageList";
 	}
 
-	@RequestMapping(value = "{sort}/list")
-	public String productlist(Model model, @PathVariable int sort,
+	@RequestMapping(value = "list")
+	public String productlist(Model model, @RequestParam(value = "sort", defaultValue = "100") int sort,
 			@RequestParam(value = "page", defaultValue = "1") int current_page,
 			@RequestParam(defaultValue = "") String kwd, @RequestParam(defaultValue = "all") String schType,
 			HttpServletRequest req) throws Exception {
@@ -62,7 +62,7 @@ public class ProductManageController {
 		map.put("kwd", kwd);
 
 		dataCount = service.dataCount(map);
-		
+
 		if (dataCount != 0) {
 			total_page = dataCount / size + (dataCount % size > 0 ? 1 : 0);
 		}
@@ -77,8 +77,8 @@ public class ProductManageController {
 
 		map.put("offset", offset);
 		map.put("size", size);
-		
-		String paging = myUtil.pagingMethod(current_page, total_page, "listpage");
+
+		String paging = myUtil.pagingMethod(current_page, total_page, "listPage");
 		List<Product> list = service.listProduct(map);
 
 		model.addAttribute("list", list);
@@ -88,19 +88,19 @@ public class ProductManageController {
 		model.addAttribute("total_page", total_page);
 		model.addAttribute("schType", schType);
 		model.addAttribute("kwd", kwd);
-		model.addAttribute("paging",paging);
+		model.addAttribute("paging", paging);
 
 		return "admin/productManage/list";
 	}
 
-	@RequestMapping(value = "{subsort}/sublist")
-	public String productsublist(Model model, @PathVariable int subsort,
+	@RequestMapping(value = "sublist")
+	public String productsublist(Model model, @RequestParam(value = "subsort", defaultValue = "20") int subsort,
 			@RequestParam(value = "page", defaultValue = "1") int current_page,
 			@RequestParam(defaultValue = "") String kwd, @RequestParam(defaultValue = "all") String schType,
 			HttpServletRequest req) throws Exception {
 
 		Map<String, Object> map = new HashMap<String, Object>();
-		int size = 20;
+		int size = 10;
 		int total_page = 0;
 		int dataCount = 0;
 		if (req.getMethod().equalsIgnoreCase("GET")) { // GET 방식인 경우
@@ -126,7 +126,7 @@ public class ProductManageController {
 
 		map.put("offset", offset);
 		map.put("size", size);
-
+		String paging = myUtil.pagingMethod(current_page, total_page, "subsortpage");
 		List<Product> list = service.sublistProduct(map);
 
 		model.addAttribute("list", list);
@@ -136,18 +136,19 @@ public class ProductManageController {
 		model.addAttribute("total_page", total_page);
 		model.addAttribute("schType", schType);
 		model.addAttribute("kwd", kwd);
+		model.addAttribute("paging", paging);
 
 		return "admin/productManage/list";
 	}
-	
-	@RequestMapping(value = "{stocksort}/stocklist")
-	public String productstocklist(Model model, @PathVariable int stocksort,
+
+	@RequestMapping(value = "stocklist")
+	public String productstocklist(Model model, @RequestParam(value = "stocksort", defaultValue = "3") int stocksort,
 			@RequestParam(value = "page", defaultValue = "1") int current_page,
 			@RequestParam(defaultValue = "") String kwd, @RequestParam(defaultValue = "all") String schType,
 			HttpServletRequest req) throws Exception {
 
 		Map<String, Object> map = new HashMap<String, Object>();
-		int size = 20;
+		int size = 10;
 		int total_page = 0;
 		int dataCount = 0;
 		if (req.getMethod().equalsIgnoreCase("GET")) { // GET 방식인 경우
@@ -174,6 +175,8 @@ public class ProductManageController {
 		map.put("offset", offset);
 		map.put("size", size);
 
+		String paging = myUtil.pagingMethod(current_page, total_page, "stockpage");
+
 		List<Product> list = service.stocklistProduct(map);
 
 		model.addAttribute("list", list);
@@ -183,6 +186,7 @@ public class ProductManageController {
 		model.addAttribute("total_page", total_page);
 		model.addAttribute("schType", schType);
 		model.addAttribute("kwd", kwd);
+		model.addAttribute("paging", paging);
 
 		return "admin/productManage/list";
 	}
@@ -316,13 +320,14 @@ public class ProductManageController {
 
 	@PostMapping("deleteProduct")
 	@ResponseBody
-	public Map<String, Object> deleteProduct(@RequestParam long productNum, Product dto, HttpSession session) throws Exception {
+	public Map<String, Object> deleteProduct(@RequestParam long productNum, Product dto, HttpSession session)
+			throws Exception {
 
 		String state = "true";
-		
+
 		// 상위/하위 옵션명
 		List<Product> listOption = service.listProductOption(productNum);
-		
+
 		if (listOption.size() > 0) {
 			dto.setOptionNum(listOption.get(0).getOptionNum());
 			long OptionNum = dto.getOptionNum();
@@ -330,35 +335,34 @@ public class ProductManageController {
 		}
 		if (listOption.size() > 1) {
 			dto.setOptionNum2(listOption.get(1).getOptionNum());
-			long OptionNum2= dto.getOptionNum2();
+			long OptionNum2 = dto.getOptionNum2();
 			service.deleteOptionDetailFinal(OptionNum2);
 		}
-		
-		String thumb=service.findThumb(productNum);
-		if(thumb.length()>0) {
+
+		String thumb = service.findThumb(productNum);
+		if (thumb.length() > 0) {
 			dto.setThumbnail(thumb);
 			System.out.println(thumb);
 			String rootthumb = session.getServletContext().getRealPath("/");
 			String pathname = rootthumb + "uploads" + File.separator + "product" + File.separator + thumb;
 			fileManager.doFileDelete(dto.getThumbnail(), pathname);
-			
+
 		}
-			
-			
+
 		service.deleteProductOptionFinal(productNum);
-		
-		List<Product>listFile = service.listProductFile(productNum);
+
+		List<Product> listFile = service.listProductFile(productNum);
 		int size = listFile.size();
-		for(int i=0; i<size; i++ ) {
+		for (int i = 0; i < size; i++) {
 			dto.setFilename(listFile.get(i).getFilename());
 			dto.setFileNum(listFile.get(i).getFileNum());
-			String filename = dto.getFilename();	
+			String filename = dto.getFilename();
 			long fileNum = dto.getFileNum();
 			String root = session.getServletContext().getRealPath("/");
 			String pathname = root + "uploads" + File.separator + "product" + File.separator + filename;
 			service.deleteProductFile(fileNum, pathname);
 		}
-		
+
 		try {
 			service.deleteProduct(dto, productNum);
 		} catch (Exception e) {
@@ -369,35 +373,68 @@ public class ProductManageController {
 		model.put("state", state);
 		return model;
 	}
-	
+
 	@ResponseBody
 	@PostMapping("{productNum}/insertStock")
-	public String insertStock(
-			@RequestParam long detailNumber1,
-			@RequestParam long detailNumber2,
-			@RequestParam long sancMemo,
-			@PathVariable long productNum) {
-		
+	public String insertStock(@RequestParam long detailNumber1, @RequestParam long detailNumber2,
+			@RequestParam long sancMemo, @PathVariable long productNum) {
+
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("detailNumber1", detailNumber1);
 		map.put("detailNumber2", detailNumber2);
 		map.put("productNum", productNum);
-		
+
 		try {
 			Integer totalStock = service.findyByProNum(map);
-			
-			if(totalStock!=null && totalStock >=0) {
-				sancMemo = totalStock+(int)sancMemo;
-				service.updateStock(detailNumber1,detailNumber2,productNum,sancMemo);
+
+			if (totalStock != null && totalStock >= 0) {
+				sancMemo = totalStock + (int) sancMemo;
+				service.updateStock(detailNumber1, detailNumber2, productNum, sancMemo);
 			} else {
 				service.insertStock(productNum, detailNumber1, detailNumber2, sancMemo);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
-		
+
 		return "redirect:/admin/productManage/";
+	}
+
+	@RequestMapping(value = "first")
+	public String firstchart() {
+
+		return "admin/productManage/firstChart";
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "chart1")
+	public Map<String, Object> chart1(Product dto) {
+
+		List<Product> chart1 = service.chart1();
+		Map<String, Object> model = new HashMap<String, Object>();
+		
+		
+		model.put("chart1", chart1);
+		
+		return model;
+	}
+
+	@RequestMapping(value = "second")
+	public String secondchart() {
+
+		return "admin/productManage/secondChart";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "chart2")
+	public Map<String, Object> chart2(Product dto) {
+
+		List<Product> chart2 = service.chart2();
+		Map<String, Object> model = new HashMap<String, Object>();
+		
+		
+		model.put("chart2", chart2);
+		
+		return model;
 	}
 }

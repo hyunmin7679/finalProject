@@ -11,17 +11,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fp.pet.admin.domain.Review;
 import com.fp.pet.admin.service.ReviewManageService;
+import com.fp.pet.common.MyUtilBootstrap;
 
 @Controller
 @RequestMapping("/admin/reviewManage/*")
 public class ReviewManageController {
+	
+	@Autowired
+	private MyUtilBootstrap myUtil;
 	
 	@Autowired
 	public ReviewManageService service;
@@ -45,17 +48,17 @@ public class ReviewManageController {
 		return ".admin.reviewManage.reviewList";
 	}
 	
-	@RequestMapping(value="{sort}/list")
+	@RequestMapping(value="list")
 	public String reviewlist(
 			Model model,
-			@PathVariable int sort,
+			@RequestParam(value = "sort", defaultValue = "10") int sort,
 			@RequestParam(value = "page", defaultValue = "1") int current_page,
 			@RequestParam(defaultValue = "") String kwd, 
 			HttpServletRequest req
 			) throws Exception{
 		
 		Map<String, Object> map = new HashMap<String, Object>();
-		int size = 20;
+		int size = 10;
 		int total_page = 0;
 		int dataCount = 0;
 		if (req.getMethod().equalsIgnoreCase("GET")) { // GET 방식인 경우
@@ -80,7 +83,7 @@ public class ReviewManageController {
 
 		map.put("offset", offset);
 		map.put("size", size);
-		
+		String paging = myUtil.pagingMethod(current_page, total_page, "reviewlist");
 		List<Review> list = service.listReview(map);
 		
 		model.addAttribute("list", list);
@@ -89,6 +92,7 @@ public class ReviewManageController {
 		model.addAttribute("size", size);
 		model.addAttribute("total_page", total_page);
 		model.addAttribute("kwd", kwd);
+		model.addAttribute("paging", paging);
 		
 		
 		return "admin/reviewManage/list";

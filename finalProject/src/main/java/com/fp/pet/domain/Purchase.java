@@ -18,6 +18,21 @@ public class Purchase {
 	private String orderdate;
 	private int savedmoney; 
 	private int average_score;
+	private int qty;
+	private String detailstates;
+	
+	public String getDetailstates() {
+		return detailstates;
+	}
+	public void setDetailstates(String detailstates) {
+		this.detailstates = detailstates;
+	}
+	public int getQty() {
+		return qty;
+	}
+	public void setQty(int qty) {
+		this.qty = qty;
+	}
 	public int getAverage_score() {
 		return average_score;
 	}

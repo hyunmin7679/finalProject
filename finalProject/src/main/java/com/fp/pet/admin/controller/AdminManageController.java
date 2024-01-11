@@ -16,11 +16,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fp.pet.admin.domain.Admin;
 import com.fp.pet.admin.service.AdminManageService;
+import com.fp.pet.common.MyUtilBootstrap;
 import com.fp.pet.domain.SessionInfo;
 
 @Controller
 @RequestMapping("/admin/adminManage/*")
 public class AdminManageController {
+	
+	@Autowired
+	private MyUtilBootstrap myutil;
 	
 	@Autowired
 	private AdminManageService service;
@@ -45,7 +49,8 @@ public class AdminManageController {
 		map.put("kwd", kwd);
 		
 		dataCount = service.dataCount(map);
-
+		System.out.println("asdasdasdasdasdadasdaddasdasdasdas");
+		System.out.println(dataCount);
 		if (dataCount != 0) {
 			total_page = dataCount / size + (dataCount % size > 0 ? 1 : 0);
 		}
@@ -57,13 +62,15 @@ public class AdminManageController {
 		int offset = (current_page - 1) * size;
 		if (offset < 0)
 			offset = 0;
-
+		String cp = req.getContextPath();
+		String listUrl = cp + "/admin/adminManage/";
 		map.put("offset", offset);
 		map.put("size", size);
-		
+		String paging = myutil.paging(current_page, total_page, listUrl);
 		List<Admin> list = service.listAdmin(map);
 		
 		model.addAttribute("list", list);
+		model.addAttribute("paging", paging);
 		model.addAttribute("size", size);
 		model.addAttribute("total_page", total_page);
 		model.addAttribute("schType", schType);

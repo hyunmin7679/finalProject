@@ -122,40 +122,10 @@
 				</div>
 			</div>
 		</div>
-<div class="row mx-2" style="width: 100%;">
-	<div class="col-sm-12 col-md-6 mt-3">
-		<div class="dataTables_info" id="DataTables_Table_0_info"
-			role="status" aria-live="polite"></div>
 
-	</div>
-	<div class="col-sm-12 col-md-6 mt-3">
-		<div class="dataTables_paginate paging_simple_numbers"
-			id="DataTables_Table_0_paginate">
-			<ul class="pagination justify-content-end pe-2">
-				<li class="paginate_button page-item previous disabled"
-					id="DataTables_Table_0_previous"><a
-					aria-controls="DataTables_Table_0" aria-disabled="true" role="link"
-					data-dt-idx="previous" tabindex="0" class="page-link">Previous</a></li>
-				<li class="paginate_button page-item active"><a href="#"
-					aria-controls="DataTables_Table_0" role="link" aria-current="page"
-					data-dt-idx="0" tabindex="0" class="page-link">1</a></li>
-				<li class="paginate_button page-item "><a href="#"
-					aria-controls="DataTables_Table_0" role="link" data-dt-idx="1"
-					tabindex="0" class="page-link">2</a></li>
-				<li class="paginate_button page-item "><a href="#"
-					aria-controls="DataTables_Table_0" role="link" data-dt-idx="2"
-					tabindex="0" class="page-link">3</a></li>
-				<li class="paginate_button page-item "><a href="#"
-					aria-controls="DataTables_Table_0" role="link" data-dt-idx="3"
-					tabindex="0" class="page-link">4</a></li>
-				<li class="paginate_button page-item "><a href="#"
-					aria-controls="DataTables_Table_0" role="link" data-dt-idx="4"
-					tabindex="0" class="page-link">5</a></li>
-				<li class="paginate_button page-item next"
-					id="DataTables_Table_0_next"><a href="#"
-					aria-controls="DataTables_Table_0" role="link" data-dt-idx="next"
-					tabindex="0" class="page-link">Next</a></li>
-			</ul>
-		</div>
-	</div>
+<div class="page-navigation" >
+	${paging}
+<div class="row mx-2">
+${dataCount}개(${page}/${total_page}페이지)
+</div>		
 </div>
