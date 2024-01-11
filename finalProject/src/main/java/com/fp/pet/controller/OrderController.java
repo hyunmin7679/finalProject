@@ -94,7 +94,7 @@ public class OrderController {
 				list.add(map);
 			}
 			
-			List<Order> listProduct = orderService.listProduct(list);
+			List<Order> listProduct = orderService.listProduct(list,info.getMemberIdx());
 			for(int i = 0; i < listProduct.size(); i++) {
 				Order dto = listProduct.get(i);
 				

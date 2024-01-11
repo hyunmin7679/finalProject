@@ -1,5 +1,6 @@
 package com.fp.pet.service;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
@@ -65,9 +66,9 @@ public class OrderServiceImpl implements OrderService{
 	@Override
 	public void insertOrder(Order dto) throws Exception {
 		try {
-			dto.setUsePoint(-dto.getUsePoint());
 			mapper.insertOrder(dto);
 			
+			dto.setUsePoint(-dto.getUsePoint());
 			mapper.insertPayDetail(dto);
 			
 			for(int i = 0; i<dto.getProductNums().size(); i++) {
@@ -123,19 +124,37 @@ public class OrderServiceImpl implements OrderService{
 	}
 
 	@Override
-	public List<Order> listProduct(List<Map<String, Long>> list) {
+	public List<Order> listProduct(List<Map<String, Long>> list, long memberIdx) {
 		List<Order> listProduct = null;
 		
 		try {
 			listProduct = mapper.listProduct(list);
+			
 			for(Order dto : listProduct) {
 				int discountPrice = 0;
 				if(dto.getDiscountRate() > 0) {
 					discountPrice = (int)(dto.getPrice() * (dto.getDiscountRate()/100.0));
 					dto.setDiscountPrice(discountPrice);
 				}
-				
 				dto.setSalePrice(dto.getPrice() - discountPrice);
+				dto.setMemberIdx(memberIdx);
+				List<Order> coupon = mapper.findByCoupon(dto);
+				for(Order cp : coupon) {
+					if(dto.getCategoryNum() == cp.getCategoryNum()) {
+						if(dto.getCouponNums() == null) {
+							dto.setCategoryNums(new ArrayList<Integer>());
+							dto.setCouponNums(new ArrayList<Integer>());
+							dto.setCouponNames(new ArrayList<String>());
+							dto.setCouponDiscounts(new ArrayList<Integer>());
+							
+						}
+						dto.getCategoryNums().add(cp.getCategoryNum());
+						dto.getCouponNums().add(cp.getCouponNum());
+						dto.getCouponNames().add(cp.getCouponName());
+						dto.getCouponDiscounts().add(cp.getCouponDiscount());
+					}
+				}
+				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

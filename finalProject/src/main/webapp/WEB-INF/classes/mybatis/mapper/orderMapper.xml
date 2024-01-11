@@ -12,7 +12,7 @@
 	<insert id="insertOrder" parameterType="com.fp.pet.domain.Order"> 
 		insert into productOrder(orderNum, memberIdx, orderDate, totalMoney, usedSaved, deliveryCharge,
 			payment, cancelAmount, orderState) values(#{orderNum}, #{memberIdx}, sysdate,
-			#{totalMoney}, #{usedSaved}, #{deliveryCharge}, #{payment}, 0, 1)
+			#{totalMoney}, #{usePoint}, #{deliveryCharge}, #{payment}, 0, 1)
 	</insert>
 	
 	<insert id="insertPayDetail" parameterType="com.fp.pet.domain.Order">
@@ -37,7 +37,7 @@
 		SELECT p.productNum, productName,price, savedMoney, discountRate, delivery, thumbnail,
     		po.optionNum, po.optionName, od.detailNum, od.optionValue,
     		po2.optionNum optionNum2, po2.optionName optionName2,
-    		od2.detailNum detailNum2, od2.optionValue optionValue2
+    		od2.detailNum detailNum2, od2.optionValue optionValue2, p.CATEGORYNUM
 		FROM product p
 		JOIN productOption po ON p.productNum = po.productNum
 		JOIN productOption po2 ON po.optionNum = po2.parent
@@ -92,6 +92,12 @@
 	<update id="stockReduction" parameterType="com.fp.pet.domain.Order">
 		update productstock set totalstock = totalstock-1
 		where detailNum = #{detailNum} and detailNum2 = #{detailNum2}
-	
 	</update>
+	
+	<select id="findByCoupon" parameterType="com.fp.pet.domain.Order" resultType="com.fp.pet.domain.Order">
+		select mp.COUPONNUM, categoryNum, couponName, coupondiscount
+		from membercoupon mp
+		left outer join coupon cp on mp.couponNum = cp.couponNum
+		where use = 0 and couponstate = 0 and memberIdx = #{memberIdx} and categoryNum = #{categoryNum}
+	</select>
 </mapper>

@@ -504,7 +504,7 @@ $(function(){
 							* 필수 옵션
 						</div>
 						<div class="mt-2">
-							<select class="form-select requiredOption" data-optionNum="${listOption[0].optionNum}">
+							<select class="form-select requiredOption" data-optionNum="${listOption[0].optionNum}" >
 								<option value="">${listOption[0].optionName}</option>
 								<c:forEach var="vo" items="${listOptionDetail}">
 									<option value="${vo.detailNum}">${vo.optionValue}</option>
@@ -715,6 +715,7 @@ $(function(){
 						</div>
 						<div class="p-1">
 							<input type="hidden" name="productNum" value="${dto.productNum}">
+							<input type="hidden" name="q_subject" value="[상품] 상품관련 문의">
 							<textarea name="question" id="question" class="form-control"></textarea>
 						</div>
 						<div class="p-1">

@@ -81,34 +81,14 @@ function sendOk() {
 	f.submit();
 }
 
-$(function(){
+$(function()){
 	$(".requiredOption").change(function(){
-		$(".requiredOption2 option").each(function(){
-			if($(this).is(":first-child")) {
-				return true; // continue
-			}
-			
-        	$(this).remove();
-        });
 		
-		let detailNum = $(this).val();
-		if(! detailNum) {
-			return false;
-		}
+		let disCount = $(".requiredOption").attr("data-optionNum");
 		
-		let optionNum = $(".requiredOption").attr("data-optionNum");
-		
-		let url = "${pageContext.request.contextPath}/order/listOptionDetail2";
-		$.get(url, {optionNum:optionNum, optionNum2:optionNum2, detailNum:detailNum}, function(data){
-			$(data).each(function(index, item){
-				let detailNum = item.detailNum;
-				let optionValue = item.optionValue;
-				
-				$(".requiredOption2").append("<option value='"+detailNum+"'>"+optionValue+"</option>");
-			});
-		});
-	});
-});
+	})
+}
+
 </script>
 
 <div class="container">
@@ -180,9 +160,12 @@ $(function(){
 						</tr>
 						<tr>
 							<td>
-								<div class="mt-2 border-bottom pb-2">
-									<select class="form-select requiredOption2" data-optionNum2="${listOption[1].optionNum}">
-										<option value="">${listOption[1].optionName}</option>
+								<div>
+									<select class="form-select requiredOption" data-optionNum="0">
+										<option value="0">미적용</option>
+										<c:forEach var="vo" items="${dto.categoryNums}" varStatus="status">
+											<option value="${dto.couponDiscounts[status.index]}">${dto.couponNames[status.index]}  ${dto.couponDiscounts[status.index]}% 할인</option>
+										</c:forEach>
 									</select>
 								</div>
 							</td>

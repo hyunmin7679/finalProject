@@ -24,4 +24,6 @@ public interface OrderMapper {
 	public Order findById(long productNum);
 	public List<Order> listOptionDetail(List<Long> detailNums);
 	public Order findByDetailId(long detailNum);
+	
+	public List<Order> findByCoupon(Order dto);
 }

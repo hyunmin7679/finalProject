@@ -67,6 +67,16 @@ public class Order {
 	private int point;
 	private int usePoint;
 	
+	private List<Integer> categoryNums;
+	private List<Integer> couponNums;
+	private List<String> couponNames;
+	private List<Integer> couponDiscounts;
+	
+	private int categoryNum;
+	private int couponNum;
+	private String couponName;
+	private int couponDiscount;
+	
 	public long getProductNum() {
 		return productNum;
 	}
@@ -373,6 +383,52 @@ public class Order {
 	public void setUsePoint(int usePoint) {
 		this.usePoint = usePoint;
 	}
-	
-
+	public List<Integer> getCategoryNums() {
+		return categoryNums;
+	}
+	public void setCategoryNums(List<Integer> categoryNums) {
+		this.categoryNums = categoryNums;
+	}
+	public List<Integer> getCouponNums() {
+		return couponNums;
+	}
+	public void setCouponNums(List<Integer> couponNums) {
+		this.couponNums = couponNums;
+	}
+	public List<String> getCouponNames() {
+		return couponNames;
+	}
+	public void setCouponNames(List<String> couponNames) {
+		this.couponNames = couponNames;
+	}
+	public List<Integer> getCouponDiscounts() {
+		return couponDiscounts;
+	}
+	public void setCouponDiscounts(List<Integer> couponDiscounts) {
+		this.couponDiscounts = couponDiscounts;
+	}
+	public int getCategoryNum() {
+		return categoryNum;
+	}
+	public void setCategoryNum(int categoryNum) {
+		this.categoryNum = categoryNum;
+	}
+	public int getCouponNum() {
+		return couponNum;
+	}
+	public void setCouponNum(int couponNum) {
+		this.couponNum = couponNum;
+	}
+	public String getCouponName() {
+		return couponName;
+	}
+	public void setCouponName(String couponName) {
+		this.couponName = couponName;
+	}
+	public int getCouponDiscount() {
+		return couponDiscount;
+	}
+	public void setCouponDiscount(int couponDiscount) {
+		this.couponDiscount = couponDiscount;
+	}	
 }

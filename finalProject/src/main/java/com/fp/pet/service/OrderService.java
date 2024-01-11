@@ -11,7 +11,7 @@ public interface OrderService {
 	
 	public Order findById(long productNum);
 	public Order findPoint(long memberIdx);
-	public List<Order> listProduct(List<Map<String, Long>> list);
+	public List<Order> listProduct(List<Map<String, Long>> list, long memberIdx);
 	public Order findByDetailId(long detailNum);
 	public List<Order> listOptionDetail(List<Long> detailNums);
 
