@@ -5,7 +5,6 @@ public class Payment {
 	// 주문
 	private String userId;
 
-	private String priductName;
 	private String thumbnail;
 	private int price;
 	private int discountRate;
@@ -25,6 +24,18 @@ public class Payment {
 	private int salePrice;
 	private int qty;
 	private int productMoney;
+	
+	private int couponPrice;
+	private int orderSort; 
+	
+	private String payMethod;
+	private String recipientName;
+	private String tel;
+	private String zip;
+	private String addr1;
+	private String addr2;
+	private String destMemo;
+	
 
 	// 주문상세의 옵션
 	private long detailNum;
@@ -59,6 +70,78 @@ public class Payment {
 	// 리뷰 유무
 	private int reviewWrite; // 리뷰 유무
 
+
+	public int getCouponPrice() {
+		return couponPrice;
+	}
+
+	public void setCouponPrice(int couponPrice) {
+		this.couponPrice = couponPrice;
+	}
+
+	public int getOrderSort() {
+		return orderSort;
+	}
+
+	public void setOrderSort(int orderSort) {
+		this.orderSort = orderSort;
+	}
+
+	public String getPayMethod() {
+		return payMethod;
+	}
+
+	public void setPayMethod(String payMethod) {
+		this.payMethod = payMethod;
+	}
+
+	public String getRecipientName() {
+		return recipientName;
+	}
+
+	public void setRecipientName(String recipientName) {
+		this.recipientName = recipientName;
+	}
+
+	public String getTel() {
+		return tel;
+	}
+
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+
+	public String getZip() {
+		return zip;
+	}
+
+	public void setZip(String zip) {
+		this.zip = zip;
+	}
+
+	public String getAddr1() {
+		return addr1;
+	}
+
+	public void setAddr1(String addr1) {
+		this.addr1 = addr1;
+	}
+
+	public String getAddr2() {
+		return addr2;
+	}
+
+	public void setAddr2(String addr2) {
+		this.addr2 = addr2;
+	}
+
+	public String getDestMemo() {
+		return destMemo;
+	}
+
+	public void setDestMemo(String destMemo) {
+		this.destMemo = destMemo;
+	}
 
 	public int getCancelCost() {
 		return cancelCost;
@@ -140,13 +223,6 @@ public class Payment {
 		this.userId = userId;
 	}
 
-	public String getPriductName() {
-		return priductName;
-	}
-
-	public void setPriductName(String priductName) {
-		this.priductName = priductName;
-	}
 
 	public String getThumbnail() {
 		return thumbnail;

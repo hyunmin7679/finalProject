@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fp.pet.mapper.PointCouponMapper">
+
+	<!-- 쿠폰데이터 개수 -->
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM memberCoupon mc,  coupon c
+		WHERE mc.couponNum = c.couponNum
+		AND c.couponstate != 2
+		AND mc.use = 0
+		AND memberIdx = #{memberIdx}
+	</select>
+	
+	<!-- 내 쿠폰 리스트 -->
+	<select id="listCoupon" parameterType="map" resultType="com.fp.pet.domain.PointCoupon">
+		SELECT c.couponNum, memberIdx, couponCode, couponName, couponstate, 
+	           couponDiscount, startCouponDate, endCouponDate, categoryName
+		FROM memberCoupon mc,  coupon c, productCategory pc
+		WHERE mc.couponNum = c.couponNum
+		AND c.categoryNum = pc.categoryNum
+		AND c.couponstate != 2
+		AND mc.use = 0
+		AND memberIdx = #{memberIdx}
+		ORDER BY c.couponNum DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+ <!-- ************************************ -->
+ 
+ 	<!-- 포인트 내역 개수 -->	
+ 	<select id="dataCount2" parameterType="map" resultType="Integer">
+ 		SELECT  NVL(COUNT(*), 0) 
+		FROM point
+		WHERE memberIdx = #{memberIdx}
+		AND p_qyt != 0
+ 	</select>
+ 	
+ 	<!-- 포인트 사용내역 리스트 -->
+	<select id="listPoint" parameterType="map" resultType="com.fp.pet.domain.PointCoupon">
+	 	SELECT  pointNum, orderNum, memberIdx, 
+	            TO_CHAR(reg_date, 'YYYY-MM-DD') reg_date, memo, p_qyt
+		FROM point
+		WHERE memberIdx = #{memberIdx}
+		AND p_qyt != 0	
+		ORDER BY  reg_date DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<!-- 총 보유 포인트 -->
+	<select id="userPoint" parameterType="map" resultType="Integer">
+		SELECT NVL(userPoint, 0)
+		FROM member1
+		WHERE memberIdx = #{memberIdx}
+	</select>
+
+</mapper>

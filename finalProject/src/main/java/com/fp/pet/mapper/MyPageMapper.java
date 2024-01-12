@@ -33,12 +33,29 @@ public interface MyPageMapper {
 	public int countPayment (Map<String, Object> map);
 	public List<Payment> listPayment (Map<String, Object> map);
 	public List<Payment> listCancel (Map<String, Object> map);
+	public int cancelCount (Map<String, Object> map);
+	
+	// 주문상세
+	public Payment findByDetail (Map<String, Object> map);
+	
 
 	// 주문 상세 상태 등록
 	public void insertDetailStateInfo(Map<String, Object> map);
 	
 	// 주문 상세상태 수정, 주문완료 후 수정될 사항
 	public void updateOrderDetailState(Map<String, Object> map) throws SQLException;
+	public void updateOrderDetailState2(Map<String, Object> map) throws SQLException;
 	public void updateOrderHistory(long orderDetailNum) throws SQLException;
+	
+	// 주문취소 요청	
+	public void updateorderChange (Map<String, Object> map) throws SQLException;
+	
+	public void insertorderChange (Map<String, Object> map) throws SQLException;
+	public void insertStateInfo2 (Map<String, Object> map) throws SQLException;
+	
+	public void updateproductOrder (Map<String, Object> map) throws SQLException;
+	public void updatedetailStateInfo (Map<String, Object> map) throws SQLException;
+	
+	
 }
 

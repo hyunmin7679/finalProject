@@ -11,6 +11,9 @@ public class Order {
 	private int discountPrice;
 	private int savedMoney;
 	private int delivery;
+	private int changeSort;
+	private int detailState;
+	private int changeState;
 
 	private long memberIdx;
 	private String userId;
@@ -77,6 +80,24 @@ public class Order {
 	private String couponName;
 	private int couponDiscount;
 	
+	public int getChangeSort() {
+		return changeSort;
+	}
+	public void setChangeSort(int changeSort) {
+		this.changeSort = changeSort;
+	}
+	public int getDetailState() {
+		return detailState;
+	}
+	public void setDetailState(int detailState) {
+		this.detailState = detailState;
+	}
+	public int getChangeState() {
+		return changeState;
+	}
+	public void setChangeState(int changeState) {
+		this.changeState = changeState;
+	}
 	public long getProductNum() {
 		return productNum;
 	}

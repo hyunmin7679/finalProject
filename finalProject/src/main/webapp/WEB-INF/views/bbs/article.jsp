@@ -2,8 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-
-			<table class="table mt-5 mb-0 board-article">
+	<table class="table mt-5 mb-0 board-article">
 				<thead>
 					<tr>
 						<td colspan="2" align="center">
@@ -15,8 +14,8 @@
 				<tbody>
 					<tr>
 						<td width="50%">
-							이름 : ${dto.userName} | ${friendCount}
-								<i class="fa-solid fa-user-plus"></i>
+							이름 : ${dto.userName} |
+							<a class="frind-add" data-userName="${dto.userName}"><i class="fa-solid fa-user-plus"></i></a>	
 						</td>
 
 						<td align="right">
@@ -133,5 +132,21 @@
 				
 				</form>
 			</div>
+			
+	<!-- 친구추가 모달 -->
+	<div class="modal fade" id="frindModal" tabindex="-1" aria-labelledby="frindModalLabel"
+				aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+		
+			<div class="modal-header">
+				<h5 class="modal-title" id="frindModalLabel">친구추가</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			
+			<div class="modal-body"></div>
+		</div>
+	</div>
+</div>		
 
 

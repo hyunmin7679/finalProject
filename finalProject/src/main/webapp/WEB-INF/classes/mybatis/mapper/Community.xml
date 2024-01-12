@@ -181,6 +181,8 @@
 		DELETE FROM community
 		WHERE communityNum = #{communityNum}
 	</delete>
+
+	<!-- **************************************************************************** -->	
 	
 	<!-- 게시글 좋아요 추가 -->
 	<insert id="insertBoardLike" parameterType="map">
@@ -208,6 +210,8 @@
 		WHERE communityNum = #{communityNum} 
 		AND userId = #{userId}
 	</select>
+	
+	<!-- ******************************************************************  -->	
 	
 	<!-- 댓글 -->
 	<insert id="insertReply" parameterType="com.fp.pet.domain.Reply">
@@ -292,17 +296,19 @@
 		WHERE communityNum = #{communityNum}	
 	</select>
 
-	<!-- 친구신청 > 친구 신청했을 때 -->
+<!-- ******************************************************************************************* -->
+
+<!--  
 	<insert id="addFriend" parameterType="com.fp.pet.domain.Friend">
 		INSERT INTO friendlist(friendNum, from_friend, to_friend, is_friend, reg_date)
 			values(friendlist_seq.NEXTVAL, #{userId}, #{userName}, 1, SYSDATE)
 	</insert>
 	
-	<!-- 친구신청 > 친구 신청 받았을 때 -->
 	<insert id="addFriend2" parameterType="com.fp.pet.domain.Friend">
 		INSERT INTO friendlist(friendNum, from_friend, to_friend, is_friend, reg_date)
 			values(friendlist_seq.NEXTVAL, #{userName}, #{userId}, 0, SYSDATE)
 	</insert>
+	-->
 	
 	<!-- 친구정보 -->
 	<select id="findByfriend" parameterType="map" resultType="Integer">
@@ -310,19 +316,20 @@
         from friendlist fl, member1 m, member1 m2
         where fl.from_friend(+) = m.userName
         and fl.to_friend = m2.userName
-        and m.userName= #{userId2}
-        and m2.userName = #{userName2};
+        and m.userName= #{userId}
+        and m2.userName = #{userName};
 	</select>
 	
-	<select id="findName" parameterType="Long" resultType="com.fp.pet.domain.Friend">
-		select userName 
-		from community c, member1 m
-        where c.userId = m.userId
-        and communityNum = #{communityNum}
+	<select id="findName" parameterType="map" resultType="com.fp.pet.domain.Community">
+		SELECT userName, iconImage
+		FROM member1 m, iconlist il, icon i
+		WHERE m.memberIdx = il.memberIdx
+		AND il.iconNum = i.iconNum
+		AND m.userName = #{userName}
 	</select>
 	
 	
-	
+<!-- *************************************************************************************** -->	
 	
 	<!-- 데이터 개수 -->
 	<select id="dataCount2" parameterType="map" resultType="Integer">

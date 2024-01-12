@@ -53,7 +53,7 @@
 		</if>
 	</delete>
 	
-	<!-- 장바구니 만료상품 삭제 (15일) -->
+	<!-- 장바구니 만료상품 삭제 (20일) -->
 	<delete id="deleteCartExpiration">
 		DELETE FROM cart
 		WHERE reg_date + 20 &lt; SYSDATE
@@ -96,6 +96,27 @@
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
 	
+	
+	 <!-- ________________________ 주문상세 ________________________ -->
+	 <select id="findByDetail" parameterType="map" resultType="com.fp.pet.domain.Payment">
+	 	SELECT po.orderNum, op.detailNum, p.productName, op.optionValue, detailNum2, op2.optionValue optionValue2, od.qty,  od.price,
+	           od.salePrice, od.couponPrice, od.productMoney,  TO_CHAR(po.orderDate, 'YYYY-MM-DD') orderDate,  po.deliveryCharge, 
+	           po.deliveryName, po.invoiceNumber, po.orderSort, pd.payMethod, p.thumbnail,
+	           de.recipientName, de.tel, de.zip, de.addr1, de.addr2, de.destMemo,
+	           cancelCost, com_date
+		FROM orderDetail od, productOrder po, orderChange oc, product p, orderDelivery de, 
+		     optionDetail op, optionDetail op2, payDetail pd
+		WHERE od.orderNum = po.orderNum
+		AND od.productNum = p.productNum
+		AND oc.orderDetailNum(+) = od.orderDetailNum
+		AND od.orderNum = de.orderNum
+		AND od.detailNum = op.detailNum
+		AND od.detailNum2 = op2.detailNum
+		AND od.orderNum = pd.orderNum 
+		AND od.orderDetailNum = #{orderDetailNum}
+	 </select>
+	
+	
 	<!-- 주문상세 상태 등록 -->
 	<insert id="insertDetailStateInfo" parameterType="map">
 		INSERT INTO detailStateInfo(stateNum, orderDetailNum, memberIdx, detailState, stateMemo, detailStateDate) 
@@ -103,11 +124,22 @@
                      	 #{stateMemo,jdbcType=VARCHAR}, SYSDATE)
 	</insert>
 	
-	<!-- 주문상세 테이블의 주문상태 변경 -->
+	<!-- 주문상세 테이블의 주문상태 변경 (구매확정) -->
 	<update id="updateOrderDetailState" parameterType="map">
 		UPDATE orderDetail SET detailState = #{detailState}
 		WHERE orderDetailNum = #{orderDetailNum}
 	</update>
+	
+	<!-- 주문상세 테이블의 주문상태 변경 (자동구매확정) -->
+	<update id="updateOrderDetailState2" parameterType="map">
+		update orderDetail od set detailState = #{detailState}
+        where od.orderNum = (select orderNum from productOrder 
+                                        where od.orderNum = orderNum 
+                                        and orderDate + 7 &lt; SYSDATE)
+        and detailState = 0
+        and  orderDetailNum= 21;
+	</update>
+	
 	
 	<!-- 회원 탈퇴여부에 따른 수정 -->
 	<update id="updateOrderHistory" parameterType="Long">
@@ -115,33 +147,69 @@
 		WHERE orderDetailNum = #{orderDetailNum}
 	</update>
 	
+	<!-- 주문취소 데이터 개수 -->
+	<select id="cancelCount" parameterType="map" resultType="Integer">
+		SELECT NVL(count(*),0)
+		FROM productOrder po
+		JOIN orderDetail od ON po.orderNum = od.orderNum
+		JOIN orderChange oc ON oc.orderDetailNum = od.orderDetailNum
+		WHERE po.memberIdx = #{memberIdx}
+		AND userDelete = 0
+	</select>
+	
+	
 	<!-- 주문취소 리스트 -->  
 	<select id="listCancel" parameterType="map" resultType="com.fp.pet.domain.Payment">
 		SELECT po.orderNum, po.memberIdx, to_char(orderDate,'YYYY-MM-DD') orderDate, totalMoney, od.savedMoney, 
 			usedSaved, deliveryCharge, payment, qty, salePrice, 
-			od.orderDetailNum, 
+			od.orderDetailNum,
 			op.detailNum, op.optionValue, detailNum2, op2.optionValue optionValue2,
 			od.productNum, productMoney, productName, thumbnail, 
 			orderState, od.detailState,
 			orderStateDate, deliveryName, invoiceNumber,
-			NVL(reviewWrite, 0) reviewWrite,
-			to_char(oc.reg_date,'YYYY-MM-DD') reg_date, oc.changeSort, to_char(oc.com_date,'YYYY-MM-DD') com_date , oc.changeState
+			to_char(oc.reg_date,'YYYY-MM-DD') reg_date, oc.changeSort,to_char(oc.com_date,'YYYY-MM-DD') com_date , oc.changeSort, cancelCost       
 		FROM productOrder po
 		JOIN orderDetail od ON po.orderNum = od.orderNum
 		JOIN product p ON od.productNum = p.productNum
 		JOIN optionDetail op ON od.detailNum = op.detailNum
 		JOIN optionDetail op2 ON od.detailNum2 = op2.detailNum
 		JOIN orderChange oc ON oc.orderDetailNum = od.orderDetailNum
-		LEFT OUTER JOIN (
-			SELECT num, 1 reviewWrite
-			FROM productReview
-			WHERE memberIdx = #{memberIdx}
-		) r ON od.orderDetailNum = r.num
-		WHERE po.memberIdx = #{memberIdx} 
+		WHERE po.memberIdx = #{memberIdx}
 		AND userDelete = 0
-		ORDER BY orderDate DESC
+		ORDER BY  oc.reg_date , oc.com_date DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	 </select> 
-     
+	 
+	 
+	 
+	 <!-- ________________________ 주문취소 요청 ________________________ -->
+	 
+	 <!-- orderChange 주문상태 변경 테이블 인서트 -->
+	 <insert id="insertorderChange" parameterType="map">
+	 	INSERT INTO orderChange (changeNum, orderDetailNum, reg_date, changeSort, changeState, cancelCost, cancelMet)
+       		 VALUES (change_seq.NEXTVAL, #{orderDetailNum}, SYSDATE,  #{changeSort}, #{changeState}, #{payment}, 1)
+	 </insert>
+	 
+	 <!-- 주문상세상태 인서트 -->
+	 <insert id="insertStateInfo2" parameterType="map">
+        INSERT INTO detailStateInfo (stateNum, orderDetailNum, memberIdx, detailState, stateMemo, detailStateDate)
+            VALUES (detailState_seq.NEXTVAL, #{orderDetailNum}, #{memberIdx}, #{changeState}, #{stateMemo}, SYSDATE )	
+	 </insert>
+	 
+	 <!-- productOrder 테이블 상태변경 -->
+	 <update id="updateproductOrder" parameterType="map">
+	  	UPDATE productOrder SET orderState = 6,  orderStateDate = SYSDATE
+    	WHERE orderNum = #{orderNum}
+	 </update>
+	 
+	 <!-- orderDetailNum 테이블 상태변경 -->
+	 <update id="updatedetailStateInfo" parameterType="map">
+	    UPDATE orderDetail SET detailState = #{changeState}
+    	WHERE orderDetailNum = #{orderDetailNum}
+	 </update>
+	 
+	 
+	 
+	
 
 </mapper>

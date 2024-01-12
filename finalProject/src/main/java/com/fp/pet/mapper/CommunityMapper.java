@@ -7,7 +7,6 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.fp.pet.domain.Community;
-import com.fp.pet.domain.Friend;
 import com.fp.pet.domain.Reply;
 
 @Mapper
@@ -57,10 +56,10 @@ public interface CommunityMapper {
 	public List<Community> listParkAddr(Map<String, Object> map);
 	
 	// 친구추가
-	public void addFriend(Friend dto) throws SQLException;
-	public void addFriend2(Friend dto) throws SQLException;
+	//public void addFriend(Friend dto) throws SQLException;
+	//public void addFriend2(Friend dto) throws SQLException;
 	public int findByFriend (Map<String, Object>map);   // 친구정보
-	public Community findName (long communityNum);
+	public Community findName (Map<String, Object>map);
 	
 	// ----------------------------------------------------------
 	

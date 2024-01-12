@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.fp.pet.domain.Community;
-import com.fp.pet.domain.Friend;
 import com.fp.pet.domain.Reply;
 
 public interface CommunityService {
@@ -18,10 +17,8 @@ public interface CommunityService {
 	public int dataCount(Map<String, Object> map);
 	public List<Community>listCommunity(Map<String, Object> map);
 	public List<Community> listCommunityFile(long communityNum);
-	//public Community listCommunityFile(long communityNuma); 
 	
 	public Community findByFileId(long fileNum);
-	//public void deleteCommunity(long communityNuma) throws SQLException;
 	
 	// 글보기
 	public void updateHitCount(long communityNum) throws Exception;
@@ -53,9 +50,9 @@ public interface CommunityService {
 	public void updateReplyShowHide(Map<String, Object> map) throws Exception;	
 
 	// 친구추가
-	public void addFriend(Friend dto) throws Exception;
+	//public void addFriend(Friend dto) throws Exception;
 	public int findByFriend(Map<String, Object> map);
-	public Community findName (long communityNum);
+	public Community findName (Map<String, Object>map);
 	
 	// ----------------------------------------------------------
 	// 내활동 리스트
