@@ -1,6 +1,7 @@
 package com.fp.pet.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -69,6 +70,68 @@ public class UserIconServiceImpl implements UserIconService{
 		return vo;
 	}
 
+	
+	@Override
+	public int dataCount(Map<String, Object> map) {
+		int result = 0;
+		
+		try {
+			result = mapper.dataCount(map);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		
+		return result;
+	}
+
+	@Override
+	public List<Icon> listIcon2(Map<String,Object> map) {
+		List<Icon> list = null;
+		try {
+			list = mapper.listIcon2(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		return list;
+	}
+
+	@Override
+	public void insertIconList(Icon vo) {
+		try {
+			mapper.insertIconList(vo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public int userPoint(long memberIdx) {
+		int point = 0;
+		
+		try {
+			point = mapper.userPoint(memberIdx);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		
+		return point;
+	}
+
+	@Override
+	public void updateUserPoint(Icon vo) {
+		try {
+			mapper.updateUserPoint(vo);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	
+	
+
+	
 	
 
 }

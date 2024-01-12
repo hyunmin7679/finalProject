@@ -11,7 +11,9 @@ public class Icon {
 	private String iconName;
 	private String iconImage;
 	private int iconPrice;
-	//private int iconCategory;
+	private int iconCategory;
+	
+	private int userPoint;
 	
 	
 	public long getIconSeq() {
@@ -56,8 +58,17 @@ public class Icon {
 	public void setIconPrice(int iconPrice) {
 		this.iconPrice = iconPrice;
 	}
-	
-	
-	
-	
+	public int getIconCategory() {
+		return iconCategory;
+	}
+	public void setIconCategory(int iconCategory) {
+		this.iconCategory = iconCategory;
+	}
+	public int getUserPoint() {
+		return userPoint;
+	}
+	public void setUserPoint(int userPoint) {
+		this.userPoint = userPoint;
+	}
+
 }

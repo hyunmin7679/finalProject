@@ -3,6 +3,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fp.pet.mapper.UserIconMapper">
 	
+<!-- 1.회원정보용 -->
+	<!-- 보유 아이콘 리스트 -->
 	<select id="listIcon" parameterType="long" resultType="com.fp.pet.domain.Icon">
 		select il.iconNum,memberIdx,iconUse,iconName,iconImage,iconPrice
 		from icon i
@@ -11,23 +13,81 @@
 		ORDER BY iconNum DESC
 	</select>
 	
-	<select id="insertIcon">
-		INSERT into iconList (iconSeq,iconNum,memberIdx,iconUse) values(iconlist_seq.nextval,32,#{memberIdx},1)
+	<!-- 회원가입 시 기본이미지 설정 -->
+	<select id="insertIcon" parameterType="long">
+		INSERT into iconList (iconSeq,iconNum,memberIdx,iconUse) values(iconlist_seq.nextval,32,#{memberIdx},2)
 	</select>
 	
+	<!-- 수정 전 기존 아이콘들 사용여부 1으로 설정 -->
 	<update id="updateIcon1" parameterType="long">
-		UPDATE iconList SET iconUse = 0 WHERE memberIdx = #{memberIdx}
+		UPDATE iconList SET iconUse = 1 WHERE memberIdx = #{memberIdx}
 	</update>
 	
+	<!-- 대표아이콘 사용여부 2로 설정 -->
 	<update id="updateIcon2" parameterType="com.fp.pet.domain.Icon">
-		UPDATE iconList SET iconUse = 1 WHERE iconNum=#{iconNum} AND memberIdx = #{memberIdx}
+		UPDATE iconList SET iconUse = 2 WHERE iconNum=#{iconNum} AND memberIdx = #{memberIdx}
 	</update>
 	
 	<select id="findByIcon" parameterType="long" resultType="com.fp.pet.domain.Icon">
 		SELECT i.iconNum,memberIdx,iconUse,iconImage 
 		FROM iconList il 
 		JOIN icon i on i.iconNum=il.iconNum
-		WHERE memberIdx=#{memberIdx} and iconUse = 1
+		WHERE memberIdx=#{memberIdx} and iconUse = 2
 	</select>
 	
+<!-- 2.아이콘 상점용 -->
+	
+	
+	<!-- 포인트확인 -->
+	<select id="userPoint" parameterType="long" resultType="Integer">
+		SELECT userpoint FROM member1 WHERE memberIdx = #{memberIdx}
+	</select>
+	
+	<!-- 구매 시 포인트 사용 -->
+	<update id="updateUserPoint" parameterType="com.fp.pet.domain.Icon">
+		UPDATE member1 SET userPoint=userPoint-#{iconPrice}  WHERE memberIdx = #{memberIdx}
+	</update>
+	
+	<select id="insertIconList" parameterType="com.fp.pet.domain.Icon">
+		INSERT into iconList (iconSeq,iconNum,memberIdx,iconUse) values(iconlist_seq.nextval,#{iconNum},#{memberIdx},1)
+	</select>
+	
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0) from icon
+		
+	</select>
+
+	<!--아이콘 리스트 -->
+	<select id="listIcon2" parameterType="map" resultType="com.fp.pet.domain.Icon">
+		SELECT i.iconNum,i.iconName,i.iconimage,i.iconprice,i.iconcategory,il.iconuse
+		FROM icon i
+		LEFT JOIN
+	    iconlist il ON i.iconNum = il.iconnum AND il.memberIdx = #{memberIdx}
+		ORDER BY il.iconUse desc
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<!-- 
+	<select id="listIcon2" parameterType="map" resultType="com.fp.pet.domain.Icon">
+		select 
+		iconNum,iconName,iconImage,iconPrice,iconCategory 
+		from icon
+		<where>
+			<if test="kwd != null and kwd!=''  ">
+				<include refid="where-list"/>
+			</if>
+			<if test="schType=='dog'">
+				AND iconCategory = 1 AND INSTR(iconName, #{kwd}) &gt; 0
+			</if>
+			<if test="schType=='cat'"> 
+				AND iconCategory = 2 AND INSTR(iconName, #{kwd}) &gt; 0
+			</if>
+			<if test="schType=='etc'">
+				AND iconCategory = 3 AND INSTR(iconName, #{kwd}) &gt; 0
+			</if>
+		</where>
+		ORDER BY iconNum DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	 -->
 </mapper>
