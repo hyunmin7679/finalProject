@@ -170,10 +170,10 @@ $(function(){
                      Community<i class='fa fa-angle-down'></i>
                 </a>
                 <ul>
-                   <li><a href="${pageContext.request.contextPath}/bbs/list">나눔</a></li>
-               <li><a href="${pageContext.request.contextPath}/bbs/list">상담</a></li>
-                    <li><a href="${pageContext.request.contextPath}/bbs/list">자유</a></li>
-                    <li><a href="${pageContext.request.contextPath}/bbs/list">산책메이트</a></li>
+                   <li><a href="${pageContext.request.contextPath}/bbs/main">나눔</a></li>
+               <li><a href="${pageContext.request.contextPath}/bbs/main">상담</a></li>
+                    <li><a href="${pageContext.request.contextPath}/bbs/main">자유</a></li>
+                    <li><a href="${pageContext.request.contextPath}/bbs/main">산책메이트</a></li>
                 </ul>
          </li>
          
@@ -205,11 +205,11 @@ $(function(){
                   <ul>
                     <li><a href="${pageContext.request.contextPath}/member/pwd">회원정보</a></li>
                     <li><a href="${pageContext.request.contextPath}/myPage/review">내활동</a></li>
-                    <li><a href="#">장바구니</a></li>
+                    <li><a href="${pageContext.request.contextPath}/myPage/cart">장바구니</a></li>
                     <li><a href="#">위시리스트</a></li>
                     <li><a href="${pageContext.request.contextPath}/myPage/paymentList">주문내역</a></li>
-                    <li><a href="#">친구목록</a></li>
-                    <li><a href="#">포인트/쿠폰</a></li>
+                    <li><a href="${pageContext.request.contextPath}/friend/list">친구목록</a></li>
+                    <li><a href="${pageContext.request.contextPath}/myPage/couponPoint">포인트/쿠폰</a></li>
                     </ul>
              </li>
          
