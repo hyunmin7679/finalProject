@@ -5,9 +5,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/paginate-boot.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/se2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=05a2937d99f19b82637494048cbe786d&libraries=services"></script>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/boot-board.css" type="text/css">
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=60e66caa443255c7eacf898657309fe6&libraries=services"></script>
 
 <style type="text/css">
 .body-container {
@@ -630,6 +630,9 @@ $(function(){
 	});
 });
 */
-
 </script>
+
+
+
+
 

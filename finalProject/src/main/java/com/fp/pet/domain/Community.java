@@ -41,6 +41,45 @@ public class Community {
 	private long memberIdx;	
 	private int replyCount;
 	private int boardLikeCount;
+	
+	private List<Double> las;
+	private List<Double> mas;
+	private double la;
+	private double ma;
+	private int distance;
+	
+	
+	
+	public int getDistance() {
+		return distance;
+	}
+	public void setDistance(int distance) {
+		this.distance = distance;
+	}
+	public List<Double> getLas() {
+		return las;
+	}
+	public void setLas(List<Double> las) {
+		this.las = las;
+	}
+	public List<Double> getMas() {
+		return mas;
+	}
+	public void setMas(List<Double> mas) {
+		this.mas = mas;
+	}
+	public double getLa() {
+		return la;
+	}
+	public void setLa(double la) {
+		this.la = la;
+	}
+	public double getMa() {
+		return ma;
+	}
+	public void setMa(double ma) {
+		this.ma = ma;
+	}
 	public long getCategoryNum() {
 		return categoryNum;
 	}

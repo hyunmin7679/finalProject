@@ -69,4 +69,7 @@ public interface CommunityMapper {
 	
 	public int likeCount2(Map<String, Object>map);
 	public List<Community>listLike2(Map<String, Object>map);
+	
+	public void insertMap(Map<String,Object>map);
+	public List<Community> findByMap(long communityNum);
 }

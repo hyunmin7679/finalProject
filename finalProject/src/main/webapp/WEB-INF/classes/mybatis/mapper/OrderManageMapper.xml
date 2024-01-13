@@ -40,7 +40,14 @@
 				po.orderState = 0
 			</if>
 			<if test="state == 'after'">
-				po.orderState = 1
+				po.orderState = 1	
+				
+				<if test="searchNum != null and searchNum!=''  ">
+					and po.orderNum = #{searchNum}
+				</if>
+				<if test="startDate != null and startDate!=''  ">
+					and po.orderDate BETWEEN TO_DATE(#{startDate}, 'YYYY-MM-DD') AND TO_DATE(#{endDate}, 'YYYY-MM-DD')
+				</if>
 			</if>
 		</where>
 		ORDER BY po.orderNum DESC

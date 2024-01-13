@@ -45,7 +45,10 @@ public class OrderManageController {
 	@RequestMapping(value = "orderlist")
 	public String orderList(Model model, @RequestParam(value = "state") String state,
 			@RequestParam(value = "page", defaultValue = "1") int current_page,
-			@RequestParam(defaultValue = "couponCode") String schType, @RequestParam(defaultValue = "") String kwd,
+			@RequestParam(defaultValue = "couponCode") String schType, 
+			@RequestParam(defaultValue = "") String kwd,
+			@RequestParam(defaultValue = "") String startDate,
+			@RequestParam(defaultValue = "") String endDate,
 			HttpServletRequest req, HttpSession session) throws Exception {
 
 		int size = 10;
@@ -54,16 +57,25 @@ public class OrderManageController {
 		
 		if (req.getMethod().equalsIgnoreCase("GET")) { // GET 방식인 경우
 			state = URLDecoder.decode(state, "utf-8");
+			
 		}
 		if (req.getMethod().equalsIgnoreCase("GET")) { // GET 방식인 경우
 			kwd = URLDecoder.decode(kwd, "utf-8");
 		}
 		
+		
+		
 		// state { before : 입금전 / after : 결제완료 }
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("state", state);
 		map.put("schType", schType);
-		map.put("kwd", kwd);
+		map.put("searchNum", kwd);
+		map.put("startDate", startDate);
+		map.put("endDate", endDate);
+		
+		
+		System.out.println(startDate+"startDatestartDatestartDatestartDatestartDatestartDatestartDatestartDate");
+		System.out.println(endDate+"endDateendDateendDateendDateendDate");
 		
 		dataCount = service.dataCount(map);
 		

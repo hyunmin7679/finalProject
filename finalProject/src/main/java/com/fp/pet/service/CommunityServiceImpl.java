@@ -23,7 +23,7 @@ public class CommunityServiceImpl implements CommunityService {
 	private FileManager fileManager;
 	
 
-	// 커뮤니티 등록
+	// 커뮤니티 등록	
 	@Override
 	public void insertCommunity(Community dto, String pathname) throws Exception {
 		try {
@@ -44,6 +44,27 @@ public class CommunityServiceImpl implements CommunityService {
 					
 				}
 			}
+			 double la = dto.getLa();
+			 double ma = dto.getMa();
+			 
+			 if (dto.getLas() != null && !dto.getLas().isEmpty()) {
+				   for (int i = 0; i < dto.getLas().size(); i++) {
+					  
+					    la = dto.getLas().get(i);
+		                // mas 리스트의 각 값을 ma에 저장
+		                ma = dto.getMas().get(i);
+		                // la, ma 값을 출력
+		                Map<String, Object> map = new HashMap<>();
+		                map.put("la",la);
+		                map.put("ma", ma);
+		                map.put("communityNum", dto.getCommunityNum());
+		                map.put("distance",dto.getDistance());
+		                mapper.insertMap(map);
+				   }
+			 }
+			
+				 
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -518,6 +539,17 @@ public class CommunityServiceImpl implements CommunityService {
 				dto.setContent(dto.getContent().replaceAll("\n", "<br>"));
 			}
 			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public List<Community> finByMap(long communityNum) {
+		List<Community> list = null;
+		try {
+			list = mapper.findByMap(communityNum);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

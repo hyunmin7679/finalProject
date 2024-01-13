@@ -18,7 +18,7 @@
 
 			<!-- 카테고리 별 주문현황 -->
 			<div class="col-md-6 col-lg-4 col-xl-4 order-0 mb-4 cata-list">
-				
+
 			</div>
 
 			<!--  기타 통계 -->
@@ -80,9 +80,7 @@
 						<div class="col-md-4">
 							<div class="card-body">
 								<div class="text-center">
-									<div class="dropdown">
-										
-									</div>
+									<div class="dropdown"></div>
 								</div>
 							</div>
 							<div id="revenue" style="min-height: 154.875px;"></div>
@@ -102,16 +100,15 @@
 					</div>
 				</div>
 			</div>
-			
-			<div class="col-lg-4 col-md-4 order-1 yearly-sta">
-				
-			</div>
+
+			<div class="col-lg-4 col-md-4 order-1 yearly-sta"></div>
 			<!--/ Transactions -->
 		</div>
 
 
 		<div class="row">
-			<input style="width: 200px;" type="month" class="form-control" name="glance">
+			<input style="width: 200px;" type="month" class="form-control"
+				name="glance">
 
 			<div class="card" id="daySale"></div>
 		</div>
@@ -119,7 +116,7 @@
 	<!-- / Content -->
 
 
-
+	
 
 	<div id="chart"></div>
 	<!-- / Footer -->

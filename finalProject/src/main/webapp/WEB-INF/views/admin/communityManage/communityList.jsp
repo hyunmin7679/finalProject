@@ -28,8 +28,8 @@
 								</span> 
 								
 								<span class="article onm" 
-									data-communityNum="${dto.communityNum }"
-									data-categoryNum="${dto.categoryNum}"
+									data-communityNum="${dto2.communityNum}"
+									data-categoryNum="${dto2.categoryNum}"
 									onmouseover="changeColor(this, true)"
 									onmouseout="changeColor(this, false)"> ${status.index + 1}.제목
 									: ${dto2.subject} &nbsp;&nbsp; | &nbsp;&nbsp;<i

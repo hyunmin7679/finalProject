@@ -157,6 +157,8 @@ public class CommunityController {
 			dto.setUserId(info.getUserId());
 			service.insertCommunity(dto, pathname);
 			
+			System.out.println(dto.getMas()+"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			state = "false";
@@ -194,6 +196,8 @@ public class CommunityController {
 		if (dto == null) {
 			return "redirect:/bbs/list?" + query;
 		}
+		
+		List<Community> list = service.finByMap(communityNum);
 
 		// 이전 글, 다음 글
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -210,6 +214,8 @@ public class CommunityController {
 		
 		// 게시글 좋아요 여부
 		boolean userBoardLiked = service.userBoardLiked(map);
+		
+		model.addAttribute("mapList",list);
 		
 		model.addAttribute("dto", dto);
 		model.addAttribute("prevDto", prevDto);

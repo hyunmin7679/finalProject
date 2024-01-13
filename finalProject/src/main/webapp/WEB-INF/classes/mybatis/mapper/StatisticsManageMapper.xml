@@ -101,13 +101,13 @@
 	</select>
 
 	<select id="currentY" resultType="Integer">
-		select SUM(payment) from
+		select SUM(totalmoney) from
 		productOrder where EXTRACT(YEAR FROM orderDate) =
 		2024
 	</select>
 
 	<select id="beforeY" resultType="Integer">
-		select SUM(payment) from
+		select SUM(totalmoney) from
 		productOrder where EXTRACT(YEAR FROM orderDate) =
 		2023
 

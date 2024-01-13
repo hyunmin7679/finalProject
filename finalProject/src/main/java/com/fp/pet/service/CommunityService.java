@@ -61,6 +61,7 @@ public interface CommunityService {
 	
 	public int likeCount2(Map<String, Object>map);
 	public List<Community>listLike2(Map<String, Object>map);
+	public List<Community> finByMap(long communityNum);
 	
 	
 

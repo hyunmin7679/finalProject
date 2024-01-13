@@ -384,5 +384,16 @@
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
 	
+	<insert id="insertMap" parameterType="map">
+		insert into communitymap(mapNum,communityNum,la,ma,distance) 
+		values(mapNum_seq.NEXTVAL,community_seq.CURRVAL,#{la},#{ma},#{distance})
+	</insert>
+	
+	<select id="findByMap" parameterType="Long" resultType="com.fp.pet.domain.Community">
+		select communityNum,la,ma,distance 
+		from communitymap 
+		where  communityNum = #{communityNum}
+		order by mapNum
+	</select>
 	
 </mapper>

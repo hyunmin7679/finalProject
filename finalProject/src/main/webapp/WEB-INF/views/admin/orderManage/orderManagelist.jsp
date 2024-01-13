@@ -48,7 +48,7 @@
 												</select>
 											</div>
 											<div class="col product_category">
-												<input class="form-control" type="text" name="#" value="">
+												<input class="form-control" type="text" name="searchorderNum" value="">
 											</div>
 										</div>
 									</td>
@@ -70,11 +70,11 @@
 											<div class="col product_category">
 												<div class="row">
 													<div class="col-2 col-2">
-														<input class="form-control" type="date">
+														<input class="form-control" type="date" name="startDate">
 													</div>
 													<i style="width: 30px;" class='bx bx-minus col-1 pt-2 pe-4'></i>
 													<div class="col-2 col-2">
-														<input class="form-control" type="date">
+														<input class="form-control" type="date" name="endDate">
 													</div>
 												</div>
 											</div>
@@ -82,12 +82,12 @@
 									</td>
 
 								</tr>
+								<!--  
 								<tr>
 									<td style="text-align: center;"><span class="fw-medium">상품</span></td>
 									<td colspan="4">
 
-										<div
-											class="d-flex justify-content-between align-items-center row gap-md-0">
+										<div class="d-flex justify-content-between align-items-center row gap-md-0">
 
 											<div class="col-4 product_status" style="width: 300px;">
 												<select id="ProductStatus"
@@ -102,10 +102,12 @@
 									</td>
 
 								</tr>
+								-->
 							</tbody>
 						</table>
+						
 						<div class="text-center pb-0 pt-3">
-							<button class="btn btn-secondary" style="width: 100px;">검색</button>
+							<button class="btn btn-secondary" onclick="searchList();" style="width: 100px;">검색</button>
 						</div>
 					</div>
 				</div>
@@ -284,11 +286,19 @@
 		let state = $tab.attr("data-state");
 		
 		// let schType = $('#ProductStatus').val();
-	    // let kwd = $('input[name="kwd"]').val();
-		console.log(state);
+	    let kwd = $('input[name="searchorderNum"]').val();
+	    let startDate= $('input[name="startDate"]').val();
+	    let endDate= $('input[name="endDate"]').val();
+ 
+	    
+	    
+	    console.log(kwd);
+	    console.log(startDate);
+	    console.log(endDate);
 		
 		let url = "${pageContext.request.contextPath}/admin/orderManage/orderlist";
-		let query = "page="+page+"&state="+encodeURIComponent(state);
+		let query = "page="+page+"&state="+encodeURIComponent(state)+"&kwd="+encodeURIComponent(kwd)+"&startDate="+startDate+"&endDate="+endDate;
+		
 		
 		let selector = "#navs-top-home";
 		
@@ -297,6 +307,11 @@
 		};
 		
 		ajaxFun(url, "get", query, "html", fn);
+	}
+	
+	
+	function searchList() {
+		listPage(1);
 	}
 	
 	$(function ()  {
@@ -558,4 +573,7 @@
 			ajaxFun(url, "post", query, "json", fn);
 	    });
 	});
+	
+	
+	
 </script>
