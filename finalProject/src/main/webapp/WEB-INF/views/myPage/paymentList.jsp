@@ -2,8 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-
-
 <style type="text/css">
 .body-container {
 	max-width: 850px;
@@ -78,6 +76,8 @@
     border: 1px solid #c2c2c2;
     border-radius: 10px;
 }
+
+.delivery-dox {font-size: 18px; padding: 20px; text-align: center;}
 
 
 /* ------------------------------------------------------------------------------ */
@@ -197,68 +197,197 @@ $(function(){
 	});
 });
 
+
 $(function(){
-	$(".order-details").click(function(){
+	$(".order-details-view").click(function(){
 		// 주문 상세 정보
 		let orderDetailNum = $(this).attr("data-orderDetailNum");
-		alert(orderDetailNum);
+
+		let url = '${pageContext.request.contextPath}/myPage/orderDetail?orderDetailNum='+orderDetailNum;
+		$("#orderDetailModal").modal("show");
+		
+		$("#orderDetailModal .modal-body2").load(url);
+	});
+	
+});
+
+// *******************************************************************************************************
+/*
+$(function(){
+	$(".product-qna").click(function(){
+		// 1:1문의
+		let productNum = $(this).attr("data-productNum");
+		
+		let url = "${pageContext.request.contextPath}/product/buy/"+productNum;
+//		let url = "${pageContext.request.contextPath}/myPage/confirmation?orderDetailNum="+orderDetailNum+"&page=${page}";
+		location.href = url;
 	});
 });
+*/
+
+// 상품문의 모달 띄우기
+$(function(){
+	$('.product-qna').click(function(){
+		$("#questionDialogModal").modal("show");
+	});
+});
+
+
+$(function(){
+	var sel_files = [];
+	
+	$("body").on("click", ".qna-form .img-add", function(){
+		$(this).closest(".qna-form").find("input[name=selectFile]").trigger("click");
+	});
+	
+	$("form[name=questionForm] input[name=selectFile]").change(function(e){
+		if(! this.files) {
+			let dt = new DataTransfer();
+			for(let f of sel_files) {
+				dt.items.add(f);
+			}
+			
+			this.files = dt.files;
+			
+			return false;
+		}
+		
+		let $form = $(this).closest("form");
+		
+		// 유사 배열을  배열로 변환
+		const fileArr = Array.from(this.files);
+		
+		fileArr.forEach((file, index) => {
+			sel_files.push(file);
+			
+			const reader = new FileReader();
+			const $img = $("<img>", {"class":"item img-item"});
+			$img.attr("data-filename", file.name);
+			reader.onload = e => {
+				$img.attr("src", e.target.result);		
+			};
+			reader.readAsDataURL(file);
+			$form.find(".img-grid").append($img);
+		});
+		
+		let dt = new DataTransfer();
+		for(let f of sel_files) {
+			dt.items.add(f);
+		}
+		
+		this.files = dt.files;
+	});
+	
+	$("body").on("click", ".qna-form .img-item", function(){
+		if(! confirm("선택한 파일을 삭제 하시겠습니까 ? ")) {
+			return false;
+		}
+		
+		let filename = $(this).attr("data-filename");
+		
+		for(let i=0; i<sel_files.length; i++) {
+			if(filename === sel_files[i].name) {
+				sel_files.splice(i, 1);
+				break;
+			}
+		}
+		
+		let dt = new DataTransfer();
+		for(let f of sel_files) {
+			dt.items.add(f);
+		}
+		
+		const f = this.closest("form");
+		f.selectFile.files = dt.files;
+		
+		$(this).remove();
+	});
+	
+
+	$('.btnQuestionSendOk').click(function(){
+		const f = document.questionForm;
+		let s;
+		
+		s = f.question.value.trim();
+		if( ! s ) {
+			alert("문의 사항을 입력하세요.")	;
+			f.question.focus();
+			return false;
+		}
+		
+		if(f.selectFile.files.length > 5) {
+			alert("이미지는 최대 5개까지 가능합니다..")	;
+			return false;
+		}
+		
+		let url = "${pageContext.request.contextPath}/qna/write";
+		// FormData : form 필드와 그 값을 나타내는 일련의 key/value 쌍을 쉽게 생성하는 방법을 제공 
+		// FormData는 Content-Type을 명시하지 않으면 multipart/form-data로 전송
+		let query = new FormData(f); 
+		
+		const fn = function(data) {
+			if(data.state === "true") {
+				f.reset();
+				$(".qna-form .img-item").each(function(){
+					$(this).remove();
+				});
+				sel_files.length = 0;
+				
+				$("#questionDialogModal").modal("hide");
+				
+				listQuestion(1);
+			}
+		};
+		
+		ajaxFun(url, "post", query, "json", fn, true);		
+	});
+	
+	$('.btnQuestionSendCancel').click(function(){
+		const f = document.questionForm;
+		f.reset();
+		$(".qna-form .img-item").each(function(){
+			$(this).remove();
+		});
+		sel_files.length = 0;
+		
+		$("#questionDialogModal").modal("hide");
+	});	
+	
+	$('.btnMyQuestion').click(function(){
+		location.href = '${pageContext.request.contextPath}/myPage/review?mode=qna';
+	});
+});
+// *******************************************************************************************************
 
 $(function(){
 	$(".order-cancel").click(function(){
 		// 구매(주문) 취소
 		let orderDetailNum = $(this).attr("data-orderDetailNum");
+		let payment = $(this).attr("data-payment");
+		let orderNum = $(this).attr("data-orderNum");
 
 		const f = document.userOrderDetailForm;
 		f.orderDetailNum.value = orderDetailNum;
-		f.detailState.value = 4;
+		f.payment.value = payment;
+		f.orderNum.value = orderNum;
 
-		$("#orderDetailUpdateDialogModalLabel").html("구매취소");
+		$("#orderDetailUpdateDialogModalLabel").html("주문취소");
 		$("#orderDetailUpdateDialogModal").modal("show");
 		
 	});
 });
 
-$(function(){
-	$(".return-request").click(function(){
-		// 반품 요청
-		let orderDetailNum = $(this).attr("data-orderDetailNum");
-		
-		const f = document.userOrderDetailForm;
-		f.orderDetailNum.value = orderDetailNum;
-		f.detailState.value = 10;
-		
-		$("#orderDetailUpdateDialogModalLabel").html("반품요청");
-		$("#orderDetailUpdateDialogModal").modal("show");
-	});
-});
-
-$(function(){
-	$(".exchange-request").click(function(){
-		// 교환 요청
-		let orderDetailNum = $(this).attr("data-orderDetailNum");
-
-		const f = document.userOrderDetailForm;
-		f.orderDetailNum.value = orderDetailNum;
-		f.detailState.value = 6;
-		
-		$("#orderDetailUpdateDialogModalLabel").html("교환요청");
-		$("#orderDetailUpdateDialogModal").modal("show");
-		
-	});
-});
 
 $(function(){
 	$('.btnUserOrderDetailUpdateOk').click(function(){
-		// 주문취소/교환요청/반품요청 완료
+		// 주문취소/교환요청/반품요청
 		const f = document.userOrderDetailForm;
 
-		if(! f.changeSort.value.trim()) {
+	/*	if(f.changeSort.value.trim() == 0) {
 			alert('취소구분을 선택해주세요.');
 			f.changeSort.focus();
 			return false;
-		}
+		}  */
 		
 		f.action = '${pageContext.request.contextPath}/myPage/orderDetailUpdate';
 		f.submit();
@@ -325,15 +454,14 @@ $(function(){
 					<p class="fs-4 fw-semibold">주문 내역</p> 
 				</div>
 				<div class="mt-3">
-				
-			
 					 <c:forEach var="dto" items="${list }">
 						<div class="mt-3 p-2 border-bottom payment-list">
 							<div class="row pb-2">
 								<div class="col-6">
 									<div class="fs-6 fw-semibold text-black-50"><label>${detailState[dto.detailState]}</label><label></label></div>
 								</div>
-								<div class="col-6 text-end">
+								
+								<div class="col-6 text-end payment">
 									<label class='payment-delete' title="주문내역삭제" data-orderDetailNum="${dto.orderDetailNum}"><i class="fa-solid fa-rectangle-xmark"></i></label>
 								</div>
 							</div>
@@ -367,24 +495,21 @@ $(function(){
 								<c:if test="${dto.detailState==0}">
 									<button type="button" class="btn border payment-confirmation" style="width: 130px;" data-orderDetailNum="${dto.orderDetailNum}"> 구매확정 </button>
 								</c:if>
-								<button type="button" class="btn btn-warning" style="width: 130px;" onclick="location.href='${pageContext.request.contextPath}/product/${dto.productNum}';"> 재구매  </button>
+								<button type="button" class="btn btn-warning" style="width: 130px;" onclick="location.href='${pageContext.request.contextPath}/product/buy/${dto.productNum}';"> 재구매  </button>
 								
 								<button type="button" class="btn btn-warning payment-dropdown" title="주문상세"><i class="bi bi-three-dots"></i></button>
 								<div class="payment-menu">
-									<div class="payment-menu-item order-details" data-orderDetailNum="${dto.orderDetailNum}"> 주문상세 </div>
+									<div class="payment-menu-item order-details-view" data-orderDetailNum="${dto.orderDetailNum}"> 주문상세
+									</div>
 									<c:if test="${dto.detailState==0 && dto.orderState==1}">
-										<div class="payment-menu-item order-cancel" data-orderDetailNum="${dto.orderDetailNum}"> 구매취소 </div>
+										<div class="payment-menu-item order-cancel" data-orderDetailNum="${dto.orderDetailNum}" data-payment="${dto.productMoney}" data-orderNum="${dto.orderNum}"> 주문취소 </div>
 									</c:if>
-									<c:if test="${dto.detailState==0 && dto.orderState==5 && dto.afterDelivery < 3}">
-										<div class="payment-menu-item return-request" data-orderDetailNum="${dto.orderDetailNum}"> 반품요청 </div>
-										<div class="payment-menu-item exchange-request" data-orderDetailNum="${dto.orderDetailNum}"> 교환요청 </div>
-									</c:if>
-									<div class="payment-menu-item" data-orderDetailNum="${dto.orderDetailNum}"> 1:1 문의 </div>
+									<div class="payment-menu-item product-qna" data-productNum="${dto.productNum}"> 1:1 문의 </div>
 								</div>								
 							</div>
 							
+							<!-- 리뷰쓰기 -->
 							<c:if test="${dto.reviewWrite == 0}">
-								<!-- 리뷰쓰기 -->
 								<div class="review-form border border-secondary p-3 mt-2" style="display: none;">
 									<form name="reviewForm">
 										<div class="p-1">
@@ -432,6 +557,9 @@ $(function(){
 				</div>
 				<c:forEach var="dto" items="${cancelList }">
 				<div class="mt-3 p-2 border-bottom payment-list">
+					<div class="col-6">
+						<div class="fs-6 fw-semibold text-black-50"><label>${empty dto.com_date ? "처리중" : "처리완료"}</label><label></label></div>
+					</div>
 							<div class="row pb-2">
 								<div class="col-6">
 									<div class="fs-6 fw-semibold text-black-50"><label>${dto.stateProduct}</label><label></label></div>
@@ -459,11 +587,10 @@ $(function(){
 										옵션 : ${dto.optionValue} / ${dto.optionValue2}
 									</div>
 									<div class="pt-1">
-										총 취소금액 : ${dto.cancelCost} 
+										<label>총 취소금액 : <fmt:formatNumber value="${dto.cancelCost}"/>원</label>
 									</div>
 									<div class="mt-3 mb-0 text-end">
-										<p>${changeSort[dto.changeSort]}</p>
-										<label class="text-black-50 mt-0">${dto.com_date } &nbsp; | ${changeSate[dto.changeState]} </label>
+										<label class="text-black-50 mt-0">${empty dto.com_date ? "처리중" : dto.com_date}&nbsp; | ${changeSate[dto.changeSort]} </label>
 									</div>
 									<div class="text-end">
 									</div>
@@ -471,11 +598,29 @@ $(function(){
 							</div>
 						</div>
 					</c:forEach>
+					
+					<div class="page-navigation">
+						${cancelCount == 0 ? "주문취소 내역이 없습니다." : paging2 }
+					</div>
 			</div>
 		</div>
 	</div>
+	
+<!-- 주문상세 모달 -->	
+<div class="modal fade" id="orderDetailModal" tabindex="-1" aria-labelledby="orderDetailModalLabel"
+				aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+		
+			<div class="modal-header">
+				<h5 class="modal-title" id="orderDetailModalLabel">주문상세</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			
+			<div class="modal-body2"></div>
+		</div>
+	</div>
 </div>
-
 
 <!-- 배송조회  -->
 <c:forEach var="dto" items="${list }">
@@ -487,6 +632,8 @@ $(function(){
 				<h5 class="modal-title" id="deliveryTrackingModalLabel">배송조회</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
+			<c:if test="${empty dto.deliveryName }"> <p class="delivery-dox">배송정보가 없습니다.</p> </c:if>
+			<c:if test="${not empty dto.deliveryName} ">
 			<div class="modal-body">
                 <div class="row search-form">
 					<div class="col-4 pe-1">
@@ -500,18 +647,19 @@ $(function(){
 					</div>
                 </div>
 			</div>
+			</c:if>
 		</div>
 	</div>
 </div>
 </c:forEach>
 
 
-<!-- 구매취소/교환요청/반품요청 대화상자  -->
+<!-- 구매취소/교환요청/반품요청 처리 -->
 <div class="modal fade" id="orderDetailUpdateDialogModal" tabindex="-1" aria-labelledby="orderDetailUpdateDialogModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="orderDetailUpdateDialogModalLabel">구매취소</h5>
+				<h5 class="modal-title" id="orderDetailUpdateDialogModalLabel">주문취소</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body pt-1">
@@ -519,8 +667,8 @@ $(function(){
 					<form name="userOrderDetailForm" method="post" class="row justify-content-center">
 						<div>
 						<div class="col-8 p-1">
-							<select name="changeSort " class="form-select">
-								<option >::선택::</option>
+							<select name="changeSort" class="form-select">
+								<option > ::취소구분을 선택해주세요:: </option>
 								<option value="0" >물건하자로 인한 교환</option>
 								<option value="1" >옵션변경을 위한 교환 </option>
 								<option value="2" >단순변심에 의한 반품</option>
@@ -531,44 +679,69 @@ $(function(){
 								<option value="7" >옵션 선택 실수로 주문 취소</option>
 							</select>
 						</div>
-						<div class="col p-1">
-							<input type="text" name="stateMemo" class="form-control" placeholder="사유를 입력 하세요">
-						</div>
-					
-										
-					<table>
-					<tr>
-						<td class="bg-light col-sm-2" scope="row">이미지</td>
-						<td>
-							<div class="img-grid"><img class="item img-add rounded" src="${pageContext.request.contextPath}/resources/images/add_photo.png"></div>
-							<input type="file" name="selectFile" accept="image/*" multiple style="display: none;" class="form-control">
-						</td>
-					</tr>
-					
-						<tr>
-							<td class="bg-light col-sm-2" scope="row">등록이미지</td>
-							<td> 
-								<div class="img-box">
-									<c:forEach var="vo" items="${listFile}">
-										<img src="${pageContext.request.contextPath}/uploads/bbs/${vo.filename}"
-											class="delete-img"
-											data-fileNum="${vo.fileNum}">
-									</c:forEach>
-								</div>
-							</td>
-						</tr>
-					</table>
-				</div>	
+							<div class="col p-1">
+								<input type="text" name="stateMemo" class="form-control" placeholder="사유를 입력 하세요">
+							</div>
+						</div>	
 						
 						<div class="col-auto p-1">
 							<input type="hidden" name="page" value="${page}">
 							<input type="hidden" name="orderDetailNum">
-							<input type="hidden" name="detailState">
+							<input type="hidden" name="orderNum">
+							<input type="hidden" name="payment">
+							<input type="hidden" name="changeSort">
+							<input type="hidden" name="stateMemo">
 							<button type="button" class="btn btn-light btnUserOrderDetailUpdateOk"> 요청하기 </button>
 						</div>
 					</form>
 				</div>
 			</div>
+		</div>
+	</div>
+</div>
+
+<!-- 1:1문의 요청 모달 -->
+<div class="modal fade" id="questionDialogModal" tabindex="-1" 
+		data-bs-backdrop="static" data-bs-keyboard="false"
+		aria-labelledby="questionDialogModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="questionDialogModalLabel">상품 문의 하기</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+
+				<div class="qna-form p-2">
+					<form name="questionForm">
+						<div class="row">
+							<div class="col">
+								<span class="fw-bold">문의사항 쓰기</span><span> - 상품 및 상품 구매 과정과 관련없는 글은 삭제 될 수 있습니다.</span>
+							</div>
+							<div class="col-3 text-end">
+								<input type="checkbox" name="secret" id="secret1" class="form-check-input" 
+									value="1">
+								<label class="form-check-label" for="secret1">비공개</label>
+							</div>
+						</div>
+						<div class="p-1">
+							<input type="hidden" name="productNum" value="${dto.productNum}">
+							<textarea name="question" id="question" class="form-control"></textarea>
+						</div>
+						<div class="p-1">
+							<div class="img-grid">
+								<img class="item img-add" src="${pageContext.request.contextPath}/resources/images/add_photo.png">
+							</div>
+							<input type="file" name="selectFile" accept="image/*" multiple class="form-control" style="display: none;">
+						</div>							
+					</form>
+				</div>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary btnQuestionSendOk">문의등록 <i class="bi bi-check2"></i> </button>
+				<button type="button" class="btn btn-secondary btnQuestionSendCancel" data-bs-dismiss="modal">취소</button>
+			</div>			
 		</div>
 	</div>
 </div>

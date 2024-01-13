@@ -27,6 +27,7 @@ import com.fp.pet.domain.Friend;
 import com.fp.pet.domain.Reply;
 import com.fp.pet.domain.SessionInfo;
 import com.fp.pet.service.CommunityService;
+import com.fp.pet.service.FriendService;
 
 @Controller
 @RequestMapping("/bbs/*")
@@ -34,6 +35,9 @@ public class CommunityController {
 	
 	@Autowired
 	private CommunityService service;
+	
+	@Autowired
+	private FriendService friendservice;
 	
 	@Autowired
 	private MyUtil myUtil;
@@ -166,7 +170,7 @@ public class CommunityController {
 	
 	// 글보기
 	@GetMapping("article")
-	public String article(@RequestParam long communityNum, // @RequestParam String userName,
+	public String article(@RequestParam long communityNum, 
 			@RequestParam String pageNo,
 			@RequestParam(defaultValue = "all") String schType,
 			@RequestParam(defaultValue = "") String kwd,
@@ -197,14 +201,10 @@ public class CommunityController {
 		map.put("kwd", kwd);
 		map.put("communityNum", communityNum);
 		
+		map.put("userId", info.getUserId());
+		
 		Community prevDto = service.findByPrev(map);
 		Community nextDto = service.findByNext(map);
-		
-	//	map.put("userName2", userName);
-	//	map.put("userId2", info.getUserName());
-		
-	//	int friendCount;
-	//	friendCount = service.findByFriend(map);
 
 		List<Community> listFile = service.listCommunityFile(communityNum);
 		
@@ -216,8 +216,6 @@ public class CommunityController {
 		model.addAttribute("nextDto", nextDto);
 		model.addAttribute("listFile", listFile);
 
-	//	model.addAttribute("friendCount", friendCount);
-		
 		model.addAttribute("pageNo", pageNo);
 		model.addAttribute("query", query);
 
@@ -539,29 +537,52 @@ public class CommunityController {
 	}	
 	
 	
-	/*
-	// 친구목록
-	@PostMapping("friend")
-	@ResponseBody
-	public String friend(@RequestParam String userName, Model model, HttpSession session) throws Exception {
+	
+	// 친구추가 모달
+	@GetMapping("friend")
+	public String friend(@RequestParam String userName, Model model, 
+					     HttpSession session) throws Exception {
 		
 		SessionInfo info = (SessionInfo)session.getAttribute("member");
 		
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("userName2", userName);
-		map.put("userId2", info.getUserName());
+		map.put("userName", userName);
+		map.put("userId", info.getUserName());
 		
-		int friendCount;  
+		Community dto = service.findName(map);
+
+		model.addAttribute("dto", dto);
 		
-		friendCount = service.findByFriend(map);
-		
-		model.addAttribute("friendCount", friendCount);
-		
-		return "bbs/article";
+		return "bbs/friendModal";
 	}
-	*/
 	
-	// 작성자 클릭 시 친구추가
+	
+	@PostMapping("addfriend")
+	@ResponseBody
+	public Map<String, Object> addFriend(Friend dto,
+										 HttpSession session) throws Exception{
+		
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		String state = "true";
+		
+		try {
+			dto.setUserId(info.getUserName());
+			friendservice.addFriend(dto);
+			
+		} catch (Exception e) {
+			state = "false";
+			e.printStackTrace();
+		}
+		
+		map.put("state", state);
+		
+		return map;
+	}
+	
+	
+	/*// 작성자 클릭 시 친구추가
 	@PostMapping("addfriend")
 	public Map<String, Object> addFriend (Friend dto, HttpSession session) throws Exception {
 		Map<String, Object> model = new HashMap<String, Object>();
@@ -582,7 +603,7 @@ public class CommunityController {
 		
 		return model;
 	}
-	
+	*/
 	
 	// -----------------------------------------------------------
 	@GetMapping("list2")

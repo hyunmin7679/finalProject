@@ -8,7 +8,7 @@ public class Review {
 	
 	private long num;
 	private long memberIdx;
-	private String usetName;
+	private String userName;
 	private int score;
 	private String review;
 	private String answer;
@@ -31,8 +31,6 @@ public class Review {
 	private String productName;
 	private String optionValue;
 	private String optionValue2;
-	
-	
 	public long getNum() {
 		return num;
 	}
@@ -45,11 +43,11 @@ public class Review {
 	public void setMemberIdx(long memberIdx) {
 		this.memberIdx = memberIdx;
 	}
-	public String getUsetName() {
-		return usetName;
+	public String getUserName() {
+		return userName;
 	}
-	public void setUsetName(String usetName) {
-		this.usetName = usetName;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	public int getScore() {
 		return score;

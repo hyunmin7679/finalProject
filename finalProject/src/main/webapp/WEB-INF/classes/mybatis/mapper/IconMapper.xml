@@ -30,6 +30,7 @@
 			</if>
 		</where>
 	</select>
+	
 	<select id="listIcon" parameterType="map" resultType="com.fp.pet.admin.domain.Icon">
 		select 
 		iconNum,iconName,iconImage,iconPrice,iconCategory 
@@ -55,5 +56,8 @@
 	<delete id="deleteIcon" parameterType="Long">
 		delete from icon where iconNum = #{iconNum}
 	</delete>
+	
+	
+	
 	
 </mapper>

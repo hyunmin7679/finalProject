@@ -61,15 +61,15 @@ public class ReviewServiceImpl implements ReviewService {
 				}
 				
 				// 이름 '*' 처리
-				name = dto.getUsetName().substring(0,1); 
-				if(dto.getUsetName().length() <= 2) {
+				name = dto.getUserName().substring(0,1); 
+				if(dto.getUserName().length() <= 2) {
 					name += "*";
 				} else {
-					name += dto.getUsetName().substring(2, dto.getUsetName().length()).replaceAll(".", "*");
+					name += dto.getUserName().substring(2, dto.getUserName().length()).replaceAll(".", "*");
 				}
 				
-				name += dto.getUsetName().substring(dto.getUsetName().length()-1);
-				dto.setUsetName(name);
+				name += dto.getUserName().substring(dto.getUserName().length()-1);
+				dto.setUserName(name);
 				
 				dto.setReview(dto.getReview().replaceAll("\n", "<br>"));
 				

@@ -591,41 +591,45 @@ $(function(){
 }); 
 
 // --------------------------------------------------------
-/*
+
 // 친구추가 모달
 $(function(){
-	$(".friend").click(function(){
+	
+	$('.content-frame').on('click', '.frind-add', function(){
 		
 		let userName = $(this).attr('data-userName');
-		let url = '${pageContext.request.contextPath}/bbs/article';
-		let query = 'userName=' + userName;
-		let selector = "#friendModal";
+		let url = '${pageContext.request.contextPath}/bbs/friend?userName='+userName;
 		
-		const fn = function(data){
-			//let friend = data.friend;
-			let selector = '#friendModal';
-			$(selector).modal("show");
-		};
+		alert(userName);
 		
+		$("#frindModal").modal("show");
 		
-	ajaxFun(url, 'post', query, 'json', fn);
+		$("#frindModal .modal-body").load(url);
+		
 	});
 	
 });  
 
-$(function() {
-	$(".friend").click(function(){
-	
-		$("#friendModal").modal("show");
+/*
+// 친구추가
+$(function(){
+	$('.content-frame').on('click', '.friend-add', function(){
+
+		let url = '${pageContext.request.contextPath}/myPage/addfriend';
+		let query = '';
+		let selector = '.content-frame';
+			
+		const fn = function(data){
+			$(selector).html(data);
+			
+			replyListPage(1);
+		};
+		
+		ajaxFun(url, 'post', query, 'json', fn);
+		
 	});
-	
-}); */
-
-
-
-
-
-
+});
+*/
 
 </script>
 

@@ -10,7 +10,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fp.pet.common.FileManager;
 import com.fp.pet.domain.Community;
-import com.fp.pet.domain.Friend;
 import com.fp.pet.domain.Reply;
 import com.fp.pet.mapper.CommunityMapper;
 
@@ -254,7 +253,7 @@ public class CommunityServiceImpl implements CommunityService {
 	// 게시글 좋아요 개수
 	@Override
 	public int boardLikeCount(long communityNum) {
-int result = 0;
+		int result = 0;
 		
 		try {
 			result = mapper.boardLikeCount(communityNum);
@@ -421,20 +420,6 @@ int result = 0;
 	}
 
 
-	// 친구추가
-	@Override
-	public void addFriend(Friend dto) throws Exception {
-		try {
-			mapper.addFriend(dto);   // 친구신청 보낸사람
-			mapper.addFriend2(dto);	 // 친구신청 받은사람
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
-		}
-		
-	}
-
 	// 친구정보
 	@Override
 	public int findByFriend(Map<String, Object> map) {
@@ -450,17 +435,17 @@ int result = 0;
 		return result;
 	}
 
+	
 	@Override
-	public Community findName(long communityNum) {
+	public Community findName(Map<String, Object>map) {
 		Community dto = null;
 		
 		try {
-			mapper.findName(communityNum);
+			dto = mapper.findName(map);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 		
 		return dto;
 	}

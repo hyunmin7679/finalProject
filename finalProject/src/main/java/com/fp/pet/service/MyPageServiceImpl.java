@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.fp.pet.domain.Order;
@@ -88,6 +89,20 @@ public class MyPageServiceImpl implements MyPageService {
 		
     }
 
+	// 장바구니 20일이후 삭제
+	@Scheduled(cron="0 0 1 20 * ?")  // 매달 20일 오전 1시
+	@Override
+	public void deleteExpiration() throws Exception {
+		try {
+			mapper.deleteCartExpiration();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
+	
 // ---------------------------------------------------------------------------------	
 	
 	// 주문건수
@@ -146,13 +161,49 @@ public class MyPageServiceImpl implements MyPageService {
 		
 		return list;
 	}
+	
+	
+	// 주문상세
+	@Override
+	public Payment findByDetail (Map<String, Object> map) {
+		Payment dto = null;
+		
+		try {
+			dto = mapper.findByDetail(map);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dto;
+	}
+	
+		
 
-	// 주문상세상태 수정
+	// 주문상세상태 수정 (구매확정)
 	@Override
 	public void updateOrderDetailState(Map<String, Object> map) throws Exception {
 		try {
 			// 주문상세 테이블 상태 변경
 			mapper.updateOrderDetailState(map);
+			
+			// 주문상세 상태 정보 테이블에 상태 변경 내용 및 날짜 저장
+			mapper.insertDetailStateInfo(map);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
+	
+
+	// 자동구매확정
+	@Override
+	public void updateOrderDetailState2(Map<String, Object> map) throws Exception {
+		try {
+			// 주문상세 테이블 상태 변경
+			mapper.updateOrderDetailState2(map);
 			
 			// 주문상세 상태 정보 테이블에 상태 변경 내용 및 날짜 저장
 			mapper.insertDetailStateInfo(map);
@@ -175,6 +226,20 @@ public class MyPageServiceImpl implements MyPageService {
 			throw e;
 		}
 	}
+	
+	// 주문취소 개수
+	@Override
+	public int cancelCount(Map<String, Object> map) {
+		int result = 0;
+		try {
+			result = mapper.cancelCount(map);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
 
 	// 주문취소 리스트
 	@Override
@@ -184,11 +249,6 @@ public class MyPageServiceImpl implements MyPageService {
 		try {
 			list = mapper.listCancel(map);
 			
-			for(Payment dto : list) {
-				//dto.setReg_date(dto.getReg_date().replaceAll("-", ".").substring(5,10));
-				//dto.setCom_date(dto.getCom_date().replaceAll("-", ".").substring(5,10));
-				
-			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -197,4 +257,94 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 	
 
-}
+	
+ // -------------------------------------------------------------------	
+	// 주문상태변경 테이블 인서트
+	@Override
+	public void insertorderChange(Map<String, Object> map) throws Exception {
+
+		try {
+			mapper.insertorderChange(map);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
+	
+	// 주문상세 상태 테이블 인서트
+	@Override
+	public void insertStateInfo2(Map<String, Object> map) throws Exception {
+		try {
+			mapper.insertStateInfo2(map);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
+
+	// 주문테이블 상태 변경
+	@Override
+	public void updateproductOrder(Map<String, Object> map) throws Exception {
+		try {
+			mapper.updateproductOrder(map);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
+
+	// 주문상세테이블 상태 변경
+	@Override
+	public void updatedetailStateInfo(Map<String, Object> map) throws Exception {
+		try {
+			mapper.updatedetailStateInfo(map);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
+
+	
+	// 주문취소 요청 처리
+	@Override
+	public void updateorderChange(Map<String, Object> map) throws Exception {
+		try {
+				// changeSort
+			
+				int changeSort = Integer.parseInt((String) map.get("changeSort"));
+				int changeState = 0;
+				
+				if(changeSort == 0 || changeSort == 1) {
+					changeState = 6;
+				} else if(changeSort == 2 || changeSort == 3) {
+					changeState = 10;
+				} else {
+					changeState = 4;
+				} 
+						
+				map.put("changeState", changeState);
+				
+				insertorderChange(map);
+				insertStateInfo2(map);
+				
+				updatedetailStateInfo(map);
+				updateproductOrder(map);
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
+
+
+}	
