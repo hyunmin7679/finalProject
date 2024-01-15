@@ -108,20 +108,8 @@
 		</tr>
 	</table>
 
-	<div id="addressSection" style="display: none;">
-	<hr/>
-		<div style="text-align: center; background: skyblue;">
-			<h3>산책로 경로 지정해주기 or 장소 정해주기</h3>
-		</div>
-		<hr />
-		<div class="search-container">
-			<input type="text" name="park" id="park" class="form-control"
-				placeholder="주소를 정확하게 검색해주세요">
-			<button class="btn btn-outline-secondary" type="button"
-				onclick="searchAddress()">검색</button>
-		</div>
+	<div id="addressSection">
 	</div>
-	<input type="hidden" name="distance">
 </form>
 
 
@@ -168,9 +156,22 @@ function toggleAddressInput() {
 
     // 카테고리 값이 4(산책메이트)이면 보이도록, 그 외에는 숨기도록 설정
     if (selectedCategory == 4) {
-        addressSection.style.display = "block";
-    } else {
-        addressSection.style.display = "none";
+    	 let result= '';
+    	 result +='	<hr/>';
+    	 result += '<div style="text-align: center; background: skyblue;">';
+    	 result += '<h3>산책로 경로 지정해주기 or 장소 정해주기</h3>';
+    	 result += '</div>';
+    	 result += '<hr />';
+    	 result += '<div class="search-container">';
+    	 result += '<input type="text" name="park" id="park" class="form-control" placeholder="주소를 정확하게 검색해주세요">';
+    	 result += '<button class="btn btn-outline-secondary" type="button" onclick="searchAddress()">';
+    	 result += '검색';
+    	 result +=  '</button>';
+    	 result += ' </div>';
+    	 result += '<input type="hidden" name="distance">' ;
+    	 result += '</div>';
+
+    	  addressSection.innerHTML = result;
     }
 }
 
