@@ -148,11 +148,7 @@
                 <div data-i18n="Basic">쿠폰 관리</div>
         </a></li>
 		
-		<!-- 일정 관리 -->
-		<li class="menu-item ${left=='scheduleManage'? 'active':''}"><a href="${pageContext.request.contextPath}/admin/inquiryManage/scheduleManage"
-			class="menu-link"> <i class='menu-icon tf-icons bx bx-calendar'></i>
-				<div data-i18n="scheduleManage">일정 관리</div>
-		</a></li>
+		
 			
 		<!-- 계정 관리 -->
 		
