@@ -212,31 +212,24 @@ $(function(){
 });
 
 // *******************************************************************************************************
-/*
-$(function(){
-	$(".product-qna").click(function(){
-		// 1:1문의
-		let productNum = $(this).attr("data-productNum");
-		
-		let url = "${pageContext.request.contextPath}/product/buy/"+productNum;
-//		let url = "${pageContext.request.contextPath}/myPage/confirmation?orderDetailNum="+orderDetailNum+"&page=${page}";
-		location.href = url;
-	});
-});
-*/
 
 // 상품문의 모달 띄우기
-$(function(){
+$(function(){ 
 	$('.product-qna').click(function(){
+		let productNum = $(this).attr("data-productNum");
+		
+		let url = "${pageContext.request.contextPath}/myPage/qna2?productNum="+productNum;
+		
 		$("#questionDialogModal").modal("show");
+		$("#questionDialogModal .qna-submit").load(url);
+		
 	});
 });
-
 
 $(function(){
 	var sel_files = [];
 	
-	$("body").on("click", ".qna-form .img-add", function(){
+	$(".qna-submit").on("click", ".qna-form .img-add", function(){
 		$(this).closest(".qna-form").find("input[name=selectFile]").trigger("click");
 	});
 	
@@ -278,7 +271,7 @@ $(function(){
 		this.files = dt.files;
 	});
 	
-	$("body").on("click", ".qna-form .img-item", function(){
+	$(".qna-submit").on("click", ".qna-form .img-item", function(){
 		if(! confirm("선택한 파일을 삭제 하시겠습니까 ? ")) {
 			return false;
 		}
@@ -302,10 +295,10 @@ $(function(){
 		
 		$(this).remove();
 	});
-	
 
 	$('.btnQuestionSendOk').click(function(){
 		const f = document.questionForm;
+		
 		let s;
 		
 		s = f.question.value.trim();
@@ -320,43 +313,22 @@ $(function(){
 			return false;
 		}
 		
-		let url = "${pageContext.request.contextPath}/qna/write";
+		
+		let url = "${pageContext.request.contextPath}/proqna/write";
 		// FormData : form 필드와 그 값을 나타내는 일련의 key/value 쌍을 쉽게 생성하는 방법을 제공 
 		// FormData는 Content-Type을 명시하지 않으면 multipart/form-data로 전송
 		let query = new FormData(f); 
 		
 		const fn = function(data) {
-			if(data.state === "true") {
-				f.reset();
-				$(".qna-form .img-item").each(function(){
-					$(this).remove();
-				});
-				sel_files.length = 0;
-				
-				$("#questionDialogModal").modal("hide");
-				
-				listQuestion(1);
-			}
+			$("#questionDialogModal").hide();
+				location.reload();
 		};
 		
 		ajaxFun(url, "post", query, "json", fn, true);		
 	});
 	
-	$('.btnQuestionSendCancel').click(function(){
-		const f = document.questionForm;
-		f.reset();
-		$(".qna-form .img-item").each(function(){
-			$(this).remove();
-		});
-		sel_files.length = 0;
-		
-		$("#questionDialogModal").modal("hide");
-	});	
-	
-	$('.btnMyQuestion').click(function(){
-		location.href = '${pageContext.request.contextPath}/myPage/review?mode=qna';
-	});
 });
+
 // *******************************************************************************************************
 
 $(function(){
@@ -403,27 +375,21 @@ $(function(){
 			<div style="display: flex; justify-content :center;">
 			<a href="${pageContext.request.contextPath}/"><img class="icon" src="${pageContext.request.contextPath}/resources/images/아이콘1.gif"></a>
 			<div style="align-items: center; display: flex;">
-				<p>현주님 &nbsp;|</p>
-				<p>&nbsp;VIP등급</p>
+				<p>${sessionScope.member.userName} 님&nbsp;|</p>
+				<p>&nbsp;${userPoint} P</p>
 			</div>
 			</div> 
 		</div>
 		
 		<div class="itembox">
 		<div class="bar-item p-3">
-			<a href="${pageContext.request.contextPath}/faq/main"><i class="fa-solid fa-heart"></i><br>위시리스트</a>
+			<a href="#"><i class="fa-solid fa-heart"></i><br>위시리스트</a>
 		</div>
 		<div class="point-item">
 			<i class="fa-solid fa-angle-right"></i>
 		</div>
 		<div class="bar-item p-3">
-			<a href="${pageContext.request.contextPath}/notice/list" ><i class="fa-solid fa-user-group"></i><br>친구목록</a>
-		</div>
-		<div class="point-item">
-			<i class="fa-solid fa-angle-right"></i>
-		</div>
-		<div class="bar-item p-3">
-			<a href="#"><i class="fa-solid fa-piggy-bank"></i><br>포인트</a>
+			<a href="${pageContext.request.contextPath}/friend/list" ><i class="fa-solid fa-user-group"></i><br>친구목록</a>
 		</div>
 		<div class="point-item">
 			<i class="fa-solid fa-angle-right"></i>
@@ -710,33 +676,8 @@ $(function(){
 				<h5 class="modal-title" id="questionDialogModalLabel">상품 문의 하기</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
-			<div class="modal-body">
-
-				<div class="qna-form p-2">
-					<form name="questionForm">
-						<div class="row">
-							<div class="col">
-								<span class="fw-bold">문의사항 쓰기</span><span> - 상품 및 상품 구매 과정과 관련없는 글은 삭제 될 수 있습니다.</span>
-							</div>
-							<div class="col-3 text-end">
-								<input type="checkbox" name="secret" id="secret1" class="form-check-input" 
-									value="1">
-								<label class="form-check-label" for="secret1">비공개</label>
-							</div>
-						</div>
-						<div class="p-1">
-							<input type="hidden" name="productNum" value="${dto.productNum}">
-							<textarea name="question" id="question" class="form-control"></textarea>
-						</div>
-						<div class="p-1">
-							<div class="img-grid">
-								<img class="item img-add" src="${pageContext.request.contextPath}/resources/images/add_photo.png">
-							</div>
-							<input type="file" name="selectFile" accept="image/*" multiple class="form-control" style="display: none;">
-						</div>							
-					</form>
-				</div>
-
+			<div class="modal-body qna-submit">
+			
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-primary btnQuestionSendOk">문의등록 <i class="bi bi-check2"></i> </button>

@@ -22,6 +22,8 @@ public interface MyPageService {
 	public List<Payment> listCancel(Map<String, Object> map);
 	public int cancelCount (Map<String, Object> map);
 	
+	public int userPoint (Map<String, Object> map);
+	
 	// 주문상세 
 	public Payment findByDetail(Map<String, Object> map);
 	

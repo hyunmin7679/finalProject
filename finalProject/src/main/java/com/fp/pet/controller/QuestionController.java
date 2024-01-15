@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +23,9 @@ import com.fp.pet.service.QnaService;
 public class QuestionController {
 	@Autowired
 	private QnaService qnaservice;
+	
+	@Autowired
+	private QnaService qnaservice2;
 	
 	@Autowired
 	private MyUtil myUtil;
@@ -78,5 +82,27 @@ public class QuestionController {
 		
 		return model;
 	}
+	
+	@PostMapping("write")
+	public Map<String, Object> writeSubmit(HttpSession session,			
+										   Qna dto) throws Exception {
+		
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
+		Map<String, Object> map = new HashMap<String, Object>();
+		String state = "true";
+		
+		try {
+			dto.setMemberIdx(info.getMemberIdx());
+			qnaservice2.insertQna(dto);
+			
+		} catch (Exception e) {
+			state = "false";
+		}
+		
+		map.put("state", state);
+
+		return map;
+	}
+
 
 }

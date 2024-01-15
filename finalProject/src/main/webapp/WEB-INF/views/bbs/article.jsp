@@ -82,12 +82,12 @@
 <table class="table table-borderless mb-2">
 	<tr>
 		<td width="50%"><c:choose>
-				<c:when test="${sessionScope.member.userId==dto.userId}">
+				<c:when test="${sessionScope.member.userId==dto.userId && dto.park == ' '}">
 					<button type="button" class="btn btn-light"
 						onclick="updateForm('${dto.communityNum}', '${pageNo}');">수정</button>
 				</c:when>
 				<c:otherwise>
-					<button type="button" class="btn btn-light" disabled>수정</button>
+					
 				</c:otherwise>
 			</c:choose> <c:choose>
 				<c:when test="${sessionScope.member.userId==dto.userId}">
@@ -95,9 +95,10 @@
 						onclick="deleteOk('${dto.communityNum}', '${pageNo}');">삭제</button>
 				</c:when>
 				<c:otherwise>
-					<button type="button" class="btn btn-light" disabled>삭제</button>
+					
 				</c:otherwise>
 			</c:choose></td>
+			<td><button type="button" class="btn btn-light btnUserReportSubmit" data-communityNum="${dto.communityNum}">신고</button></td>
 		<td class="text-end">
 			<button type="button" class="btn btn-light"
 				onclick="listPage('${pageNo}');">리스트</button>
@@ -144,19 +145,62 @@
 </div>
 
 <!-- 친구추가 모달 -->
-<div class="modal fade" id="frindModal" tabindex="-1"
-	aria-labelledby="frindModalLabel" aria-hidden="true"
-	data-bs-backdrop="static" data-bs-keyboard="false">
+<div class="modal fade" id="frindModal" tabindex="-1" aria-labelledby="frindModalLabel"
+				aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
-
+		
 			<div class="modal-header">
 				<h5 class="modal-title" id="frindModalLabel">친구추가</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal"
-					aria-label="Close"></button>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
-
+			
 			<div class="modal-body"></div>
+		</div>
+	</div>
+</div>	
+
+<!-- 신고하기 창 -->
+<div class="modal fade" id="userReportModal" tabindex="-1" aria-labelledby="userReportModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="userReportModalLabel">신고하기</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body pt-1">
+				<div class="p-1">
+					<form name="userReportForm" method="post" class="row justify-content-center">
+						<div>
+						<div class="col-8 p-1">
+							<select name="reason" class="form-select">
+								<option > ::신고사유를 선택해주세요:: </option>
+								<option value="1" >광고</option>
+								<option value="2" >도배</option>
+								<option value="3" >음란물</option>
+								<option value="4" >지나친 욕설</option>
+								<option value="5" >개인정보침해</option>
+								<option value="6" >저작권침해</option>
+								<option value="7" >기타</option>
+							</select>
+						</div>
+							<div class="col p-1">
+								<input type="text" name="content" class="form-control" placeholder="사유를 입력 하세요">
+							</div>
+						</div>	
+						
+						<div class="col-auto p-1">
+							<input type="hidden" name="categoryNum" value="${dto.categoryNum}">
+							<input type="hidden" name="page" value="${page}">
+							<input type="hidden" name="reason">
+							<input type="hidden" name="declUrl" value="/bbs/article/">
+							<input type="hidden" name="num">
+							<input type="hidden" name="content">
+							<button type="button" class="btn btn-light btnUserReportOk"> 신고하기 </button>
+						</div>
+					</form>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

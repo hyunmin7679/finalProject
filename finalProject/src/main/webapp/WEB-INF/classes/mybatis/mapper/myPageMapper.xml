@@ -90,12 +90,18 @@
 			FROM productReview
 			WHERE memberIdx = #{memberIdx}
 		) r ON od.orderDetailNum = r.num
-		WHERE po.memberIdx = #{memberIdx} 
+		WHERE po.memberIdx = #{memberIdx}
 		AND userDelete = 0
 		ORDER BY orderDate DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
 	
+	
+	<select id="userPoint" parameterType="map" resultType="Integer">
+		SELECT NVL(userPoint, 0)
+		FROM member1
+		WHERE memberIdx = #{memberIdx}
+	</select>
 	
 	 <!-- ________________________ 주문상세 ________________________ -->
 	 <select id="findByDetail" parameterType="map" resultType="com.fp.pet.domain.Payment">
@@ -207,9 +213,6 @@
 	    UPDATE orderDetail SET detailState = #{changeState}
     	WHERE orderDetailNum = #{orderDetailNum}
 	 </update>
-	 
-	 
-	 
-	
+
 
 </mapper>

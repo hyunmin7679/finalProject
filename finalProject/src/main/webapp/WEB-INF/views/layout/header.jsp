@@ -100,6 +100,7 @@ $(function(){
                   <c:otherwise>
                      <div class="hicon align-bottom pt-5">
                         <a href="${pageContext.request.contextPath}/member/logout" title="로그아웃"><i class="bi bi-unlock p-2"></i></a>
+                        <a href="${pageContext.request.contextPath}/myPage/cart" title="장바구니"><i class="bi bi-cart"></i></a>
                         <a href="#" title="쪽지" class="position-relative">
                            <i class="bi bi-bell p-2"></i>
                            <span class="new-noteCount position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary" style="font-size: 6px;"></span>

@@ -8,6 +8,8 @@ public class Friend{
 	private String reg_date;
 	private String friend_date;
 	private String identifyDay;
+	private int friendCount;
+	
 	
 	private String iconImage;
 	
@@ -17,6 +19,14 @@ public class Friend{
 	private String userName;
 	
 	
+	public int getFriendCount() {
+		return friendCount;
+	}
+
+	public void setFriendCount(int friendCount) {
+		this.friendCount = friendCount;
+	}
+
 	public String getIconImage() {
 		return iconImage;
 	}

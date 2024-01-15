@@ -215,7 +215,6 @@ function printPoint(data) {
 	let size = data.size;
 	let paging = data.paging;
 	let userPoint = data.userPoint;
-	let num = 1;
 	
 	let out = '';
 	
@@ -237,16 +236,13 @@ function printPoint(data) {
 		let memo = item.memo;
 		let p_qyt = item.p_qyt;
 		
-		
 		out += '   <tr class="text-center" valign="middle">';
-		out += '  <td colspan="2">'+num+'</td>';
+		out += '  <td colspan="2">'+pointNum+'</td>';
 		out += '  <td colspan="2">'+reg_date+'</td>';
 		out += '  <td width="120">'+memo+'</td>';
 		out += '  <td width="120">'+p_qyt+'</td>';
 		
-		 if(page  num ++;
 		}
-	
 	
 		out += '  </tbody></table></div>';
 	}

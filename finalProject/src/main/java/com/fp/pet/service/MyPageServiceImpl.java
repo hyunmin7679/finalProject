@@ -119,6 +119,21 @@ public class MyPageServiceImpl implements MyPageService {
 		
 		return result;
 	}
+	
+	
+	@Override
+	public int userPoint(Map<String, Object> map) {
+		int result = 0;
+		
+		try {
+			result = mapper.userPoint(map);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
 
 	// 주문내역 리스트
 	@Override
@@ -345,6 +360,8 @@ public class MyPageServiceImpl implements MyPageService {
 		}
 		
 	}
+
+
 
 
 }	

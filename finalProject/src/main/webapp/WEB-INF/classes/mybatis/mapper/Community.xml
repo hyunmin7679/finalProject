@@ -181,6 +181,11 @@
 		DELETE FROM community
 		WHERE communityNum = #{communityNum}
 	</delete>
+	
+	<delete id="deletecommunitymap" parameterType="map" >
+		DELETE FROM communitymap
+		WHERE ${field} = #{communityNum}
+	</delete>
 
 	<!-- **************************************************************************** -->	
 	
@@ -298,7 +303,7 @@
 
 <!-- ******************************************************************************************* -->
 
-<!--  
+	<!-- 친구 추가 -->
 	<insert id="addFriend" parameterType="com.fp.pet.domain.Friend">
 		INSERT INTO friendlist(friendNum, from_friend, to_friend, is_friend, reg_date)
 			values(friendlist_seq.NEXTVAL, #{userId}, #{userName}, 1, SYSDATE)
@@ -308,16 +313,16 @@
 		INSERT INTO friendlist(friendNum, from_friend, to_friend, is_friend, reg_date)
 			values(friendlist_seq.NEXTVAL, #{userName}, #{userId}, 0, SYSDATE)
 	</insert>
-	-->
 	
 	<!-- 친구정보 -->
-	<select id="findByfriend" parameterType="map" resultType="Integer">
-		select nvl(count(*),0) 
-        from friendlist fl, member1 m, member1 m2
-        where fl.from_friend(+) = m.userName
-        and fl.to_friend = m2.userName
-        and m.userName= #{userId}
-        and m2.userName = #{userName};
+	<select id="friendWhether" parameterType="map" resultType="com.fp.pet.domain.Friend">
+		select nvl(count(*),0) friendCount , is_friend 
+	       from friendlist fl, member1 m, member1 m2
+	       where fl.from_friend(+) = m.userName
+	       and fl.to_friend(+) = m2.userName
+	       and m.userName= #{userId}
+	       and m2.userName = #{userName}
+	       group by  is_friend
 	</select>
 	
 	<select id="findName" parameterType="map" resultType="com.fp.pet.domain.Community">
@@ -327,7 +332,7 @@
 		AND il.iconNum = i.iconNum
 		AND m.userName = #{userName}
 	</select>
-	
+
 	
 <!-- *************************************************************************************** -->	
 	

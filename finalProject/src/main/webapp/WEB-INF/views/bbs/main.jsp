@@ -5,9 +5,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/paginate-boot.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/se2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=05a2937d99f19b82637494048cbe786d&libraries=services"></script>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/boot-board.css" type="text/css">
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=60e66caa443255c7eacf898657309fe6&libraries=services"></script>
 
 <style type="text/css">
 .body-container {
@@ -600,8 +600,6 @@ $(function(){
 		let userName = $(this).attr('data-userName');
 		let url = '${pageContext.request.contextPath}/bbs/friend?userName='+userName;
 		
-		alert(userName);
-		
 		$("#frindModal").modal("show");
 		
 		$("#frindModal .modal-body").load(url);
@@ -610,29 +608,66 @@ $(function(){
 	
 });  
 
-/*
+
 // 친구추가
 $(function(){
 	$('.content-frame').on('click', '.friend-add', function(){
 
-		let url = '${pageContext.request.contextPath}/myPage/addfriend';
-		let query = '';
-		let selector = '.content-frame';
-			
+		let userName = $(this).attr('data-userName');
+		console.log(userName);
+	
+		let url = '${pageContext.request.contextPath}/bbs/addfriend';
+		let query = 'userName=' + userName;
+		
+		
+		
 		const fn = function(data){
-			$(selector).html(data);
 			
-			replyListPage(1);
+			$("#questionDialogModal").hide();
+			location.reload();
+			
 		};
 		
-		ajaxFun(url, 'post', query, 'json', fn);
+		ajaxFun(url, "post", query, "json", fn);	
+		
+	});
+});  
+
+
+
+// 신고창 모달띄우기
+$(function(){ 
+	$('.content-frame').on('click', '.btnUserReportSubmit', function(){
+		
+		let num = $(this).attr("data-communityNum");
+		let reason = $(this).attr("data-reason");
+		let content = $(this).attr("data-content");
+
+		const f = document.userReportForm;
+		f.num.value = num;
+		f.reason.value = reason;
+		f.content.value = content;
+
+		$("#userReportModalLabel").html("신고하기");
+		$("#userReportModal").modal("show");
 		
 	});
 });
-*/
+
+$(function(){
+	$('.content-frame').on('click', '.btnUserReportOk', function(){
+		const f = document.userReportForm;
+
+		if(f.changeSort.value.trim() == 0) {
+			alert('취소구분을 선택해주세요.');
+			f.changeSort.focus();
+			return false;
+		}  
+		
+		f.action = '${pageContext.request.contextPath}/userReport/report';
+		f.submit();
+	});
+});
+
 </script>
-
-
-
-
 

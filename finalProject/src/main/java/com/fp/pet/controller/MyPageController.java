@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.fp.pet.common.MyUtil;
 import com.fp.pet.domain.Order;
 import com.fp.pet.domain.Payment;
+import com.fp.pet.domain.Product;
 import com.fp.pet.domain.SessionInfo;
 import com.fp.pet.service.MyPageService;
+import com.fp.pet.service.ProductService;
 import com.fp.pet.state.OrderState;
 
 @Controller
@@ -28,6 +30,9 @@ public class MyPageController {
 	
 	@Autowired
 	private MyPageService service;
+	
+	@Autowired
+	private ProductService productservice;
 	
 	@Autowired 
 	private MyUtil myUtil;
@@ -145,7 +150,6 @@ public class MyPageController {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("memberIdx", info.getMemberIdx());
-		//map.put("orderDetailNum", orderDetailNum);
 		
 		dataCount = service.countPayment(map);
 		total_page = myUtil.pageCount(dataCount, size);
@@ -170,12 +174,12 @@ public class MyPageController {
 		
 		List<Payment> list = service.listPayment(map);
 		List<Payment> cancelList = service.listCancel(map);
-		//Payment vo = service.findByDetail(map);
+		int userPoint = service.userPoint(map);
 		
 		String listUrl = cp + "/myPage/paymentList";
 		String paging = myUtil.pagingUrl(current_page, total_page, listUrl);
 		
-		String paging2 = myUtil.paging(current_page, total_page2, listUrl);
+		String paging2 = myUtil.paging(current_page, total_page2, listUrl); 
 		
 		String orderState[] = OrderState.ORDERSTATEINFO;  // 주문상태
 		String detailState[] = OrderState.DETAILSTATEINFO;  // 주문상태
@@ -190,8 +194,6 @@ public class MyPageController {
 		model.addAttribute("size", size);
 		model.addAttribute("paging", paging);	
 		
-		//model.addAttribute("vo", vo);	
-		
 		model.addAttribute("cancelCount", cancelCount);
 		model.addAttribute("total_page2", total_page2);
 		model.addAttribute("paging2", paging2);	
@@ -200,8 +202,25 @@ public class MyPageController {
 		model.addAttribute("detailState", detailState);	 // OrderState
 		model.addAttribute("changeSate", changeSate);	 // OrderState
 		
+		model.addAttribute("userPoint", userPoint);	 
+		
 		return ".myPage.paymentList";
 	}
+	
+	
+	@GetMapping("qna2")
+	public String qna2(@RequestParam long productNum, Model model) throws Exception {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("productNum", productNum);
+		
+		Product dto = productservice.findByProduct(productNum);
+		
+		model.addAttribute("qna", dto);
+
+		return "myPage/productModal";
+	}  
+
 	
 // **********************************************************************************	
 	@GetMapping("orderDetail")

@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fp.pet.common.FileManager;
 import com.fp.pet.domain.Community;
+import com.fp.pet.domain.Friend;
 import com.fp.pet.domain.Reply;
 import com.fp.pet.mapper.CommunityMapper;
 
@@ -217,13 +218,14 @@ public class CommunityServiceImpl implements CommunityService {
 						fileManager.doFileDelete(dto.getFilename(), pathname);
 					}
 				}
-
+				
 				// 파일 테이블 내용 지우기
 				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("field", "communityNum");
 				map.put("communityNum", communityNum);
 				deleteCommunityFile(map);
 
+				deletecommunitymap(map);
 				mapper.deleteCommunity(communityNum);
 				
 		} catch (Exception e) {
@@ -243,6 +245,19 @@ public class CommunityServiceImpl implements CommunityService {
 			e.printStackTrace();
 			throw e;
 		}
+	}
+	
+	// 카카오맵 삭제
+	@Override
+	public void deletecommunitymap(Map<String, Object> map) throws Exception {
+		try {
+			mapper.deletecommunitymap(map);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
 	}
 
 	// 게시글 좋아요 추가
@@ -441,22 +456,22 @@ public class CommunityServiceImpl implements CommunityService {
 	}
 
 
-	// 친구정보
+	// 친구여부
 	@Override
-	public int findByFriend(Map<String, Object> map) {
-		int result = 0;
+	public Friend friendWhether (Map<String, Object>map) {
+		Friend dto = null;
 		
 		try {
-			result = mapper.findByFriend(map);
+			dto = mapper.friendWhether(map);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		return result;
+		return dto;
 	}
 
-	
+	// 친구정보
 	@Override
 	public Community findName(Map<String, Object>map) {
 		Community dto = null;
@@ -470,7 +485,21 @@ public class CommunityServiceImpl implements CommunityService {
 		
 		return dto;
 	}
-
+	
+	// 친구추가
+	@Override
+	public void addFriend(Map<String, Object> map) throws Exception {
+		try {
+			mapper.addFriend(map);
+			mapper.addFriend2(map);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
+	
  // ------------------------------------------------------------------
 	// 내활동 
 	

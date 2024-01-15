@@ -27,7 +27,6 @@ import com.fp.pet.domain.Friend;
 import com.fp.pet.domain.Reply;
 import com.fp.pet.domain.SessionInfo;
 import com.fp.pet.service.CommunityService;
-import com.fp.pet.service.FriendService;
 
 @Controller
 @RequestMapping("/bbs/*")
@@ -35,9 +34,6 @@ public class CommunityController {
 	
 	@Autowired
 	private CommunityService service;
-	
-	@Autowired
-	private FriendService friendservice;
 	
 	@Autowired
 	private MyUtil myUtil;
@@ -556,16 +552,18 @@ public class CommunityController {
 		map.put("userId", info.getUserName());
 		
 		Community dto = service.findName(map);
+		Friend friend = service.friendWhether(map);
 
 		model.addAttribute("dto", dto);
+		model.addAttribute("friend", friend);
 		
 		return "bbs/friendModal";
 	}
 	
-	
+	// 친구추가 요청
 	@PostMapping("addfriend")
 	@ResponseBody
-	public Map<String, Object> addFriend(Friend dto,
+	public Map<String, Object> addFriend(@RequestParam String userName, //Friend dto,
 										 HttpSession session) throws Exception{
 		
 		SessionInfo info = (SessionInfo)session.getAttribute("member");
@@ -574,42 +572,22 @@ public class CommunityController {
 		String state = "true";
 		
 		try {
-			dto.setUserId(info.getUserName());
-			friendservice.addFriend(dto);
+			
+			map.put("userName", userName);
+			map.put("userId", info.getUserName());
+			
+			service.addFriend(map);
 			
 		} catch (Exception e) {
 			state = "false";
 			e.printStackTrace();
 		}
 		
-		map.put("state", state);
-		
-		return map;
-	}
-	
-	
-	/*// 작성자 클릭 시 친구추가
-	@PostMapping("addfriend")
-	public Map<String, Object> addFriend (Friend dto, HttpSession session) throws Exception {
 		Map<String, Object> model = new HashMap<String, Object>();
-		SessionInfo info = (SessionInfo)session.getAttribute("member");
-		
-		String state = "true";
-		
-		try {
-			dto.setUserId(info.getUserName());
-			service.addFriend(dto);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			state = "false";
-		}
-		
 		model.put("state", state);
 		
 		return model;
 	}
-	*/
 	
 	// -----------------------------------------------------------
 	@GetMapping("list2")

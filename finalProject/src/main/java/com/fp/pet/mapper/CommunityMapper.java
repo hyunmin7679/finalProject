@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.fp.pet.domain.Community;
+import com.fp.pet.domain.Friend;
 import com.fp.pet.domain.Reply;
 
 @Mapper
@@ -54,11 +55,13 @@ public interface CommunityMapper {
 
 	// 카카오맵 API
 	public List<Community> listParkAddr(Map<String, Object> map);
+	public void deletecommunitymap(Map<String, Object> map) throws SQLException;
 	
 	// 친구추가
-	//public void addFriend(Friend dto) throws SQLException;
-	//public void addFriend2(Friend dto) throws SQLException;
-	public int findByFriend (Map<String, Object>map);   // 친구정보
+	public void addFriend(Map<String, Object> map) throws SQLException;
+	public void addFriend2(Map<String, Object> map) throws SQLException;
+	
+	public Friend friendWhether (Map<String, Object>map);
 	public Community findName (Map<String, Object>map);
 	
 	// ----------------------------------------------------------
