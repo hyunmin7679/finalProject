@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fp.pet.common.MyUtil;
 import com.fp.pet.domain.Order;
@@ -334,5 +335,57 @@ public class MyPageController {
 		model.addAttribute("mode", mode);
 		return ".myPage.pointCoupon";
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="wishlist")
+	public String wishlist(@RequestParam int pnum,
+			@RequestParam int open,
+			HttpSession session) {
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		
+		
+		
+		Map<String, Object>map = new HashMap<String, Object>();
+		map.put("pnum", pnum);
+		map.put("userId", info.getUserId());
+		map.put("open",open);
+		
+		
+		
+		try {
+			service.addwishlist(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return "redirect:/product/buy/"+pnum;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="deletewish")
+	public String deletewish(@RequestParam int pnum,
+			HttpSession session) {
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		
+		
+		
+		Map<String, Object>map = new HashMap<String, Object>();
+		map.put("pnum", pnum);
+		map.put("userId", info.getUserId());
+		
+		
+		
+		try {
+			service.deletewishlist(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return "redirect:/product/buy/"+pnum;
+	}
+
+
 
 }

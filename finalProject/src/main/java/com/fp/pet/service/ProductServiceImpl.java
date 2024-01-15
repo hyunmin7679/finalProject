@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fp.pet.domain.Product;
+import com.fp.pet.domain.Wishlist;
 import com.fp.pet.mapper.ProductMapper;
 
 @Service
@@ -133,5 +134,18 @@ public class ProductServiceImpl implements ProductService{
 			e.printStackTrace();
 		}
 		return list;
+	}
+
+
+	@Override
+	public List<Wishlist> findwishlist(Map<String, Object> map) {
+		List<Wishlist> wishlist = null;
+		
+		try {
+			wishlist= mapper.findwishlist(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return wishlist;
 	}
 }

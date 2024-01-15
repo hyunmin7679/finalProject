@@ -99,5 +99,9 @@
 		where os.optionNum = #{optionNum2}  and dp.detailNum = #{detailNum}
 		order by detailNum, detailNum2
 	</select>
+	
+	<select id="findwishlist" parameterType="map" resultType="com.fp.pet.domain.Wishlist">
+		select * from wishlist where productNum=#{productNum} and userId=#{userId}
+	</select>
 
 </mapper>

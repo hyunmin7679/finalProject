@@ -58,6 +58,7 @@ public interface MyPageMapper {
 	public void updateproductOrder (Map<String, Object> map) throws SQLException;
 	public void updatedetailStateInfo (Map<String, Object> map) throws SQLException;
 	
-	
+	public void addwishlist(Map<String, Object>map);
+	public void deletewishlist(Map<String, Object>map);
 }
 

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fp.pet.admin.domain.CsBoard;
 import com.fp.pet.admin.mapper.CsManageMapper;
@@ -12,13 +13,13 @@ import com.fp.pet.common.FileManager;
 
 @Service
 public class CsManageServiceImpl implements CsManageService {
-	
+
 	@Autowired
 	private FileManager fileManager;
 
 	@Autowired
 	private CsManageMapper mapper;
-	
+
 	@Override
 	public int dataCountfaq(Map<String, Object> map) {
 
@@ -35,9 +36,9 @@ public class CsManageServiceImpl implements CsManageService {
 	@Override
 	public List<CsBoard> listfaq(Map<String, Object> map) {
 		List<CsBoard> listfaq = null;
-		
+
 		try {
-			listfaq=mapper.listfaq(map);
+			listfaq = mapper.listfaq(map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -48,7 +49,7 @@ public class CsManageServiceImpl implements CsManageService {
 	public List<CsBoard> listnotice(Map<String, Object> map) {
 		List<CsBoard> listnotice = null;
 		try {
-			listnotice=mapper.listnotice(map);
+			listnotice = mapper.listnotice(map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -59,7 +60,7 @@ public class CsManageServiceImpl implements CsManageService {
 	public List<CsBoard> listqna(Map<String, Object> map) {
 		List<CsBoard> listqna = null;
 		try {
-			listqna=mapper.listqna(map);
+			listqna = mapper.listqna(map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -68,32 +69,38 @@ public class CsManageServiceImpl implements CsManageService {
 
 	@Override
 	public void insertNotice(CsBoard dto) throws Exception {
-		
+
 		try {
 			mapper.insertNotice(dto);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
 		}
-		
+
 	}
-	
+
 	@Override
 	public void insertNoticeFile(CsBoard dto, String path) throws Exception {
-		
+
 		try {
-			String saveFilename = fileManager.doFileUpload(dto.getSelectFile(), path);
-			if (saveFilename != null) {
-				dto.setSaveFilename(saveFilename);
-				dto.setOriginalFilename(dto.getSelectFile().getOriginalFilename());
-			}
-			
-			mapper.insertNoticeFile(dto);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
-		}
-		
+	        if (!dto.getSelectFile().isEmpty()) {
+	            for (MultipartFile mf : dto.getSelectFile()) {
+	                String saveFilename = fileManager.doFileUpload(mf, path);
+	                if (saveFilename == null) {
+	                    throw new Exception("File upload failed for: " + mf.getOriginalFilename());
+	                }
+	                dto.setSaveFilename(saveFilename);
+	                dto.setOriginalFilename(mf.getOriginalFilename());
+
+	                
+	                mapper.insertNoticeFile(dto);
+	            }
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        throw e;
+	    }
+
 	}
 
 	@Override
@@ -105,7 +112,7 @@ public class CsManageServiceImpl implements CsManageService {
 			e.printStackTrace();
 			throw e;
 		}
-		
+
 	}
 
 	@Override
@@ -117,13 +124,13 @@ public class CsManageServiceImpl implements CsManageService {
 			e.printStackTrace();
 			throw e;
 		}
-		
+
 	}
 
 	@Override
 	public CsBoard findnoticebynum(int nnum) {
 		CsBoard dto = null;
-		
+
 		try {
 			dto = mapper.findnoticebynum(nnum);
 		} catch (Exception e) {
@@ -131,6 +138,5 @@ public class CsManageServiceImpl implements CsManageService {
 		}
 		return dto;
 	}
-
 
 }

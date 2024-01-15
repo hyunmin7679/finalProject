@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.fp.pet.domain.Product;
+import com.fp.pet.domain.Wishlist;
 
 public interface ProductService {
 	public int dataCount(Map<String, Object> map);
@@ -19,4 +20,5 @@ public interface ProductService {
 	
 	public List<Product> listOptionDetailStock(Map<String, Object> map);
 
+	public List<Wishlist> findwishlist(Map<String, Object> map);
 }

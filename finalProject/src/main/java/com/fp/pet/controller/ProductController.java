@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fp.pet.common.MyUtil;
 import com.fp.pet.domain.Product;
+import com.fp.pet.domain.SessionInfo;
+import com.fp.pet.domain.Wishlist;
 import com.fp.pet.service.ProductService;
 
 @Controller
@@ -94,8 +97,9 @@ public class ProductController {
 	}
 	
 	@GetMapping("/buy/{productNum}")
-	public String buyRequest(@PathVariable String productNum, Model model) throws Exception{
-		
+	public String buyRequest(@PathVariable String productNum, Model model,HttpSession session) throws Exception{
+		Map<String, Object> map = new HashMap<String, Object>();
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
 		try {
 			long longNum = Long.parseLong(productNum);
 			Product dto = service.findByProduct(longNum);
@@ -106,17 +110,24 @@ public class ProductController {
 			List<Product> listOption = service.listProductOption(longNum);
 			// 상위 옵션값
 			List<Product> listOptionDetail = null;
+			String userId = info.getUserId();
+			System.out.println(userId);
+			System.out.println(longNum);
+			map.put("productNum", longNum);
+			map.put("userId", userId);
+			List<Wishlist> wishlist = service.findwishlist(map);
 			if(listOption.size() > 0) {
 				listOptionDetail = service.listOptionDetail(listOption.get(0).getOptionNum());
 			}
 			dto.setFilename(dto.getThumbnail());
 			listFile.add(0, dto);
-		
+			
 			model.addAttribute("dto", dto);
 			model.addAttribute("productNum",productNum);
 			model.addAttribute("listOption", listOption);
 			model.addAttribute("listOptionDetail", listOptionDetail);
 			model.addAttribute("listFile", listFile);
+			model.addAttribute("wishlist",wishlist);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

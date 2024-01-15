@@ -1,5 +1,7 @@
 package com.fp.pet.admin.domain;
 
+import java.util.List;
+
 import org.springframework.web.multipart.MultipartFile;
 
 public class CsBoard {
@@ -18,7 +20,6 @@ public class CsBoard {
 	
 	private String saveFilename;
 	private String originalFilename;
-	private MultipartFile selectFile;
 	private long memberIdx;
 	private String reg_date;
 	private int showNotice;	
@@ -37,7 +38,7 @@ public class CsBoard {
 	private String identifyday;
 	private String q_subject;
 	private String productname;
-	
+	private List<MultipartFile> selectFile;
 	
 
 	public String getProductname() {
@@ -161,10 +162,10 @@ public class CsBoard {
 	public void setOriginalFilename(String originalFilename) {
 		this.originalFilename = originalFilename;
 	}
-	public MultipartFile getSelectFile() {
+	public List<MultipartFile> getSelectFile() {
 		return selectFile;
 	}
-	public void setSelectFile(MultipartFile selectFile) {
+	public void setSelectFile(List<MultipartFile> selectFile) {
 		this.selectFile = selectFile;
 	}
 	public int getNotice() {

@@ -42,5 +42,7 @@ public interface MyPageService {
 	public void updateproductOrder (Map<String, Object> map) throws Exception;	// 
 	public void updatedetailStateInfo (Map<String, Object> map) throws Exception;
 
+	public void addwishlist(Map<String, Object>map) throws Exception;
+	public void deletewishlist(Map<String, Object>map) throws Exception;
 }
 

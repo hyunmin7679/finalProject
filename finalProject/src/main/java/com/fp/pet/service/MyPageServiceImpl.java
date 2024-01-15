@@ -360,6 +360,28 @@ public class MyPageServiceImpl implements MyPageService {
 		}
 		
 	}
+	
+	@Override
+	public void addwishlist(Map<String, Object> map) throws Exception {
+
+		try {
+
+			mapper.addwishlist(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	@Override
+	public void deletewishlist(Map<String, Object> map) throws Exception {
+		try {
+
+			mapper.deletewishlist(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 
 

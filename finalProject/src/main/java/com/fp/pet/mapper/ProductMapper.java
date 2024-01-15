@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.fp.pet.domain.Product;
+import com.fp.pet.domain.Wishlist;
 
 @Mapper
 public interface ProductMapper {
@@ -21,5 +22,7 @@ public interface ProductMapper {
 	public List<Product> listOptionDetail(long optionNum);
 	
 	public List<Product> listOptionDetailStock(Map<String, Object> map);
+	
+	public List<Wishlist> findwishlist(Map<String, Object> map);
 
 }

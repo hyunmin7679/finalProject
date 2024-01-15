@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fp.pet.mapper.WishlistMapper">
+
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		select
+		count(*) from wishlist where userId=#{userId}
+	</select>
+
+	<select id="listwishlist" parameterType="map"
+		resultType="com.fp.pet.domain.Wishlist">
+		select p.thumbnail, p.productName, p.price, w.secret,
+		w.productNum from wishlist w join product p on
+		w.productNum=p.productNum where
+		userId=#{userId}
+	</select>
+
+	<select id="findwishlist" parameterType="map"
+		resultType="com.fp.pet.domain.Wishlist">
+		select * from wishlist where userId=#{userId} and
+		productNum=#{pnum}
+	</select>
+
+	<update id="addorremove" parameterType="map">
+		update wishlist set secret=#{secret} where
+		userId=#{userId} and productNum=#{pnum}
+	</update>
+
+</mapper>

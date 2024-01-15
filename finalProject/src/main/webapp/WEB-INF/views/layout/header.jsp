@@ -207,7 +207,7 @@ $(function(){
                     <li><a href="${pageContext.request.contextPath}/member/pwd">회원정보</a></li>
                     <li><a href="${pageContext.request.contextPath}/myPage/review">내활동</a></li>
                     <li><a href="${pageContext.request.contextPath}/myPage/cart">장바구니</a></li>
-                    <li><a href="#">위시리스트</a></li>
+                    <li><a href="${pageContext.request.contextPath}/wishlist/">위시리스트</a></li>
                     <li><a href="${pageContext.request.contextPath}/myPage/paymentList">주문내역</a></li>
                     <li><a href="${pageContext.request.contextPath}/friend/list">친구목록</a></li>
                     <li><a href="${pageContext.request.contextPath}/myPage/couponPoint">포인트/쿠폰</a></li>
@@ -228,7 +228,7 @@ $('nav li').hover(
             $('ul', this).stop().slideUp(200);
         }
     );
-
+/*
 // 이미지 소스 배열
 var imageSources = [
     "${pageContext.request.contextPath}/uploads/img/dd.PNG",
@@ -306,4 +306,5 @@ function fadeOutImage(element) {
 }
 
 document.addEventListener("DOMContentLoaded", init);
+*/
 </script>

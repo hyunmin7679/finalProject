@@ -81,7 +81,8 @@
 										<button class="accordion-button collapsed" type="button"
 											data-bs-toggle="collapse"
 											data-bs-target="#accordionPayment-${status.index}"
-											aria-controls="accordionPayment-${status.index}" value="${upno.nsubject}">${vo.nsubject }</button>
+											aria-controls="accordionPayment-${status.index}"
+											value="${upno.nsubject}">${vo.nsubject }</button>
 									</h2>
 									<div id="accordionPayment-${status.index}"
 										class="accordion-collapse collapse">
@@ -94,11 +95,12 @@
 														data-bs-toggle="dropdown"> <i
 														class="bx bx-dots-vertical-rounded"></i>
 													</a>
-													<div class="dropdown-menu dropdown-menu-end">
-														<a onclick="updatenotice(${vo.nnum})"
-															class="dropdown-item update-record text">수정</a> <a
+													<div class="dropdown-menu dropdown-menu-end"> <a
 															href="javascript:;"
-															class="dropdown-item delete-record text-danger">삭제</a>
+															class="dropdown-item delete-record text-danger"
+															data-bs-toggle="modal" data-bs-target="#noticeupdate"
+															data-nnum=${vo.nnum } data-subject=${vo.nsubject }
+															>삭제</a>
 													</div>
 													<a
 														href="${pageContext.request.contextPath}/notice/zipdownload?num=${vo.nnum}"
@@ -106,9 +108,10 @@
 												</div>
 											</div>
 										</div>
-										<div class="accordion-body" style="margin-right: 7%;" >${vo.ncontent }</div>
+										<div class="accordion-body" style="margin-right: 7%;">${vo.ncontent }</div>
 									</div>
 								</div>
+
 							</c:forEach>
 							<!-- --------------------------------------반복------------------------------------------------------------- -->
 
@@ -393,9 +396,8 @@
 											tabindex="-1">답변대기</button>
 									</li>
 								</ul>
+
 								<div class="tab-content">
-
-
 									<div class="tab-pane fade active show"
 										id="navs-pills-top-every" role="tabpanel">
 										<div id="accordionCancellation" class="accordion">
@@ -431,6 +433,8 @@
 																</div>
 															</div>
 														</div>
+
+
 														<div class="accordion-body" style="padding-top: 15px;">
 															문의사항 답변<br> <br> ${qo.answer}
 														</div>
@@ -978,6 +982,79 @@
 									</tbody>
 								</table>
 							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 공지사항  수정용  -->
+			<div class="modal fade" id="noticeupdate" tabindex="-1"
+				style="display: none;" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="body-main">
+
+							<form name="noticeFormupdate" method="post"
+								enctype="multipart/form-data">
+								<table class="table table-border border-top2 table-form">
+									<tbody>
+										<tr>
+											<td>제&nbsp;&nbsp;&nbsp;&nbsp;목</td>
+											<td><input type="text" name="nsubject" maxlength="100"
+												class="form-control" value="${vo.nsubject }"></td>
+										</tr>
+
+										<tr>
+											<td>공지여부</td>
+											<td><input type="checkbox" name="notice" id="notice"
+												class="form-check-input" value="1"> <label
+												for="notice" class="form-check-label">공지</label></td>
+										</tr>
+
+										<tr>
+											<td>출력여부</td>
+											<td><input type="checkbox" name="showNotice"
+												id="showNotice" class="form-check-input" value="1"
+												checked=""> <label for="showNotice"
+												class="form-check-label">표시</label></td>
+										</tr>
+
+										<tr>
+											<td>작성자</td>
+											<td>
+												<p class="form-control-plaintext">관리자</p>
+											</td>
+										</tr>
+
+										<tr>
+											<td valign="top">내&nbsp;&nbsp;&nbsp;&nbsp;용</td>
+											<td valign="top"><textarea name="ncontent" id="ir1"
+													class="form-control" style="max-width: 97%; height: 290px;">${vo.ncontent }</textarea></td>
+										</tr>
+
+										<tr>
+											<td>첨&nbsp;&nbsp;&nbsp;&nbsp;부</td>
+											<td><input type="file" name="selectFile"
+												class="form-control" multiple=""></td>
+										</tr>
+
+
+									</tbody>
+								</table>
+
+								<table class="table">
+									<tbody>
+										<tr>
+											<td align="center">
+												<button type="button" class="btn btn-dark notice">등록하기</button>
+												<button type="reset" class="btn">다시입력</button>
+												<button type="button" class="btn"
+													onclick="location.href='/pet/admin/csManage/';">등록취소</button>
+
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</form>
 
 						</div>
 					</div>
@@ -1228,45 +1305,43 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 }
 
 
-$(function(){
-	$('.containercs').on('click','.notice', function(){
-		
-		const f  = document.noticeForm;
-		
-		let str;
-		
-		str = f.nsubject.value.trim();
-		if(!str) {
-			alert('제목을 입력해주세요. ');
-			f.iconName.focus();
-			return false;
-		}
+$(function () {
+    $('.containercs').on('click', '.notice', function () {
 
-		str = f.ncontent.value.trim();
-	    if(!str) {
-	        alert('내용을 입력하세요. ');
-	        f.iconPrice.focus();
-	        return;
-	    }
-	    
-	    
-	    let url = "${pageContext.request.contextPath}/admin/csManage/writenotice";
-		
-		let formData = new FormData(f);
-		
-		const fn = function(data){
-			let state = data.state;
-			if(state=="false"){
-				alert("공지사항 등록에 실패했습니다.");
-				return false;
-			}
-			
-			$('#notice').modal('hide');
-		};
-		ajaxFun(url,'post',formData, 'json', fn,true);
-		
-	});
-	
+        const f = document.noticeForm;
+
+        let str;
+
+        str = f.nsubject.value.trim();
+        if (!str) {
+            alert('제목을 입력해주세요. ');
+            f.nsubject.focus();
+            return false;
+        }
+
+        str = f.ncontent.value.trim();
+        if (!str) {
+            alert('내용을 입력하세요. ');
+            f.ncontent.focus();
+            return;
+        }
+
+        let url = "${pageContext.request.contextPath}/admin/csManage/writenotice";
+
+        let formData = new FormData(f);
+
+
+        const fn = function (data) {
+            let state = data.state;
+            if (state == "false") {
+                alert("공지사항 등록에 실패했습니다.");
+                return false;
+            }
+
+            $('#notice').modal('hide');
+        };
+        ajaxFun(url, 'post', formData, 'json', fn, true);
+    });
 });
 
 $(function(){
@@ -1356,6 +1431,23 @@ $(function(){
 	});
 	
 });
+
+$(document).ready(function() {
+	
+
+    $('.delete-record').on('click', function() {
+    	var nnum = $(this).attr('data-nnum');
+    	 console.log("nnum: ", nnum);
+        var confirmation = confirm("공지사항을 삭제하시겠습니까?");
+        if (confirmation) {
+        	
+        }else{
+        	
+        }
+    });
+});
+
+
 function updatenotice(nnum){
 	
 	let url = "${pageContext.request.contextPath}/admin/csManage/updatenotice";

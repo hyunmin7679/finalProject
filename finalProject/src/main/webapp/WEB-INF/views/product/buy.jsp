@@ -3,6 +3,244 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <style type="text/css">
+#custom-modal {
+	display: none;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	padding: 20px;
+	background-color: white;
+	border: 1px solid #ccc;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#custom-modal-buttons {
+	text-align: right;
+	margin-top: 10px;
+}
+
+#custom-modal-buttons button {
+	margin-left: 10px;
+}
+
+.asd {
+	position: relative;
+	margin: 0;
+	padding: 0.5em 1em;
+	outline: none;
+	text-decoration: none;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	border: none;
+	text-transform: uppercase;
+	background-color: blue;
+	border-radius: 10px;
+	color: #fff;
+	font-weight: 300;
+	font-size: 18px;
+	font-family: inherit;
+	z-index: 0;
+	overflow: hidden;
+	transition: all 0.3s cubic-bezier(0.02, 0.01, 0.47, 1);
+}
+
+.asd:hover {
+	animation: sh0 0.5s ease-in-out both;
+}
+
+@
+keyframes sh0 { 0% {
+	transform: rotate(0deg) translate3d(0, 0, 0);
+}
+
+25
+
+
+%
+{
+transform
+
+
+:
+
+
+rotate
+(
+
+
+7deg
+
+
+)
+
+
+translate3d
+(
+
+
+0
+,
+0
+,
+0
+
+
+)
+;
+
+
+}
+50
+
+
+%
+{
+transform
+
+
+:
+
+
+rotate
+(
+
+
+-7deg
+
+
+)
+
+
+translate3d
+(
+
+
+0
+,
+0
+,
+0
+
+
+)
+;
+
+
+}
+75
+
+
+%
+{
+transform
+
+
+:
+
+
+rotate
+(
+
+
+1deg
+
+
+)
+
+
+translate3d
+(
+
+
+0
+,
+0
+,
+0
+
+
+)
+;
+
+
+}
+100
+
+
+%
+{
+transform
+
+
+:
+
+
+rotate
+(
+
+
+0deg
+
+
+)
+
+
+translate3d
+(
+
+
+0
+,
+0
+,
+0
+
+
+)
+;
+
+
+}
+}
+.asd:hover span {
+	animation: storm 0.7s ease-in-out both;
+	animation-delay: 0.06s;
+}
+
+.asd::before, .asd::after {
+	content: '';
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	background: #fff;
+	opacity: 0;
+	transition: transform 0.15s cubic-bezier(0.02, 0.01, 0.47, 1), opacity
+		0.15s cubic-bezier(0.02, 0.01, 0.47, 1);
+	z-index: -1;
+	transform: translate(100%, -25%) translate3d(0, 0, 0);
+}
+
+.asd:hover::before, .asd:hover::after {
+	opacity: 0.15;
+	transition: transform 0.2s cubic-bezier(0.02, 0.01, 0.47, 1), opacity
+		0.2s cubic-bezier(0.02, 0.01, 0.47, 1);
+}
+
+.asd:hover::before {
+	transform: translate3d(50%, 0, 0) scale(0.9);
+}
+
+.asd:hover::after {
+	transform: translate(50%, 0) scale(1.1);
+}
+
+
 .body-container {
 	max-width: 1000px;
 }
@@ -310,6 +548,15 @@ function sendOk(mode) {
 	f.submit();
 }
 
+document.getElementById('wishButton').addEventListener('click', function() {
+    // data-productNum 속성에서 pnum 값을 가져오기
+    let pnum = this.getAttribute('data-productNum');
+	console.log(pnum);
+    $('.wishbodydelete #productNum').val(pnum);
+    $('#deletewish-modal').modal('show');
+	
+});
+
 // 오늘본 상품 목록
 $(function(){
 	let pnum = "${dto.productNum}";
@@ -504,7 +751,8 @@ $(function(){
 							* 필수 옵션
 						</div>
 						<div class="mt-2">
-							<select class="form-select requiredOption" data-optionNum="${listOption[0].optionNum}" >
+							<select class="form-select requiredOption"
+								data-optionNum="${listOption[0].optionNum}">
 								<option value="">${listOption[0].optionName}</option>
 								<c:forEach var="vo" items="${listOptionDetail}">
 									<option value="${vo.detailNum}">${vo.optionValue}</option>
@@ -532,12 +780,55 @@ $(function(){
 							<input type="hidden" name="mode" value="buy">
 							<button type="button" class="btn btn-primary w-100 btn-buySend" onclick="sendOk('buy');">구매하기</button>
 						</div>
-						<div class="row mt-2 mb-2">
+						<div class="row mt-2 mb-2 wishbox">
 							<div class="col pe-1">
-								<button type="button" class="btn border w-100 btn-productBlind" ${empty sessionScope.member.memberIdx ? "disabled='disabled'" : ""}>찜하기 <i class="bi bi-heart"></i></button>
+								<c:choose>
+									<c:when test="${not empty wishlist }">
+										<button type="button" id="wishDelete"
+											class="btn border w-100 btn-productBlind wishdeletebutton"
+											${empty sessionScope.member.memberIdx ? "disabled='disabled'" : ""}
+											data-productnumd="${dto.productNum}"
+											onclick='deletewish(${dto.productNum})'>
+											찜하기<i class="fa-solid fa-heart"></i>
+										</button>
+									</c:when>
+									<c:otherwise>
+										<button type="button" id="wishButton"
+											class="btn border w-100 btn-productBlind"
+											${empty sessionScope.member.memberIdx ? "disabled='disabled'" : ""}
+											data-bs-target='#wishlist-modal' data-bs-toggle="modal"
+											data-productNum="${dto.productNum}">
+											찜하기<i class="bi bi-heart"></i>
+										</button>
+									</c:otherwise>
+								</c:choose>
+								<!--
+								<c:if test="${empty wishlist }">
+									<button type="button" id="wishButton"
+										class="btn border w-100 btn-productBlind"
+										${empty sessionScope.member.memberIdx ? "disabled='disabled'" : ""}
+										data-bs-target='#wishlist-modal' data-bs-toggle="modal"
+										data-productNum="${dto.productNum}">
+										찜하기<i class="bi bi-heart"></i>
+									</button>
+								</c:if>
+								<c:if test="${not empty wishlist }">
+									<button type="button" id="wishdeletebutton"
+										class="btn border w-100 btn-productBlind wishdeletebutton"
+										${empty sessionScope.member.memberIdx ? "disabled='disabled'" : ""}
+										data-bs-target='#deletewish-modal' data-bs-toggle="modal"
+										data-productnumd="${dto.productNum}">
+										찜하기<i class="fa-solid fa-heart"></i>
+									</button>
+								</c:if>
+								  -->
 							</div>
 							<div class="col ps-1">
-								<button type="button" class="btn border w-100 btn-productCart" onclick="sendOk('cart');" ${empty sessionScope.member.memberIdx ? "disabled='disabled'" : ""}>장바구니 <i class="bi bi-bag"></i></button>
+								<button type="button" class="btn border w-100 btn-productCart"
+									onclick="sendOk('cart');"
+									${empty sessionScope.member.memberIdx ? "disabled='disabled'" : ""}>
+									장바구니 <i class="bi bi-bag"></i>
+								</button>
 							</div>
 						</div>
 					</form>
@@ -686,6 +977,27 @@ $(function(){
 				</div>
 			</div>
 
+		</div>
+	</div>
+</div>
+
+<div id="wishlist-modal" class="modal fade" tabindex="-1"
+	data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body wishbody">
+				<input type="text" name="productNum" id="productNum" value=""
+					style="display: none;" />
+				<p>해당 상품을 공개하시겠습니까?</p>
+				<div id="wishlist-modal-buttons" style="margin-top: 30px;">
+					<button style="float: left; margin-right: 10px;" class="asd"
+						onclick="handleConfirmation('yes')">예</button>
+					<button style="float: left;" class="asd"
+						onclick="handleConfirmation('no')">아니오</button>
+					<button style="float: right;" class="asd"
+						onclick="handleConfirmation('cancel')">취소</button>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
@@ -1127,4 +1439,61 @@ $(function(){
 		location.href = '${pageContext.request.contextPath}/myPage/review?mode=qna';
 	});
 });
+
+document.getElementById('wishButton').addEventListener('click', function() {
+    // data-productNum 속성에서 pnum 값을 가져오기
+    let pnum = this.getAttribute('data-productNum');
+    console.log(pnum);
+
+    console.log('aaaaaa')
+    $('.wishbody #productNum').val(pnum);
+    $('#wishlist-modal').modal('show');
+});
+
+
+function handleConfirmation(response) {
+    let open, url, query;
+    let pnum = $('.wishbody #productNum').val();
+
+    const fn = function(data) {
+        location.reload();
+    };
+
+    switch (response) {
+        case 'yes':
+            open = 1;
+            url = "${pageContext.request.contextPath}/myPage/wishlist";
+            query = "open=" + open + "&pnum=" + pnum;
+            ajaxFun(url, 'post', query, 'json', fn);
+            break;
+        case 'no':
+            open = 0;
+            url = "${pageContext.request.contextPath}/myPage/wishlist";
+            query = "open=" + open + "&pnum=" + pnum;
+            ajaxFun(url, 'post', query, 'json', fn);
+            break;
+        case 'cancel':
+            break;
+    }
+
+    // 모달 닫기
+    $('#wishlist-modal').modal('hide');
+
+    // Additional logic or actions you want to perform
+}
+
+
+
+function deletewish(pnum) {
+    alert('위시리스트에서 제거하시겠습니까?');
+    
+    const fn = function(data) {
+        location.reload();
+    };
+
+    let url = "${pageContext.request.contextPath}/myPage/deletewish";
+    let query = "pnum=" + pnum;
+    ajaxFun(url, 'post', query, 'json', fn);
+}
+
 </script>

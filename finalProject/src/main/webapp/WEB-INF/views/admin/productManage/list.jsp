@@ -35,9 +35,9 @@
 		</td>
 		<td><span>${dto.totalStock}</span></td>
 		<td style="display: none;">${dto.discountRate}</td>
-		<td width="200px;"><strong style="text-align: center;">${dto.optionName1=='기본'? '' : dto.optionName1}</strong>
+		<td width="200px;"><strong style="text-align: center;">${dto.optionName1=='기본'? '없음' : dto.optionName1}</strong>
 			<div style="text-align: center; margin-bottom: none;">${dto.optionValue1=='기본'? '' : dto.optionValue1}</div></td>
-		<td width="200px;"><strong style="text-align: center;">${dto.optionName2=='기본'? '' : dto.optionName2}</strong>
+		<td width="200px;"><strong style="text-align: center;">${dto.optionName2=='기본'? '없음' : dto.optionName2}</strong>
 			<div style="text-align: center;">${dto.optionValue2=='기본'? '' : dto.optionValue2}</div></td>
 		<td class="dtr-hidden"><span
 			class="badge bg-label-${dto.specialState=='일반'? 'success' : dto.specialState=='특가'? 'warning' : 'primary'}">${dto.specialState}</span></td>

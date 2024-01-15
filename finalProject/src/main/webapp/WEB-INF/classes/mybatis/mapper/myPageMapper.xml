@@ -213,6 +213,15 @@
 	    UPDATE orderDetail SET detailState = #{changeState}
     	WHERE orderDetailNum = #{orderDetailNum}
 	 </update>
-
+	 
+	 <insert id="addwishlist" parameterType="map">
+	  INSERT INTO wishlist (wishNum, userId, productNum, secret) 
+	  values (wishList_seq.NEXTVAL,#{userId},#{pnum},#{open})	 
+	 </insert>
+	 
+	 <delete id="deletewishlist" parameterType="map">
+	 	DELETE FROM wishlist where userId=#{userId} and productNum=#{pnum}
+	 </delete>
+		
 
 </mapper>
