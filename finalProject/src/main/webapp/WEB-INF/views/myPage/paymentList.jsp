@@ -226,108 +226,7 @@ $(function(){
 	});
 });
 
-$(function(){
-	var sel_files = [];
-	
-	$(".qna-submit").on("click", ".qna-form .img-add", function(){
-		$(this).closest(".qna-form").find("input[name=selectFile]").trigger("click");
-	});
-	
-	$("form[name=questionForm] input[name=selectFile]").change(function(e){
-		if(! this.files) {
-			let dt = new DataTransfer();
-			for(let f of sel_files) {
-				dt.items.add(f);
-			}
-			
-			this.files = dt.files;
-			
-			return false;
-		}
-		
-		let $form = $(this).closest("form");
-		
-		// 유사 배열을  배열로 변환
-		const fileArr = Array.from(this.files);
-		
-		fileArr.forEach((file, index) => {
-			sel_files.push(file);
-			
-			const reader = new FileReader();
-			const $img = $("<img>", {"class":"item img-item"});
-			$img.attr("data-filename", file.name);
-			reader.onload = e => {
-				$img.attr("src", e.target.result);		
-			};
-			reader.readAsDataURL(file);
-			$form.find(".img-grid").append($img);
-		});
-		
-		let dt = new DataTransfer();
-		for(let f of sel_files) {
-			dt.items.add(f);
-		}
-		
-		this.files = dt.files;
-	});
-	
-	$(".qna-submit").on("click", ".qna-form .img-item", function(){
-		if(! confirm("선택한 파일을 삭제 하시겠습니까 ? ")) {
-			return false;
-		}
-		
-		let filename = $(this).attr("data-filename");
-		
-		for(let i=0; i<sel_files.length; i++) {
-			if(filename === sel_files[i].name) {
-				sel_files.splice(i, 1);
-				break;
-			}
-		}
-		
-		let dt = new DataTransfer();
-		for(let f of sel_files) {
-			dt.items.add(f);
-		}
-		
-		const f = this.closest("form");
-		f.selectFile.files = dt.files;
-		
-		$(this).remove();
-	});
 
-	$('.btnQuestionSendOk').click(function(){
-		const f = document.questionForm;
-		
-		let s;
-		
-		s = f.question.value.trim();
-		if( ! s ) {
-			alert("문의 사항을 입력하세요.")	;
-			f.question.focus();
-			return false;
-		}
-		
-		if(f.selectFile.files.length > 5) {
-			alert("이미지는 최대 5개까지 가능합니다..")	;
-			return false;
-		}
-		
-		
-		let url = "${pageContext.request.contextPath}/proqna/write";
-		// FormData : form 필드와 그 값을 나타내는 일련의 key/value 쌍을 쉽게 생성하는 방법을 제공 
-		// FormData는 Content-Type을 명시하지 않으면 multipart/form-data로 전송
-		let query = new FormData(f); 
-		
-		const fn = function(data) {
-			$("#questionDialogModal").hide();
-				location.reload();
-		};
-		
-		ajaxFun(url, "post", query, "json", fn, true);		
-	});
-	
-});
 
 // *******************************************************************************************************
 
@@ -750,25 +649,24 @@ $(function(){
 		let $form = $(this).closest("form");
 		
 		// 유사 배열을  배열로 변환
-		const fileArr = Array.from(this.files);
-		
-		fileArr.forEach((file, index) => {
-			sel_files.push(file);
-			
-			const reader = new FileReader();
-			const $img = $("<img>", {"class":"item img-item"});
-			$img.attr("data-filename", file.name);
-			reader.onload = e => {
-				$img.attr("src", e.target.result);		
-			};
-			reader.readAsDataURL(file);
-			$form.find(".img-grid").append($img);
-		});
-		
-		let dt = new DataTransfer();
-		for(let f of sel_files) {
-			dt.items.add(f);
-		}
+	for(let file of this.files) {
+          sel_files.push(file);
+          
+           const reader = new FileReader();
+         const $img = $("<img>", {class:"item img-item"});
+         $img.attr("data-filename", file.name);
+           reader.onload = e => {
+              $img.attr("src", e.target.result);
+           };
+         reader.readAsDataURL(file);
+           
+           $(".img-grid").append($img);
+       }
+      
+      let dt = new DataTransfer();
+      for(let f of sel_files) {
+         dt.items.add(f);
+      }
 		
 		this.files = dt.files;
 	});
@@ -840,5 +738,109 @@ $(function(){
 	});
 });
 
+
+// *************************************************
+$(function(){
+	var sel_files = [];
+	
+	$(".qna-submit").on("click", ".qna-form .img-add", function(){
+		$(this).closest(".qna-form").find("input[name=selectFile]").trigger("click");
+	});
+	
+	   $(".qna-submit").on("change","form[name=questionForm] input[name=selectFile]", function(e){
+			if(! this.files) {
+				let dt = new DataTransfer();
+				for(let f of sel_files) {
+					dt.items.add(f);
+				}
+				
+				this.files = dt.files;
+				
+				return false;
+			}
+			
+			let $form = $(this).closest("form");
+			
+			// 유사 배열을  배열로 변환
+			const fileArr = Array.from(this.files);
+			
+			fileArr.forEach((file, index) => {
+				sel_files.push(file);
+				
+				const reader = new FileReader();
+				const $img = $("<img>", {"class":"item img-item"});
+				$img.attr("data-filename", file.name);
+				reader.onload = e => {
+					$img.attr("src", e.target.result);		
+				};
+				reader.readAsDataURL(file);
+				$form.find(".img-grid").append($img);
+			});
+			
+			let dt = new DataTransfer();
+			for(let f of sel_files) {
+				dt.items.add(f);
+			}
+			
+			this.files = dt.files;
+		});
+	
+	$(".qna-submit").on("click", ".qna-form .img-item", function(){
+		if(! confirm("선택한 파일을 삭제 하시겠습니까 ? ")) {
+			return false;
+		}
+		
+		let filename = $(this).attr("data-filename");
+		
+		for(let i=0; i<sel_files.length; i++) {
+			if(filename === sel_files[i].name) {
+				sel_files.splice(i, 1);
+				break;
+			}
+		}
+		
+		let dt = new DataTransfer();
+		for(let f of sel_files) {
+			dt.items.add(f);
+		}
+		
+		const f = this.closest("form");
+		f.selectFile.files = dt.files;
+		
+		$(this).remove();
+	});
+
+	$('.btnQuestionSendOk').click(function(){
+		const f = document.questionForm;
+		
+		let s;
+		
+		s = f.question.value.trim();
+		if( ! s ) {
+			alert("문의 사항을 입력하세요.")	;
+			f.question.focus();
+			return false;
+		}
+		
+		if(f.selectFile.files.length > 5) {
+			alert("이미지는 최대 5개까지 가능합니다..")	;
+			return false;
+		}
+		
+		
+		let url = "${pageContext.request.contextPath}/proqna/write";
+		// FormData : form 필드와 그 값을 나타내는 일련의 key/value 쌍을 쉽게 생성하는 방법을 제공 
+		// FormData는 Content-Type을 명시하지 않으면 multipart/form-data로 전송
+		let query = new FormData(f); 
+		
+		const fn = function(data) {
+			$("#questionDialogModal").hide();
+				location.reload();
+		};
+		
+		ajaxFun(url, "post", query, "json", fn, true);		
+	});
+	
+});
 
 </script>
