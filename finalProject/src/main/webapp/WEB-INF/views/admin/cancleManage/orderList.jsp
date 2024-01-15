@@ -10,7 +10,7 @@
 	cursor: pointer;
 }
 </style>
-<%-- <fmt:formatNumber value="${dto.price}" /> --%>
+<div> <strong>검색결과 : ${dataCount }</strong> </div>
 
 <!-- 내용 -->
 <div class="card" style="border: 1px solid lightgray;">

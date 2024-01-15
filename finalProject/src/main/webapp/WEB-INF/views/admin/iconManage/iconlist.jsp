@@ -2,6 +2,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<style>
+.deleteIcon{
+	padding: 8px;
+	margin-left: 2px;
+}
+</style>
 
 <!-- tab -->
 
@@ -118,9 +124,6 @@
 						// 버튼의 데이터 속성에서 이미지 소스 가져오기
 						let imageSrc = button.find('img').attr('src');
 						
-						
-						
-
 						let result = '<img style="max-width: 100%;" src="'
 								+ imageSrc + '">';
 
@@ -134,6 +137,7 @@
 						} else {
 							result += '<div> 카테고리 : 기타 </div>';
 						}
+						result += '<button class="btn btn-danger updateIcon" data-num="'+ iconNum +'" data-iconImage="'+ iconImage +'" >아이콘 수정</button>'
 						result += '<button class="btn btn-danger deleteIcon" data-num="'+ iconNum +'" data-iconImage="'+ iconImage +'" >아이콘 삭제</button>'
 
 						result += '<div>'

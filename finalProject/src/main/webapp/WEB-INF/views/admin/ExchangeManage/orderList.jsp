@@ -10,8 +10,9 @@
 	cursor: pointer;
 }
 </style>
-<%-- <fmt:formatNumber value="${dto.price}" /> --%>
 
+<div><strong>검색결과 : ${dataCount }</strong> 
+</div>
 <!-- 내용 -->
 <div class="card" style="border: 1px solid lightgray;">
 
@@ -24,14 +25,13 @@
 					<thead class="table-light m-0"
 						style="text-align: center; font-size: 20px; padding: 10px; height: 60px;  vertical-align: middle;">
 						<tr>
-							<th width="110" style="padding: 0">반품신청일</th>
+							<th width="110" style="padding: 0">교환신청일</th>
 							<th width="100" style="padding: 0">품목별 주문번호</th>
 							<th width="90" style="padding: 0">주문자</th>
 							<th width="90" style="padding: 0">상품명</th>
 
 							<th width="130" style="padding: 0"><div>기존옵션</div><div>(변경옵션)</div></th>
 							<th width="100" style="padding: 0">수량</th>
-							<th width="120" style="padding: 0">취소금액</th>
 							<th width="90" style="padding: 0">결제수단</th>
 							<th width="100" style="padding: 0"><div>상태</div>  
 							
@@ -41,7 +41,7 @@
 									처리	
 								</c:if>
 								<c:if test="${state =='returnComplete'|| state =='returnNo'}">
-									반품처리날짜
+									교환처리날짜
 								</c:if>
 							</th>
 							
@@ -69,9 +69,7 @@
 								<div>(${dto.optionValue3}/${dto.optionValue4})</div>
 								</td>
 								<td>${dto.qty}</td>
-								<td>
-								<fmt:formatNumber value="${dto.cancelCost}" />
-								</td>
+								
 								<td>${dto.payMethod }</td>
 								
 								<td>

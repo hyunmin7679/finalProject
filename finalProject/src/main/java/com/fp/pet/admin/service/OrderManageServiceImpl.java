@@ -1,6 +1,7 @@
 package com.fp.pet.admin.service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -71,6 +72,32 @@ public class OrderManageServiceImpl implements OrderManageService {
 		}
 		return list;
 	}
+	
+	
+
+	@Override
+	public List<OrderDetailManage> listOrderDetail(Map<String, Object> map) {
+	    List<OrderDetailManage> resultList = new ArrayList<>();
+		try {
+			List<OrderManage> listOrder = mapper.listOrder(map);
+			
+
+	        for (OrderManage dto : listOrder) {
+	            List<OrderDetailManage> orderDetails = mapper.findByOrderDetails(dto.getOrderNum());
+
+	            for (OrderDetailManage dto2 : orderDetails) {
+	                dto2.setDetailStateInfo(OrderState.DETAILSTATEMANAGER[dto2.getDetailState()]);
+	            }
+
+	            resultList.addAll(orderDetails); // 각 주문에 대한 상세 정보를 결과 리스트에 추가
+	        }
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resultList;
+	}
+	
 
 	@Override
 	public void updateOrder(String mode, Map<String, Object> map) throws Exception {
@@ -102,6 +129,7 @@ public class OrderManageServiceImpl implements OrderManageService {
 		return list;
 	}
 
+	@SuppressWarnings("unlikely-arg-type")
 	@Override
 	public void cancleAllProduct(Map<String, Object> map) throws Exception {
 
@@ -109,7 +137,7 @@ public class OrderManageServiceImpl implements OrderManageService {
 			// 주문번호
 			String orderNum = (String) map.get("orderNum");
 			// 기존 취소금액
-			int cancelAmount = Integer.parseInt((String) map.get("cancelAmount"));
+			// int cancelAmount = Integer.parseInt((String) map.get("cancelAmount"));
 			// 총 결제금액
 			int payment = Integer.parseInt((String) map.get("payment"));
 			// 포인트

@@ -3,68 +3,114 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fp.pet.admin.mapper.OrderManageMapper">
 
-	<select id="dataCount" parameterType="map" resultType="Integer" >
-		SELECT NVL(COUNT(*), 0) from productOrder
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0) from productOrder po
 		<where>
 			<if test="state == 'before'">
 				orderState = 0
 			</if>
 			<if test="state == 'after'">
 				orderState = 1
+
+				<if test="searchNum != null and searchNum!=''  ">
+					and orderNum = #{searchNum}
+				</if>
+				<if test="startDate != null and startDate!=''  ">
+					and orderDate BETWEEN TO_DATE(#{startDate},
+					'YYYY-MM-DD') AND TO_DATE(#{endDate}, 'YYYY-MM-DD')
+				</if>
+				AND EXISTS (
+				SELECT 1
+				FROM orderDetail od_check
+				WHERE od_check.orderNum = po.orderNum
+				AND od_check.detailState = 0
+				)
 			</if>
 		</where>
-		
+
 	</select>
 
 	<select id="listOrder" parameterType="map"
 		resultType="com.fp.pet.admin.domain.OrderManage">
-		SELECT po.orderNum, po.memberIdx, NVL(userName,'손님') userName,
+		SELECT
+		po.orderNum,
+		po.memberIdx,
+		NVL(userName, '손님') AS userName,
 		totalMoney,
-		usedSaved, deliveryCharge, payment, cancelAmount,
-		TO_CHAR(orderDate, 'YYYY-MM-DD HH24:MI') orderDate,
-		orderState, deliveryName, invoiceNumber,
-		NVL(totalOrderCount, 0) totalOrderCount, NVL(totalQty, 0) totalQty,
-		NVL(detailCancelCount, 0) detailCancelCount
-		FROM productOrder po
-		LEFT OUTER JOIN member1 m ON
+		usedSaved,
+		deliveryCharge,
+		payment,
+		cancelAmount,
+		TO_CHAR(orderDate, 'YYYY-MM-DD HH24:MI') AS orderDate,
+		orderState,
+		deliveryName,
+		invoiceNumber,
+		NVL(totalOrderCount, 0) AS totalOrderCount,
+		NVL(totalQty, 0) AS totalQty,
+		NVL(detailCancelCount, 0) AS
+		detailCancelCount
+		FROM
+		productOrder po
+		LEFT OUTER JOIN
+		member1 m ON
 		po.memberIdx = m.memberIdx
 		LEFT OUTER JOIN (
-		SELECT orderNum, COUNT(*) totalOrderCount, SUM(qty) totalQty,
-		COUNT(DECODE(detailState,3,1,4,1,5,1,10,1,11,1,12,1))
-		detailCancelCount
-		FROM orderDetail
-		GROUP BY orderNum
+		SELECT
+		orderNum,
+		COUNT(*) AS
+		totalOrderCount,
+		SUM(qty) AS totalQty,
+		COUNT(DECODE(detailState, 3, 1,
+		4, 1, 5, 1, 10, 1, 11, 1, 12, 1)) AS detailCancelCount
+		FROM
+		orderDetail
+		GROUP BY
+		orderNum
 		) od ON po.orderNum = od.orderNum
 		<where>
 			<if test="state == 'before'">
 				po.orderState = 0
 			</if>
 			<if test="state == 'after'">
-				po.orderState = 1	
-				
+				po.orderState = 1
+
 				<if test="searchNum != null and searchNum!=''  ">
 					and po.orderNum = #{searchNum}
 				</if>
 				<if test="startDate != null and startDate!=''  ">
-					and po.orderDate BETWEEN TO_DATE(#{startDate}, 'YYYY-MM-DD') AND TO_DATE(#{endDate}, 'YYYY-MM-DD')
+					and po.orderDate BETWEEN TO_DATE(#{startDate},
+					'YYYY-MM-DD') AND TO_DATE(#{endDate}, 'YYYY-MM-DD')
 				</if>
+				AND EXISTS (
+				SELECT 1
+				FROM orderDetail od_check
+				WHERE od_check.orderNum = po.orderNum
+				AND od_check.detailState = 0
+				)
+
 			</if>
 		</where>
 		ORDER BY po.orderNum DESC
-		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+		OFFSET #{offset} ROWS FETCH FIRST #{size}
+		ROWS ONLY
 	</select>
 
 	<select id="findById" parameterType="String"
 		resultType="com.fp.pet.admin.domain.OrderManage">
-		SELECT po.orderNum, po.memberIdx, NVL(userName,'손님')
+		 SELECT po.orderNum, po.memberIdx, NVL(userName,'손님'),od.zip,od.addr1,od.addr2,od.destMemo,
 		userName, orderDate, totalMoney,
-		usedSaved, deliveryCharge, payment, cancelAmount, orderState,
-		TO_CHAR(orderStateDate, 'YYYY-MM-DD HH24:MI:SS') orderStateDate,
+		usedSaved, deliveryCharge, payment,
+		cancelAmount, orderState,
+		TO_CHAR(orderStateDate, 'YYYY-MM-DD
+		HH24:MI:SS') orderStateDate,
 		deliveryName, invoiceNumber,
-		payMethod, cardName, authNumber, authDate
+		payMethod,
+		cardName, authNumber, authDate
 		FROM productOrder po
 		LEFT OUTER JOIN
 		member1 m ON po.memberIdx = m.memberIdx
+        left outer Join 
+        orderDelivery od on od.orderNum = po.ordernum
 		LEFT OUTER JOIN payDetail pd ON
 		po.orderNum = pd.orderNum
 		WHERE po.orderNum = #{orderNum}
@@ -72,18 +118,42 @@
 
 	<select id="findByOrderDetails" parameterType="String"
 		resultType="com.fp.pet.admin.domain.OrderDetailManage">
-		 SELECT od.orderNum, od.orderDetailNum, qty, od.price,couponPrice,couponNum
-		,od.salePrice, productMoney, od.savedMoney,productCancelM,
-		op.detailNum, op.optionValue, od.detailNum2, op2.optionValue optionValue2,
-		od.productNum, productName,
-		od.detailState
-		FROM orderDetail od
-		JOIN product p ON od.productNum = p.productNum
-		JOIN
-		optionDetail op ON od.detailNum = op.detailNum
-		JOIN optionDetail op2 ON
-		od.detailNum2 = op2.detailNum
-		WHERE od.orderNum = #{orderNum}
+		SELECT
+        od.orderNum,
+        od.orderDetailNum,
+        od.qty,
+        od.price,
+        od.couponPrice,
+        od.couponNum,
+        od.salePrice,
+        od.productMoney,
+        od.savedMoney,
+        od.productCancelM,
+        op.detailNum,
+        op.optionValue,
+        od.detailNum2,
+        op2.optionValue AS optionValue2,
+        od.productNum,
+        p.productName,
+        od.detailState,
+        odm.addr1, -- 기본주소
+        odm.addr2, -- 상세주소
+        odm.recipientName,
+        odm.tel,
+        odm.zip,
+        odm.destMemo
+    FROM
+        orderDetail od
+    JOIN
+        product p ON od.productNum = p.productNum
+    JOIN
+        optionDetail op ON od.detailNum = op.detailNum
+    JOIN
+        optionDetail op2 ON od.detailNum2 = op2.detailNum
+    JOIN
+        orderDelivery odm ON od.orderNum = odm.orderNum
+    WHERE
+     od.orderNum = #{orderNum}
 	</select>
 
 	<update id="updateOrderInvoiceNumber" parameterType="map">
@@ -113,12 +183,15 @@
 		resultType="map">
 		SELECT stateNum, orderDetailNum, d.memberIdx, NVL(userName,
 		'손님') userName, detailState,
-		stateMemo, TO_CHAR(detailStateDate, 'YYYYMMDD HH24:MI') detailStateDate
+		stateMemo, TO_CHAR(detailStateDate,
+		'YYYYMMDD HH24:MI') detailStateDate
 		FROM
 		detailStateInfo d
-		LEFT OUTER JOIN member1 m ON d.memberIdx =
+		LEFT OUTER
+		JOIN member1 m ON d.memberIdx =
 		m.memberIdx
-		WHERE orderDetailNum = #{orderDetailNum}
+		WHERE orderDetailNum =
+		#{orderDetailNum}
 		ORDER BY stateNum
 		DESC
 	</select>
@@ -131,62 +204,79 @@
 	</update>
 
 
-	<insert id="insertDetailStateInfo" parameterType="map">	
-		INSERT INTO detailStateInfo(stateNum, orderDetailNum, memberIdx, detailState, stateMemo, detailStateDate) VALUES
-			(detailState_seq.NEXTVAL, #{orderDetailNum}, #{memberIdx1}, #{detailState}, 
-				#{stateMemo,jdbcType=VARCHAR}, SYSDATE)
+	<insert id="insertDetailStateInfo" parameterType="map">
+		INSERT INTO
+		detailStateInfo(stateNum, orderDetailNum, memberIdx,
+		detailState,
+		stateMemo, detailStateDate) VALUES
+		(detailState_seq.NEXTVAL,
+		#{orderDetailNum}, #{memberIdx1},
+		#{detailState},
+		#{stateMemo,jdbcType=VARCHAR}, SYSDATE)
 	</insert>
-	
+
 	<update id="updateCancelAmount" parameterType="map">
-		UPDATE productOrder SET cancelAmount = #{cancelAmount}
-		WHERE orderNum = #{orderNum}
+		UPDATE
+		productOrder SET cancelAmount = #{cancelAmount}
+		WHERE orderNum =
+		#{orderNum}
 	</update>
-	
+
 	<update id="updateProductCancleAmount" parameterType="map">
-		UPDATE orderDetail SET productCancelM = #{productMoney}
-		WHERE orderDetailNum = #{orderDetailNum}
+		UPDATE
+		orderDetail SET productCancelM = #{productMoney}
+		WHERE orderDetailNum =
+		#{orderDetailNum}
 	</update>
-	
+
 	<!-- 주문에 대한 상세 주문의 주문 취소 이외의 개수 -->
-	<select id="totalOrderCount" parameterType="String" resultType="Integer">
+	<select id="totalOrderCount" parameterType="String"
+		resultType="Integer">
 		SELECT NVL(COUNT(*), 0) orderCount
-		FROM orderDetail 
-		WHERE orderNum = #{orderNum} AND (detailState != 3 AND detailState != 5 AND detailState != 12)
+		FROM orderDetail
+		WHERE
+		orderNum = #{orderNum} AND (detailState != 3 AND detailState != 5 AND
+		detailState != 12)
 	</select>
-	
+
 	<update id="updateOrderState" parameterType="map">
-		UPDATE productOrder SET orderState = #{orderState}, orderStateDate = SYSDATE
-		WHERE orderNum = #{orderNum}
+		UPDATE productOrder
+		SET orderState = #{orderState}, orderStateDate = SYSDATE
+		WHERE orderNum
+		= #{orderNum}
 	</update>
-	
+
 	<insert id="updatePoint" parameterType="map">
 		insert into
 		point(pointNum,orderNum,memberIdx,reg_date,memo,p_qyt,p_sort)
 		values(point_seq.NEXTVAL,#{orderNum},#{memberIdx},
-		sysdate,'판매취소로 인한 포인트 회수',#{savedMoney},NULL)
+		sysdate,'판매취소로 인한
+		포인트 회수',#{savedMoney},NULL)
 	</insert>
-	
-	
+
+
 	<select id="findByStock" parameterType="map" resultType="map">
 		select
 		stockNum,totalStock from productStock
 		where productNum = #{productNum}
 		and detailNum = #{detailNum} and detailNum2 = #{detailNum2}
 	</select>
-	
+
 	<update id="updateStock" parameterType="map">
-		update productStock set 
+		update productStock set
 		totalStock = #{totalStock} where stockNum = #{stockNum}
 	</update>
-	
+
 	<insert id="updateUsedSaved" parameterType="map">
 		insert into
 		point(pointNum, orderNum ,memberIdx,reg_date,memo,p_qyt,p_sort)
 		values(point_seq.NEXTVAL,#{orderNum},#{memberIdx},sysdate,
-		'판매취소로 인한 포인트 복구',#{usedSaved},NULL)
+		'판매취소로 인한
+		포인트 복구',#{usedSaved},NULL)
 	</insert>
-	<update id = "updateCoupon" parameterType="map">
-		update memberCoupon set use = 0 where couponNum = #{couponNum}
+	<update id="updateCoupon" parameterType="map">
+		update memberCoupon set
+		use = 0 where couponNum = #{couponNum}
 	</update>
-	
+
 </mapper>

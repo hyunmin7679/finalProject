@@ -220,7 +220,7 @@ $(function(){
 
 $(function(){
 	$('.container').on('click', '.deleteIcon', function() {
-		//  글 삭제
+
 		let iconNum = $(this).attr('data-num');
 		let iconImage = $(this).attr('data-iconImage');
 		
@@ -241,6 +241,7 @@ $(function(){
 		ajaxFun(url, 'post', query, 'json', fn);
 	});
 });
+
 
 
 
@@ -328,6 +329,8 @@ $(function() {
 	    });
 	 });
 }); 
+
+
 
 
 </script>

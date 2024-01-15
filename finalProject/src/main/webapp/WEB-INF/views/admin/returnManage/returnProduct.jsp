@@ -6,7 +6,23 @@
     border: 1px solid #000;
     border-radius: 5px;
 }
+
+
+.excelButton{
+ display: inline-block; 
+            padding: 8px; 
+            border: 1px solid lightblue;
+            background-color: lightblue; 
+            border-radius: 4px; 
+            margin-left: 855px; 
+            transition: background-color 0.3s; 
+        
+}
+.excelButton:hover{
+			background-color: deepskyblue; 
+            cursor: pointer;
 </style>
+
 <script type="text/javascript">
 $(function(){
 	$('body').on('click', '.sm-img img', function(){
@@ -141,9 +157,6 @@ $(function(){
 				<!--/ Bordered Table -->
 
 				<br />
-				<div class="card-title m-0 pb-3">
-					<h5 class="m-0 me-2">검색결과(1)</h5>
-				</div>
 				<div class="col ">
 
 
@@ -178,6 +191,9 @@ $(function(){
 										aria-controls="navs-top-home" aria-selected="true"
 										data-state="returnNo">반품취소/불가</button>
 								</li>
+								<li>
+								<span class="excelButton" onclick="orderList();">EXCEL</span>
+							</li>
 						</ul>
 
 						<div class="tab-content container">

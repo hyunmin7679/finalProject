@@ -1,7 +1,22 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
+<style>
+.excelButton{
+ display: inline-block; 
+            padding: 8px; 
+            border: 1px solid lightblue;
+            background-color: lightblue; 
+            border-radius: 4px; 
+            margin-left: 1220px; 
+            transition: background-color 0.3s; 
+        
+}
+.excelButton:hover{
+			background-color: deepskyblue; 
+            cursor: pointer;
+}
+</style>
 <!-- Content wrapper -->
 <div class="content-wrapper">
 
@@ -82,7 +97,7 @@
 									</td>
 
 								</tr>
-								<tr>
+								<!-- <tr>
 									<td style="text-align: center;"><span class="fw-medium">상품</span></td>
 									<td colspan="4">
 
@@ -101,7 +116,7 @@
 										</div>
 									</td>
 
-								</tr>
+								</tr> -->
 
 
 							</tbody>
@@ -117,8 +132,8 @@
 
 			<br />
 			<div class="card-title m-0 pb-3">
-							<h5 class="m-0 me-2">검색결과(1)</h5>
-				</div>
+				<h5 class="m-0 me-2">검색결과(1)</h5>
+			</div>
 			<div class="col ">
 
 
@@ -133,6 +148,9 @@
 								aria-controls="navs-top-home" aria-selected="true"
 								data-state="allProduct">전체상품</button>
 						</li>
+						<li>
+							<span class="excelButton" onclick="excelDown();">EXCEL</span>
+						</li>
 
 					</ul>
 
@@ -142,7 +160,7 @@
 							role="tabpanel">
 
 							<!-- 내용!!!!!!!! -->
-							
+
 						</div>
 
 					</div>
@@ -154,24 +172,28 @@
 		<!--/ On route vehicles Table -->
 	</div>
 	<!-- / Content -->
-	
+
 </div>
 
 
 <div id="modalList" class="modalList"></div>
 
 <!-- 주문상세정보-상태변경/상태확인 대화상자  -->
-<div class="modal fade" id="orderDetailStateDialogModal" tabindex="-1" aria-labelledby="orderDetailStateDialogModalLabel" aria-hidden="true">
+<div class="modal fade" id="orderDetailStateDialogModal" tabindex="-1"
+	aria-labelledby="orderDetailStateDialogModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="orderDetailStateDialogModalLabel">주문상세정보</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				<button type="button" class="btn-close" data-bs-dismiss="modal"
+					aria-label="Close"></button>
 			</div>
 			<div class="modal-body pt-1">
 				<div class="mt-1 p-1">
-					<div class="p-1"><p class="form-control-plaintext optionDetail-value"></p></div>
-					
+					<div class="p-1">
+						<p class="form-control-plaintext optionDetail-value"></p>
+					</div>
+
 					<table class="table board-list" style="width: 100%">
 						<thead class="table-secondary">
 							<tr>
@@ -182,40 +204,39 @@
 								<td>설명</td>
 							</tr>
 						</thead>
-						<tbody class="detailState-list"></tbody>	
+						<tbody class="detailState-list"></tbody>
 					</table>
 				</div>
-				
+
 				<div class="p-1 detailStateUpdate-form">
 					<form name="detailStateForm" class="row justify-content-center">
 						<div class="col-auto p-1">
 							<select name="detailState" class="form-select"></select>
 						</div>
 						<div class="col-6 p-1">
-							<input type="text" name="stateMemo" class="form-control" placeholder="상태 메시지 입력">
+							<input type="text" name="stateMemo" class="form-control"
+								placeholder="상태 메시지 입력">
 						</div>
 						<div class="col-auto p-1">
-						
-							<input type="hidden" name="orderNum">
-							<input type="hidden" name="orderDetailNum">
-							<input type="hidden" name="productMoney">
-							<input type="hidden" name="cancelAmount">
-							<input type="hidden" name="deliveryCharge">
 
-							<input type="hidden" name="memberIdx">
-							<input type="hidden" name="savedMoney">
-							<input type="hidden" name="usedSaved">
-							<input type="hidden" name="qty">
-							<input type="hidden" name="productNum">
-							<input type="hidden" name="detailNum">
+							<input type="hidden" name="orderNum"> <input
+								type="hidden" name="orderDetailNum"> <input
+								type="hidden" name="productMoney"> <input type="hidden"
+								name="cancelAmount"> <input type="hidden"
+								name="deliveryCharge"> <input type="hidden"
+								name="memberIdx"> <input type="hidden" name="savedMoney">
+							<input type="hidden" name="usedSaved"> <input
+								type="hidden" name="qty"> <input type="hidden"
+								name="productNum"> <input type="hidden" name="detailNum">
 							<input type="hidden" name="detailNum2">
-							
-							<button class="btn btn-secondary p-6 m-0 btnDetailStateUpdateOk" type="button">변경</button>
-							
+
+							<button class="btn btn-secondary p-6 m-0 btnDetailStateUpdateOk"
+								type="button">변경</button>
+
 						</div>
 					</form>
 				</div>
-				
+
 			</div>
 		</div>
 	</div>

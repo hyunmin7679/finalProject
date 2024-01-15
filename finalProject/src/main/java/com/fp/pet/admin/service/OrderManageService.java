@@ -22,4 +22,6 @@ public interface OrderManageService {
 	public void updateOrderDetailState(Map<String, Object> map) throws Exception;
 	public int dataCount(Map<String,Object>map) throws Exception;
 
+	public List<OrderDetailManage> listOrderDetail(Map<String, Object> map);
+
 }

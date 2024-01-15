@@ -29,6 +29,46 @@ public class OrderManage {
 	private String authDate;
 	
 	private String cancelDate;
+	
+	private String zip;
+	private String addr1;
+	private String addr2;
+	private String destMemo;
+	
+	
+	
+	
+	public String getDestMemo() {
+		return destMemo;
+	}
+
+	public void setDestMemo(String destMemo) {
+		this.destMemo = destMemo;
+	}
+
+	public String getZip() {
+		return zip;
+	}
+
+	public void setZip(String zip) {
+		this.zip = zip;
+	}
+
+	public String getAddr1() {
+		return addr1;
+	}
+
+	public void setAddr1(String addr1) {
+		this.addr1 = addr1;
+	}
+
+	public String getAddr2() {
+		return addr2;
+	}
+
+	public void setAddr2(String addr2) {
+		this.addr2 = addr2;
+	}
 
 	public String getOrderNum() {
 		return orderNum;

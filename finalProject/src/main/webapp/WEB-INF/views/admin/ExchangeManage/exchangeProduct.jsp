@@ -3,9 +3,25 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <style>
 .bordered-image {
-    border: 1px solid #000;
-    border-radius: 5px;
+	border: 1px solid #000;
+	border-radius: 5px;
 }
+
+.excelButton{
+ display: inline-block; 
+            padding: 8px; 
+            border: 1px solid lightblue;
+            background-color: lightblue; 
+            border-radius: 4px; 
+            margin-left: 860px; 
+            transition: background-color 0.3s; 
+        
+}
+.excelButton:hover{
+			background-color: deepskyblue; 
+            cursor: pointer;
+}
+
 </style>
 <script type="text/javascript">
 $(function(){
@@ -41,7 +57,7 @@ $(function(){
 						<i class="tf-icons bx bx-user me-1"></i> 교환상품
 					</button>
 				</li>
-				
+
 			</ul>
 
 
@@ -75,7 +91,8 @@ $(function(){
 													</select>
 												</div>
 												<div class="col product_category">
-													<input class="form-control" type="text" name="#" value="">
+													<input class="form-control" type="text"
+														name="searchorderNum" value="">
 												</div>
 											</div>
 										</td>
@@ -97,12 +114,12 @@ $(function(){
 												<div class="col product_category">
 													<div class="row">
 														<div class="col-2 col-2">
-															<input class="form-control" type="date">
+															<input class="form-control" type="date" name="startDate">
 														</div>
 														<i style="width: 30px;"
 															class='bx bx-minus col-1 pt-2 pe-4'></i>
 														<div class="col-2 col-2">
-															<input class="form-control" type="date">
+															<input class="form-control" type="date" name="endDate">
 														</div>
 													</div>
 												</div>
@@ -124,7 +141,8 @@ $(function(){
 													</select>
 												</div>
 												<div class="col product_category">
-													<input class="form-control" type="text" name="#" value="">
+													<input class="form-control" type="text" name="productName"
+														value="">
 												</div>
 											</div>
 										</td>
@@ -133,7 +151,9 @@ $(function(){
 								</tbody>
 							</table>
 							<div class="text-center pb-0 pt-3">
-								<button class="btn btn-secondary" style="width: 100px;">검색</button>
+								<button class="btn btn-secondary" onclick="searchList();"
+									style="width: 100px;">검색</button>
+									
 							</div>
 						</div>
 					</div>
@@ -141,44 +161,49 @@ $(function(){
 				<!--/ Bordered Table -->
 
 				<br />
-				<div class="card-title m-0 pb-3">
-					<h5 class="m-0 me-2">검색결과(1)</h5>
-				</div>
+				<div class="card-title m-0 pb-3"></div>
 				<div class="col ">
 
 
-					<div class="nav-align-top mb-4">
+					<div class="nav-align-top mb-4"
+						style="display: flex; justify-content: space-between;">
 
-
+					
 						<ul class="nav nav-tabs tabs" role="tablist">
+
+							<li class="nav-item" role="presentation">
+								<button type="button" class="nav-link active" role="tab"
+									data-bs-toggle="tab" data-bs-target="#navs-top-home"
+									aria-controls="navs-top-home" aria-selected="true"
+									data-state="returnApply">교환신청</button>
+							</li>
+							<li class="nav-item" role="presentation">
+								<button type="button" class="nav-link" role="tab"
+									data-bs-toggle="tab" data-bs-target="#navs-top-home"
+									aria-controls="navs-top-profile" aria-selected="false"
+									data-state="returnReceipt">교환접수</button>
+							</li>
+
+							<li class="nav-item" role="presentation">
+								<button type="button" class="nav-link" role="tab"
+									data-bs-toggle="tab" data-bs-target="#navs-top-home"
+									aria-controls="navs-top-home" aria-selected="true"
+									data-state="returnComplete">교환발송완료</button>
+							</li>
+
+							<li class="nav-item" role="presentation">
+								<button type="button" class="nav-link" role="tab"
+									data-bs-toggle="tab" data-bs-target="#navs-top-home"
+									aria-controls="navs-top-home" aria-selected="true"
+									data-state="returnNo">교환불가</button>
+							</li>
+							<li>
+								<span class="excelButton" onclick="excelDown();">EXCEL</span>
+							</li>
 							
-								<li class="nav-item" role="presentation">
-									<button type="button" class="nav-link active" role="tab"
-										data-bs-toggle="tab" data-bs-target="#navs-top-home"
-										aria-controls="navs-top-home" aria-selected="true"
-										data-state="returnApply">교환신청</button>
-								</li>
-								<li class="nav-item" role="presentation">
-									<button type="button" class="nav-link" role="tab"
-										data-bs-toggle="tab" data-bs-target="#navs-top-home"
-										aria-controls="navs-top-profile" aria-selected="false"
-										data-state="returnReceipt">교환접수</button>
-								</li>
-							
-								<li class="nav-item" role="presentation">
-									<button type="button" class="nav-link" role="tab"
-										data-bs-toggle="tab" data-bs-target="#navs-top-home"
-										aria-controls="navs-top-home" aria-selected="true"
-										data-state="returnComplete">교환발송완료</button>
-								</li>
-								
-								<li class="nav-item" role="presentation">
-									<button type="button" class="nav-link" role="tab"
-										data-bs-toggle="tab" data-bs-target="#navs-top-home"
-										aria-controls="navs-top-home" aria-selected="true"
-										data-state="returnNo">교환불가</button>
-								</li>
+
 						</ul>
+
 
 						<div class="tab-content container">
 
@@ -192,7 +217,12 @@ $(function(){
 						</div>
 
 					</div>
+
 				</div>
+
+
+
+
 			</div>
 
 
@@ -210,67 +240,70 @@ $(function(){
 <footer class="content-footer footer bg-footer-theme"> </footer>
 
 <!-- 주문상세정보-상태변경/상태확인 대화상자  -->
-<div  class="modal fade" id="orderDetailStateDialogModal" tabindex="-1" aria-labelledby="orderDetailStateDialogModalLabel" aria-hidden="true">
+<div class="modal fade" id="orderDetailStateDialogModal" tabindex="-1"
+	aria-labelledby="orderDetailStateDialogModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered modal-lg">
 		<div class="modal-content">
-		
-			<div class="modal-header" style="padding-left: 340px;" > 
-				<h5 class="modal-title" id="orderDetailStateDialogModalLabel">※반품처리※</h5>
-				
-			
-				
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+			<div class="modal-header" style="padding-left: 340px;">
+				<h5 class="modal-title" id="orderDetailStateDialogModalLabel">※교환처리※</h5>
+
+
+
+				<button type="button" class="btn-close" data-bs-dismiss="modal"
+					aria-label="Close"></button>
 			</div>
-			
-			<div class="modal-title text-center" style="padding-right: 20px;" id="orderDetailStateDialogModalLabel">반품상품이미지</div>
-			
+
+			<div class="modal-title text-center" style="padding-right: 20px;"
+				id="orderDetailStateDialogModalLabel">교환상품이미지</div>
+
 			<div class="modal-body pt-1">
-				
+
 				<div class="p-1 detailStateUpdate-form row">
-				
-				<div id="cancelFile"></div>
-				
-				
-					<form name="detailStateForm" class="row justify-content-center pt-3">
+
+					<div id="cancelFile"></div>
+
+
+					<form name="detailStateForm"
+						class="row justify-content-center pt-3">
 						<div class="col-auto p-1">
 							<select name="changeState" class="form-select"></select>
 						</div>
 						<div class="col-6 p-1">
-							<input type="text" name="adminMemo" class="form-control" placeholder="메모남기기">
+							<input type="text" name="adminMemo" class="form-control"
+								placeholder="메모남기기">
 						</div>
 						<div class="col-auto p-1">
-							<input type="hidden" name="changeNum">
-							<input type="hidden" name="orderNum">
-							<input type="hidden" name="orderDetailNum">
-							<input type="hidden" name="cancelCost">
-							<input type="hidden" name="PchangeState">
-							<input type="hidden" name="deliveryCharge">
-								
-							
-							<input type="hidden" name="usedSaved">
-							<input type="hidden" name="savedMoney">
-							<input type="hidden" name="memberIdx">
-							<input type="hidden" name="detailNum">
-							<input type="hidden" name="detailNum2">
-							<input type="hidden" name="detailNum3">
-							<input type="hidden" name="detailNum4">
-							<input type="hidden" name="productNum">
-							<input type="hidden" name="qty">
-						
-							<button class="btn btn-secondary p-6 m-0 btnDetailStateUpdateOk" type="button">변경</button>
-							
+							<input type="hidden" name="changeNum"> <input
+								type="hidden" name="orderNum"> <input type="hidden"
+								name="orderDetailNum"> <input type="hidden"
+								name="cancelCost"> <input type="hidden"
+								name="PchangeState"> <input type="hidden"
+								name="deliveryCharge"> <input type="hidden"
+								name="usedSaved"> <input type="hidden" name="savedMoney">
+							<input type="hidden" name="memberIdx"> <input
+								type="hidden" name="detailNum"> <input type="hidden"
+								name="detailNum2"> <input type="hidden"
+								name="detailNum3"> <input type="hidden"
+								name="detailNum4"> <input type="hidden"
+								name="productNum"> <input type="hidden" name="qty">
+
+							<button class="btn btn-secondary p-6 m-0 btnDetailStateUpdateOk"
+								type="button">변경</button>
+
 						</div>
 					</form>
-					
-					
+
+
 				</div>
-				
+
 			</div>
 		</div>
 	</div>
 </div>
 
 <script type="text/javascript">
+
 	
 	function ajaxFun(url, method, formData, dataType, fn, file = false) {
 		const settings = {
@@ -313,10 +346,21 @@ $(function(){
 		$('.nav-tabs button').on('click', function () {
 		      // 클릭된 버튼의 data-category 값을 콘솔에 출력
 		      let state = $(this).data('state');
-		      console.log(state);
+		      var excel = document.getElementById("excel");
+		      
+		      /*
+		      if(state == 'returnReceipt'|| state =='returnApply'){
+		    	  excel.style.display = "block";
+		      }else{
+		    	  excel.style.display = "none";
+		      }
+		      */
+		      
 		      listPage(1);
 		});
 	});
+	
+
 	
 	//글리스트 및 페이징 처리
 	function listPage(page) {
@@ -325,11 +369,13 @@ $(function(){
 		const $tab = $(".tabs .active");
 		let state = $tab.attr("data-state");
 		
-		// let schType = $('#ProductStatus').val();
-	    // let kwd = $('input[name="kwd"]').val();
+		let kwd = $('input[name="searchorderNum"]').val();
+		let startDate= $('input[name="startDate"]').val();
+		let endDate= $('input[name="endDate"]').val();
+		let productName = $('input[name="productName"]').val();
 		
 		let url = "${pageContext.request.contextPath}/admin/ExchangeManage/orderlist";
-		let query = "page="+page+"&state="+encodeURIComponent(state);
+		let query = "page="+page+"&state="+encodeURIComponent(state)+"&kwd="+encodeURIComponent(kwd)+"&startDate="+startDate+"&endDate="+endDate+"&productName="+encodeURIComponent(productName);
 		
 		let selector = "#navs-top-home";
 		
@@ -340,6 +386,21 @@ $(function(){
 		ajaxFun(url, "get", query, "html", fn);
 	}
 	
+	function excelDown() {
+		const $tab = $(".tabs .active");
+		let state = $tab.attr("data-state");
+		
+		let kwd = $('input[name="searchorderNum"]').val();
+		let startDate= $('input[name="startDate"]').val();
+		let endDate= $('input[name="endDate"]').val();
+		let productName = $('input[name="productName"]').val();
+		
+		let query = "state="+encodeURIComponent(state)+"&kwd="+encodeURIComponent(kwd)+"&startDate="+startDate+"&endDate="+endDate+"&productName="+encodeURIComponent(productName);
+		
+		
+		location.href = '${pageContext.request.contextPath}/admin/ExchangeManage/excelDown?'+query;
+		
+	}
 	
 	
 	
@@ -511,6 +572,7 @@ $(function(){
 		ajaxFun(url, "post", qs, "json", fn);
 		
 	});
-	
-	
+	function searchList() {
+		listPage(1);
+	}
 </script>

@@ -1,7 +1,21 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
+<style>
+.excelButton{
+ display: inline-block; 
+            padding: 8px; 
+            border: 1px solid lightblue;
+            background-color: lightblue; 
+            border-radius: 4px; 
+            margin-left: 1080px; 
+            transition: background-color 0.3s; 
+        
+}
+.excelButton:hover{
+			background-color: deepskyblue; 
+            cursor: pointer;
+</style>
 <!-- Content wrapper -->
 <div class="content-wrapper">
 
@@ -113,9 +127,6 @@
 			<!--/ Bordered Table -->
 
 			<br />
-			<div class="card-title m-0 pb-3">
-				<h5 class="m-0 me-2">검색결과(1)</h5>
-			</div>
 			<div class="col ">
 
 
@@ -136,7 +147,9 @@
 									aria-controls="navs-top-profile" aria-selected="false"
 									data-state="start">배송 시작/중</button>
 							</li>
-
+							<li>
+								<span class="excelButton" onclick="orderList();">EXCEL</span>
+							</li>
 						</ul>
 					</c:if>
 

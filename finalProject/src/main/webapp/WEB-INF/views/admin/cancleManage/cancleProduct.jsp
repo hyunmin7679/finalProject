@@ -1,7 +1,21 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
+<style>
+.excelButton{
+ display: inline-block; 
+            padding: 8px; 
+            border: 1px solid lightblue;
+            background-color: lightblue; 
+            border-radius: 4px; 
+            margin-left: 1030px; 
+            transition: background-color 0.3s; 
+        
+}
+.excelButton:hover{
+			background-color: deepskyblue; 
+            cursor: pointer;
+</style>
 <script type="text/javascript">
 // 탭
 $(function(){
@@ -148,9 +162,6 @@ $(function(){
 				<!--/ Bordered Table -->
 
 				<br />
-				<div class="card-title m-0 pb-3">
-					<h5 class="m-0 me-2">검색결과(1)</h5>
-				</div>
 				<div class="col ">
 
 
@@ -181,6 +192,10 @@ $(function(){
 										data-state="salecancle">판매취소완료</button>
 								</li>
 							</c:if>
+							<li>
+								<span class="excelButton" onclick="orderList();">EXCEL</span>
+							</li>
+							
 						</ul>
 
 						<div class="tab-content container">

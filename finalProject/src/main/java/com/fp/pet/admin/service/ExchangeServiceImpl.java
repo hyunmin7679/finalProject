@@ -98,7 +98,7 @@ public class ExchangeServiceImpl implements ExchangeService{
 				// PchangeState : 기존에 상태 값
 				
 				
-				int totalCount = mapper.totalOrderCount(orderNum);
+				//int totalCount = mapper.totalOrderCount(orderNum);
 
 				// 주문에 대해 orderState가 판매취소, 주문취소완료, 반품완료를 제외한 개수가 1이하이면 ProductOrder에 상태를 6으로바꿔줘야한다.
 				// 반품완료나 주문취소 판매취소가 한주문에 여러 상품이 이뤄지면 productOrder가 주문취소인거다 ?

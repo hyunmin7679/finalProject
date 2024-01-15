@@ -161,10 +161,10 @@
 								<table class="table table-borderless mb-1">
 									<tbody>
 										<tr>
-											<td width="50%"><strong>배송지 : 인천 서구 청라라임로
-													138번길8,201호</strong>
+											<td width="50%"><div><strong>배송지 : ${order.addr1 } / ${order.addr2 }</strong></div>
+											(우편번호 :${order.zip})
 												<div>
-													<label>메모 : 배송지 메모입니다.</label>
+													<label>배송지 메모 :${order.destMemo }</label>
 												</div></td>
 
 											<td class="text-end ">

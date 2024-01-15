@@ -7,57 +7,81 @@
 			INSTR(iconName, #{kwd}) &gt; 0
 		</if>
 	</sql>
-	
-	<insert id="insertIcon" parameterType="com.fp.pet.admin.domain.Icon">
-		insert into icon(iconNum,iconName,iconImage,iconPrice,iconCategory)
-		values (icon_seq.NEXTVAL,#{iconName},#{iconImage},#{iconPrice},#{iconCategory})
+
+	<insert id="insertIcon"
+		parameterType="com.fp.pet.admin.domain.Icon">
+		insert into
+		icon(iconNum,iconName,iconImage,iconPrice,iconCategory)
+		values
+		(icon_seq.NEXTVAL,#{iconName},#{iconImage},#{iconPrice},#{iconCategory})
 	</insert>
-	
+
 	<select id="dataCount" parameterType="map" resultType="Integer">
 		SELECT NVL(COUNT(*), 0) from icon
 		<where>
 			<if test="kwd != null and kwd!=''  ">
-				<include refid="where-list"/>
+				<include refid="where-list" />
 			</if>
 			<if test="schType=='dog'">
-				AND iconCategory = 1 AND INSTR(iconName, #{kwd}) &gt; 0
+				AND iconCategory = 1
+				<if test="kwd != null and kwd!=''  ">
+					AND INSTR(iconName, #{kwd}) &gt; 0
+				</if>
 			</if>
 			<if test="schType=='cat'">
-				AND iconCategory = 2 AND INSTR(iconName, #{kwd}) &gt; 0
+				AND iconCategory = 2
+				<if test="kwd != null and kwd!=''  ">
+					AND INSTR(iconName, #{kwd}) &gt; 0
+				</if>
 			</if>
 			<if test="schType=='etc'">
-				AND iconCategory = 3 AND INSTR(iconName, #{kwd}) &gt; 0
+				AND iconCategory = 3
+				<if test="kwd != null and kwd!=''  ">
+					AND INSTR(iconName, #{kwd}) &gt; 0
+				</if>
 			</if>
 		</where>
 	</select>
-	
-	<select id="listIcon" parameterType="map" resultType="com.fp.pet.admin.domain.Icon">
-		select 
-		iconNum,iconName,iconImage,iconPrice,iconCategory 
+
+	<select id="listIcon" parameterType="map"
+		resultType="com.fp.pet.admin.domain.Icon">
+		select
+		iconNum,iconName,iconImage,iconPrice,iconCategory
 		from icon
 		<where>
 			<if test="kwd != null and kwd!=''  ">
-				<include refid="where-list"/>
+				<include refid="where-list" />
 			</if>
 			<if test="schType=='dog'">
-				AND iconCategory = 1 AND INSTR(iconName, #{kwd}) &gt; 0
+				AND iconCategory = 1
+				<if test="kwd != null and kwd!=''  ">
+					AND INSTR(iconName, #{kwd}) &gt; 0
+				</if>
 			</if>
-			<if test="schType=='cat'"> 
-				AND iconCategory = 2 AND INSTR(iconName, #{kwd}) &gt; 0
+			<if test="schType=='cat'">
+				AND iconCategory = 2
+				<if test="kwd != null and kwd!=''  ">
+					AND INSTR(iconName, #{kwd}) &gt; 0
+				</if>
 			</if>
 			<if test="schType=='etc'">
-				AND iconCategory = 3 AND INSTR(iconName, #{kwd}) &gt; 0
+				AND iconCategory = 3
+				<if test="kwd != null and kwd!=''  ">
+					AND INSTR(iconName, #{kwd}) &gt; 0
+				</if>
 			</if>
 		</where>
 		ORDER BY iconNum DESC
-		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS
+		ONLY
 	</select>
-	
+
 	<delete id="deleteIcon" parameterType="Long">
-		delete from icon where iconNum = #{iconNum}
+		delete from icon where
+		iconNum = #{iconNum}
 	</delete>
-	
-	
-	
-	
+
+
+
+
 </mapper>
