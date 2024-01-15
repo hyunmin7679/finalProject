@@ -5,7 +5,9 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.fp.pet.common.FileManager;
 import com.fp.pet.domain.Qna;
 import com.fp.pet.mapper.QnaMapper;
 
@@ -13,14 +15,28 @@ import com.fp.pet.mapper.QnaMapper;
 public class QnaServiceImpl implements QnaService {
 	@Autowired
 	private QnaMapper mapper;
+	
+	@Autowired
+	private FileManager fileManager;
 
 	@Override
-	public void insertQna(Qna dto) throws Exception {
+	public void insertQna(Qna dto, String pathname) throws Exception {
 		try {
 			if(dto.getProductNum() == null || dto.getProductNum() == 0) {
 				dto.setProductNum(null);
 			}
 			mapper.insertQna(dto);
+			
+			if( ! dto.getSelectFile().isEmpty() ) {
+				for(MultipartFile mf : dto.getSelectFile()) {
+					String filename = fileManager.doFileUpload(mf, pathname);
+					if(filename != null) {
+						dto.setFilename(filename);
+						
+						mapper.insertQnaFile(dto);
+					}
+				}
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -67,9 +83,33 @@ public class QnaServiceImpl implements QnaService {
 	}
 	
 	@Override
+	public Qna findByFileId(long fileNum) {
+		Qna dto = null;
+
+		try {
+			dto = mapper.findByFileId(fileNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return dto;
+	}
+	
+	@Override
 	public void deleteQna(long num) throws Exception {
 		try {
 			mapper.deleteQna(num);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	@Override
+	public void deleteQnaFile(Map<String, Object> map) throws Exception {
+		try {
+			mapper.deleteQnaFile(map);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -101,6 +141,20 @@ public class QnaServiceImpl implements QnaService {
 		
 		return list;
 	}
+	
+	// 다중 이미지 리스트
+	@Override
+	public List<Qna> listQnaFile(long num) {
+		List<Qna> listFile = null;
+
+		try {
+			listFile = mapper.listQnaFile(num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return listFile;
+	}
 
 	@Override
 	public Qna findByPrev(Map<String, Object> map) {
@@ -129,13 +183,40 @@ public class QnaServiceImpl implements QnaService {
 	}
 
 	@Override
-	public void updateQna(Qna dto) throws Exception {
+	public void updateQna(Qna dto, String pathname) throws Exception {
 		try {
 			mapper.updateQna(dto);
+			
+			// 파일 업로드
+			if (!dto.getSelectFile().isEmpty()) {
+				for (MultipartFile mf : dto.getSelectFile()) {
+					String saveFilename = fileManager.doFileUpload(mf, pathname);
+					if (saveFilename == null) {
+						continue;
+					}
+
+					dto.setFilename(saveFilename);
+
+					insertQnaFile(dto);
+					
+				}
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
 		}
-	}	
+	}
+	
+	// 다중 이미지 파일 인서트
+	@Override
+	public void insertQnaFile(Qna dto) throws Exception {
+		try {
+			mapper.insertQnaFile(dto);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
 
 }

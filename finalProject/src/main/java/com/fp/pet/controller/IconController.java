@@ -33,8 +33,6 @@ public class IconController {
 	@RequestMapping(value = "list")
 	public String icons(Model model ,
 			@RequestParam(value = "page", defaultValue = "1") int current_page,
-			//@RequestParam(defaultValue = "all") String schType,
-			//@RequestParam(defaultValue = "") String kwd,
 			HttpServletRequest req,
 			HttpSession session) throws Exception {
 		
@@ -43,15 +41,8 @@ public class IconController {
 		int size = 50;
 		int total_page = 0;
 		int dataCount = 0;
-		/*
-		if (req.getMethod().equalsIgnoreCase("GET")) { // GET 방식인 경우
-		kwd = URLDecoder.decode(kwd, "utf-8");
-		}
-		 */
 		
 		Map<String, Object> map = new HashMap<String, Object>();
-		//map.put("schType", schType);
-		//map.put("kwd", kwd);
 		map.put("memberIdx", info.getMemberIdx());
 		
 		dataCount = service.dataCount(map);
@@ -66,8 +57,6 @@ public class IconController {
 
 		map.put("offset", offset);
 		map.put("size", size);
-		
-		
 
 		// 아이콘리스트
 		List<Icon> list = service.listIcon2(map);
@@ -81,8 +70,6 @@ public class IconController {
 		model.addAttribute("dataCount", dataCount);
 		model.addAttribute("total_page", total_page);
 		model.addAttribute("paging", paging);
-		//model.addAttribute("schType",schType);
-		//model.addAttribute("kwd",kwd);
 		model.addAttribute("point",userPoint);
 		model.addAttribute("vo", vo);
 
@@ -118,6 +105,7 @@ public class IconController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			state = "false";
 			
 		}
 		

@@ -1,5 +1,6 @@
 package com.fp.pet.controller;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,9 +24,6 @@ import com.fp.pet.service.QnaService;
 public class QuestionController {
 	@Autowired
 	private QnaService qnaservice;
-	
-	@Autowired
-	private QnaService qnaservice2;
 	
 	@Autowired
 	private MyUtil myUtil;
@@ -88,12 +86,16 @@ public class QuestionController {
 										   Qna dto) throws Exception {
 		
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
+		
+		String root = session.getServletContext().getRealPath("/");
+		String pathname = root + "uploads" + File.separator + "qna";
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		String state = "true";
 		
 		try {
 			dto.setMemberIdx(info.getMemberIdx());
-			qnaservice2.insertQna(dto);
+			qnaservice.insertQna(dto, pathname);
 			
 		} catch (Exception e) {
 			state = "false";

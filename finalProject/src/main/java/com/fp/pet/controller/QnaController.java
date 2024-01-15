@@ -1,5 +1,6 @@
 package com.fp.pet.controller;
 
+import java.io.File;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.HashMap;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fp.pet.common.FileManager;
 import com.fp.pet.common.MyUtil;
 import com.fp.pet.domain.Qna;
 import com.fp.pet.domain.SessionInfo;
@@ -33,6 +35,9 @@ public class QnaController {
 	
 	@Autowired
 	private MyUtil myUtil;
+	
+	@Autowired
+	private FileManager fileManager;
 
 	@RequestMapping(value = "list")
 	public String list(@RequestParam(value = "page", defaultValue = "1") int current_page,
@@ -94,7 +99,6 @@ public class QnaController {
 		model.addAttribute("dataCount", dataCount);
 		model.addAttribute("total_page", total_page);
 		model.addAttribute("paging", paging);
-
 		model.addAttribute("schType", schType);
 		model.addAttribute("kwd", kwd);
 
@@ -112,11 +116,15 @@ public class QnaController {
 	@PostMapping("write")
 	public String writeSubmit(HttpSession session,			
 			Qna dto) throws Exception {
+		
+		String root = session.getServletContext().getRealPath("/");
+		String pathname = root + "uploads" + File.separator + "qna";
+		
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
 		try {
 			dto.setMemberIdx(info.getMemberIdx());
 			
-			service.insertQna(dto);
+			service.insertQna(dto, pathname);
 		} catch (Exception e) {
 		}
 
@@ -160,9 +168,12 @@ public class QnaController {
 		Qna prevDto = service.findByPrev(map);
 		Qna nextDto = service.findByNext(map);
 		
+		List<Qna> listFile = service.listQnaFile(num);
+		
 		model.addAttribute("dto", dto);
 		model.addAttribute("prevDto", prevDto);
 		model.addAttribute("nextDto", nextDto);
+		model.addAttribute("listFile", listFile);
 		model.addAttribute("page", page);
 		model.addAttribute("query", query);
 
@@ -185,10 +196,14 @@ public class QnaController {
 		if (info.getMemberIdx() != dto.getMemberIdx()) {
 			return "redirect:/qna/list?page=" + page;
 		}
+		
+		List<Qna> listFile = service.listQnaFile(num);
 
 		model.addAttribute("mode", "update");
 		model.addAttribute("page", page);
 		model.addAttribute("dto", dto);
+		model.addAttribute("listFile", listFile);
+
 
 		return ".qna.write";
 	}
@@ -198,10 +213,16 @@ public class QnaController {
 			@RequestParam String page,
 			HttpSession session) throws Exception {
 		try {
+			System.out.println("시바바바ㅏ"+ dto.getNum()+","+dto.getProductNum() + dto.getQ_subject()+dto.getQuestion()+dto.getSecret());
+			String root = session.getServletContext().getRealPath("/");
+			String pathname = root + "uploads" + File.separator + "qna";
+			
 			SessionInfo info = (SessionInfo) session.getAttribute("member");
 			dto.setMemberIdx(info.getMemberIdx());
-			service.updateQna(dto);
+			service.updateQna(dto, pathname);
 		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
 		}
 
 		return "redirect:/qna/list?page=" + page;
@@ -235,7 +256,33 @@ public class QnaController {
 		return "redirect:/qna/list?" + query;
 	}
 	
-	
+	// 수정폼에서 파일삭제
+	@PostMapping("deleteFile")
+	@ResponseBody
+	public Map<String, Object> deleteFile(@RequestParam long fileNum,
+			HttpSession session) throws Exception {
+		
+		String root = session.getServletContext().getRealPath("/");
+		String pathname = root + "uploads" + File.separator + "qna";
+		
+		Qna dto = service.findByFileId(fileNum);
+		if (dto != null) {
+			fileManager.doFileDelete(dto.getFilename(), pathname);
+		}
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("field", "fileNum");
+		map.put("num", fileNum);
+		
+		service.deleteQnaFile(map);
+		
+		Map<String, Object> model = new HashMap<>();
+		model.put("state", "true");
+		
+		return model;	
+	}	
+
 	// 문의사항에 등록할 상품 검색
 	// AJAX - JSON
 	@GetMapping("productSearch")

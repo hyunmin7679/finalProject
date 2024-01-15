@@ -65,8 +65,17 @@
 					<tr>
 						<td colspan="2" valign="top" height="150">
 							${dto.question}
+							<div class="row row-cols-6 img-box">
+								<c:forEach var="vo" items="${listFile}">
+									<div class="col p-1">
+										<img src="${pageContext.request.contextPath}/uploads/qna/${vo.filename}"
+											class="imageViewer img-thumbnail w-100 h-100" style="max-height: 130px;">
+									</div>
+								</c:forEach>
+							</div>
 						</td>
 					</tr>
+					
 				</tbody>
 			</table>
 			

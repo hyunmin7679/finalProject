@@ -72,7 +72,7 @@ h3{font-weight: 900;}
 			<div style="display: flex; justify-content :center;">
 			<a href="${pageContext.request.contextPath}/"><img class="icon" src="${pageContext.request.contextPath}/uploads/photo/${vo.iconImage}"></a>
 			<div style="align-items: center; display: flex;">
-				<p>${sessionScope.member.userName} 님 &nbsp;|</p>
+				<p><strong>${sessionScope.member.userName} </strong>님 &nbsp;|</p>
 				<p>&nbsp;VIP등급</p>
 			</div>
 			</div> 
@@ -105,45 +105,17 @@ h3{font-weight: 900;}
 
 	<div class="row" style="height: 50px; ">
 		<div class="d-flex justify-content-start mx-auto gap-3 float-end">
-			<div class="col">
-				<p style="padding-left: 15px; font-size: 15px;"><input type="checkbox" name="except" value="1">&nbsp;보유아이콘 제외</p>
+			<div class="col" style="font-size: 19px;">
+					<input type="checkbox" name="except" value="1" id="except">
+					<label for="except">
+						<span>보유아이콘 제외</span>
+					</label>
 			</div>
 			<div class="col text-end">
 				<p style="padding-left: 15px; font-size: 19px;">보유 포인트 : ${point} 점 </p>
 			</div>
 		</div>
 	</div>
-			<!--  
-	<div class="row" style="height: 50px;">
-		<div class="d-flex justify-content-start mx-auto gap-3 float-end">
-
-			<div class="col-1">
-				<select name="schType" id="ProductStatus"
-					class="form-select text-capitalize">
-					<option value="all" ${schType=="all"?"selected":""}>All</option>
-					<option value="dog" ${schType=="dog"?"selected":""}>Dog</option>
-					<option value="cat" ${schType=="cat"?"selected":""}>Cat</option>
-					<option value="etc" ${schType=="etc"?"selected":""}>etc</option>
-				</select>
-			</div>
-			<div class="col-2">
-				<input class="form-control" type="text" name="kwd" value="${kwd =='undfined'?'kwd':''}"
-					placeholder="이름">
-			</div>
-			<div class="col">
-				<button class="btn btn-secondary" onclick="searchIcon();">검색</button>
-				<label class="text-muted"
-					style="padding-left: 15px; font-size: 19px;">검색결과(${dataCount}개)</label>
-	
-			</div>
-			<div class="col text-end">
-				<p style="padding-left: 15px; font-size: 19px;">보유 포인트 : ${point} 점 </p>
-				
-			</div>
-	
-		</div>
-	</div>
-	-->		
 	
 	<div class="card " style="background-color: white;">
 		<div class="card-datable ">
@@ -158,7 +130,6 @@ h3{font-weight: 900;}
 							<div
 								class="card icon-card cursor-pointer text-center mb-4 mx-2 pe-3 p-3"
 								style="background-color: white; border: 0;">
-								<!-- 	<input type="checkbox" style="align-self: flex-end;">  -->
 								<button type="button" data-bs-toggle="modal"
 									data-bs-target="#modalCenter" 
 									data-icon-name="${dto.iconName}"
@@ -176,7 +147,7 @@ h3{font-weight: 900;}
 									<div id="iconCategory" style="display: none;">${dto.iconCategory}</div>
 		
 								</button>
-								<p style="padding-bottom: 0; margin-bottom: 0;">${dto.iconUse}</p>
+								<input type="hidden" style="padding-bottom: 0; margin-bottom: 0;" value="${dto.iconUse}"/>
 							</div>
 						</div>
 					</c:if>
@@ -186,14 +157,7 @@ h3{font-weight: 900;}
 							<div
 								class="card icon-card cursor-pointer text-center mb-4 mx-2 pe-3 p-3"
 								style="background-color: white; border: 0;">
-								<!-- 	<input type="checkbox" style="align-self: flex-end;">  -->
-								<button type="button" data-bs-toggle="modal"
-									data-bs-target="#" 
-									data-icon-name="${dto.iconName}"
-									data-icon-price="${dto.iconPrice}"
-									data-icon-category="${dto.iconCategory}"
-									data-icon-num="${dto.iconNum}"
-									data-icon-iconimage="${dto.iconImage}">
+								<button type="button" data-bs-toggle="modal">
 									
 								<div class="img-wrap">
 										<img style="border: none; width: 70px; height: 70px;"
@@ -209,8 +173,7 @@ h3{font-weight: 900;}
 								<div id="iconCategory" style="display: none;">${dto.iconCategory}</div>
 			
 								</button>
-								<p style="padding-bottom: 0; margin-bottom: 0;">${dto.iconUse}</p>
-							</div>
+								<input type="hidden" style="padding-bottom: 0; margin-bottom: 0;" value="${dto.iconUse}"/>							</div>
 						</div>
 					</c:if>
 				</c:forEach>	
@@ -322,11 +285,11 @@ $(function(){
 		}
 		
 		const fn = function(data){
-			if (state === 'false') {
+			if (data.state === 'false') {
 				alert("포인트가 부족합니다!!")
 				$('#modalCenter').modal('hide');
 				return false;
-            } else if(state ===''){
+            } else if(data.state ==='true'){
                 alert("구매 완료되었습니다!!");
                 location.reload();
                 $('#modalCenter').modal('hide');
@@ -360,7 +323,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var icons = document.querySelectorAll('.icon-card');
         
         icons.forEach(function(icon) {
-            var iconUse = icon.querySelector('p').textContent;
+            var iconUse = icon.querySelector('input').value;
 
             if (excludeOwned && (iconUse === '1' || iconUse === '2')) {
                 icon.style.display = 'none';  // 보유아이콘 제외 체크되었고, 아이콘이 보유 중인 경우 숨김

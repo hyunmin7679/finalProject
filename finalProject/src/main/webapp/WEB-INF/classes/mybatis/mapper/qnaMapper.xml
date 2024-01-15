@@ -7,35 +7,59 @@
 		INSERT INTO productQna(num, productNum, memberIdx, secret, q_subject, question, question_date, showQuestion)
 			VALUES (productQna_seq.NEXTVAL,#{productNum,jdbcType=BIGINT},#{memberIdx},#{secret},#{q_subject}, #{question}, SYSDATE, 1)
 	</insert>
+	<insert id="insertQnaFile" parameterType="com.fp.pet.domain.Qna">
+      INSERT INTO productQnaFile(fileNum, num, filename)
+         VALUES(productQnaFile_seq.NEXTVAL, productQna_seq.CURRVAL, #{filename})
+    </insert>
+	
+
+	<select id="findByFileId" parameterType="Long" resultType="com.fp.pet.domain.Qna">
+	   SELECT fileNum, num, filename
+	   FROM productQnaFile
+	   WHERE fileNum = #{fileNum}
+	</select>
+	
+	<delete id="deleteQnaFile" parameterType="map" >
+	   DELETE FROM productQnaFile
+	   WHERE ${field} = #{num}
+	</delete>
+	
+	<select id="listQnaFile" parameterType="Long" resultType="com.fp.pet.domain.Qna">
+	   SELECT fileNum, num, filename
+	   FROM productQnaFile
+	   WHERE num = #{num}
+	</select>
+   
 
 	<sql id="where-list">
-		<if test="schType=='all'">
-			( INSTR(q_subject, #{kwd}) &gt; 0 
-				OR INSTR(productName, #{kwd}) &gt; 0 )
-		</if>
-		<if test="schType=='userName'">
-			userName=#{kwd}
-		</if>
-		<if test="schType=='productName'">
-			INSTR(productName, #{kwd}) &gt; 0 
-		</if>
-		
-		<if test="schType=='question_date'">
-			( TO_CHAR(q.question_date, 'YYYY-MM-DD') = #{kwd}
-				OR TO_CHAR(q.question_date, 'YYYYMMDD') = #{kwd} )
-		</if>
-	</sql>
-	
-	<sql id="where-list2">
-		<if test="schType=='all'">
-			productNum = #{kwd}
-			OR INSTR(productName, #{kwd}) &gt; 0 )
-		</if>
-		
-		<if test="schType=='productName'">
-			INSTR(productName, #{kwd}) &gt; 0 
-		</if>
-	</sql>
+      <if test="schType=='all'">
+         ( INSTR(q_subject, #{kwd}) &gt; 0 
+            OR INSTR(productName, #{kwd}) &gt; 0 )
+      </if>
+      <if test="schType=='userName'">
+         userName=#{kwd}
+      </if>
+      <if test="schType=='productName'">
+         INSTR(productName, #{kwd}) &gt; 0 
+      </if>
+      
+      <if test="schType=='question_date'">
+         ( TO_CHAR(q.question_date, 'YYYY-MM-DD') = #{kwd}
+            OR TO_CHAR(q.question_date, 'YYYYMMDD') = #{kwd} )
+      </if>
+   </sql>
+   
+   <sql id="where-list2">
+      <if test="schType=='all'">
+         productNum = #{kwd}
+         OR INSTR(productName, #{kwd}) &gt; 0 )
+      </if>
+      
+      <if test="schType=='productName'">
+         INSTR(productName, #{kwd}) &gt; 0 
+      </if>
+   </sql>
+
 
 	<!-- 글개수 -->
 	<select id="dataCount" parameterType="map" resultType="Integer">
@@ -53,6 +77,8 @@
 			</if>
 		</where>
 	</select>
+	
+	
 	
 	<!-- 상품선택 시 상품개수 -->
 	<select id="dataCount2" parameterType="map" resultType="Integer">
@@ -148,9 +174,10 @@
 	</select>
 	
 	<update id="updateQna" parameterType="com.fp.pet.domain.Qna">
-		UPDATE productQna SET productNum=#{productNum}, q_subject=#{q_subject}, question=#{question}, secret=#{secret}
-		WHERE num = #{num}
-	</update>
+      UPDATE productQna SET productNum=#{productNum,jdbcType=BIGINT}, q_subject=#{q_subject}, question=#{question}, secret=#{secret}
+      WHERE num = #{num}
+   </update>
+
 	
 
 	<!-- 삭제 -->

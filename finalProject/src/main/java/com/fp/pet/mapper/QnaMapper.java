@@ -12,6 +12,7 @@ import com.fp.pet.domain.Qna;
 @Mapper
 public interface QnaMapper {
 	public void insertQna(Qna dto) throws SQLException;
+	public void insertQnaFile(Qna dto) throws SQLException;
 	public void updateQna(Qna dto) throws SQLException;
 	public void deleteQna(long num) throws SQLException;
 	
@@ -25,4 +26,8 @@ public interface QnaMapper {
 	// 문의 시 상품검색
 	public List<Qna> listProduct(Map<String, Object> map);
 	public int dataCount2(Map<String, Object> map);
+	
+	public Qna findByFileId(long fileNum);
+	public void deleteQnaFile(Map<String, Object> map);
+	public List<Qna> listQnaFile(long num);
 }

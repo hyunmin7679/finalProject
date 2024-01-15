@@ -8,7 +8,26 @@
 .body-container {
 	max-width: 870px;
 }
+.img-box img {
+    width: 50px;
+    height: 50px;
+    margin-right: 5px;
+    flex: 0 0 auto;
+    cursor: pointer;
+    border: 1px solid #c2c2c2;
+    border-radius: 10px;
+}
 
+img, svg {
+    vertical-align: middle;
+}
+
+.img-grid .item {
+	object-fit:cover;
+	width: 50px; height: 50px; border-radius: 10px;
+	border: 1px solid #c2c2c2;
+	cursor: pointer;
+}
 </style>
 
 <script type="text/javascript">
@@ -25,7 +44,7 @@ function sendOk() {
 			return;
 		}	
 	}
-
+	
     f.action = "${pageContext.request.contextPath}/qna/${mode}";
     f.submit();
 }
@@ -39,7 +58,7 @@ function sendOk() {
 		</div>
 		
 		<div class="body-main">
-			<form name="qnaForm" method="post">
+			<form name="qnaForm" method="post" enctype="multipart/form-data">
 				<table class="table mt-5 write-form">
 					<tr>
 						<td class="bg-light col-sm-2" scope="row">제 목</td>
@@ -72,7 +91,7 @@ function sendOk() {
 								<button type="button" class="btn btn-light btn-append">상품선택</button>							
 							</c:if>
 							
-							<input type="hidden" name="productNum" value="0">
+							<input type="hidden" name="productNum" value="${dto.productNum}">
 						</td>
 					</tr>
 					
@@ -98,7 +117,32 @@ function sendOk() {
 						<td>
 							<textarea name="question" class="form-control"><c:if test="${mode=='write'}">※ 문의 시 상품명 또는 주문번호를 작성해주시면 정확하고 빠른 답변에 도움이 됩니다.</c:if>${dto.question}</textarea>
 						</td>
-					</tr>	
+					</tr>
+					
+					<tr>
+						<td class="bg-light col-sm-2" scope="row">이미지</td>
+						<td>
+							<div class="img-grid"><img class="item img-add rounded" src="${pageContext.request.contextPath}/resources/images/add_photo.png"></div>
+							<input type="file" name="selectFile" accept="image/*" multiple style="display: none;" class="form-control">
+						</td>
+					</tr>
+					
+					<c:if test="${mode=='update'}">
+						<tr>
+							<td class="bg-light col-sm-2" scope="row">등록이미지</td>
+							<td> 
+								<div class="img-box">
+									<c:forEach var="vo" items="${listFile}">
+										<img src="${pageContext.request.contextPath}/uploads/qna/${vo.filename}"
+											class="delete-img"
+											data-fileNum="${vo.fileNum}">
+									</c:forEach>
+								</div>
+							</td>
+						</tr>
+					</c:if>
+	              
+						
 				</table>
 				
 				<table class="table table-borderless">
@@ -156,6 +200,28 @@ function sendOk() {
 	</div>
 </div>
 
+<c:if test="${mode=='update'}">
+	<script type="text/javascript">
+		$(function(){
+			$(".delete-img").click(function(){
+				if(! confirm("이미지를 삭제 하시겠습니까 ?")) {
+					return false;
+				}
+				
+				let $img = $(this);
+				let fileNum = $img.attr("data-fileNum");
+				let url="${pageContext.request.contextPath}/qna/deleteFile";
+				
+				$.ajaxSetup({ beforeSend: function(e) { e.setRequestHeader('AJAX', true); } });
+				$.post(url, {fileNum:fileNum}, function(data){
+					$img.remove();
+				}, "json").fail(function(){
+					alert('error....');
+				});
+			});
+		});
+	</script>
+</c:if>
 
 <script type="text/javascript">
 function login() {
@@ -243,6 +309,72 @@ $(function(){
 		
 		$("#productSearchModal").modal("hide");
 		
+	});
+});
+
+
+
+$(function(){
+	var sel_files = [];
+	
+	$(".write-form").on("click", ".img-add", function(event){
+		$("form[name=qnaForm] input[name=selectFile]").trigger("click"); 
+	});
+	
+	$("form[name=qnaForm] input[name=selectFile]").change(function(){
+		if(! this.files) {
+			let dt = new DataTransfer();
+			for(let f of sel_files) {
+				dt.items.add(f);
+			}
+			document.qnaForm.selectFile.files = dt.files;
+			
+	    	return false;
+	    }
+	    
+       for(let file of this.files) {
+       	sel_files.push(file);
+       	
+           const reader = new FileReader();
+			const $img = $("<img>", {class:"item img-item"});
+			$img.attr("data-filename", file.name);
+           reader.onload = e => {
+           	$img.attr("src", e.target.result);
+           };
+			reader.readAsDataURL(file);
+           
+           $(".img-grid").append($img);
+       }
+		
+		let dt = new DataTransfer();
+		for(let f of sel_files) {
+			dt.items.add(f);
+		}
+		document.qnaForm.selectFile.files = dt.files;		
+	    
+	});
+	
+	$(".write-form").on("click", ".img-item", function(event) {
+		if(! confirm("선택한 파일을 삭제 하시겠습니까 ?")) {
+			return false;
+		}
+		
+		let filename = $(this).attr("data-filename");
+		
+	    for(let i = 0; i < sel_files.length; i++) {
+	    	if(filename === sel_files[i].name){
+	    		sel_files.splice(i, 1);
+	    		break;
+			}
+	    }
+	
+		let dt = new DataTransfer();
+		for(let f of sel_files) {
+			dt.items.add(f);
+		}
+		document.qnaForm.selectFile.files = dt.files;
+		
+		$(this).remove();
 	});
 });
 

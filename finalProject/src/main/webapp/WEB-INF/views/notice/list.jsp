@@ -18,6 +18,8 @@ a:hover {color: black; text-decoration: none;}
 .title {display: flex; justify-content: center; }
 h3{font-weight: 900;}
 
+.point-item{height:auto; text-align:center; margin: 10px; display: flex; align-items: center;}
+
 </style>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/boot-board.css" type="text/css">
@@ -41,8 +43,14 @@ function searchList() {
 			<div class="bar-item p-3">
 				<a href="${pageContext.request.contextPath}/faq/main"><i class="fa-regular fa-circle-question fa-lg"></i><br>FAQ</a>
 			</div>
+			<div class="point-item">
+				<i class="fa-solid fa-angle-right"></i>
+			</div>
 			<div class="bar-item p-3">
 				<a href="${pageContext.request.contextPath}/notice/list" ><i class="fa-regular fa-file-lines fa-lg"></i><br>공지사항</a>
+			</div>
+			<div class="point-item">
+				<i class="fa-solid fa-angle-right"></i>
 			</div>
 			<div class="bar-item p-3">
 				<a href="${pageContext.request.contextPath}/qna/list"><i class="fa-solid fa-file-pen fa-lg"></i><br>문의사항</a>

@@ -1,7 +1,9 @@
 package com.fp.pet.domain;
 
-// o : memberIdx, questionShow, productNum, secret, identifyDay
-// x : userName, userId, category 
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+ 
 public class Qna {
 	private long num; // 문의번호
 	private Long productNum;
@@ -21,10 +23,31 @@ public class Qna {
 	private String productName;
 	private String thumbnail;
 	
+	private long fileNum;
+	private String filename;
+	private List<MultipartFile> selectFile;
+	
 	private String[] listFilename;
 
-	//private String userId;
-	//private String userName;
+	
+	public long getFileNum() {
+		return fileNum;
+	}
+	public void setFileNum(long fileNum) {
+		this.fileNum = fileNum;
+	}
+	public String getFilename() {
+		return filename;
+	}
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+	public List<MultipartFile> getSelectFile() {
+		return selectFile;
+	}
+	public void setSelectFile(List<MultipartFile> selectFile) {
+		this.selectFile = selectFile;
+	}
 	
 	public long getNum() {
 		return num;
