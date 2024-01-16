@@ -233,8 +233,6 @@ function articleView(communityNum, page) {
 	query = query + "&pageNo=" + page + "&" + search;
 	let selector = ".content-frame";
 	
-	
-	
 	const fn = function(data){
 		$(selector).html(data);
 		
@@ -351,7 +349,8 @@ $(function(){
 			
 			let state = data.state;
 			if(state === 'true') {
-				listPage(1);
+				//listPage(1);
+				replyListPage(1);
 			} else if(state === 'false') {
 				alert('댓글을 추가 하지 못했습니다.');
 			}
@@ -634,40 +633,38 @@ $(function(){
 });  
 
 
-
-// 신고창 모달띄우기
 $(function(){ 
 	$('.content-frame').on('click', '.btnUserReportSubmit', function(){
-		
-		let num = $(this).attr("data-communityNum");
-		let reason = $(this).attr("data-reason");
-		let content = $(this).attr("data-content");
-
-		const f = document.userReportForm;
-		f.num.value = num;
-		f.reason.value = reason;
-		f.content.value = content;
-
 		$("#userReportModalLabel").html("신고하기");
 		$("#userReportModal").modal("show");
-		
 	});
 });
 
+	
+// 커뮤니티 게시글
 $(function(){
 	$('.content-frame').on('click', '.btnUserReportOk', function(){
-		const f = document.userReportForm;
+		const f= document.userReportForm;
 
-		if(f.changeSort.value.trim() == 0) {
-			alert('취소구분을 선택해주세요.');
-			f.changeSort.focus();
-			return false;
-		}  
+		let url = '${pageContext.request.contextPath}/userReport/report';
 		
-		f.action = '${pageContext.request.contextPath}/userReport/report';
-		f.submit();
+		let query = $("form[name=userReportForm]").serialize();		
+		
+		const fn = function(data){
+			let state = data.state;
+			if(state === 'true') {
+				alert('신고접수 되었습니다.');
+				$("#userReportModal").modal('hide');
+			} else {
+				alert('신고는 한번만 가능합니다.');
+			}
+		};
+		
+		ajaxFun(url, "post", query, "json", fn);	
+		
 	});
 });
+
 
 </script>
 

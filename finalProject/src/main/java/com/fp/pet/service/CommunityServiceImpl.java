@@ -29,6 +29,9 @@ public class CommunityServiceImpl implements CommunityService {
 	public void insertCommunity(Community dto, String pathname) throws Exception {
 		try {
 			
+			long seq = mapper.communitySeq();
+			dto.setCommunityNum(seq);
+			
 			mapper.insertCommunity(dto);
 
 			// 파일 업로드

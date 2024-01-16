@@ -223,6 +223,9 @@ public class CommunityController {
 
 		model.addAttribute("userBoardLiked", userBoardLiked);
 		
+		model.addAttribute("reportUrl", "/bbs/article/");
+		
+		
 		return "bbs/article";
 	}  
 

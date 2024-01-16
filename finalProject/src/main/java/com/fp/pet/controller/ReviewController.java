@@ -26,6 +26,7 @@ public class ReviewController {
 
 	@Autowired
 	private ReviewService service;
+
 	
 	@Autowired
 	private MyUtil myUtil;
@@ -109,6 +110,11 @@ public class ReviewController {
 			model.put("pageNo", current_page);
 			model.put("paging", paging);
 			model.put("total_page", total_page);
+			model.put("productNum", productNum);
+			//model.put("total_page", total_page);
+		
+			model.put("reportUrl", "/product/review/");
+			//System.out.println("으아아아아아" + reportUrl);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -27,4 +27,17 @@ public class UserReportServiceImpl implements UserReportService{
 		
 	}
 
+	@Override
+	public long findByproduct(long num) {
+		long productNum = 0;
+		
+		try {
+			productNum = mapper.findByproduct(num);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return productNum;
+	}
+
 }

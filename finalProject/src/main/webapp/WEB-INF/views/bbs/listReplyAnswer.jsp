@@ -15,7 +15,9 @@
 				</div>
 			</div>
 			<div class='col align-self-center text-end'>
+				<c:if test="${sessionScope.member.userId==vo.userId || sessionScope.member.membership > 50}">
 				<span class='reply-dropdown'><i class='bi bi-three-dots-vertical'></i></span>
+				</c:if>
 				<div class='reply-menu'>
 					<c:choose>
 						<c:when test="${sessionScope.member.userId==vo.userId}">
@@ -24,11 +26,8 @@
 						</c:when>
 						<c:when test="${sessionScope.member.membership > 50 }">
 							<div class='deleteReplyAnswer reply-menu-item' data-replyNum='${vo.replyNum}' data-answer='${vo.answer}'>삭제</div>
-							<div class='blockReplyAnswer reply-menu-item'>차단</div>
 						</c:when>
 						<c:otherwise>
-							<div class='notifyReplyAnswer reply-menu-item'>신고</div>
-							<div class='blockReplyAnswer reply-menu-item'>차단</div>
 						</c:otherwise>
 					</c:choose>
 				</div>

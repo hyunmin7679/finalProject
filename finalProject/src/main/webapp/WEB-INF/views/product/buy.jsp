@@ -1087,6 +1087,7 @@ function printReview(data) {
 	let total_page = data.total_page;
 	let size = data.size;
 	let paging = data.paging;
+	let productNum = data.productNum;
 	
 	if(dataCount > 0) {
 		$('.reviewSort-area').show();
@@ -1107,6 +1108,7 @@ function printReview(data) {
 		let answer = item.answer;
 		let answer_date = item.answer_date;
 		let listFilename = item.listFilename;
+		let reportUrl = data.reportUrl;
 		// let deletePermit = item.deletePermit;
 
 		out += '<div class="mt-3 border-bottom">';
@@ -1114,7 +1116,7 @@ function printReview(data) {
 		out += '     <div class="col-auto fs-2"><i class="bi bi-person-circle text-muted icon"></i></div>';
 		out += '     <div class="col pt-3 ps-0 fw-semibold">'+userName+'</div>';
 		out += '     <div class="col pt-3 text-end"><span>'+review_date+'</span>';
-		out += '       |<span class="notifyReview" data-num="' + num + '">신고</span></div>';
+		out += '       |<span class="notifyReview" data-num="' + productNum + '" >신고</span></div>';
 		out += '  </div>';
 		out += '  <div class="row p-2">';
 		out += '    <div class="col-auto pt-0 ps-2 pe-1 score-star">';
@@ -1152,8 +1154,60 @@ function printReview(data) {
 		out += '<div class="page-navigation">' + paging + '</div>';
 	}
 	
+	// 신고 모달창
+	out += '		<div class="modal fade" id="userReportModal" tabindex="-1" aria-labelledby="userReportModalLabel" aria-hidden="true">';
+	out += '		<div class="modal-dialog modal-dialog-centered">  <div class="modal-content">  <div class="modal-header">';
+	out += '					<h5 class="modal-title" id="userReportModalLabel">신고하기</h5>';
+	out += ' <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> </div>';
+	out += '  			<div class="modal-body pt-1"> <div class="p-1"> <form name="userReportForm" method="post" class="row justify-content-center">';	
+	out += '  <div> <div class="col-8 p-1">';
+	out += '	<select name="reason" class="form-select">';
+	out += '	<option > ::신고사유를 선택해주세요:: </option> <option value="1" >광고</option>';
+	out += '	<option value="2" >도배</option>  <option value="3" >음란물</option>';
+	out += '	<option value="4" >지나친 욕설</option> <option value="5" >개인정보침해</option>';
+	out += '	<option value="6" >저작권침해</option> <option value="7" >기타</option> </select> </div>';
+	out += '  <div class="col p-1"> <input type="text" name="content" class="form-control" placeholder="사유를 입력 하세요"> </div> </div>';
+	out += '  <div class="col-auto p-1">';
+	out += '	<input type="hidden" name="reportUrl" value="/product/review/'+productNum+'">';
+	out += '    							<button type="button" class="btn btn-light btnUserReportOk"> 신고하기 </button> </div> </form>';
+	out += '					</div></div> </div> </div> </div>';
+	
 	$('.list-review').html(out);
 }
+
+//신고창 모달띄우기
+$(function(){ 
+	$('body').on('click', '.notifyReview', function(){
+		$("#userReportModalLabel").html("신고하기");
+		$("#userReportModal").modal("show");
+		
+	});
+});
+
+// 신고하기
+$(function(){
+	$('body').on('click', '.btnUserReportOk', function(){
+		const f= document.userReportForm;
+
+		let url = '${pageContext.request.contextPath}/userReport/report';
+		
+		let query = $("form[name=userReportForm]").serialize();		
+		
+		const fn = function(data){
+			let state = data.state;
+			if(state === 'true') {
+				alert('신고접수 되었습니다.');
+				$("#userReportModal").modal('hide');
+			} else {
+				alert('신고는 한번만 가능합니다.');
+			}
+		};
+		
+		ajaxFun(url, "post", query, "json", fn);	
+		
+	});
+});
+
 
 function printSummary(summary) {
 	let count = summary.count;
@@ -1215,13 +1269,14 @@ function printSummary(summary) {
 	$(".review-rate .score-1 .graph-rate").text(scoreRate1+"%");
 }
 
+/*
 $(function(){
 	$('body').on('click', '.notifyReview', function(){
 		let num = $(this).attr('data-num');
 		alert(num);
 	});
 });
-
+*/
 // question -----
 function listQuestion(page) {
 	let productNum = '${dto.productNum}';
@@ -1270,9 +1325,6 @@ function printQuestion(data) {
 		out += '     <div class="col-auto pt-2 pe-0">' + answerState + '</div>';
 		out += '     <div class="col-auto pt-2 px-0">&nbsp;|&nbsp;'+userName+'</div>';
 		out += '     <div class="col-auto pt-2 px-0">&nbsp;|&nbsp;<span>'+question_date+'</span>';
-		if(secret === 0) {
-			out += '       |<span class="notifyQuestion" data-num="' + num + '">신고</span>';
-		}
 		out += '      </div>';
 		if(answer) {
 			out += '  <div class="col pt-2 text-end"><button class="btn btnAnswerView"> <i class="bi bi-chevron-down"></i> </button></div>';

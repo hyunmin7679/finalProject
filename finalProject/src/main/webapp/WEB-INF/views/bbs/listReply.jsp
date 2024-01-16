@@ -20,7 +20,10 @@
 				</div>
 			</td>
 			<td width='50%' align='right' class='align-middle'>
+				<c:if test="${sessionScope.member.userId==vo.userId || sessionScope.member.membership > 50}">
 				<span class='reply-dropdown'><i class='bi bi-three-dots-vertical'></i></span>
+				</c:if>
+				
 				<div class="reply-menu">
 					<c:choose>
 						<c:when test="${sessionScope.member.userId==vo.userId}">
@@ -29,10 +32,10 @@
 						</c:when>
 						<c:when test="${sessionScope.member.membership > 50}">
 							<div class='deleteReply reply-menu-item' data-replyNum='${vo.replyNum}' data-pageNo='${pageNo}'>삭제</div>
-							<div class='blockReply reply-menu-item'>차단</div>
+
 						</c:when>
 						<c:otherwise>
-							<div class='notifyReply reply-menu-item'>신고</div>
+							<div class='notifyReply reply-menu-item btnUserReportSubmit'>신고</div>
 							<div class='blockReply reply-menu-item'>차단</div>
 						</c:otherwise>
 					</c:choose>

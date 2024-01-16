@@ -13,6 +13,8 @@ import com.fp.pet.domain.Reply;
 @Mapper
 public interface CommunityMapper {
 	// 커뮤니티 등록, 수정, 삭제
+	public long communitySeq();
+	
 	public void insertCommunity(Community dto) throws SQLException;
 	public void insertCommunityFile(Community dto) throws SQLException;
 	public void updateCommunity(Community dto) throws SQLException;

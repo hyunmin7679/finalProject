@@ -8,4 +8,5 @@ public interface UserReportService {
 	// 신고하기
 	public void insertReport(Map<String, Object> map) throws SQLException; 
 
+	public long findByproduct(long num);
 }

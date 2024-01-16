@@ -5,7 +5,12 @@
 
 	<insert id="insertReport" parameterType="map">
 		INSERT INTO report (reasonNum, memberIdx, declUrl, reason, content, reg_date)
-			VALUES (report_seq.NEXTVAL, #{memberIdx}, #{declUrl}||#{num}, #{reason}, #{content}, SYSDATE)
+			VALUES (report_seq.NEXTVAL, #{memberIdx}, #{reportUrl}, #{reason}, #{content}, SYSDATE)
 	</insert>
+	
+	<select id="findByproduct" parameterType="Long" resultType="Integer">
+		select productNum from productReview
+		where num = #{num}
+	</select>
 
 </mapper>

@@ -147,7 +147,7 @@ public class MyPageController {
 		
 		int size = 10;
 		int total_page, dataCount;
-		int total_page2, cancelCount;
+	//	int total_page2, cancelCount;
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("memberIdx", info.getMemberIdx());
@@ -159,12 +159,12 @@ public class MyPageController {
 		}
 		
 		// *******
-		cancelCount = service.cancelCount(map);
+	/*	cancelCount = service.cancelCount(map);
 		
 		total_page2 = myUtil.pageCount(cancelCount, size);
 		if(current_page > total_page2) {
 			current_page = total_page2;
-		}
+		}*/
 		// ********
 		
 		int offset = (current_page - 1) * size;
@@ -180,7 +180,7 @@ public class MyPageController {
 		String listUrl = cp + "/myPage/paymentList";
 		String paging = myUtil.pagingUrl(current_page, total_page, listUrl);
 		
-		String paging2 = myUtil.paging(current_page, total_page2, listUrl); 
+	//	String paging2 = myUtil.paging(current_page, total_page2, listUrl); 
 		
 		String orderState[] = OrderState.ORDERSTATEINFO;  // 주문상태
 		String detailState[] = OrderState.DETAILSTATEINFO;  // 주문상태
@@ -195,9 +195,81 @@ public class MyPageController {
 		model.addAttribute("size", size);
 		model.addAttribute("paging", paging);	
 		
-		model.addAttribute("cancelCount", cancelCount);
-		model.addAttribute("total_page2", total_page2);
-		model.addAttribute("paging2", paging2);	
+	//	model.addAttribute("cancelCount", cancelCount);
+	//	model.addAttribute("total_page2", total_page2);
+	//	model.addAttribute("paging2", paging2);	
+		
+		model.addAttribute("orderState", orderState);	 // OrderState
+		model.addAttribute("detailState", detailState);	 // OrderState
+		model.addAttribute("changeSate", changeSate);	 // OrderState
+		
+		model.addAttribute("userPoint", userPoint);	 
+		
+		return ".myPage.paymentList";
+	}
+	
+	// 주문취소내역 리스트
+	@RequestMapping("paymencanceltList")
+	public String paymencanceltList(@RequestParam(value = "page", defaultValue = "1") int current_page,
+							  		HttpServletRequest req, HttpSession session, 
+							  		Model model) throws Exception {
+		
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		String cp = req.getContextPath();
+		
+		int size = 10;
+		int total_page, dataCount;
+		//int total_page2, cancelCount;
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberIdx", info.getMemberIdx());
+		
+		dataCount = service.cancelCount(map);
+		total_page = myUtil.pageCount(dataCount, size);
+		if(current_page > total_page) {
+			current_page = total_page;
+		}
+		
+		// *******
+	/*	cancelCount = service.cancelCount(map);
+		
+		total_page2 = myUtil.pageCount(cancelCount, size);
+		if(current_page > total_page2) {
+			current_page = total_page2;
+		}*/
+		// ********
+		
+		int offset = (current_page - 1) * size;
+		if(offset < 0) offset = 0;
+		
+		map.put("offset", offset);		
+		map.put("size", size);
+		
+		List<Payment> list = service.listCancel(map);
+		//List<Payment> cancelList = service.listCancel(map);
+		int userPoint = service.userPoint(map);
+		
+		String listUrl = cp + "/myPage/paymentList";
+		String paging = myUtil.pagingUrl(current_page, total_page, listUrl);
+		
+	//	String paging2 = myUtil.paging(current_page, total_page2, listUrl); 
+		
+		String orderState[] = OrderState.ORDERSTATEINFO;  // 주문상태
+		String detailState[] = OrderState.DETAILSTATEINFO;  // 주문상태
+		String changeSate[] = OrderState.GHANGESORTINFO;  // 주문상태
+		
+		model.addAttribute("list", list);
+	//	model.addAttribute("cancelList", cancelList);	
+		
+		model.addAttribute("page", current_page);
+		model.addAttribute("total_page", total_page);
+		model.addAttribute("dataCount", dataCount);
+		model.addAttribute("size", size);
+		model.addAttribute("paging", paging);	
+		
+		//model.addAttribute("cancelCount", cancelCount);
+		//model.addAttribute("total_page2", total_page2);
+		//model.addAttribute("paging2", paging2);	
 		
 		model.addAttribute("orderState", orderState);	 // OrderState
 		model.addAttribute("detailState", detailState);	 // OrderState
@@ -221,6 +293,8 @@ public class MyPageController {
 
 		return "myPage/productModal";
 	}  
+	
+	
 
 	
 // **********************************************************************************	
@@ -260,28 +334,6 @@ public class MyPageController {
 		
 		return "redirect:/myPage/paymentList?page="+page; 
 	}	
-	
-	/*
-	@Scheduled(cron = "0 0/2 * * * ?")
-	public String test(Map<String, Object> map, HttpSession session) throws Exception {
-		
-		SessionInfo info = (SessionInfo)session.getAttribute("member");
-		
-		try {
-			map.put("detailState", 2);
-			map.put("stateMemo", "자동구매확정완료");
-			map.put("memberIdx", info.getMemberIdx());
-			
-			service.updateOrderDetailState2(map);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}	
-		
-		return "";
-		
-	}*/
-	
 	
 	// 주문취소/반품/교환요청
 	@PostMapping("orderDetailUpdate")

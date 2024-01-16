@@ -48,8 +48,15 @@ public class Community {
 	private double ma;
 	private int distance;
 	
+	private String ReportUrl;
+
 	
-	
+	public String getReportUrl() {
+		return ReportUrl;
+	}
+	public void setReportUrl(String reportUrl) {
+		ReportUrl = reportUrl;
+	}
 	public int getDistance() {
 		return distance;
 	}

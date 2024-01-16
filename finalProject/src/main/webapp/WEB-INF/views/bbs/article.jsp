@@ -98,7 +98,11 @@
 					
 				</c:otherwise>
 			</c:choose></td>
-			<td><button type="button" class="btn btn-light btnUserReportSubmit" data-communityNum="${dto.communityNum}">신고</button></td>
+			
+			<c:if test="${sessionScope.member.userId!=dto.userId}">
+			<td><button type="button" class="btn btn-light btnUserReportSubmit" data-num="${dto.communityNum}" data-reportUrl="${reportUrl}">신고</button></td>
+			</c:if>
+			
 		<td class="text-end">
 			<button type="button" class="btn btn-light"
 				onclick="listPage('${pageNo}');">리스트</button>
@@ -174,7 +178,7 @@
 						<div>
 						<div class="col-8 p-1">
 							<select name="reason" class="form-select">
-								<option > ::신고사유를 선택해주세요:: </option>
+								<option value=""> ::신고사유를 선택해주세요:: </option>
 								<option value="1" >광고</option>
 								<option value="2" >도배</option>
 								<option value="3" >음란물</option>
@@ -190,12 +194,8 @@
 						</div>	
 						
 						<div class="col-auto p-1">
-							<input type="hidden" name="categoryNum" value="${dto.categoryNum}">
-							<input type="hidden" name="page" value="${page}">
-							<input type="hidden" name="reason">
-							<input type="hidden" name="declUrl" value="/bbs/article/">
-							<input type="hidden" name="num">
-							<input type="hidden" name="content">
+							<input type="hidden" name="communityNum" value="${dto.communityNum}">
+							<input type="hidden" name="reportUrl" value="/bbs/article/${dto.communityNum}">
 							<button type="button" class="btn btn-light btnUserReportOk"> 신고하기 </button>
 						</div>
 					</form>

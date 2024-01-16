@@ -2,19 +2,22 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fp.pet.mapper.CommunityMapper">
-
+	
+	<select id="communitySeq" resultType="Long">
+		SELECT community_seq.NEXTVAL FROM dual
+	</select>
 
 	<!-- 커뮤니티 등록 -->
 	<insert id="insertCommunity" parameterType="com.fp.pet.domain.Community">
 		INSERT INTO community(communityNum, categoryNum, userId, subject, content, park, parkname,
 									 reg_date, showNo, hitCount)
-			VALUES (community_seq.NEXTVAL, #{categoryNum}, #{userId}, #{subject}, #{content}, #{park, jdbcType=VARCHAR}, #{parkname, jdbcType=VARCHAR}, SYSDATE, 1, 0)
+			VALUES (#{communityNum}, #{categoryNum}, #{userId}, #{subject}, #{content}, #{park, jdbcType=VARCHAR}, #{parkname, jdbcType=VARCHAR}, SYSDATE, 1, 0)
 	</insert>
 	
 	<!-- 커뮤니티 파일등록 -->
 	<insert id="insertCommunityFile" parameterType="com.fp.pet.domain.Community">
 		INSERT INTO communityFile(fileNum, communityNum, filename)
-			VALUES(communityFile_seq.NEXTVAL, community_seq.CURRVAL, #{filename})
+			VALUES(communityFile_seq.NEXTVAL, #{communityNum}, #{filename})
 	</insert>
 	
 	<!-- 카테고리 리스트 -->
@@ -149,7 +152,7 @@
 	
 	<!-- 수정 -->
 	<update id="updateCommunity" parameterType="com.fp.pet.domain.Community">
-		UPDATE community SET categoryNum = #{categoryNum}, subject = #{subject}, content = #{content}, reg_date = SYSDATE, park = #{park}, parkname = #{parkname}
+		UPDATE community SET categoryNum = #{categoryNum}, subject = #{subject}, content = #{content}, reg_date = SYSDATE
 		WHERE communityNum = #{communityNum}		    
 	</update>
 
