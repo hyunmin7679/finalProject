@@ -211,35 +211,6 @@ $(function(){
 	
 });
 
-// ************************************************************************************
-// 주문내역 탭
-$(function(){
-	$("#tab-1").click(function(){
-		
-		//let orderDetailNum = $(this).attr("data-orderDetailNum");
-
-		let url = '${pageContext.request.contextPath}/myPage/paymentList";
-	//	$("#orderDetailModal").modal("show");
-		
-	//	$("#orderDetailModal .modal-body2").load(url);
-	});
-	
-});
-
-// 주문취소 내역 탭
-$(function(){
-	$("#tab-2").click(function(){
-		
-		//let orderDetailNum = $(this).attr("data-orderDetailNum");
-
-		let url = '${pageContext.request.contextPath}/myPage/paymencanceltList";
-	//	$("#orderDetailModal").modal("show");
-		
-	//	$("#orderDetailModal .modal-body2").load(url);
-	});
-	
-});
-
 // *******************************************************************************************************
 
 // 상품문의 모달 띄우기
@@ -254,6 +225,8 @@ $(function(){
 		
 	});
 });
+
+
 
 // *******************************************************************************************************
 
@@ -447,8 +420,8 @@ $(function(){
 				<div class="mt-3 pt-3 border-bottom">
 					<p class="fs-4 fw-semibold">취소/반품 내역</p> 
 				</div>
+				<c:forEach var="dto" items="${cancelList }">
 				<div class="mt-3 p-2 border-bottom payment-list">
-				<c:forEach var="dto" items="${list }">
 					<div class="col-6">
 						<div class="fs-6 fw-semibold text-black-50"><label>${empty dto.com_date ? "처리중" : "처리완료"}</label><label></label></div>
 					</div>
@@ -488,11 +461,11 @@ $(function(){
 									</div>
 								</div>
 							</div>
-					</c:forEach>
 						</div>
+					</c:forEach>
 					
 					<div class="page-navigation">
-						${dataCount == 0 ? "주문취소 내역이 없습니다." : paging }
+						${cancelCount == 0 ? "주문취소 내역이 없습니다." : paging2 }
 					</div>
 			</div>
 		</div>
