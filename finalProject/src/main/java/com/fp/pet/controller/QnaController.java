@@ -112,7 +112,7 @@ public class QnaController {
 		model.addAttribute("mode", "write");
 		return ".qna.write";
 	}
-
+	// 문의 게시판용
 	@PostMapping("write")
 	public String writeSubmit(HttpSession session,			
 			Qna dto) throws Exception {
@@ -130,6 +130,32 @@ public class QnaController {
 
 		return "redirect:/qna/list";
 	}
+	
+	
+	// 상품페이지용 ajax
+	@PostMapping("write2")
+	@ResponseBody
+	public Map<String, Object> writeSubmit2(HttpSession session,			
+			Qna dto) throws Exception {
+		
+		String root = session.getServletContext().getRealPath("/");
+		String pathname = root + "uploads" + File.separator + "qna";
+		
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
+		String state = "true";
+		try {
+			dto.setMemberIdx(info.getMemberIdx());
+			
+			service.insertQna(dto, pathname);
+		} catch (Exception e) {
+			state = "false";
+		}
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("state", state);
+		return model;
+	}
+	
+
 
 	@GetMapping("article")
 	public String article(@RequestParam long num,
@@ -213,7 +239,6 @@ public class QnaController {
 			@RequestParam String page,
 			HttpSession session) throws Exception {
 		try {
-			System.out.println("시바바바ㅏ"+ dto.getNum()+","+dto.getProductNum() + dto.getQ_subject()+dto.getQuestion()+dto.getSecret());
 			String root = session.getServletContext().getRealPath("/");
 			String pathname = root + "uploads" + File.separator + "qna";
 			

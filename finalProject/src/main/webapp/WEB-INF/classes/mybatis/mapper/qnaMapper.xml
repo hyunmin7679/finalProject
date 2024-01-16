@@ -3,13 +3,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.fp.pet.mapper.QnaMapper">
+	<select id="productQnaSeq" resultType="Long">
+		select productQna_seq.NEXTVAL from dual
+	</select>	
+
 	<insert id="insertQna" parameterType="com.fp.pet.domain.Qna">
 		INSERT INTO productQna(num, productNum, memberIdx, secret, q_subject, question, question_date, showQuestion)
-			VALUES (productQna_seq.NEXTVAL,#{productNum,jdbcType=BIGINT},#{memberIdx},#{secret},#{q_subject}, #{question}, SYSDATE, 1)
+			VALUES (#{num},#{productNum,jdbcType=BIGINT},#{memberIdx},#{secret},#{q_subject}, #{question}, SYSDATE, 1)
 	</insert>
 	<insert id="insertQnaFile" parameterType="com.fp.pet.domain.Qna">
       INSERT INTO productQnaFile(fileNum, num, filename)
-         VALUES(productQnaFile_seq.NEXTVAL, productQna_seq.CURRVAL, #{filename})
+         VALUES(productQnaFile_seq.NEXTVAL,#{num}, #{filename})
     </insert>
 	
 

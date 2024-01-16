@@ -22,6 +22,9 @@ public class QnaServiceImpl implements QnaService {
 	@Override
 	public void insertQna(Qna dto, String pathname) throws Exception {
 		try {
+			long seq = mapper.productQnaSeq();
+	        dto.setNum(seq);
+			
 			if(dto.getProductNum() == null || dto.getProductNum() == 0) {
 				dto.setProductNum(null);
 			}
@@ -62,6 +65,29 @@ public class QnaServiceImpl implements QnaService {
 
 		try {
 			list = mapper.listQna(map);
+			
+			String s;
+			for (Qna dto : list) {
+				if(dto.getFilename() != null) {
+					dto.setListFilename(dto.getFilename().split(",")); 
+				}
+				
+				s = dto.getUserName().substring(0, 1);
+				if(dto.getUserName().length() <= 2) {
+					s += "*";
+				} else {
+					s += dto.getUserName().substring(2, dto.getUserName().length()).replaceAll(".", "*");
+				}
+				s += dto.getUserName().substring(dto.getUserName().length()-1);
+				dto.setUserName(s);
+				
+				dto.setQuestion(dto.getQuestion().replaceAll("\n", "<br>"));
+				
+				if(dto.getAnswer() != null) {
+					dto.setAnswer(dto.getAnswer().replaceAll("\n", "<br>"));
+				}
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

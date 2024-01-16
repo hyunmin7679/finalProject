@@ -57,16 +57,19 @@ public class QuestionController {
 			map.put("offset", offset);
 			map.put("size", size);
 
+			
 			List<Qna> list = qnaservice.listQna(map);
 			for(Qna dto : list) {
 				if(dto.getSecret() == 1 && (info == null || (info.getMembership() < 50 && dto.getMemberIdx() != info.getMemberIdx()))) {
 					dto.setQuestion("비밀글 입니다. <i class='bi bi-file-lock2'></i>");
 					dto.setAnswer("");
 					dto.setListFilename(null);
+					
 				}
 			}
 			
 			String paging = myUtil.pagingFunc(current_page, total_page, "listQuestion");
+			//List<Qna> listFile = qnaservice.listQnaFile(num);
 			
 			model.put("list", list);
 			model.put("dataCount", dataCount);
@@ -74,6 +77,8 @@ public class QuestionController {
 			model.put("pageNo", current_page);
 			model.put("paging", paging);
 			model.put("total_page", total_page);
+			//model.put("listFile", listFile);
+
 			
 		} catch (Exception e) {
 		}

@@ -15,6 +15,7 @@ public interface QnaMapper {
 	public void insertQnaFile(Qna dto) throws SQLException;
 	public void updateQna(Qna dto) throws SQLException;
 	public void deleteQna(long num) throws SQLException;
+	public long productQnaSeq();  
 	
 	public int dataCount(Map<String, Object> map);
 	public List<Qna> listQna(Map<String, Object> map);
