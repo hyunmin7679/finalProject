@@ -12,6 +12,19 @@
 </style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/boot-board.css" type="text/css">
 
+<c:if test="${sessionScope.member.userId==dto.userId || sessionScope.member.membership>50}">
+	<script type="text/javascript">
+		function deleteOk(notice) {
+			let s = "질문을 삭제 하시 겠습니까 ?";
+			
+		    if(confirm(s)) {
+			    let url = "${pageContext.request.contextPath}/notice/delete?num=${dto.num}&${query}";
+		    	location.href = url;
+		    }
+		}
+	</script>
+</c:if>
+
 <div class="container">
 	<div class="body-container">	
 		<div class="body-title">
@@ -78,9 +91,16 @@
 			
 			<table class="table table-borderless">
 				<tr>
-					<td width="50%">&nbsp;</td>
-					<td class="text-end">
+					<td width="50%">
+						<c:if test="${sessionScope.member.userId==dto.userId}">
+							<button type="button" class="btn btn-light" onclick="javascript:location.href='${pageContext.request.contextPath}/notice/update?num=${dto.num}&page=${page}';">수정</button>
+						</c:if>
+						<c:if test="${sessionScope.member.userId==dto.userId || sessionScope.member.membership>50}">
+							<button type="button" class="btn btn-light" onclick="deleteOk('notice');">삭제</button>
+						</c:if>
+					</td>
 					
+					<td class="text-end">
 						<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/notice/list?${query}';">리스트</button>
 					</td>
 				</tr>

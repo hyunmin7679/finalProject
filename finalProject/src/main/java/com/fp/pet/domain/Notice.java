@@ -1,5 +1,9 @@
 package com.fp.pet.domain;
 
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+
 public class Notice {
    private long num;
    private String userId;
@@ -17,6 +21,8 @@ public class Notice {
    private long fileSize;
    private int fileCount;
    
+   // 스프링에서 파일 받기
+   private List<MultipartFile> selectFile;
    private long gap;
 
    public long getNum() {
@@ -138,6 +144,14 @@ public class Notice {
    public void setGap(long gap) {
       this.gap = gap;
    }
+	
+	public List<MultipartFile> getSelectFile() {
+		return selectFile;
+	}
+	
+	public void setSelectFile(List<MultipartFile> selectFile) {
+		this.selectFile = selectFile;
+	}
    
    
 }

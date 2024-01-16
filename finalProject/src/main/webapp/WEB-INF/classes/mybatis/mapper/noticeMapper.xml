@@ -74,6 +74,30 @@
 		JOIN member1 m ON n.memberIdx=m.memberIdx
 		WHERE num = #{num}
 	</select>
+	
+	
+	<!-- 수정 -->
+	<update id="updateNotice" parameterType="com.fp.pet.domain.Notice">
+		UPDATE notice SET subject=#{subject},
+			content=#{content}, notice=#{notice}, showNotice=#{showNotice}
+		WHERE num=#{num}
+	</update>
+    
+	<!-- 삭제 -->
+	<delete id="deleteNotice" parameterType="Long">
+		DELETE FROM notice WHERE num=#{num}
+	</delete>
+	
+	<!-- 파일 -->
+	<insert id="insertNoticeFile" parameterType="com.fp.pet.domain.Notice">
+		INSERT INTO noticeFile(fileNum, num, saveFilename, originalFilename, fileSize)
+		VALUES (noticeFile_seq.NEXTVAL, #{num}, #{saveFilename},
+			#{originalFilename}, #{fileSize})
+	</insert>
+	
+	<delete id="deleteNoticeFile" parameterType="map">
+		DELETE FROM noticeFile WHERE ${field} = #{num}
+	</delete>
 
 	<!-- 조회수 증가 -->
 	<update id="updateHitCount" parameterType="Long">

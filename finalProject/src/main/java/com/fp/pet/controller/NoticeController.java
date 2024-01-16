@@ -17,12 +17,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fp.pet.common.FileManager;
 import com.fp.pet.common.MyUtil;
 import com.fp.pet.domain.Notice;
+import com.fp.pet.domain.SessionInfo;
 import com.fp.pet.service.NoticeService;
 
 @Controller
@@ -234,4 +237,101 @@ public class NoticeController {
 
 		return ".notice.article";
 	}
+	
+	@GetMapping("update")
+	public String updateForm(@RequestParam long num,
+			@RequestParam String page,
+			HttpSession session,
+			Model model) throws Exception {
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
+
+		Notice dto = service.findById(num);
+		if (dto == null || ! info.getUserId().equals(dto.getUserId())) {
+			return "redirect:/notice/list?page=" + page;
+		}
+
+		List<Notice> listFile = service.listNoticeFile(num);
+
+		model.addAttribute("mode", "update");
+		model.addAttribute("page", page);
+		model.addAttribute("dto", dto);
+		model.addAttribute("listFile", listFile);
+
+		return ".notice.write";
+	}
+
+	@PostMapping("update")
+	public String updateSubmit(Notice dto,
+			@RequestParam String page,
+			HttpSession session) throws Exception {
+
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
+
+		try {
+			String root = session.getServletContext().getRealPath("/");
+			String pathname = root + File.separator + "uploads" + File.separator + "notice";
+
+			dto.setUserId(info.getUserId());
+			service.updateNotice(dto, pathname);
+		} catch (Exception e) {
+		}
+
+		return "redirect:/notice/list?page=" + page;
+	}
+
+
+	@GetMapping("delete")
+	public String delete(@RequestParam long num,
+			@RequestParam String page,
+			@RequestParam(defaultValue = "all") String schType,
+			@RequestParam(defaultValue = "") String kwd,
+			HttpSession session) throws Exception {
+
+		kwd = URLDecoder.decode(kwd, "utf-8");
+		String query = "page=" + page;
+		if (kwd.length() != 0) {
+			query += "&schType=" + schType + "&kwd=" + URLEncoder.encode(kwd, "UTF-8");
+		}
+
+		try {
+			String root = session.getServletContext().getRealPath("/");
+			String pathname = root + "uploads" + File.separator + "notice";
+			service.deleteNotice(num, pathname);
+		} catch (Exception e) {
+		}
+
+		return "redirect:/notice/list?" + query;
+	}
+	
+	@PostMapping("deleteFile")
+	@ResponseBody
+	public Map<String, Object> deleteFile(@RequestParam long fileNum, HttpSession session) throws Exception {
+
+		String root = session.getServletContext().getRealPath("/");
+		String pathname = root + "uploads" + File.separator + "notice";
+
+		Notice dto = service.findByFileId(fileNum);
+		if (dto != null) {
+			fileManager.doFileDelete(dto.getSaveFilename(), pathname);
+		}
+
+		String state = "false";
+		try {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("field", "fileNum");
+			map.put("num", fileNum);
+			service.deleteNoticeFile(map);
+			
+			state = "true";
+		} catch (Exception e) {
+		}
+
+		// 작업 결과를 json으로 전송
+		Map<String, Object> model = new HashMap<>();
+		model.put("state", state);
+		return model;
+	}
+
+	
+
 }
