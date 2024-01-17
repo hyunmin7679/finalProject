@@ -95,12 +95,10 @@
 														data-bs-toggle="dropdown"> <i
 														class="bx bx-dots-vertical-rounded"></i>
 													</a>
-													<div class="dropdown-menu dropdown-menu-end"> <a
-															href="javascript:;"
+													<div class="dropdown-menu dropdown-menu-end">
+														<a href="javascript:;"
 															class="dropdown-item delete-record text-danger"
-															data-bs-toggle="modal" data-bs-target="#noticeupdate"
-															data-nnum=${vo.nnum } data-subject=${vo.nsubject }
-															>삭제</a>
+															data-nnum=${vo.nnum }>삭제</a>
 													</div>
 													<a
 														href="${pageContext.request.contextPath}/notice/zipdownload?num=${vo.nnum}"
@@ -169,7 +167,7 @@
 											<div class="card accordion-item active mt-4"
 												id="navs-pills-top-all">
 												<h2 class="accordion-header">
-													<button class="accordion-button collapsed" type="button"
+													<button class="accordion-button collapsed fsubjectsall" type="button"
 														data-bs-toggle="collapse" aria-expanded="true"
 														data-bs-target="#accordionDelivery-${status.index}"
 														aria-controls="accordionDelivery-${status.index}">${dto.fsubject }</button>
@@ -186,15 +184,18 @@
 																	class="bx bx-dots-vertical-rounded"></i>
 																</a>
 																<div class="dropdown-menu dropdown-menu-end">
-																	<a href="javascript:;"
-																		class="dropdown-item delete-record text">수정</a> <a
-																		href="javascript:;"
-																		class="dropdown-item delete-record text-danger">삭제</a>
+																	<a href="javascript:;" data-fnumupdate=${dto.fnum }
+																		data-fsubjectupdate=${dto.fsubject }
+																		data-fcontentupdate=${dto.fcontent }
+																		data-bs-toggle="modal" data-bs-target="#faqupdate"
+																		class="dropdown-item update-record-faq-all text">수정</a> <a
+																		href="javascript:;" data-fnumdelete=${dto.fnum }
+																		class="dropdown-item delete-record-faq text-danger">삭제</a>
 																</div>
 															</div>
 														</div>
 													</div>
-													<div class="accordion-body">${dto.fcontent }</div>
+													<div class="accordion-body fcontentsall ">${dto.fcontent }</div>
 												</div>
 											</div>
 										</c:forEach>
@@ -208,7 +209,7 @@
 												<div class="card accordion-item active mb-4"
 													id="navs-pills-top-all">
 													<h2 class="accordion-header">
-														<button class="accordion-button collapsed" type="button"
+														<button class="accordion-button collapsed fsubjectsall" type="button"
 															data-bs-toggle="collapse" aria-expanded="true"
 															data-bs-target="#accordionDelivery-${status.index}"
 															aria-controls="accordionDelivery-${status.index}">${dto.fsubject }</button>
@@ -225,15 +226,18 @@
 																		class="bx bx-dots-vertical-rounded"></i>
 																	</a>
 																	<div class="dropdown-menu dropdown-menu-end">
-																		<a href="javascript:;"
-																			class="dropdown-item delete-record text">수정</a> <a
-																			href="javascript:;"
-																			class="dropdown-item delete-record text-danger">삭제</a>
+																		<a href="javascript:;" data-fnumupdate=${dto.fnum }
+																			data-fsubjectupdate=${dto.fsubject }
+																			data-fcontentupdate=${dto.fcontent }
+																			data-bs-toggle="modal" data-bs-target="#faqupdate"
+																			class="dropdown-item update-record-faq-all text">수정</a> <a
+																			href="javascript:;" data-fnumdelete=${dto.fnum }
+																			class="dropdown-item delete-record-faq text-danger">삭제</a>
 																	</div>
 																</div>
 															</div>
 														</div>
-														<div class="accordion-body">${dto.fcontent }</div>
+														<div class="accordion-body fcontentsuser">${dto.fcontent }</div>
 													</div>
 												</div>
 											</c:if>
@@ -248,7 +252,7 @@
 												<div class="card accordion-item active mb-4"
 													id="navs-pills-top-all">
 													<h2 class="accordion-header">
-														<button class="accordion-button collapsed" type="button"
+														<button class="accordion-button collapsed fsubjectall" type="button"
 															data-bs-toggle="collapse" aria-expanded="true"
 															data-bs-target="#accordionDelivery-${status.index}"
 															aria-controls="accordionDelivery-${status.index}">${dto.fsubject }</button>
@@ -265,15 +269,18 @@
 																		class="bx bx-dots-vertical-rounded"></i>
 																	</a>
 																	<div class="dropdown-menu dropdown-menu-end">
-																		<a href="javascript:;"
-																			class="dropdown-item delete-record text">수정</a> <a
-																			href="javascript:;"
-																			class="dropdown-item delete-record text-danger">삭제</a>
+																		<a href="javascript:;" data-fnumupdate=${dto.fnum }
+																			data-fsubjectupdate=${dto.fsubject }
+																			data-fcontentupdate=${dto.fcontent }
+																			data-bs-toggle="modal" data-bs-target="#faqupdate"
+																			class="dropdown-item update-record-faq-all text">수정</a> <a
+																			href="javascript:;" data-fnumdelete=${dto.fnum }
+																			class="dropdown-item delete-record-faq text-danger">삭제</a>
 																	</div>
 																</div>
 															</div>
 														</div>
-														<div class="accordion-body">${dto.fcontent }</div>
+														<div class="accordion-body fcontentsorder" >${dto.fcontent }</div>
 													</div>
 												</div>
 											</c:if>
@@ -288,7 +295,7 @@
 												<div class="card accordion-item active mb-4"
 													id="navs-pills-top-all">
 													<h2 class="accordion-header">
-														<button class="accordion-button collapsed" type="button"
+														<button class="accordion-button collapsed fsubjectsall" type="button"
 															data-bs-toggle="collapse" aria-expanded="true"
 															data-bs-target="#accordionDelivery-${status.index}"
 															aria-controls="accordionDelivery-${status.index}">${dto.fsubject }</button>
@@ -305,15 +312,18 @@
 																		class="bx bx-dots-vertical-rounded"></i>
 																	</a>
 																	<div class="dropdown-menu dropdown-menu-end">
-																		<a href="javascript:;"
-																			class="dropdown-item delete-record text">수정</a> <a
-																			href="javascript:;"
-																			class="dropdown-item delete-record text-danger">삭제</a>
+																		<a href="javascript:;" data-fnumupdate=${dto.fnum }
+																			data-fsubjectupdate=${dto.fsubject }
+																			data-fcontentupdate=${dto.fcontent }
+																			data-bs-toggle="modal" data-bs-target="#faqupdate"
+																			class="dropdown-item update-record-faq-all text">수정</a> <a
+																			href="javascript:;" data-fnumdelete=${dto.fnum }
+																			class="dropdown-item delete-record-faq text-danger">삭제</a>
 																	</div>
 																</div>
 															</div>
 														</div>
-														<div class="accordion-body">${dto.fcontent }</div>
+														<div class="accordion-body fcontentsship">${dto.fcontent }</div>
 													</div>
 												</div>
 											</c:if>
@@ -327,7 +337,7 @@
 												<div class="card accordion-item active mb-4"
 													id="navs-pills-top-all">
 													<h2 class="accordion-header">
-														<button class="accordion-button collapsed" type="button"
+														<button class="accordion-button collapsed fsubjectsall" type="button"
 															data-bs-toggle="collapse" aria-expanded="true"
 															data-bs-target="#accordionDelivery-${status.index}"
 															aria-controls="accordionDelivery-${status.index}">${dto.fsubject}</button>
@@ -344,15 +354,18 @@
 																		class="bx bx-dots-vertical-rounded"></i>
 																	</a>
 																	<div class="dropdown-menu dropdown-menu-end">
-																		<a href="javascript:;"
-																			class="dropdown-item delete-record text">수정</a> <a
-																			href="javascript:;"
-																			class="dropdown-item delete-record text-danger">삭제</a>
+																		<a href="javascript:;" data-fnumupdate=${dto.fnum }
+																			data-fsubjectupdate=${dto.fsubject }
+																			data-fcontentupdate=${dto.fcontent }
+																			data-bs-toggle="modal" data-bs-target="#faqupdate"
+																			class="dropdown-item update-record-faq-all text">수정</a> <a
+																			href="javascript:;" data-fnumdelete=${dto.fnum }
+																			class="dropdown-item delete-record-faq text-danger">삭제</a>
 																	</div>
 																</div>
 															</div>
 														</div>
-														<div class="accordion-body">${dto.fcontent}</div>
+														<div class="accordion-body fcontentsetc">${dto.fcontent}</div>
 													</div>
 												</div>
 											</c:if>
@@ -418,6 +431,7 @@
 														<div class="dtr-hidden"
 															style="float: right; padding-top: 15px; padding-right: 15px;">
 															<div class="text-xxl-center">
+															<c:if test="${not empty qo.answer_date }">
 																<div class="dropdown">
 																	<a href="javascript:;"
 																		class="btn dropdown-toggle hide-arrow text-body p-0"
@@ -425,12 +439,14 @@
 																		class="bx bx-dots-vertical-rounded"></i>
 																	</a>
 																	<div class="dropdown-menu dropdown-menu-end">
-																		<a href="javascript:;"
-																			class="dropdown-item delete-record text">수정</a> <a
-																			href="javascript:;"
-																			class="dropdown-item delete-record text-danger">삭제</a>
+																		<a 
+																		data-bs-toggle="modal" data-bs-target="#qnaupdate"
+																		data-qnum=${qo.qnum}
+																		
+																			class="dropdown-item text">수정</a>
 																	</div>
 																</div>
+																</c:if>
 															</div>
 														</div>
 
@@ -447,8 +463,9 @@
 																			<tr>
 																				<td align="right">
 																					<button type="button"
-																						class="btn btn-secondary answer"
-																						onclick="sendAnswerOk()">답변 등록</button> <input
+																						class="btn btn-secondary qanswer"
+																						data-qnum="${qo.qnum}" data-bs-toggle="modal"
+																						data-bs-target="#qna">답변 등록</button> <input
 																					type="hidden" name="num" value="1"> <input
 																					type="hidden" name="page" value="1"> <input
 																					type="hidden" name="schType" value="all"> <input
@@ -497,10 +514,9 @@
 																			class="bx bx-dots-vertical-rounded"></i>
 																		</a>
 																		<div class="dropdown-menu dropdown-menu-end">
-																			<a href="javascript:;"
-																				class="dropdown-item delete-record text">수정</a> <a
-																				href="javascript:;"
-																				class="dropdown-item delete-record text-danger">삭제</a>
+																			<a data-bs-toggle="modal" data-bs-target="#qnaupdate"
+																		data-qnum=${qo.qnum}
+																				class="dropdown-item text">수정</a>
 																		</div>
 																	</div>
 																</div>
@@ -536,19 +552,7 @@
 														<div class="dtr-hidden"
 															style="float: right; padding-top: 15px; padding-right: 15px;">
 															<div class="text-xxl-center">
-																<div class="dropdown">
-																	<a href="javascript:;"
-																		class="btn dropdown-toggle hide-arrow text-body p-0"
-																		data-bs-toggle="dropdown"> <i
-																		class="bx bx-dots-vertical-rounded"></i>
-																	</a>
-																	<div class="dropdown-menu dropdown-menu-end">
-																		<a href="javascript:;"
-																			class="dropdown-item delete-record text">수정</a> <a
-																			href="javascript:;"
-																			class="dropdown-item delete-record text-danger">삭제</a>
-																	</div>
-																</div>
+																
 															</div>
 														</div>
 														<div class="accordion-body"
@@ -650,9 +654,9 @@
 															</a>
 															<div class="dropdown-menu dropdown-menu-end">
 																<a href="javascript:;"
-																	class="dropdown-item delete-record text">수정</a> <a
+																	class="dropdown-item delete-record-event text">수정</a> <a
 																	href="javascript:;"
-																	class="dropdown-item delete-record text-danger">삭제</a>
+																	class="dropdown-item delete-record-event text-danger">삭제</a>
 															</div>
 														</div>
 													</div>
@@ -693,9 +697,9 @@
 															</a>
 															<div class="dropdown-menu dropdown-menu-end">
 																<a href="javascript:;"
-																	class="dropdown-item delete-record text">수정</a> <a
+																	class="dropdown-item delete-record-event text">수정</a> <a
 																	href="javascript:;"
-																	class="dropdown-item delete-record text-danger">삭제</a>
+																	class="dropdown-item delete-record-event text-danger">삭제</a>
 															</div>
 														</div>
 													</div>
@@ -734,9 +738,9 @@
 															</a>
 															<div class="dropdown-menu dropdown-menu-end">
 																<a href="javascript:;"
-																	class="dropdown-item delete-record text">수정</a> <a
+																	class="dropdown-item delete-record-event text">수정</a> <a
 																	href="javascript:;"
-																	class="dropdown-item delete-record text-danger">삭제</a>
+																	class="dropdown-item delete-record-event text-danger">삭제</a>
 															</div>
 														</div>
 													</div>
@@ -775,9 +779,9 @@
 															</a>
 															<div class="dropdown-menu dropdown-menu-end">
 																<a href="javascript:;"
-																	class="dropdown-item delete-record text">수정</a> <a
+																	class="dropdown-item delete-record-event text">수정</a> <a
 																	href="javascript:;"
-																	class="dropdown-item delete-record text-danger">삭제</a>
+																	class="dropdown-item delete-record-event text-danger">삭제</a>
 															</div>
 														</div>
 													</div>
@@ -814,9 +818,9 @@
 															</a>
 															<div class="dropdown-menu dropdown-menu-end">
 																<a href="javascript:;"
-																	class="dropdown-item delete-record text">수정</a> <a
+																	class="dropdown-item delete-record-event text">수정</a> <a
 																	href="javascript:;"
-																	class="dropdown-item delete-record text-danger">삭제</a>
+																	class="dropdown-item delete-record-event text-danger">삭제</a>
 															</div>
 														</div>
 													</div>
@@ -850,9 +854,9 @@
 															</a>
 															<div class="dropdown-menu dropdown-menu-end">
 																<a href="javascript:;"
-																	class="dropdown-item delete-record text">수정</a> <a
+																	class="dropdown-item delete-record-event text">수정</a> <a
 																	href="javascript:;"
-																	class="dropdown-item delete-record text-danger">삭제</a>
+																	class="dropdown-item delete-record-event text-danger">삭제</a>
 															</div>
 														</div>
 													</div>
@@ -986,85 +990,12 @@
 					</div>
 				</div>
 			</div>
-			<!-- 공지사항  수정용  -->
-			<div class="modal fade" id="noticeupdate" tabindex="-1"
-				style="display: none;" aria-hidden="true">
-				<div class="modal-dialog modal-dialog-centered" role="document">
-					<div class="modal-content">
-						<div class="body-main">
 
-							<form name="noticeFormupdate" method="post"
-								enctype="multipart/form-data">
-								<table class="table table-border border-top2 table-form">
-									<tbody>
-										<tr>
-											<td>제&nbsp;&nbsp;&nbsp;&nbsp;목</td>
-											<td><input type="text" name="nsubject" maxlength="100"
-												class="form-control" value="${vo.nsubject }"></td>
-										</tr>
-
-										<tr>
-											<td>공지여부</td>
-											<td><input type="checkbox" name="notice" id="notice"
-												class="form-check-input" value="1"> <label
-												for="notice" class="form-check-label">공지</label></td>
-										</tr>
-
-										<tr>
-											<td>출력여부</td>
-											<td><input type="checkbox" name="showNotice"
-												id="showNotice" class="form-check-input" value="1"
-												checked=""> <label for="showNotice"
-												class="form-check-label">표시</label></td>
-										</tr>
-
-										<tr>
-											<td>작성자</td>
-											<td>
-												<p class="form-control-plaintext">관리자</p>
-											</td>
-										</tr>
-
-										<tr>
-											<td valign="top">내&nbsp;&nbsp;&nbsp;&nbsp;용</td>
-											<td valign="top"><textarea name="ncontent" id="ir1"
-													class="form-control" style="max-width: 97%; height: 290px;">${vo.ncontent }</textarea></td>
-										</tr>
-
-										<tr>
-											<td>첨&nbsp;&nbsp;&nbsp;&nbsp;부</td>
-											<td><input type="file" name="selectFile"
-												class="form-control" multiple=""></td>
-										</tr>
-
-
-									</tbody>
-								</table>
-
-								<table class="table">
-									<tbody>
-										<tr>
-											<td align="center">
-												<button type="button" class="btn btn-dark notice">등록하기</button>
-												<button type="reset" class="btn">다시입력</button>
-												<button type="button" class="btn"
-													onclick="location.href='/pet/admin/csManage/';">등록취소</button>
-
-											</td>
-										</tr>
-									</tbody>
-								</table>
-							</form>
-
-						</div>
-					</div>
-				</div>
-			</div>
 			<div class="modal fade" id="faq" tabindex="-1" style="display: none;"
 				aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content">
-						<div class="body-main">
+						<div class="body-main-faq">
 
 							<form name="faqForm" method="post">
 								<table class="table table-border border-top2 table-form">
@@ -1123,6 +1054,70 @@
 					</div>
 				</div>
 			</div>
+			<!--  수정용 모달  -->
+			<div class="modal fade" id="faqupdate" tabindex="-1" style="display: none;"
+				aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="body-main-faq">
+
+							<form name="faqFormupdate" method="post">
+								<table class="table table-border border-top2 table-form">
+									<tbody>
+										<tr>
+											<td>카테고리</td>
+											<td><select name="fcategorynum" class="form-select">
+
+													<option value="1">회원</option>
+
+													<option value="2">결제</option>
+
+													<option value="3">배송</option>
+
+													<option value="4">기타</option>
+
+											</select></td>
+										</tr>
+
+										<tr>
+											<td>제&nbsp;&nbsp;&nbsp;&nbsp;목</td>
+											<td><input type="text" name="fsubjectupdate" maxlength="100"
+												class="form-control" value=""></td>
+										</tr>
+
+										<tr>
+											<td>작성자</td>
+											<td>관리자</td>
+										</tr>
+
+										<tr>
+											<td valign="top">내&nbsp;&nbsp;&nbsp;&nbsp;용</td>
+											<td valign="top"><textarea name="fcontentupdate"
+													class="form-control"></textarea></td>
+										</tr>
+									</tbody>
+								</table>
+
+								<table class="table">
+									<tbody>
+										<tr>
+											<td align="center">
+												<button type="button" class="btn btn-dark faqupdate" data-updatefnumfinal="">수정하기</button>
+												<button type="reset" class="btn">다시입력</button>
+												<button type="button" class="btn"
+													onclick="location.href='/pet/admin/csManage/';">수정취소</button>
+
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</form>
+
+
+						</div>
+					</div>
+				</div>
+			</div>
 
 			<div class="modal fade" id="qna" tabindex="-1" style="display: none;"
 				aria-hidden="true">
@@ -1157,6 +1152,52 @@
 												<button type="reset" class="btn">다시입력</button>
 												<button type="button" class="btn"
 													onclick="location.href='/pet/admin/csManage/';">등록취소</button>
+
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</form>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="modal fade" id="qnaupdate" tabindex="-1" style="display: none;"
+				aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="body-main">
+							<form name="qnaFormupdate" method="post" enctype="multipart/form-data">
+								<input type="text" name="qnum" id="qnumupdate" value=""
+									style="display: none;" />
+								<table class="table table-border border-top2 table-form">
+									<tbody>
+										<tr>
+											<td>작성자</td>
+											<td>
+												<p class="form-control-plaintext">관리자</p>
+											</td>
+										</tr>
+
+										<tr>
+											<td valign="top">내&nbsp;&nbsp;&nbsp;&nbsp;용</td>
+											<td valign="top"><textarea name="answerupdate" id="ir1" 
+													class="form-control" style="max-width: 97%; height: 290px;"></textarea></td>
+										</tr>
+									</tbody>
+								</table>
+
+								<table class="table">
+									<tbody>
+										<tr>
+											<td align="center">
+												<button  type="button" class="btn btn-dark qnaupdateupdate"
+												data-qnumfinal=>수정하기</button>
+												<button type="reset" class="btn">다시입력</button>
+												<button type="button" class="btn"
+													onclick="location.href='/pet/admin/csManage/';">수정취소</button>
 
 											</td>
 										</tr>
@@ -1339,6 +1380,7 @@ $(function () {
             }
 
             $('#notice').modal('hide');
+            location.reload();
         };
         ajaxFun(url, 'post', formData, 'json', fn, true);
     });
@@ -1354,14 +1396,14 @@ $(function(){
 		str = f.fsubject.value.trim();
 		if(!str) {
 			alert('제목을 입력해주세요. ');
-			f.iconName.focus();
+			f.fsubject.focus();
 			return false;
 		}
 
 		str = f.fcontent.value.trim();
 	    if(!str) {
 	        alert('내용을 입력하세요. ');
-	        f.iconPrice.focus();
+	        f.fcontent.focus();
 	        return;
 	    }
 	    
@@ -1373,11 +1415,53 @@ $(function(){
 		const fn = function(data){
 			let state = data.state;
 			if(state=="false"){
-				alert("공지사항 등록에 실패했습니다.");
+				alert("FAQ 등록에 실패했습니다.");
 				return false;
 			}
 			
 			$('#faq').modal('hide');
+			location.reload();
+		};
+		ajaxFun(url,'post',formData, 'json', fn,true);
+		
+	});
+	
+});
+
+$(function(){
+	$('.containercs').on('click','.faqupdate', function(){
+		
+		const f  = document.faqFormupdate;
+		
+		let str;
+		
+		str = f.fsubjectupdate.value.trim();
+		if(!str) {
+			alert('제목을 입력해주세요. ');
+			f.fsubjectupdate.focus();
+			return false;
+		}
+
+		str = f.fcontentupdate.value.trim();
+	    if(!str) {
+	        alert('내용을 입력하세요. ');
+	        f.fcontentupdate.focus();
+	        return;
+	    }
+	    
+	    let fnum = $(this).data('updatefnumfinal');
+	    let url = "${pageContext.request.contextPath}/admin/csManage/updatefaq?fnum=" + fnum;
+		
+		let formData = new FormData(f);
+		const fn = function(data){
+			let state = data.state;
+			if(state=="false"){
+				alert("FAQ 수정에 실패했습니다.");
+				return false;
+			}
+			
+			$('#faqupdate').modal('hide');
+			location.reload();
 		};
 		ajaxFun(url,'post',formData, 'json', fn,true);
 		
@@ -1407,7 +1491,7 @@ $(function(){
 		str = f.answer.value.trim();
 		if(!str) {
 			alert('답변을 입력해주세요. ');
-			f.iconName.focus();
+			f.answer.focus();
 			return false;
 		}
 	    
@@ -1419,11 +1503,48 @@ $(function(){
 		const fn = function(data){
 			let state = data.state;
 			if(state=="false"){
-				alert("공지사항 등록에 실패했습니다.");
+				alert("답변 등록에 실패했습니다.");
 				return false;
 			}
 			
 			$('#qna').modal('hide');
+			location.reload();
+		};
+		ajaxFun(url,'post',formData, 'json', fn,true);
+		
+	});
+	
+});
+
+
+$(function(){
+			
+	$('.containercs').on('click','.qnaupdateupdate', function(){
+		const f  = document.qnaFormupdate;
+		alert('hello');
+		let str;
+		
+		str = f.answerupdate.value.trim();
+		if(!str) {
+			alert('답변을 입력해주세요. ');
+			f.answerupdate.focus();
+			return false;
+		}
+	    
+		let qnum = $(this).data('qnumfinal');
+	    let url = "${pageContext.request.contextPath}/admin/csManage/updateqnaupdate";
+		
+		let formData = new FormData(f);
+		
+		const fn = function(data){
+			let state = data.state;
+			if(state=="false"){
+				console.log(qnum);
+				alert("답변 수정에 실패했습니다.");
+				return false;
+			}
+			
+			$('#qnaupdate').modal('hide');
 			location.reload();
 		};
 		ajaxFun(url,'post',formData, 'json', fn,true);
@@ -1440,28 +1561,96 @@ $(document).ready(function() {
     	 console.log("nnum: ", nnum);
         var confirmation = confirm("공지사항을 삭제하시겠습니까?");
         if (confirmation) {
-        	
+        	const fn = function(data){
+        	}
+        		let url = "${pageContext.request.contextPath}/admin/csManage/deletenotice"
+        		let query = "nnum="+nnum;
+        		ajaxFun(url,"post",query,"json",fn);
+        		location.reload();
         }else{
-        	
+        	return;
         }
     });
 });
 
 
-function updatenotice(nnum){
+$(document).ready(function() {
 	
-	let url = "${pageContext.request.contextPath}/admin/csManage/updatenotice";
-	let query="nnum="+nnum;
-	const fn = function(data){
-		return;
-	};
-	$('#notice').modal('hide');
-	location.reload();
-	
-	ajaxFun(url,"post",query,"json",fn);
-}
 
+    $('.delete-record-faq').on('click', function() {
+    	var fnum = $(this).attr('data-fnumdelete');
+    	 console.log("fnum: ", fnum);
+        var confirmation = confirm("FAQ를 삭제하시겠습니까?");
+        if (confirmation) {
+        	const fn = function(data){
+        	}
+        		let url = "${pageContext.request.contextPath}/admin/csManage/deletefaq"
+        		let query = "fnum="+fnum;
+        		ajaxFun(url,"post",query,"json",fn);
+        		location.reload();
+        }else{
+        	return;
+        }
+    });
+});
 
+$(document).ready(function () {
 
+    $('#faqupdate').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget); 
+        var fnum = button.data('fnumupdate'); 
+		console.log(fnum);
+        var modal = $(this);
+        var form = modal.find('form[name="faqFormupdate"]');
+        var fsubjectField = form.find('input[name="fsubjectupdate"]');
+        var fcontentField = form.find('textarea[name="fcontentupdate"]');
+        var updateButton = form.find('.faqupdate');
+		
+        var url = "${pageContext.request.contextPath}/admin/csManage/findfaq?fnum=" + fnum;
+
+        $.ajax({
+            type: 'GET',
+            url: url,
+            dataType: 'json',
+            success: function (data) {
+
+                fsubjectField.val('(수정)'+data.fsubject);
+                fcontentField.val(data.fcontent);
+                updateButton.data('updatefnumfinal', fnum);
+            },
+            error: function () {
+                console.error('데이터를 불러 오는데 실패했습니다.');
+            }
+        });
+    });
+});
+
+$(document).ready(function () {
+    $('#qnaupdate').on('show.bs.modal', function (event) {
+        var qbutton = $(event.relatedTarget); 
+        var qnum = qbutton.data('qnum');  
+        console.log(qnum);
+        var modal = $(this);
+        var form = modal.find('form[name="qnaFormupdate"]');
+        var qcontentField = form.find('textarea[name="answerupdate"]');
+        var qnumInput = form.find('input[name="qnum"]'); // 추가된 부분
+
+        var url = "${pageContext.request.contextPath}/admin/csManage/findqna?qnum=" + qnum;
+
+        $.ajax({
+            type: 'GET',
+            url: url,
+            dataType: 'json',
+            success: function (data) {
+                qcontentField.val(data.answer);
+                qnumInput.val(qnum); // 수정된 부분
+                console.log(qnum);
+            },
+            error: function () {
+                console.error('데이터를 불러 오는데 실패했습니다.');
+            }
+        });
+    });
+});
 
 </script>

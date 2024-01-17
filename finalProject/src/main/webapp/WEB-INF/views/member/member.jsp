@@ -92,7 +92,7 @@ function memberOk() {
 		return;
 	}
 	
-
+	str=f.userPwd.value;
 	if( str !== f.userPwd2.value ) {
         alert("패스워드가 일치하지 않습니다. ");
         f.userPwd.focus();

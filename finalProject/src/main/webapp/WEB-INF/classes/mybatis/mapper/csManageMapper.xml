@@ -77,11 +77,21 @@
 		#{fsubject}, #{fcontent},
 		SYSDATE)
 	</insert>
+	
+	<update id="updateFaq">
+		UPDATE faq set categorynum=#{fcategorynum}, userId=#{userId}, subject=#{fsubjectupdate},
+		content=#{fcontentupdate} where num=#{fnum}
+	</update>
 
 	<update id="updateQna"
 		parameterType="com.fp.pet.admin.domain.CsBoard">
 		UPDATE productqna set answer=#{answer},
 		answerId=#{answerId}, answer_date=SYSDATE WHERE num=#{qnum}
+	</update>
+	
+	<update id="updateQnaupdate" parameterType="com.fp.pet.admin.domain.CsBoard">
+		UPDATE productqna set answer=#{answerupdate}
+		 WHERE num=#{qnum}
 	</update>
 
 	<select id="findnoticebynum" parameterType="Integer"
@@ -89,6 +99,32 @@
 		select num,memberIdx,notice,subject,content, reg_date,
 		hitCount,shownotice
 		from notice where num=#{nnum}
+	</select>
+	
+	
+	
+	<select id="findnoticefile" parameterType="Integer" resultType="com.fp.pet.admin.domain.CsBoard">
+	select * from noticefile where num=#{nnum}
+	</select>
+	
+	<delete id="deletenoticeFile" parameterType="Integer">
+	 delete from noticefile where num=#{nnum}
+	</delete>
+	
+	<delete id="deletenotice" parameterType="Integer">
+	 delete from notice where num=#{nnum}
+	</delete>
+	
+	<delete id="deletefaq" parameterType="Integer">
+	 delete from faq where num=#{fnum}
+	</delete>
+	
+	<select id="findfaq" parameterType="Integer" resultType="com.fp.pet.admin.domain.CsBoard">
+		select subject as fsubject, content as fcontent from faq where num=#{fnum}
+	</select>
+	
+	<select id="findqna" parameterType="Integer" resultType="com.fp.pet.admin.domain.CsBoard">
+		 select answer from productqna where num=#{qnum}
 	</select>
 
 </mapper>

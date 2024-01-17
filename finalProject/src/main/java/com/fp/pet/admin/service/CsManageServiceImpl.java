@@ -116,6 +116,16 @@ public class CsManageServiceImpl implements CsManageService {
 	}
 
 	@Override
+	public void updateFaq(CsBoard dto) throws Exception {
+		try {
+			mapper.updateFaq(dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	@Override
 	public void updateQna(CsBoard dto) throws Exception {
 
 		try {
@@ -126,6 +136,16 @@ public class CsManageServiceImpl implements CsManageService {
 		}
 
 	}
+	
+	@Override
+	public void updateQnaupdate(CsBoard dto) throws Exception {
+		try {
+			mapper.updateQnaupdate(dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
 
 	@Override
 	public CsBoard findnoticebynum(int nnum) {
@@ -135,8 +155,66 @@ public class CsManageServiceImpl implements CsManageService {
 			dto = mapper.findnoticebynum(nnum);
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw e;
 		}
 		return dto;
 	}
+
+	@Override
+	public void deletenotice(int nnum) {
+		List<CsBoard> list= null;
+		
+		try {
+			list= mapper.findnoticefile(nnum);
+			if(list != null) {
+				mapper.deletenoticeFile(nnum);
+			} else {
+			}
+			mapper.deletenotice(nnum);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+			
+	}
+
+	@Override
+	public void deletefaq(int fnum) {
+		
+		try {
+			mapper.deletefaq(fnum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public CsBoard findfaq(int fnum) {
+		CsBoard dto = null;
+		
+		try {
+			dto=mapper.findfaq(fnum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dto;
+	}
+
+	@Override
+	public CsBoard findqna(int qnum) {
+		CsBoard dto = null;
+		
+		try {
+			dto = mapper.findqna(qnum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
+	}
+
+	
+
 
 }

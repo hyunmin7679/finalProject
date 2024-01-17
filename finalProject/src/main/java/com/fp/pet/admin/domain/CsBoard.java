@@ -11,6 +11,9 @@ public class CsBoard {
 	private String fsubject;
 	private String fcontent;
 	private String freg_date;
+	private String fsubjectupdate;
+	private String fcontentupdate;
+	
 	
 	private int nnum;
 	private String nsubject;
@@ -39,7 +42,26 @@ public class CsBoard {
 	private String q_subject;
 	private String productname;
 	private List<MultipartFile> selectFile;
+	private String answerupdate;
 	
+	public String getAnswerupdate() {
+		return answerupdate;
+	}
+	public void setAnswerupdate(String answerupdate) {
+		this.answerupdate = answerupdate;
+	}
+	public String getFsubjectupdate() {
+		return fsubjectupdate;
+	}
+	public void setFsubjectupdate(String fsubjectupdate) {
+		this.fsubjectupdate = fsubjectupdate;
+	}
+	public String getFcontentupdate() {
+		return fcontentupdate;
+	}
+	public void setFcontentupdate(String fcontentupdate) {
+		this.fcontentupdate = fcontentupdate;
+	}
 
 	public String getProductname() {
 		return productname;

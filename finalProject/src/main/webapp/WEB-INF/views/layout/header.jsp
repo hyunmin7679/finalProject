@@ -93,7 +93,7 @@ $(function(){
                <c:choose>
                   <c:when test="${empty sessionScope.member}">
                      <div class="hicon align-bottom pt-5">
-                        <a href="javascript:dialogLogin();" title="로그인"><i class="bi bi-lock p-2"></i></a>
+                        <a href="${pageContext.request.contextPath}/member/login" title="로그인"><i class="bi bi-lock p-2"></i></a>
                         <a href="${pageContext.request.contextPath}/member/member" title="회원가입"><i class="bi bi-person-plus p-2"></i></a>
                      </div>
                   </c:when>

@@ -8,6 +8,8 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -126,6 +128,26 @@ public class CsManageController {
 		
 		return "redirect:/admin/csManage";
 	}
+	@RequestMapping(value="updatefaq")
+	@ResponseBody
+	public String updatefaq( HttpSession session,@RequestParam int fnum,
+			CsBoard dto) {
+		
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
+		String userId= info.getUserId();
+		
+		dto.setUserId(userId);
+		dto.setFnum(fnum);
+		
+		
+		try {
+			service.updateFaq(dto);
+		} catch (Exception e) {
+		}
+		
+		
+		return "redirect:/admin/csManage";
+	}
 	
 	@RequestMapping(value="updateqna")
 	@ResponseBody
@@ -146,5 +168,86 @@ public class CsManageController {
 		
 		return "redirect:/admin/csManage";
 	}
+	
+	@RequestMapping(value="updateqnaupdate")
+	@ResponseBody
+	public String updateqnaupdate(
+			CsBoard dto) {
+		
+		
+		try {
+			
+			service.updateQnaupdate(dto);
+		} catch (Exception e) {
+		}
+		
+		
+		return "redirect:/admin/csManage";
+	}
+
+	
+	@RequestMapping(value="deletenotice")
+	@ResponseBody
+	public String noticedelete( HttpSession session, @RequestParam int nnum,
+			CsBoard dto) {
+		
+		
+		try {
+			service.deletenotice(nnum);
+		} catch (Exception e) {
+		}
+		
+		
+		return "redirect:/admin/csManage";
+	}
+	
+	@RequestMapping(value="deletefaq")
+	@ResponseBody
+	public String faqdelete( HttpSession session, @RequestParam int fnum,
+			CsBoard dto) {
+		
+		
+		try {
+			service.deletefaq(fnum);
+		} catch (Exception e) {
+		}
+		
+		
+		return "redirect:/admin/csManage";
+	}
+	
+	@RequestMapping(value="findfaq")
+	@ResponseBody
+	public ResponseEntity<CsBoard> findfaq(@RequestParam int fnum) {
+        CsBoard dto = new CsBoard();  // Assuming CsBoard is the class for your FAQ data
+
+        try {
+            // Assuming your service method returns a CsBoard object
+            dto = service.findfaq(fnum);
+        } catch (Exception e) {
+            // Handle exceptions if necessary
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        // Return the CsBoard object as JSON
+        return new ResponseEntity<>(dto, HttpStatus.OK);
+    }
+	
+	@RequestMapping(value="findqna")
+	@ResponseBody
+	public ResponseEntity<CsBoard> findqna(@RequestParam int qnum) {
+        CsBoard dto = new CsBoard();  // Assuming CsBoard is the class for your FAQ data
+
+        try {
+            // Assuming your service method returns a CsBoard object
+            dto = service.findqna(qnum);
+        } catch (Exception e) {
+            // Handle exceptions if necessary
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        // Return the CsBoard object as JSON
+        return new ResponseEntity<>(dto, HttpStatus.OK);
+    }
 
 }

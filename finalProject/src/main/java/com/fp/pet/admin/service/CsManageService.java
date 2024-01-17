@@ -17,7 +17,14 @@ public interface CsManageService {
 	public void insertNotice(CsBoard dto) throws Exception;
 	public void insertNoticeFile(CsBoard dto, String path) throws Exception;
 	public void insertFaq(CsBoard dto) throws Exception;
+	public void updateFaq(CsBoard dto) throws Exception;
 	public void updateQna(CsBoard dto) throws Exception;
+	public void updateQnaupdate(CsBoard dto) throws Exception;
+	
+	public void deletenotice(int nnum);
+	public void deletefaq(int fnum);
+	public CsBoard findfaq(int fnum);
+	public CsBoard findqna(int qnum);
 	
 	public CsBoard findnoticebynum(int nnum);
 	
