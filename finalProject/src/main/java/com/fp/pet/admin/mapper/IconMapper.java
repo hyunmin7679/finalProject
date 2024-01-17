@@ -10,9 +10,14 @@ import com.fp.pet.admin.domain.Icon;
 
 @Mapper
 public interface IconMapper {
-   public void insertIcon(Icon dto) throws SQLException;
-   public int dataCount(Map<String,Object> map) throws Exception;
-   public List<Icon> listIcon(Map<String,Object>map);
-   public void deleteIcon(long iconNum) throws SQLException; 
+	public void insertIcon(Icon dto) throws SQLException;
+
+	public int dataCount(Map<String, Object> map) throws Exception;
+
+	public List<Icon> listIcon(Map<String, Object> map);
+
+	public void deleteIcon(long iconNum) throws SQLException;
+
+	public void updateIcon(Icon dto) throws SQLException;
 
 }

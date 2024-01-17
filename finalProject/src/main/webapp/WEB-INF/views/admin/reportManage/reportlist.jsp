@@ -49,43 +49,40 @@
 							</tr>
 						</thead>
 						<tbody>
-						<c:forEach var="dto" items="${list}" varStatus="status">
-							<tr class="odd">
-								<td class="  control" tabindex="0" style="display: none;"></td>
+							<c:forEach var="dto" items="${list}" varStatus="status">
+								<tr class="odd">
+									<td class="  control" tabindex="0" style="display: none;"></td>
 
-								<td><div class="text-body">${dto.preg_date }</div></td>
-								<td><div class="text-body">${dto.postName }</div></td>
-								<td>
-        						
-								<div class="text-body article" 
-								data-communityNum = "${dto.communityNum }"
-								data-categoryNum ="${dto.categoryNum}">
-									${dto.subject }
-								</div>
-								
-								</td>
-								<td><div class="text-body">
-								<c:if test="${dto.showNo == 1 }">
+									<td><div class="text-body">${dto.preg_date }</div></td>
+									<td><div class="text-body">${dto.postName }</div></td>
+									<td>
+
+										<div class="text-body article"
+											data-communityNum="${dto.communityNum }"
+											data-categoryNum="${dto.categoryNum}">${dto.subject }</div>
+
+									</td>
+									<td><div class="text-body">
+											<c:if test="${dto.showNo == 1 }">
 									표시
 								</c:if>
-								<c:if test="${dto.showNo ==0 }">
+											<c:if test="${dto.showNo ==0 }">
 									숨김
 								</c:if>
-								</div></td>
-								<td><div class="text-body">
-								
-										<button type="button" style="font-size: 13px; width: 50px;"
-											class="btn btn-primary m-0 p-0 modalOn" 
-											data-bs-toggle="modal"
-											data-communityNum = "${dto.communityNum }"
-											data-showNo = "${dto.showNo}"
-											>
-											보기<i class='bx bx-right-arrow-alt'></i>
-										</button>
-									
-									</div></td>
-							</tr>
-						</c:forEach>
+										</div></td>
+									<td><div class="text-body">
+
+											<button type="button" style="font-size: 13px; width: 50px;"
+												class="btn btn-primary m-0 p-0 modalOn"
+												data-bs-toggle="modal"
+												data-communityNum="${dto.communityNum }"
+												data-showNo="${dto.showNo}">
+												보기<i class='bx bx-right-arrow-alt'></i>
+											</button>
+
+										</div></td>
+								</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 				</div>
@@ -95,9 +92,7 @@
 					<div class="col-sm-12 col-md-6"
 						style="padding-left: 500px; padding-top: 10px;">
 						<div class="dataTables_paginate paging_simple_numbers"
-							id="DataTables_Table_0_paginate">
-							${paging}
-						</div>
+							id="DataTables_Table_0_paginate">${paging}</div>
 					</div>
 				</div>
 
@@ -110,19 +105,25 @@
 
 
 <script>
-$(function() {
-    // 글 제목을 클릭할 때의 동작
-    $('.article').on('click', function() {
-        let communityNum = $(this).data("communitynum");
-        let categoryNum = $(this).data("categorynum");
+	$(function() {
+		// 글 제목을 클릭할 때의 동작
+		$('.article')
+				.on(
+						'click',
+						function() {
+							let communityNum = $(this).data("communitynum");
+							let categoryNum = $(this).data("categorynum");
 
-        // 이동할 URL 생성
-        let url = "${pageContext.request.contextPath}/bbs/main?communityNum=" + communityNum + "&categoryNum=" + categoryNum;
-        
-        // 페이지 이동
-        window.location.href = url;
-    });
-});
+							// 이동할 URL 생성
+							let url = "${pageContext.request.contextPath}/bbs/main?communityNum="
+									+ communityNum
+									+ "&categoryNum="
+									+ categoryNum;
+
+							// 페이지 이동
+							window.location.href = url;
+						});
+	});
 </script>
 
 

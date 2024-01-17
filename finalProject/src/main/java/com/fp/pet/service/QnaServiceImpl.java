@@ -122,9 +122,17 @@ public class QnaServiceImpl implements QnaService {
 	}
 	
 	@Override
-	public void deleteQna(long num) throws Exception {
+	public void deleteQna(long num, String pathname) throws Exception {
 		try {
+			List<Qna> listFile = mapper.listQnaFile(num);
+			if (listFile != null) {
+				for (Qna dto : listFile) {
+					fileManager.doFileDelete(dto.getFilename(), pathname);
+				}
+			}
+			
 			mapper.deleteQna(num);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -243,6 +251,47 @@ public class QnaServiceImpl implements QnaService {
 			e.printStackTrace();
 			throw e;
 		}
+	}
+
+// -----------------------------------------------------------------------
+	
+	@Override
+	public List<Qna> listQna2(Map<String, Object> map) {
+		List<Qna> list = null;
+		
+		try {
+			list = mapper.listQna2(map);
+			
+		for (Qna dto : list) {
+			if(dto.getFilename() != null) {
+				dto.setListFilename(dto.getFilename().split(",")); 
+			}
+			dto.setQuestion(dto.getQuestion().replaceAll("\n", "<br>"));
+			
+			if(dto.getAnswer() != null) {
+				dto.setAnswer(dto.getAnswer().replaceAll("\n", "<br>"));
+			}
+		}	
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+	@Override
+	public int dataCount3(Map<String, Object> map) {
+		int result = 0;
+		
+		try {
+			result = mapper.dataCount3(map);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 }

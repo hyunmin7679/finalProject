@@ -507,11 +507,11 @@ public class CommunityServiceImpl implements CommunityService {
 	// 내활동 
 	
 	@Override
-	public int dataCount2(Map<String, Object>map) {
+	public int dataCount2(Map<String, Object> map) {
 		int result = 0;
 		
 		try {
-			mapper.dataCount2(map);
+			result = mapper.dataCount2(map);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -547,7 +547,7 @@ public class CommunityServiceImpl implements CommunityService {
 		int result = 0;
 		
 		try {
-			mapper.likeCount2(map);
+			result = mapper.likeCount2(map);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

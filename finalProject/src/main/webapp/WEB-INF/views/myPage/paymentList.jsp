@@ -264,6 +264,23 @@ $(function(){
 		f.submit();
 	});
 });
+
+// **************************************************
+$(function(){
+	$('#tab-1').click(function(){
+
+		location.href = '${pageContext.request.contextPath}/myPage/paymentList';
+	});
+});
+
+$(function(){
+	$('#tab-2').click(function(){
+
+		location.href = '${pageContext.request.contextPath}/myPage/paymencanceltList';
+	});
+});
+// **************************************************
+
 </script>
 
 
@@ -304,11 +321,11 @@ $(function(){
 	<!-- 탭버튼 -->
 		<ul class="nav nav-tabs mt-5" id="myTab" role="tablist">
 			<li class="nav-item" role="presentation">
-				<button class="nav-link active" id="tab-1" data-bs-toggle="tab" data-bs-target="#tab-pane-1" type="button" role="tab" aria-controls="1" aria-selected="true">주문 내역</button>
+				<button class="nav-link ${mode=='order'?'active':'' } " id="tab-1" data-bs-toggle="tab" data-bs-target="#tab-pane-1" type="button" role="tab" aria-controls="1" aria-selected="${mode=='order'?'true':'false' }">주문 내역</button>
 			</li>
 
 			<li class="nav-item" role="presentation">
-				<button class="nav-link" id="tab-2" data-bs-toggle="tab" data-bs-target="#tab-pane-2" type="button" role="tab" aria-controls="3" aria-selected="false">취소/반품 내역</button>
+				<button class="nav-link ${mode=='cancel'?'active':'' }" id="tab-2" data-bs-toggle="tab" data-bs-target="#tab-pane-2" type="button" role="tab" aria-controls="2" aria-selected="${mode=='cancel'?'true':'false' }">취소/반품 내역</button>
 			</li>
 		</ul>
 		

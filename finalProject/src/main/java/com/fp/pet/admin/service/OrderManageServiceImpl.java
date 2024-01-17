@@ -297,7 +297,11 @@ public class OrderManageServiceImpl implements OrderManageService {
 	@Override
 	public void updateOrderDetailState(Map<String, Object> map) throws Exception {
 		try {
-
+			if(map.get("deliveryCharge") == null) {
+				mapper.updateOrderDetailState(map);
+				mapper.insertDetailStateInfo(map);
+			}else {
+			
 			System.out.println("일로오긴함 ? ");
 			String orderNum = (String) map.get("orderNum");
 			int detailState = Integer.parseInt((String) map.get("detailState"));
@@ -409,8 +413,8 @@ public class OrderManageServiceImpl implements OrderManageService {
 
 
 
+				}
 			}
-
 			// 상품에 걸려있는 포인트 회수해야함
 
 		} catch (Exception e) {

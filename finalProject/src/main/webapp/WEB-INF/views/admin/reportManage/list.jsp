@@ -5,13 +5,13 @@
 
 
 <style>
-        /* 초기 스타일 설정 */
-        .highlight {
-            color: blue;
-            font-weight: bold;
-            cursor: pointer;
-        }
-    </style>
+/* 초기 스타일 설정 */
+.highlight {
+	color: blue;
+	font-weight: bold;
+	cursor: pointer;
+}
+</style>
 <!-- / Navbar -->
 
 
@@ -41,7 +41,7 @@
 								data-bs-toggle="tab" data-bs-target="#navs-pills-justified-home"
 								aria-controls="navs-pills-justified-home" aria-selected="false"
 								tabindex="-1">
-								<i class="tf-icons bx bx-home me-1"></i> 신고 당한 게시물 
+								<i class="tf-icons bx bx-home me-1"></i> 신고 당한 게시물
 							</button>
 						</li>
 						<!-- 
@@ -158,12 +158,12 @@
 			<!--/ User Content -->
 		</div>
 	</div>
-</div>
+</div>S
 
 
 <!-- Modal -->
-<div class="modal fade" id="backDropModal" 
-	tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="backDropModal" tabindex="-1"
+	aria-hidden="true">
 	<div class="modal-dialog modal-xl">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -193,7 +193,7 @@
 									</thead>
 
 									<tbody style="width: auto;" id="reportList">
-										
+
 									</tbody>
 								</table>
 								<table class="table table-borderless mb-1">
@@ -203,8 +203,7 @@
 											<td class="text-end">
 												<div class="row justify-content-end delivery-update-area">
 													<div class="col-auto">
-														<button type="button"
-															class="btn btn-primary hiddenComu">게시글숨김
+														<button type="button" class="btn btn-primary hiddenComu">게시글숨김
 															/ 숨겨져있으면 표시로</button>
 													</div>
 												</div>

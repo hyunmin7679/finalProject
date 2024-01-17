@@ -8,7 +8,7 @@
             border: 1px solid lightblue;
             background-color: lightblue; 
             border-radius: 4px; 
-            margin-left: 1133px; 
+            margin-left: 1100px; 
             transition: background-color 0.3s; 
         
 }

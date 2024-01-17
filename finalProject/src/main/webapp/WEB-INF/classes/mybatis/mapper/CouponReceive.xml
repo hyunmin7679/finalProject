@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fp.pet.mapper.CouponReceiveMapper">
+
+	<select id="dataCount" parameterType="map" resultType="int">
+		SELECT count(*)
+		FROM coupon
+		WHERE couponNum NOT IN (SELECT couponNum FROM
+		memberCoupon WHERE memberIdx = #{memberIdx} ) and couponstate = 0
+
+	</select>
+
+	<select id="list" parameterType="map"
+		resultType="com.fp.pet.domain.Coupon">
+		SELECT couponNum, categoryNum,
+		couponName,couponDiscount,TO_CHAR(startCouponDate,'YYYY-MM-DD')
+		startCouponDate,
+		TO_CHAR(endCouponDate,'YYYY-MM-DD') endCouponDate
+		FROM coupon
+		WHERE couponNum NOT IN (SELECT couponNum FROM
+		memberCoupon WHERE memberIdx = #{memberIdx} ) and couponstate = 0
+	</select>
+	
+	<insert id="ReceiveCoupon" parameterType="map">
+		insert into memberCoupon(couponNum, memberIdx, use) 
+		values(#{couponNum},#{memberIdx},0)
+	</insert>
+
+
+</mapper>

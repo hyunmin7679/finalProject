@@ -80,6 +80,10 @@
 		delete from icon where
 		iconNum = #{iconNum}
 	</delete>
+	<update id="updateIcon" parameterType="com.fp.pet.admin.domain.Icon">
+		update icon set iconName = #{iconName}, iconImage=#{iconImage},
+		iconPrice=#{iconPrice}, iconCategory = #{iconCategory} where iconNum = #{iconNum}
+	</update>
 
 
 
