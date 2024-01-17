@@ -38,6 +38,11 @@
            <intercept-url pattern="/notice/**" access="permitAll"/>
            <intercept-url pattern="/qna/**" access="permitAll"/>
            
+           <intercept-url pattern="/review/list" access="permitAll"/>
+           <intercept-url pattern="/proqna/list" access="permitAll"/>
+           
+           <intercept-url pattern="/bbs/main" access="permitAll"/>
+           <intercept-url pattern="/bbs/list" access="permitAll"/>
            
            <intercept-url pattern="/resources/**" access="permitAll"/>
            <intercept-url pattern="/bootstrapTemp/**" access="permitAll"/>
