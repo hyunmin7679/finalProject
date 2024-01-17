@@ -32,6 +32,8 @@
 .md-img img { width: 150px; height: 150px; cursor: pointer; object-fit: cover; }
 .deleteReview, .deleteQuestion { cursor: pointer; padding-left: 5px; }
 .deleteReview:hover, .deleteQuestion:hover { font-weight: 500; color: #2478FF; }
+.non-data {text-align: center; margin:30px; padding-top: 20px; font-weight: bold; font-size: 16px; color: gray;}
+
 </style>
 
 <script type="text/javascript">
@@ -42,20 +44,26 @@ $(function(){
 		if(tab === "1") {
 			listReview(1);
 		} else if(tab === "2"){
-			listCommunity(1);
+			listQna(1);
 		} else if(tab === "3"){
+			listCommunity(1);
+		} else if(tab === "4"){
 			listLike(1);
 		}
 	});
 	
 	let mode = "${mode}";
-	if(mode === "community") {
+	
+	if(mode === "qna") {
+		listQna(1);
+	} else if (mode === "community") {
 		listCommunity(1);
 	} else if (mode === "like") {
 		listLike(1);
 	} else {
-		listReview(1);
+	    listReview(1);
 	}
+	
 	
 });
 
@@ -106,10 +114,13 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 					<button class="nav-link ${mode=='review'?'active':'' }" id="tab-1" data-bs-toggle="tab" data-bs-target="#tab-pane-1" type="button" role="tab" aria-controls="1" aria-selected="false"> 리뷰 </button>
 				</li>
 				<li class="nav-item" role="presentation">
-					<button class="nav-link ${mode=='community'?'active':'' }" id="tab-2" data-bs-toggle="tab" data-bs-target="#tab-pane-2" type="button" role="tab" aria-controls="2" aria-selected="false"> 커뮤니티 글 </button>
+					<button class="nav-link ${mode=='qna'?'active':'' }" id="tab-2" data-bs-toggle="tab" data-bs-target="#tab-pane-2" type="button" role="tab" aria-controls="2" aria-selected="false"> 상품문의 </button>
 				</li>
 				<li class="nav-item" role="presentation">
-					<button class="nav-link ${mode=='like'?'active':'' }" id="tab-3" data-bs-toggle="tab" data-bs-target="#tab-pane-3" type="button" role="tab" aria-controls="3" aria-selected="false"> 좋아요한 글 </button>
+					<button class="nav-link ${mode=='community'?'active':'' }" id="tab-3" data-bs-toggle="tab" data-bs-target="#tab-pane-3" type="button" role="tab" aria-controls="3" aria-selected="false"> 커뮤니티 글 </button>
+				</li>
+				<li class="nav-item" role="presentation">
+					<button class="nav-link ${mode=='like'?'active':'' }" id="tab-4" data-bs-toggle="tab" data-bs-target="#tab-pane-4" type="button" role="tab" aria-controls="4" aria-selected="false"> 좋아요한 글 </button>
 				</li>
 			</ul>
 			
@@ -122,7 +133,15 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 					<div class="mt-2 list-review"></div>
 				</div>
 				
-				<div class="tab-pane fade ${mode=='community'?'active show':'' }" id="tab-pane-2" role="tabpanel" aria-labelledby="tab-2" tabindex="0">
+				<div class="tab-pane fade ${mode=='qna'?'active show':'' }" id="tab-pane-2" role="tabpanel" aria-labelledby="tab-2" tabindex="0">
+					<div class="mt-3 pt-3 border-bottom">
+						<p class="fs-4 fw-semibold">상품문의</p> 
+					</div>
+					
+					<div class="mt-2 list-qna"></div>
+				</div>
+				
+				<div class="tab-pane fade ${mode=='community'?'active show':'' }" id="tab-pane-3" role="tabpanel" aria-labelledby="tab-3" tabindex="0">
 					<div class="mt-3 pt-3 border-bottom">
 						<p class="fs-4 fw-semibold">커뮤니티 글</p> 
 					</div>
@@ -130,7 +149,7 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 					<div class="mt-1 p-2 list-community"></div>
 				</div>
 				
-				<div class="tab-pane fade ${mode=='like'?'active show':'' }" id="tab-pane-3" role="tabpanel" aria-labelledby="tab-3" tabindex="0">
+				<div class="tab-pane fade ${mode=='like'?'active show':'' }" id="tab-pane-4" role="tabpanel" aria-labelledby="tab-4" tabindex="0">
 					<div class="mt-3 pt-3 border-bottom">
 						<p class="fs-4 fw-semibold">좋아요한 글</p> 
 					</div>
@@ -216,6 +235,8 @@ function printReview(data) {
 	}
 	if(dataCount > 0) {
 		out += '<div class="page-navigation">' + paging + '</div>';
+	} else {
+		out += '<div class="non-data">등록하신 리뷰가 없습니다.</div>';
 	}
 	
 	$('.list-review').html(out);	
@@ -243,6 +264,103 @@ $(function(){
 	});
 });
 
+//qna ---------------------------------------------------------------------------
+
+function listQna(page) {
+	let url = '${pageContext.request.contextPath}/proqna/list2';
+	let query = 'pageNo='+page;
+	
+	const fn = function(data) {
+		printQna(data);
+	};
+	ajaxFun(url, 'get', query, 'json', fn);	
+}
+
+function printQna(data) {
+	let dataCount = data.dataCount;
+	let pageNo = data.pageNo;
+	let total_page = data.total_page;
+	let size = data.size;
+	let paging = data.paging;
+	
+	let out = '';
+	for(let item of data.list) {
+		let num = item.num;
+		let userName = item.userName;
+		let question = item.question;
+		let question_date = item.question_date;
+		let answer = item.answer;
+		let answer_date = item.answer_date;
+		let answerState = answer_date ? '<span class="text-primary">답변완료</span>' : '<span class="text-secondary">답변대기</span>';
+		let listFilename = item.listFilename;
+		let productName = item.productName;
+
+		out += '<div class="mt-1 border-bottom">';
+		out += '  <div class="mt-2 p-2 fw-semibold">' + productName + '</div>';
+		out += '  <div class="p-2">' + question + '</div>';
+
+		if(listFilename && listFilename.length > 0) {
+			out += '<div class="row gx-1 mt-2 mb-1 p-1">';
+				for(let f of listFilename) {
+					out += '<div class="col-md-auto md-img">';
+					out += '  <img class="border rounded" src="${pageContext.request.contextPath}/uploads/qna/'+f+'">';
+					out += '</div>';
+				}
+			out += '</div>';
+		}
+		out += '  <div class="row p-2">';
+		out += '     <div class="col-auto pt-2 pe-0">' + answerState + '</div>';
+		// out += '     <div class="col-auto pt-2 px-0">&nbsp;|&nbsp;'+userName+'</div>';
+		out += '     <div class="col-auto pt-2 px-0">&nbsp;|&nbsp;<span>'+question_date+'</span>';
+		out += '       |<span class="deleteQuestion" data-num="'+num+'" data-page="' +pageNo+'">삭제</span></div>';	
+		out += '      </div>';
+		if(answer) {
+			out += '  <div class="col pt-2 text-end"><button class="btn btnAnswerView"> <i class="bi bi-chevron-down"></i> </button></div>';
+		}
+		out += '  </div>';
+		if(answer) {
+			out += '  <div class="p-3 pt-0 answer-content" style="display: none;">';
+			out += '    <div class="bg-light">';
+			out += '      <div class="p-3 pb-0">';
+			out += '        <label class="text-bg-primary px-2"> 관리자 </label> <label>' + answer_date + '</label>';
+			out += '      </div>';
+			out += '      <div class="p-3 pt-1">' + answer + '</div>';
+			out += '    </div>';
+			out += '  </div>';
+		}
+		out += '</div>';
+	}
+	
+	if(dataCount > 0) {
+		out += '<div class="page-navigation">' + paging + '</div>';
+	} else {
+		out += '<div class="non-data">등록하신 상품문의가 없습니다.</div>';
+	}
+
+	$('.list-qna').html(out);
+}
+
+$(function(){
+	$('.list-qna').on('click', '.deleteQuestion', function(){
+		
+		if(! confirm('상품문의를 삭제하시겠습니까 ? ')) {
+		    return false;
+		}
+		
+		let num = $(this).attr('data-num');
+		let page = $(this).attr('data-page');
+		
+		let url = '${pageContext.request.contextPath}/proqna/delete';
+		let query = 'num=' + num + '&pageNo=' + page;
+		
+		const fn = function(data) {
+
+			listQna(page);
+		};
+		
+		ajaxFun(url, 'post', query, 'json', fn);
+	});
+});
 
 //community ---------------------------------------------------------------------------
 
@@ -255,6 +373,7 @@ function listCommunity(page) {
 	};
 	ajaxFun(url, 'get', query, 'json', fn);	
 }
+
 
 function printCommunity(data) {
 	let dataCount = data.dataCount;
@@ -291,7 +410,6 @@ function printCommunity(data) {
 		}
 		out += '  <div class="row p-2">';
 		out += '     <div class="col-auto pt-2 pe-0"> 조회수: ' + hitCount + '</div>';
-		// out += '     <div class="col-auto pt-2 px-0">&nbsp;|&nbsp;'+userName+'</div>';
 		out += '     <div class="col-auto pt-2 px-0">&nbsp;|&nbsp;<span>'+reg_date+'</span>';
 		out += '        |<span class="deleteCommunity" data-communityNum="' + communityNum + '" data-page="' +pageNo+'">삭제</span>';
 		out += '      </div>';
@@ -302,13 +420,11 @@ function printCommunity(data) {
 	if(dataCount > 0) {
 		out += '<div class="page-navigation">' + paging + '</div>';
 	} else {
-		out += '<div class="page-navigation">' + dataCount+ '</div>';
-		
+		out += '<div class="non-data">등록하신 게시글이 없습니다.</div>';
 	}
 
 	$('.list-community').html(out);
 }
-
 
 $(function(){
 	$('.list-community').on('click', '.deleteCommunity', function(){
@@ -357,6 +473,7 @@ function printLike(data) {
 		let content = item.content;
 		let reg_date = item.reg_date;
 		let hitCount = item.hitCount;
+		let userId = item.userId;
 		//let answerState = answer_date ? '<span class="text-primary">답변완료</span>' : '<span class="text-secondary">답변대기</span>';
 		let listFilename = item.listFilename;
 	//	let productName = item.productName; 
@@ -386,11 +503,12 @@ function printLike(data) {
 	if(dataCount > 0) {
 		out += '<div class="page-navigation">' + paging + '</div>';
 	} else {
-		out += '<div class="page-navigation">' + dataCount+ '</div>';
-		
+		out += '<div class="non-data">좋아요 누른 게시글이 없습니다.</div>';
 	}
 
 	$('.list-like').html(out);
 }
+
+
 
 </script>

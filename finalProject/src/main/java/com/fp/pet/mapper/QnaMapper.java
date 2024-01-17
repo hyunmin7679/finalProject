@@ -31,4 +31,8 @@ public interface QnaMapper {
 	public Qna findByFileId(long fileNum);
 	public void deleteQnaFile(Map<String, Object> map);
 	public List<Qna> listQnaFile(long num);
+	
+	// 내 활동
+	public List<Qna> listQna2(Map<String, Object> map);
+	public int dataCount3(Map<String, Object> map);
 }

@@ -111,5 +111,74 @@ public class QuestionController {
 		return map;
 	}
 
+	
+// ------------------------------------------------------------	
+	@GetMapping("list2")
+	public Map<String, Object> list2(
+			@RequestParam(value = "pageNo", defaultValue = "1") int current_page,
+			HttpSession session) throws Exception {
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		
+		Map<String, Object> model = new HashMap<String, Object>();
+		
+		try {
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			int size = 10;
+			int dataCount = 0;
+			
+			map.put("memberIdx", info.getMemberIdx());
+			
+			dataCount = qnaservice.dataCount2(map);
+			int total_page = myUtil.pageCount(dataCount, size);
+			if (current_page > total_page) {
+				current_page = total_page;
+			}
 
+			int offset = (current_page - 1) * size;
+			if(offset < 0) offset = 0;
+
+			map.put("offset", offset);
+			map.put("size", size);
+
+			List<Qna> list = qnaservice.listQna2(map);
+			
+			String paging = myUtil.pagingFunc(current_page, total_page, "listQna");
+			
+			model.put("list", list);
+			model.put("dataCount", dataCount);
+			model.put("size", size);
+			model.put("pageNo", current_page);
+			model.put("paging", paging);
+			model.put("total_page", total_page);
+			
+		} catch (Exception e) {
+		}
+		
+		return model;
+	}
+
+	@PostMapping("delete")
+	public Map<String, Object> delete(@RequestParam long num,
+			@RequestParam String pageNo,
+			HttpSession session) throws Exception {
+
+		String state ="false";
+		
+		try {
+				String root = session.getServletContext().getRealPath("/");
+				String pathname = root + "uploads" + File.separator + "qna";
+				
+				qnaservice.deleteQna(num, pathname);
+				state = "true";			
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw e;
+			}
+		
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("state", state);
+		
+		return model;
+	}
 }

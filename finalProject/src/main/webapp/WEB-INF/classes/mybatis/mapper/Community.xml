@@ -325,7 +325,7 @@
 	       and fl.to_friend(+) = m2.userName
 	       and m.userName= #{userId}
 	       and m2.userName = #{userName}
-	       group by  is_friend
+	       group by is_friend
 	</select>
 	
 	<select id="findName" parameterType="map" resultType="com.fp.pet.domain.Community">
@@ -341,7 +341,7 @@
 	
 	<!-- 데이터 개수 -->
 	<select id="dataCount2" parameterType="map" resultType="Integer">
-		SELECT count(*)
+		SELECT NVL(count(*),0)
 		FROM community
 		WHERE userId = #{userId}
 	</select>
@@ -364,13 +364,13 @@
 			GROUP BY communityNum
 		) r ON r.communityNum = c.communityNum
         WHERE c.userId = #{userId}
-		ORDER BY reg_date DESC
+		ORDER BY communityNum DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select> 
 	
 	<!-- 좋아요 개수 -->
 	<select id="likeCount2" parameterType="map" resultType="Integer">
-		SELECT COUNT(*) 
+		SELECT NVL(count(*),0)
 		FROM communityLike
 		WHERE userId = #{userId}
 	</select>
@@ -388,7 +388,7 @@
 		) f ON c.communityNum = f.communityNum 
 		JOIN communityLike cl ON c.communityNum = cl.communityNum
         WHERE cl.userId = #{userId}
-		ORDER BY reg_date DESC
+		ORDER BY communityNum DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
 	

@@ -8,7 +8,8 @@ import com.fp.pet.domain.Qna;
 public interface QnaService {
 	public void insertQna(Qna dto, String pathname) throws Exception;
 	
-	public void deleteQna(long num) throws Exception;
+	public void deleteQna(long num, String pathname) throws Exception;
+	
 	
 	public int dataCount(Map<String, Object> map);
 	public List<Qna> listQna(Map<String, Object> map);
@@ -27,4 +28,8 @@ public interface QnaService {
 	public Qna findByFileId(long fileNum);
 	public void deleteQnaFile(Map<String, Object> map) throws Exception;
 	void insertQnaFile(Qna dto) throws Exception;
+	
+	// 내 활동
+	public List<Qna> listQna2(Map<String, Object> map);
+	public int dataCount3(Map<String, Object> map);
 }

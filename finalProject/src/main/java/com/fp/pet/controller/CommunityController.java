@@ -68,7 +68,7 @@ public class CommunityController {
 		SessionInfo info = (SessionInfo)session.getAttribute("member");	
 		Map<String, Object> map = new HashMap<String, Object>();
 		
-		int size = 5; // 한 화면에 보여주는 게시물 수
+		int size = 10; // 한 화면에 보여주는 게시물 수
 		int total_page = 0;
 		int dataCount = 0;
 
@@ -152,8 +152,6 @@ public class CommunityController {
 		try {
 			dto.setUserId(info.getUserId());
 			service.insertCommunity(dto, pathname);
-			
-			System.out.println(dto.getMas()+"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -397,7 +395,7 @@ public class CommunityController {
 		
 		SessionInfo info = (SessionInfo)session.getAttribute("member");
 		
-		int size = 5;
+		int size = 8;
 		int total_page = 0;
 		int dataCount = 0;
 
@@ -595,21 +593,22 @@ public class CommunityController {
 	// -----------------------------------------------------------
 	@GetMapping("list2")
 	@ResponseBody
-	public Map<String, Object> list2(@RequestParam(value = "pageNo", defaultValue = "1") int current_page,
-									 HttpSession session) throws Exception {
-		
+	public Map<String, Object> list2(
+			@RequestParam(value = "pageNo", defaultValue = "1") int current_page,
+			HttpSession session) throws Exception {
 		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		
 		Map<String, Object> model = new HashMap<String, Object>();
 		
 		try {
 			Map<String, Object> map = new HashMap<String, Object>();
 			
-			int size = 5;
+			int size = 10;
 			int dataCount = 0;
 			
 			map.put("userId", info.getUserId());
-			dataCount = service.dataCount2(map);
 			
+			dataCount = service.dataCount2(map);
 			int total_page = myUtil.pageCount(dataCount, size);
 			if (current_page > total_page) {
 				current_page = total_page;
@@ -636,26 +635,28 @@ public class CommunityController {
 		}
 		
 		return model;
+	
 	}
 	
 	// 좋아요
 	@GetMapping("likeList2")
 	@ResponseBody
-	public Map<String, Object> Likelist2(@RequestParam(value = "pageNo", defaultValue = "1") int current_page,
-									 	 HttpSession session) throws Exception {
-		
+	public Map<String, Object> likeList2(
+			@RequestParam(value = "pageNo", defaultValue = "1") int current_page,
+			HttpSession session) throws Exception {
 		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		
 		Map<String, Object> model = new HashMap<String, Object>();
 		
 		try {
 			Map<String, Object> map = new HashMap<String, Object>();
 			
-			int size = 5;
+			int size = 10;
 			int dataCount = 0;
 			
 			map.put("userId", info.getUserId());
-			dataCount = service.likeCount2(map);
 			
+			dataCount = service.likeCount2(map);
 			int total_page = myUtil.pageCount(dataCount, size);
 			if (current_page > total_page) {
 				current_page = total_page;
@@ -677,6 +678,7 @@ public class CommunityController {
 			model.put("pageNo", current_page);
 			model.put("paging", paging);
 			model.put("total_page", total_page);
+
 			
 		} catch (Exception e) {
 		}

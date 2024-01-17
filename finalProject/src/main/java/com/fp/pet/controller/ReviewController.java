@@ -68,7 +68,7 @@ public class ReviewController {
 		try {
 			Map<String, Object> map = new HashMap<String, Object>();
 			
-			int size = 5;
+			int size = 8;
 			int dataCount = 0;
 			
 			map.put("productNum", productNum);
@@ -111,10 +111,8 @@ public class ReviewController {
 			model.put("paging", paging);
 			model.put("total_page", total_page);
 			model.put("productNum", productNum);
-			//model.put("total_page", total_page);
 		
 			model.put("reportUrl", "/product/review/");
-			//System.out.println("으아아아아아" + reportUrl);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -131,7 +129,7 @@ public class ReviewController {
 		
 		try {
 			String root = session.getServletContext().getRealPath("/");
-			String pathname = root + "uploads" + File.separator + "bbs";
+			String pathname = root + "uploads" + File.separator + "review";
 			
 			service.deleteReview(num, pathname);
 			state = "true";			
@@ -161,7 +159,7 @@ public class ReviewController {
 		try {
 			Map<String, Object> map = new HashMap<String, Object>();
 			
-			int size = 5;
+			int size = 10;
 			int dataCount = 0;
 			
 			map.put("memberIdx", info.getMemberIdx());

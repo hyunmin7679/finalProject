@@ -273,7 +273,10 @@ public class QnaController {
 		
 		if (dto != null && info.getMemberIdx()==dto.getMemberIdx()||info.getMembership()>30) {
 			try {
-				service.deleteQna(num);
+				String root = session.getServletContext().getRealPath("/");
+				String pathname = root + "uploads" + File.separator + "qna";
+				
+				service.deleteQna(num, pathname);
 			} catch (Exception e) {
 			}
 		}

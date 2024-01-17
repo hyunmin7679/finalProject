@@ -188,4 +188,41 @@
 	<delete id="deleteQna" parameterType="Long">
 		DELETE FROM productQna WHERE num = #{num}
 	</delete>
+	
+	
+	
+	<!-- 내 활동 -->
+	 <select id="listQna2" parameterType="map" resultType="com.fp.pet.domain.Qna">
+		SELECT q.num, q.productNum, p.productName, thumbnail, q.memberIdx, secret, m.userName, q_subject, m2.userId answerId, m2.userName answerName,
+			   TO_CHAR(question_date, 'YYYY-MM-DD') question_date, answer_date, question, answer,
+			   filename, showQuestion
+		FROM productQna q
+		JOIN member1 m ON q.memberIdx=m.memberIdx
+		JOIN product p ON q.productNum=p.productNum
+		LEFT OUTER JOIN (
+			SELECT num, LISTAGG(filename, ',') WITHIN GROUP(ORDER BY fileNum) filename
+            FROM productQnaFile
+            GROUP BY num	
+		) f ON q.num=f.num
+		LEFT OUTER JOIN member1 m2 ON answerId = m2.userId
+		where showQuestion = 1
+        and q.productNum is not null
+		and q.q_subject like '[상품]%'
+        and q.memberIdx = #{memberIdx}
+		ORDER BY num DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<select id="dataCount3" parameterType="map" resultType="Integer">
+		select nvl(count(*),0)
+		FROM productQna q
+		JOIN member1 m ON q.memberIdx=m.memberIdx
+		JOIN product p ON q.productNum=p.productNum
+        where showQuestion = 1
+        and q.productNum is not null
+		and q.q_subject like '[상품]%'
+        and q.memberIdx = #{memberIdx}
+	</select>
+	
+	
 </mapper>
