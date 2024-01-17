@@ -399,7 +399,7 @@ h1 {
 }
 
 .wrong-entry {
-  animation: wrong-log .3s;
+  animation: wrong-log 1.5s;
 }
 
 .wrong-entry .alert {

@@ -122,6 +122,9 @@
 		JOIN productCategory pc ON p.categoryNum = pc.categoryNum
 		WHERE
 		(MOD(po1.optionNum, 2) = 1 AND po2.optionNum = po1.optionNum + 1)
+		<if test="kwd != null and kwd != ''">
+			AND INSTR(p.productName, #{kwd}) &gt; 0
+		</if>
 		<choose>
 			<when test="subsort==1">AND p.categoryNum=1</when>
 			<when test="subsort==2">AND p.categoryNum=2</when>
