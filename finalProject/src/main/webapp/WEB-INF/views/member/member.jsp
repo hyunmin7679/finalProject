@@ -79,7 +79,7 @@ function memberOk() {
 
 	str = f.userId.value;
 	if( !/^[a-z][a-z0-9_]{4,9}$/i.test(str) ) { 
-		alert("아이디를 다시 입력 하세요. ");
+		alert("아이디를 다시 입력 하세요. ");	
 		f.userId.focus();
 		return;
 	}
