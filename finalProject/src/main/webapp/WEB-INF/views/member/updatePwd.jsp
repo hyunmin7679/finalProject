@@ -206,6 +206,7 @@ bbody {
 	height: 90px;
 }
 
+
 .bfoot:after {
 	content: '';
 	width: 40px;

@@ -396,6 +396,7 @@ function userIdCheck() {
 					</div>
 				</c:if>
 
+
 				<div class="row mb-3">
 					<div class="text-center">
 						<button type="button" name="sendButton" class="btn btn-primary"

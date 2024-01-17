@@ -252,6 +252,7 @@ nav .fa.fa-angle-down {
 							title="관리자"><i class="bi bi-gear p-2"></i></a></li>
 					</c:if>
 
+
 				</c:otherwise>
 			</c:choose>
 		</ul>
