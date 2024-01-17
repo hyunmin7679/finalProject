@@ -165,7 +165,7 @@ position: relative;
 
 	<!-- Slider -->
 
-	<div class="main_slider"
+	<div class="main_slider mt-1"
 		style="background-image:url(${pageContext.request.contextPath}/resources/images/상품메인.png)">
 		<div class="container fill_height">
 			<div class="row align-items-center fill_height">
