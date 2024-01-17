@@ -37,9 +37,54 @@ public class MemberController {
 	
 	// login 폼은 GET으로 처리하고, 로그인 실패시 POST로 이 주소로 넘어오므로
 	// GET, POST 모두 요청 받도록 수정
-	@RequestMapping("login")
+	@GetMapping("login")
 	public String loginForm() {
 		return ".member.login";
+	}
+	
+	@PostMapping("login")
+	public String loginSubmit(@RequestParam String userId,
+			@RequestParam String userPwd,
+			HttpSession session,
+			Model model) {
+
+		Member dto = service.loginMember(userId);
+		if (dto == null || !userPwd.equals(dto.getUserPwd())) {
+			model.addAttribute("message", "아이디 또는 패스워드가 일치하지 않습니다.");
+			return ".member.login";
+		}
+
+		// 세션에 로그인 정보 저장
+		SessionInfo info = new SessionInfo();
+		info.setMemberIdx(dto.getMemberIdx());
+		info.setUserId(dto.getUserId());
+		info.setUserName(dto.getUserName());
+		info.setMembership(dto.getMembership());
+
+		session.setMaxInactiveInterval(30 * 60); // 세션유지시간 30분, 기본:30분
+
+		session.setAttribute("member", info);
+		// 로그인 이전 URI로 이동
+		String uri = (String) session.getAttribute("preLoginURI");
+		session.removeAttribute("preLoginURI");
+		if (uri == null) {
+			uri = "redirect:/";
+		} else {
+			uri = "redirect:" + uri;
+		}
+
+		return uri;
+	}
+	
+	@GetMapping("logout")
+	public String logout(HttpSession session) {
+		// 세션에 저장된 로그인 정보 지우기
+		session.removeAttribute("member");
+		
+		// 세션에 저장된 모든 속성을 지우고 세션을 초기화
+		session.invalidate();
+		
+		return "redirect:/";
 	}
 	
 	// GET 매핑으로 회원가입창 넘어가기
@@ -164,6 +209,13 @@ public class MemberController {
 		
 		return ".member.pwd";
 	}
+	
+	@GetMapping("noAuthorized")
+	public String noAuthorized() {
+		// 권한이 없는 유저가 접근 한 경우
+		return ".member.noAuthorized";
+	}
+	
 	
 	@PostMapping("pwd")
 	public String pwdSubmit(@RequestParam String userPwd,

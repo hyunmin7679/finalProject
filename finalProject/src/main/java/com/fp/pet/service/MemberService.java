@@ -5,6 +5,7 @@ import java.util.Map;
 import com.fp.pet.domain.Member;
 
 public interface MemberService {
+	public Member loginMember(String userId);
 
 public void insertMember(Member dto) throws Exception;
 	

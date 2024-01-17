@@ -99,7 +99,6 @@ public class ProductController {
 	@GetMapping("/buy/{productNum}")
 	public String buyRequest(@PathVariable String productNum, Model model,HttpSession session) throws Exception{
 		Map<String, Object> map = new HashMap<String, Object>();
-		SessionInfo info = (SessionInfo)session.getAttribute("member");
 		try {
 			long longNum = Long.parseLong(productNum);
 			Product dto = service.findByProduct(longNum);
@@ -110,12 +109,8 @@ public class ProductController {
 			List<Product> listOption = service.listProductOption(longNum);
 			// 상위 옵션값
 			List<Product> listOptionDetail = null;
-			String userId = info.getUserId();
-			System.out.println(userId);
-			System.out.println(longNum);
+			
 			map.put("productNum", longNum);
-			map.put("userId", userId);
-			List<Wishlist> wishlist = service.findwishlist(map);
 			if(listOption.size() > 0) {
 				listOptionDetail = service.listOptionDetail(listOption.get(0).getOptionNum());
 			}
@@ -127,7 +122,14 @@ public class ProductController {
 			model.addAttribute("listOption", listOption);
 			model.addAttribute("listOptionDetail", listOptionDetail);
 			model.addAttribute("listFile", listFile);
+			
+			SessionInfo info = (SessionInfo)session.getAttribute("member");
+			String userId = info.getUserId();
+			map.put("userId", userId);
+			List<Wishlist> wishlist = service.findwishlist(map);
+			
 			model.addAttribute("wishlist",wishlist);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
