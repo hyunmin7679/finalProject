@@ -40,7 +40,7 @@
 	
 	<!-- 포인트확인 -->
 	<select id="userPoint" parameterType="long" resultType="Integer">
-		SELECT userpoint FROM member1 WHERE memberIdx = #{memberIdx}
+		SELECT sum(p_qyt) FROM point WHERE memberIdx=#{memberIdx}
 	</select>
 	
 	<!-- 구매 시 포인트 사용 -->

@@ -130,9 +130,11 @@ function searchList() {
 						</div>
 					</form>
 				</div>
-				<div class="col text-end">
-					<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/qna/write';">질문등록</button>
-				</div>
+					<div class="col text-end">
+						<c:if test="${!empty sessionScope.member.memberIdx}">
+							<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/qna/write';">질문등록</button>
+						</c:if>
+					</div>
 			</div>
 		</div>
 	</div>
