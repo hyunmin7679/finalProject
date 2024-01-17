@@ -22,7 +22,8 @@
 				AND EXISTS (
 				SELECT 1
 				FROM orderDetail od_check
-				WHERE od_check.orderNum = po.orderNum
+				WHERE od_check.orderNum
+				= po.orderNum
 				AND od_check.detailState = 0
 				)
 			</if>
@@ -84,7 +85,8 @@
 				AND EXISTS (
 				SELECT 1
 				FROM orderDetail od_check
-				WHERE od_check.orderNum = po.orderNum
+				WHERE od_check.orderNum
+				= po.orderNum
 				AND od_check.detailState = 0
 				)
 
@@ -97,8 +99,10 @@
 
 	<select id="findById" parameterType="String"
 		resultType="com.fp.pet.admin.domain.OrderManage">
-		 SELECT po.orderNum, po.memberIdx, NVL(userName,'손님'),od.zip,od.addr1,od.addr2,od.destMemo,
-		userName, orderDate, totalMoney,
+		SELECT po.orderNum, po.memberIdx,
+		NVL(userName,'손님'),od.zip,od.addr1,od.addr2,od.destMemo,
+		userName,
+		orderDate, totalMoney,
 		usedSaved, deliveryCharge, payment,
 		cancelAmount, orderState,
 		TO_CHAR(orderStateDate, 'YYYY-MM-DD
@@ -109,8 +113,9 @@
 		FROM productOrder po
 		LEFT OUTER JOIN
 		member1 m ON po.memberIdx = m.memberIdx
-        left outer Join 
-        orderDelivery od on od.orderNum = po.ordernum
+		left outer Join
+		orderDelivery od
+		on od.orderNum = po.ordernum
 		LEFT OUTER JOIN payDetail pd ON
 		po.orderNum = pd.orderNum
 		WHERE po.orderNum = #{orderNum}
@@ -119,41 +124,43 @@
 	<select id="findByOrderDetails" parameterType="String"
 		resultType="com.fp.pet.admin.domain.OrderDetailManage">
 		SELECT
-        od.orderNum,
-        od.orderDetailNum,
-        od.qty,
-        od.price,
-        od.couponPrice,
-        od.couponNum,
-        od.salePrice,
-        od.productMoney,
-        od.savedMoney,
-        od.productCancelM,
-        op.detailNum,
-        op.optionValue,
-        od.detailNum2,
-        op2.optionValue AS optionValue2,
-        od.productNum,
-        p.productName,
-        od.detailState,
-        odm.addr1, -- 기본주소
-        odm.addr2, -- 상세주소
-        odm.recipientName,
-        odm.tel,
-        odm.zip,
-        odm.destMemo
-    FROM
-        orderDetail od
-    JOIN
-        product p ON od.productNum = p.productNum
-    JOIN
-        optionDetail op ON od.detailNum = op.detailNum
-    JOIN
-        optionDetail op2 ON od.detailNum2 = op2.detailNum
-    JOIN
-        orderDelivery odm ON od.orderNum = odm.orderNum
-    WHERE
-     od.orderNum = #{orderNum}
+		od.orderNum,
+		od.orderDetailNum,
+		od.qty,
+		od.price,
+		od.couponPrice,
+		od.couponNum,
+		od.salePrice,
+		od.productMoney,
+		od.savedMoney,
+		od.productCancelM,
+		op.detailNum,
+		op.optionValue,
+		od.detailNum2,
+		op2.optionValue AS optionValue2,
+		od.productNum,
+		p.productName,
+		od.detailState,
+		odm.addr1, -- 기본주소
+		odm.addr2, -- 상세주소
+		odm.recipientName,
+		odm.tel,
+		odm.zip,
+		odm.destMemo
+		FROM
+		orderDetail od
+		JOIN
+		product p ON od.productNum = p.productNum
+		JOIN
+		optionDetail op ON
+		od.detailNum = op.detailNum
+		JOIN
+		optionDetail op2 ON od.detailNum2 =
+		op2.detailNum
+		JOIN
+		orderDelivery odm ON od.orderNum = odm.orderNum
+		WHERE
+		od.orderNum = #{orderNum}
 	</select>
 
 	<update id="updateOrderInvoiceNumber" parameterType="map">
@@ -278,5 +285,33 @@
 		update memberCoupon set
 		use = 0 where couponNum = #{couponNum}
 	</update>
+
+	<select id="findOrder"
+		resultType="com.fp.pet.admin.domain.OrderDetailManage">
+		SELECT od.orderDetailNum,od.orderNum
+		FROM orderDetail od
+		JOIN productOrder po ON od.orderNum = po.orderNum
+		WHERE od.detailState
+		= 0
+		AND po.orderState = 5
+		AND TRUNC(SYSDATE) - TRUNC(po.orderStateDate)
+		>= 7
+	</select>
+
+	<update id="automaticOrder" parameterType="long">
+		UPDATE
+		orderDetail SET detailState = 2
+		WHERE orderDetailNum =
+		#{orderDetailNum}
+	</update>
+	<insert id="automaticOrderDetail" parameterType="long">
+		INSERT INTO
+		detailStateInfo(stateNum, orderDetailNum,
+		memberIdx,detailState,stateMemo, detailStateDate)
+		VALUES(detailState_seq.NEXTVAL, #{orderDetailNum},1,2, '시간 지남에 따라
+		자동구매확정', SYSDATE)
+	</insert>
+
+
 
 </mapper>

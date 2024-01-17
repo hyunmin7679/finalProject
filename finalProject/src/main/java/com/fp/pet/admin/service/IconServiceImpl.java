@@ -76,4 +76,20 @@ public class IconServiceImpl implements IconService{
 		
 	}
 
+	@Override
+	public void updateIcon(Icon dto, String pathname) throws Exception {
+		String saveFilename = fileManager.doFileUpload(dto.getSelectFile(), pathname);
+		if (saveFilename != null) {
+			if (dto.getIconImage() != null && dto.getIconImage().length() != 0) {
+				fileManager.doFileDelete(dto.getIconImage(), pathname);
+			}
+			dto.setIconImage(saveFilename);
+		}
+		System.out.println(dto.getIconName());
+		System.out.println(dto.getIconNum());
+		System.out.println(dto.getIconImage());
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+		mapper.updateIcon(dto);
+	}
+
 }

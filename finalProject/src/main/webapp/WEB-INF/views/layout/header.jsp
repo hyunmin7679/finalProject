@@ -184,6 +184,7 @@ $(function(){
             </a>
             <ul>
                <li><a href="${pageContext.request.contextPath}/event/main">이벤트</a></li>
+                   <li><a href="${pageContext.request.contextPath}/couponreceive/main">쿠폰</a></li>
                 </ul>
          </li>
          

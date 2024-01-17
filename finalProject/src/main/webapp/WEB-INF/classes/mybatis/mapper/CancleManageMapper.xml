@@ -145,7 +145,7 @@
 	<update id="updateOrderState" parameterType="map">
 		UPDATE
 		productOrder
-		SET orderState = 6
+		SET orderState = 6, orderStateDate = SYSDATE
 		WHERE orderNum =
 		#{orderNum}
 	</update>

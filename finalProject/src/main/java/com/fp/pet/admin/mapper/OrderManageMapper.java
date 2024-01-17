@@ -37,5 +37,9 @@ public interface OrderManageMapper {
 	public void updateUsedSaved(Map<String,Object>map) throws SQLException;
 	public void updateStock(Map<String,Object>map) throws SQLException;
 	public void updateCoupon(Map<String,Object>map)throws SQLException;
+	// public void automaticOrder();
+	public List<OrderDetailManage> findOrder();
+	public void automaticOrder(long orderDetailNum);
+	public void automaticOrderDetail(long orderDetailNum);
 
 }

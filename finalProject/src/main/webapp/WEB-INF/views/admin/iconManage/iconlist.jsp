@@ -137,7 +137,7 @@
 						} else {
 							result += '<div> 카테고리 : 기타 </div>';
 						}
-						result += '<button class="btn btn-danger updateIcon" data-num="'+ iconNum +'" data-iconImage="'+ iconImage +'" >아이콘 수정</button>'
+						result += '<button class="btn btn-danger updateIcon" data-num="'+ iconNum +'" data-iconImage="'+ iconImage +'" data-iconName="'+iconName+'" data-iconPrice="'+iconPrice+'" data-iconCategory="'+iconCategory+'">아이콘 수정</button>'
 						result += '<button class="btn btn-danger deleteIcon" data-num="'+ iconNum +'" data-iconImage="'+ iconImage +'" >아이콘 삭제</button>'
 
 						result += '<div>'

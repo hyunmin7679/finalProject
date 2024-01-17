@@ -53,12 +53,12 @@
 							enctype="multipart/form-data" class="row g-3">
 							<div class="col-12  mt-3" style="margin: auto;">
 								<input style="text-align: center;" type="text"
-									id="modalEditUserFirstName" name="iconName"
+									id="iconName" name="iconName"
 									class="form-control" placeholder="아이콘 이름">
 							</div>
 							<div class="col-12  mt-3">
 								<input style="text-align: center;" type="text"
-									id="modalEditUserName" name="iconPrice" class="form-control"
+									id="iconPrice" name="iconPrice" class="form-control"
 									placeholder="가격">
 							</div>
 							<div class="col-12 mt-3">
@@ -218,6 +218,33 @@ $(function(){
 });
 
 
+
+$(function(){
+	$('.container').on('click', '.btnUpdate', function() {
+		//  글 수정 완료
+		const f = document.iconForm;
+		
+		let url = "${pageContext.request.contextPath}/admin/iconManage/iconUpdate";
+		
+	    let formData = new FormData(f);
+	
+		const fn = function(data){
+			let state = data.state;
+	        if(state === "false") {
+	            alert("아이콘 수정 불가능");
+	            return false;
+	        }
+
+			listPage(1);
+	    	$('#editUser').modal('hide');
+		};
+		
+		ajaxFun(url, 'post', formData, 'json', fn, true);
+	});
+});
+
+
+
 $(function(){
 	$('.container').on('click', '.deleteIcon', function() {
 
@@ -241,6 +268,7 @@ $(function(){
 		ajaxFun(url, 'post', query, 'json', fn);
 	});
 });
+
 
 
 
@@ -309,28 +337,85 @@ $(function() {
 	});
 });
 
-$(function() {
-	$('#editUser').on('show.bs.modal', function (event) {
-	    // 폼 초기화
-	    $('#iconForm')[0].reset();
-	    let imgViewer = $('.img-viewer');
-	    
-	    // 스타일 변경
-	    imgViewer.css({
-	      'cursor': 'pointer',
-	      'border': '1px solid #ccc',
-	      'width': '100px',
-	      'height': '100px',
-	      'background-image': 'url(../../bootstrapTemp/assets/img/avatars/blank.png)',
-	      'position': 'relative',
-	      'z-index': '9999',
-	      'background-repeat': 'no-repeat',
-	      'background-size': 'cover'
-	    });
-	 });
-}); 
 
 
+$(function(){
+    let isUpdateIconClicked = false; // updateIcon 함수가 클릭되었는지 여부를 저장하는 변수
+
+    // updateIcon 함수가 클릭되면 실행되는 코드
+    $('.container').on('click', '.updateIcon', function() {
+        const f = document.iconForm;
+        let iconNum = $(this).attr('data-num');
+        let iconImage = $(this).attr('data-iconImage');
+        let iconName = $(this).attr('data-iconname');
+        let iconPrice = $(this).attr('data-iconPrice');
+        let iconCategory = $(this).attr('data-iconcategory');
+        
+       
+		img = "${pageContext.request.contextPath}/uploads/photo/" + iconImage;
+
+        // 이미지 뷰어 설정
+        let imgViewer = $('.img-viewer');
+        imgViewer.css({
+        	'cursor': 'pointer',
+            'border': '1px solid #ccc',
+            'width': '100px',
+            'height': '100px',
+            'background-image': 'url('+img+')',
+            'position': 'relative',
+            'z-index': '9999',
+            'background-repeat': 'no-repeat',
+            'background-size': 'cover'
+        });
+		
+        console.log(iconImage);
+        // 폼 필드 값 설정
+        f.iconName.value = iconName;
+        f.iconPrice.value = iconPrice;
+        f.iconCategory.value = iconCategory;
+        
+        
+        $('#iconForm').append('<input type="hidden" name="iconNum" value="' + iconNum + '">');
+
+
+        // updateIcon 함수가 클릭되었음을 표시
+        isUpdateIconClicked = true;
+        
+        $('.btnSendOk').removeClass('btnSendOk').addClass('btnUpdate').text('수정');
+
+
+        $('#modalCenter').modal('hide');
+        // modal 초기화 코드를 실행하지 않도록 함
+        $('#editUser').modal('show');
+    });
+
+    // 모달이 열릴 때의 초기화 코드
+    $('#editUser').on('show.bs.modal', function (event) {
+        if (!isUpdateIconClicked) { // updateIcon 함수가 클릭되지 않았을 때만 초기화 코드 실행
+            // 폼 초기화
+            $('#iconForm')[0].reset();
+            let imgViewer = $('.img-viewer');
+            
+            // 스타일 변경
+            imgViewer.css({
+                'cursor': 'pointer',
+                'border': '1px solid #ccc',
+                'width': '100px',
+                'height': '100px',
+                'background-image': 'url(../../bootstrapTemp/assets/img/avatars/blank.png)',
+                'position': 'relative',
+                'z-index': '9999',
+                'background-repeat': 'no-repeat',
+                'background-size': 'cover'
+            });
+            $('.btnUpdate').removeClass('btnUpdate').addClass('btnSendOk').text('확인');
+            $('#iconForm input[name="iconNum"]').remove();
+        }
+
+        // 초기화 이후 다시 초기화 플래그를 false로 설정
+        isUpdateIconClicked = false;
+    });
+});
 
 
 </script>

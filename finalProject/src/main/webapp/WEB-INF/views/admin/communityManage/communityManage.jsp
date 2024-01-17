@@ -55,7 +55,7 @@
 							</p>
 							<a class="btn btn-outline-primary article "
 								data-communityNum="${dto.communityNum }"
-								data-categoryNum="${dto.categoryNum}"> >게시글로이동</a>
+								data-categoryNum="${dto.categoryNum}"> 게시글로이동</a>
 						</div>
 					</div>
 				</div>
