@@ -21,6 +21,19 @@ public class MemberServiceImpl implements MemberService{
 	private BCryptPasswordEncoder bcryptEncoder;
 	
 	@Override
+	public Member loginMember(String userId) {
+		Member dto = null;
+		
+		try {
+			dto = mapper.loginMember(userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dto;
+	}
+	
+	@Override
 	public void insertMember(Member dto) throws Exception {
 		try {
 			if (dto.getEmail1().length() != 0 && dto.getEmail2().length() != 0) {
