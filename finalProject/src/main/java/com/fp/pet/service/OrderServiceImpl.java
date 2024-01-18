@@ -74,7 +74,7 @@ public class OrderServiceImpl implements OrderService{
 		try {
 			dto.setOrdersort(0);
 			Member dto1 = null;
-			if(dto.getFriendname()!=null) {
+			if(dto.getFriendname()!="") {
 				dto.setOrdersort(1);
 				dto1 = membermapper.findById(dto.getFriendname());
 				dto.setMemberIdx2(dto1.getMemberIdx());    
@@ -113,7 +113,7 @@ public class OrderServiceImpl implements OrderService{
 			if (dto.getTel1().length() != 0 && dto.getTel2().length() != 0 && dto.getTel3().length() != 0) {
 				dto.setTel(dto.getTel1() + "-" + dto.getTel2() + "-" + dto.getTel3());
 			}
-			if(dto.getFriendname()==null) {
+			if(dto.getFriendname()=="") {
 				mapper.insertOrderDelivery(dto);
 			} else {
 				mapper.insertPresent(dto);
