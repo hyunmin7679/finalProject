@@ -385,9 +385,6 @@
 		const f = document.detailStateForm;
 		f.reset();
 		
-		
-		
-
 		let orderNum = $(this).attr("data-orderNum");
 		let orderState = $(this).attr("data-orderState");
 		let orderDetailNum = $(this).attr("data-orderDetailNum");
@@ -589,19 +586,15 @@
 	    	let cancelAmount = $(this).attr('data-cancelAmount');
 	    	let usedSaved = $(this).attr('data-usedSaved');
 	    	let deliveryCharge = $(this).attr('data-deliveryCharge');
+	    	let memberIdx = $(this).attr('data-memberidx');
 	    	
-			console.log(deliveryCharge);
-	        console.log("주문번호: " + orderNum);
-            console.log("결제금액: " + payment);
-            console.log("취소금액: " + cancelAmount);
-            console.log("적립금 사용액 : " + usedSaved);
 	    	
 			if(!confirm('전체 주문 취소를 하시겠습니까 ? ')){
 				return;
 			};
 			
 			let query = 'orderNum='+orderNum+'&payment='+payment+'&cancelAmount='+cancelAmount+
-			'&usedSaved='+usedSaved+'&deliveryCharge='+deliveryCharge;
+			'&usedSaved='+usedSaved+'&deliveryCharge='+deliveryCharge+"&memberIdx="+memberIdx;
 			
 			let url = '${pageContext.request.contextPath}/admin/orderManage/cancleAllproduct';
 			

@@ -11,8 +11,6 @@ import com.fp.pet.admin.service.AllProductManageService;
 @RequestMapping("/admin/allProduct/*")
 public class AllProductManage {
 
-	@Autowired
-	private AllProductManageService service;
 	
 	// allproductManage
     @RequestMapping(value = "allproductList")

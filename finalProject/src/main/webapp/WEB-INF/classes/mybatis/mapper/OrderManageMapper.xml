@@ -217,7 +217,7 @@
 		detailState,
 		stateMemo, detailStateDate) VALUES
 		(detailState_seq.NEXTVAL,
-		#{orderDetailNum}, #{memberIdx1},
+		#{orderDetailNum}, #{memberIdx},
 		#{detailState},
 		#{stateMemo,jdbcType=VARCHAR}, SYSDATE)
 	</insert>

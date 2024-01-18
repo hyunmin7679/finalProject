@@ -103,9 +103,16 @@
 		WHERE memberIdx = #{memberIdx}
 	</select>
 	
+	<select id="sumPoint" parameterType="map" resultType="Integer">
+		select  sum(p_qyt) from point where memberIdx = 1 and p_sort = 1
+	</select>
+	<select id="sumPoint2" parameterType="map" resultType="Integer">
+		select  sum(p_qyt) from point where memberIdx = 1 and p_sort = 0
+	</select>
+	
 	 <!-- ________________________ 주문상세 ________________________ -->
 	 <select id="findByDetail" parameterType="map" resultType="com.fp.pet.domain.Payment">
-	 	SELECT po.orderNum, op.detailNum, p.productName, op.optionValue, detailNum2, op2.optionValue optionValue2, od.qty,  od.price,
+	 	SELECT po.orderNum, p.productNum,op.detailNum, p.productName, op.optionValue, detailNum2, op2.optionValue optionValue2, od.qty,  od.price,
 	           od.salePrice, od.couponPrice, od.productMoney,  TO_CHAR(po.orderDate, 'YYYY-MM-DD') orderDate,  po.deliveryCharge, 
 	           po.deliveryName, po.invoiceNumber, po.orderSort, pd.payMethod, p.thumbnail,
 	           de.recipientName, de.tel, de.zip, de.addr1, de.addr2, de.destMemo,
@@ -222,6 +229,93 @@
 	 <delete id="deletewishlist" parameterType="map">
 	 	DELETE FROM wishlist where userId=#{userId} and productNum=#{pnum}
 	 </delete>
+	 
+	 
+	 <select id="findById" parameterType="long" resultType="com.fp.pet.domain.Product">
+	 SELECT p.productNum, p.categoryNum, p.productShow, categoryName, 
+		    productName, price, savedMoney, 
+			discountRate, delivery, thumbnail, p.content, p.reg_date, totalStock,
+			NVL(score, 0) score, NVL(reviewCount, 0) reviewCount,
+			NVL(questionCount, 0) questionCount,
+			
+			NVL(saleCount, 0) saleCount
+		FROM product p
+		JOIN productCategory c ON p.categoryNum = c.categoryNum
+		LEFT OUTER JOIN (
+			SELECT productNum, NVL(SUM(totalStock), 0) totalStock
+			FROM productStock
+			GROUP BY productNum
+		) ps ON p.productNum = ps.productNum		
+		LEFT OUTER JOIN (
+			SELECT productNum, ROUND(AVG(score), 1) score, COUNT(*) reviewCount
+			FROM productReview
+			WHERE showReview = 1
+			GROUP BY productNum
+		) t ON p.productNum = t.productNum
+		LEFT OUTER JOIN (
+			SELECT productNum, COUNT(*) questionCount
+			FROM productQna
+			WHERE showQuestion = 1
+			GROUP BY productNum
+		) q ON p.productNum = q.productNum
+		LEFT OUTER JOIN (
+			SELECT productNum, COUNT(*) saleCount
+			FROM orderDetail
+			GROUP BY productNum
+		) pc ON p.productNum = pc.productNum
+		WHERE p.productShow = 1 AND p.productNum = #{productNum}
+	 </select>
+	 <select id="listProductOption" parameterType="Long" resultType="com.fp.pet.domain.Product">
+		SELECT optionNum, optionName, parent, productNum
+		FROM productOption
+		WHERE productNum = #{productNum}
+		ORDER BY parent NULLS FIRST, parent
+	</select>
+	
+	<select id="listOptionDetail" parameterType="Long" resultType="com.fp.pet.domain.Product">
+		SELECT detailNum, optionNum, optionValue
+		FROM optionDetail
+		WHERE optionNum = #{optionNum}
+		ORDER BY detailNum
+	</select>
 		
-
+	<select id="listOptionDetailStock" parameterType="map" resultType="com.fp.pet.domain.Product">
+        SELECT op.optionNum, op.optionName, dp.detailNum, dp.optionValue, 
+            NVL(os.optionNum, 0) optionNum2, os.optionName optionName2, 
+            NVL(ds.detailNum, 0) detailNum2, ds.optionValue optionValue2,
+		 	NVL(ps.stockNum, 0) stockNum, NVL(ps.totalStock, 0) totalStock
+		FROM (
+            SELECT productNum, optionNum, optionName, parent 
+            FROM productOption 
+            WHERE parent IS NULL
+        ) op
+		LEFT OUTER JOIN (
+            SELECT optionNum, optionName, parent
+            FROM productOption
+			WHERE parent IS NOT NULL
+        ) os ON op.optionNum = os.parent
+        JOIN optionDetail dp ON op.optionNum = dp.optionNum
+        LEFT OUTER JOIN optionDetail ds ON os.optionNum = ds.optionNum
+        LEFT OUTER JOIN productStock ps ON dp.detailNum = ps.detailNum AND ds.detailNum = ps.detailNum2
+        WHERE os.optionNum = #{optionNum2} AND dp.detailNum = #{detailNum} AND NVL(ps.totalStock, 0) &gt; 0
+        ORDER BY detailNum, detailNum2
+	</select>
+	
+	
+	
+	
+	<insert id="insertOrderChange" parameterType="map">
+	 	INSERT INTO orderChange (changeNum, orderDetailNum, reg_date, changeSort, changeState, shipCost,cancelMet,userMemo)
+       		 VALUES (change_seq.NEXTVAL, #{orderDetailNum}, SYSDATE,  #{changeSort}, 6,4000, 1,#{userMemo})
+	 </insert>
+	 
+	 <update id="updateOrderState" parameterType="map">
+	    UPDATE orderDetail SET detailState = 6, detailNum3=#{detailNum3}, detailNum4 = #{detailNum4}
+    	WHERE orderDetailNum = #{orderDetailNum}
+	 </update>
+	 
+	 <insert id="insertExchangeImg" parameterType="com.fp.pet.domain.Exchange">
+	 	insert into cancelFile(fileNum,changeNum,fileName) values (changelFile_seq.NEXTVAL, change_seq.CURRVAL,#{imageFilename})
+	 </insert>
+	
 </mapper>

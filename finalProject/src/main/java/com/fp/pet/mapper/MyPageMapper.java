@@ -6,8 +6,10 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.fp.pet.domain.Exchange;
 import com.fp.pet.domain.Order;
 import com.fp.pet.domain.Payment;
+import com.fp.pet.domain.Product;
 
 @Mapper
 public interface MyPageMapper {
@@ -60,5 +62,19 @@ public interface MyPageMapper {
 	
 	public void addwishlist(Map<String, Object>map);
 	public void deletewishlist(Map<String, Object>map);
+	public int sumPoint(Map<String, Object> map);
+	public int sumPoint2(Map<String, Object> map);
+	
+	
+	
+	public Product findById(long productNum);
+	public List<Product> listProductOption(long productNum);
+	public List<Product> listOptionDetail(long optionNum);
+	public List<Product> listOptionDetailStock(Map<String, Object> map);
+	public void insertOrderChange(Exchange dto)throws SQLException;
+	public void updateOrderState(Exchange dto)throws SQLException;
+	public void insertExchangeImg(Exchange dto)throws SQLException;
+
 }
+
 

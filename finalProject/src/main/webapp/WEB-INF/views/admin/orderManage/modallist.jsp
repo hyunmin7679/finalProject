@@ -141,10 +141,7 @@
 														data-productNum="${dto.productNum}"
 														data-detailNum="${dto.detailNum}"
 														data-detailNum2="${dto.detailNum2}"
-														data-couponNum="${dto.couponNum}"
-														
-														
-														>수정</span></td>
+														data-couponNum="${dto.couponNum}">수정</span></td>
 												<td>
 												
 													${order.orderState==0  && dto.detailState==0?"상품준비중": dto.detailStateInfo}

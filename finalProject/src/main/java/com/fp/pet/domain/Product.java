@@ -34,6 +34,7 @@ public class Product {
 	private long optionNum;
 	private String optionName;
 	private long detailNum;
+	private long detailNum2;
 	private String optionValue;
 	private String optionValue2;
 	private long noOption;
@@ -47,6 +48,14 @@ public class Product {
 	private int one_week_ago;
 	private int this_week;
 	
+	
+	
+	public long getDetailNum2() {
+		return detailNum2;
+	}
+	public void setDetailNum2(long detailNum2) {
+		this.detailNum2 = detailNum2;
+	}
 	public String getProduct_category() {
 		return product_category;
 	}

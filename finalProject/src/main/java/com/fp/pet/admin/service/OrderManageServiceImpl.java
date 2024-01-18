@@ -145,12 +145,7 @@ public class OrderManageServiceImpl implements OrderManageService {
 			int deliveryCharge = Integer.parseInt((String) map.get("deliveryCharge"));
 			int memberIdx = Integer.parseInt((String) map.get("memberIdx"));
 			
-			System.out.println(memberIdx + "memberIdxmemberIdxmemberIdxmemberIdxmemberIdx ");
-			System.out.println(orderNum+"orderNumorderNumorderNumorderNum");
-			System.out.println(usedSaved+"usedSavedusedSavedusedSaved");
-			
-			
-			
+			int totalOrderCount1 = mapper.totalOrderCount(orderNum);
 			List<OrderDetailManage> list = null;
 			List<Map<String, Object>> detaillist = null;
 
@@ -158,9 +153,10 @@ public class OrderManageServiceImpl implements OrderManageService {
 			
 			// 판매취소, 주문취소완료, 반품완료를 제외한 orderDetail 의 갯수 
 
-			// 이미 주문취소 상품이 있으면
 			if (list != null) {
 				int index = 0;
+				
+				
 				for (OrderDetailManage dto : list) {
 					
 					
@@ -177,7 +173,10 @@ public class OrderManageServiceImpl implements OrderManageService {
 
 
 						
+						 // 이미 주문취소 상품이 있으면
 						 if (++index == list.size()) {
+							 System.out.println("이미 있는상품 ==============================");
+							 /*
 				                productMoney += deliveryCharge;
 				                System.out.println("여기?");
 								map.put("productMoney", productMoney);
@@ -217,44 +216,88 @@ public class OrderManageServiceImpl implements OrderManageService {
 								map.put("totalStock",totalStock);
 								
 								mapper.updateStock(map); 
+								*/
+							 
 								
 				           }else {
-				        	   System.out.println("아니면여기?");
-								map.put("productMoney", productMoney);
-								map.put("orderDetailNum", dto.getOrderDetailNum());
-								mapper.updateProductCancleAmount(map);
-								
-								// 쿠폰 
-								long couponNum = dto.getCouponNum();
-								
-								if(couponNum != 0) {
-									map.put("couponNum",couponNum);
-									mapper.updateCoupon(map);
-								}
-								
-								int DTOsavedMoney = dto.getSavedMoney();
-								int savedMoney = -DTOsavedMoney;
-								
-								map.put("savedMoney",savedMoney);
-								mapper.updatePoint(map);
-								
-								map.put("productNum", dto.getProductNum());
-								map.put("detailNum", dto.getDetailNum());
-								map.put("detailNum2", dto.getDetailNum2());
-								Map<Integer,Object> list2 = mapper.findByStock(map); 
-								int qty = dto.getQty();
-								
-								BigDecimal stockNumBigDecimal = (BigDecimal) list2.get("STOCKNUM");
-							 	int stockNum = stockNumBigDecimal.intValue();
+				        	   
+				        		if (totalOrderCount1 <= 1) {
+				        			   productMoney += deliveryCharge;
+						                System.out.println("여기?");
+										map.put("productMoney", productMoney);
+										map.put("orderDetailNum", dto.getOrderDetailNum());
+										mapper.updateProductCancleAmount(map);
+										
+										// 쿠폰 
+										long couponNum = dto.getCouponNum();
+										
+										if(couponNum != 0) {
+											map.put("couponNum",couponNum);
+											mapper.updateCoupon(map);
+										}
+										
+										int DTOsavedMoney = dto.getSavedMoney();
+										int savedMoney = -DTOsavedMoney;
+										
+										map.put("savedMoney",savedMoney);
+										mapper.updatePoint(map);
+										
+										map.put("productNum", dto.getProductNum());
+										map.put("detailNum", dto.getDetailNum());
+										map.put("detailNum2", dto.getDetailNum2());
+										Map<Integer,Object> list2 = mapper.findByStock(map); 
+										int qty = dto.getQty();
+										
+										BigDecimal stockNumBigDecimal = (BigDecimal) list2.get("STOCKNUM");
+									 	int stockNum = stockNumBigDecimal.intValue();
 
-								BigDecimal fuck = (BigDecimal) list2.get("TOTALSTOCK");
-							 	int totalStock = fuck.intValue();
-							 	
-							 	totalStock = totalStock + qty;
-							 	map.put("stockNum",stockNum);
-								map.put("totalStock",totalStock);
-								
-								mapper.updateStock(map); 
+										BigDecimal fuck = (BigDecimal) list2.get("TOTALSTOCK");
+									 	int totalStock = fuck.intValue();
+									 	
+									 	totalStock = totalStock + qty;
+									 	map.put("stockNum",stockNum);
+										map.put("totalStock",totalStock);
+										
+										mapper.updateStock(map); 
+				        		}else {
+				        			 System.out.println("아니면여기?");
+										map.put("productMoney", productMoney);
+										map.put("orderDetailNum", dto.getOrderDetailNum());
+										mapper.updateProductCancleAmount(map);
+										
+										// 쿠폰 
+										long couponNum = dto.getCouponNum();
+										
+										if(couponNum != 0) {
+											map.put("couponNum",couponNum);
+											mapper.updateCoupon(map);
+										}
+										
+										int DTOsavedMoney = dto.getSavedMoney();
+										int savedMoney = -DTOsavedMoney;
+										
+										map.put("savedMoney",savedMoney);
+										mapper.updatePoint(map);
+										
+										map.put("productNum", dto.getProductNum());
+										map.put("detailNum", dto.getDetailNum());
+										map.put("detailNum2", dto.getDetailNum2());
+										Map<Integer,Object> list2 = mapper.findByStock(map); 
+										int qty = dto.getQty();
+										
+										BigDecimal stockNumBigDecimal = (BigDecimal) list2.get("STOCKNUM");
+									 	int stockNum = stockNumBigDecimal.intValue();
+
+										BigDecimal fuck = (BigDecimal) list2.get("TOTALSTOCK");
+									 	int totalStock = fuck.intValue();
+									 	
+									 	totalStock = totalStock + qty;
+									 	map.put("stockNum",stockNum);
+										map.put("totalStock",totalStock);
+										
+										mapper.updateStock(map); 
+				        		}
+				        	  
 				          }
 
 					}

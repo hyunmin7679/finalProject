@@ -3,8 +3,10 @@ package com.fp.pet.service;
 import java.util.List;
 import java.util.Map;
 
+import com.fp.pet.domain.Exchange;
 import com.fp.pet.domain.Order;
 import com.fp.pet.domain.Payment;
+import com.fp.pet.domain.Product;
 
 public interface MyPageService {
 	
@@ -44,5 +46,13 @@ public interface MyPageService {
 
 	public void addwishlist(Map<String, Object>map) throws Exception;
 	public void deletewishlist(Map<String, Object>map) throws Exception;
+	
+	
+	public Product findById(long productNum);
+	public List<Product> listProductOption(long productNum);
+	public List<Product> listOptionDetail(long optionNum);
+	public List<Product> listOptionDetailStock(Map<String, Object> map);
+	public void updateExchange(Exchange dto) throws Exception;
+	public void insertExchangeImg(Exchange dto, String path)throws Exception;
 }
 
