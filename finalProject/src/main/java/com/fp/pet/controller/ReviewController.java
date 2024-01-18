@@ -112,7 +112,6 @@ public class ReviewController {
 			model.put("total_page", total_page);
 			model.put("productNum", productNum);
 		
-			model.put("reportUrl", "/product/review/");
 			
 		} catch (Exception e) {
 			e.printStackTrace();

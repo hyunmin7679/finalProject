@@ -40,7 +40,8 @@
  	<!-- 포인트 사용내역 리스트 -->
 	<select id="listPoint" parameterType="map" resultType="com.fp.pet.domain.PointCoupon">
 	 	SELECT  pointNum, orderNum, memberIdx, 
-	            TO_CHAR(reg_date, 'YYYY-MM-DD') reg_date, memo, p_qyt
+	            TO_CHAR(reg_date, 'YYYY-MM-DD') reg_date, memo, p_qyt, 
+	             CASE WHEN p_qyt like '-%' THEN 0 ELSE 1 end p_sort
 		FROM point
 		WHERE memberIdx = #{memberIdx}
 		AND p_qyt != 0	
@@ -50,8 +51,8 @@
 	
 	<!-- 총 보유 포인트 -->
 	<select id="userPoint" parameterType="map" resultType="Integer">
-		SELECT NVL(userPoint, 0)
-		FROM member1
+		SELECT SUM(p_qyt)
+		FROM point
 		WHERE memberIdx = #{memberIdx}
 	</select>
 

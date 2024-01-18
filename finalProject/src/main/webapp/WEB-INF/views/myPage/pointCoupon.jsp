@@ -150,8 +150,6 @@ function printCoupon(data) {
 	let size = data.size;
 	let paging = data.paging;
 	
-	console.log(dataCount);
-	
 	let out = '';
 	
 	if(dataCount > 0) {
@@ -208,6 +206,7 @@ function listPoint(page) {
 	ajaxFun(url, 'get', query, 'json', fn);	
 }
 
+
 function printPoint(data) {
 	let dataCount = data.dataCount;
 	let pageNo = data.pageNo;
@@ -215,6 +214,7 @@ function printPoint(data) {
 	let size = data.size;
 	let paging = data.paging;
 	let userPoint = data.userPoint;
+	
 	
 	let out = '';
 	
@@ -224,9 +224,8 @@ function printPoint(data) {
 		
 	out += ' <div><table class="table">';
 	out += '	<thead> <tr class="bg-light text-center">'
-	out += ' 	<th colspan="2">번호</th>';
-	out += ' 	<th colspan="2">일자</th>';
-	out += ' 	<th width="120">구분</th>';
+	out += ' 	<th >일자</th>';
+	out += ' 	<th  colspan="2">구분</th>';
 	out += ' 	<th width="120">포인트</th>';
 	out += ' 	</tr> </thead> <tbody>';
 	
@@ -235,14 +234,21 @@ function printPoint(data) {
 		let reg_date = item.reg_date;
 		let memo = item.memo;
 		let p_qyt = item.p_qyt;
+		let p_sort = item.p_sort
+		
 		
 		out += '   <tr class="text-center" valign="middle">';
-		out += '  <td colspan="2">'+pointNum+'</td>';
-		out += '  <td colspan="2">'+reg_date+'</td>';
-		out += '  <td width="120">'+memo+'</td>';
+		if(p_sort == 0){
+			out += ' <td><img src="${pageContext.request.contextPath}/resources/images/pointAdd.png"> &nbsp;'+reg_date+'</td>';
+		} else {
+			out += '  <td><img src="${pageContext.request.contextPath}/resources/images/pointSubtract.png"> &nbsp;'+reg_date+'</td>';
+		}
+		out += '  <td colspan="2">'+memo+'</td>';
 		out += '  <td width="120">'+p_qyt+'</td>';
 		
+			
 		}
+		
 	
 		out += '  </tbody></table></div>';
 	}
