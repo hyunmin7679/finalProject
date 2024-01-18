@@ -650,8 +650,8 @@ $(function(){
    <div class="body-container">   
       <div class="body-main">
          <div class="row mt-4">
-            <div class="col-md-6 border border-end-0 pt-2">
-               <div class="row gx-1 border rounded">
+            <div class="col-md-6 border-end-0 pt-2">
+               <div class="row gx-1 rounded">
                   <div class="col lg-img">
                      <img class="w-100 h-100" src="${pageContext.request.contextPath}/uploads/product/${dto.thumbnail}">
                   </div>
@@ -659,13 +659,13 @@ $(function(){
                <div class="row gx-1 mt-2 p-1">
                   <c:forEach var="vo" items="${listFile}">
                      <div class="col-md-auto sm-img">
-                        <img class="border rounded" src="${pageContext.request.contextPath}/uploads/product/${vo.filename}">
+                        <img class="" src="${pageContext.request.contextPath}/uploads/product/${vo.filename}">
                      </div>
                   </c:forEach>
                </div>
             </div>
             
-            <div class="col-md-6 border">
+            <div class="col-md-6">
                <form name="buyForm">
                   <c:if test="${dto.special != 0}">
                      <div class="border rounded bg-light mt-2 p-2">

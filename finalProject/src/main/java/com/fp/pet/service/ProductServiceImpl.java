@@ -57,9 +57,15 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public Product findByProduct(long ProductNum) {
 		Product dto = null;
-		
+		int discountPrice;
 		try {
 			dto = mapper.findByProduct(ProductNum);
+				discountPrice = 0;
+				if(dto.getDiscountRate() > 0) {
+					discountPrice = (int)(dto.getPrice() * (dto.getDiscountRate()/100.0));
+				}
+				
+				dto.setSalePrice(dto.getPrice() - discountPrice);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

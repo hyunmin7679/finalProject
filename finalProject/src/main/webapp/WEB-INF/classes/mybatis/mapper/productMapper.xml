@@ -5,7 +5,7 @@
 
 	<select id="dataCount" parameterType="map" resultType="Integer">
 		SELECT NVL(COUNT(*), 0) FROM product
-		WHERE special=0 AND productShow=1 AND categoryNum = #{categoryNum}
+		WHERE productShow=1 AND categoryNum = #{categoryNum}
 	</select>
 	
 	<select id="listProduct" parameterType="map" resultType="com.fp.pet.domain.Product">
@@ -13,7 +13,7 @@
 			delivery, thumbnail
 		FROM product p
 		JOIN productCategory c ON p.categoryNum = c.categoryNum
-		WHERE special=0 AND productShow=1 AND p.categoryNum = #{categoryNum}
+		WHERE productShow=1 AND p.categoryNum = #{categoryNum}
 		ORDER BY productNum DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
