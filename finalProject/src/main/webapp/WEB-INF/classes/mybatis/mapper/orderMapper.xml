@@ -21,9 +21,9 @@
 	</insert>
 
 	<insert id="insertOrderDetail" parameterType="com.fp.pet.domain.Order">
-		INSERT INTO orderDetail(orderDetailNum, orderNum, qty, price, salePrice, 
+		INSERT INTO orderDetail(orderDetailNum, orderNum, qty, price, salePrice, couponprice,
 			detailNum, detailNum2, productNum, productMoney, savedMoney, userDelete, detailState) VALUES (orderDetail_seq.NEXTVAL,
-			#{orderNum}, #{qty}, #{price}, #{salePrice}, 
+			#{orderNum}, #{qty}, #{price}, #{salePrice}, #{dismon},
 			#{detailNum}, #{detailNum2}, #{productNum}, #{productMoney}, #{savedMoney}, 0, 0)
 	</insert>
 	

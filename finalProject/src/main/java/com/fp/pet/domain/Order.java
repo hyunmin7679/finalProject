@@ -87,6 +87,9 @@ public class Order {
 	private String friendname;
 	private int ordersort;
 	
+	private List<Integer> disMoney;
+	private int dismon;
+	
 	public long getProductNum() {
 		return productNum;
 	}
@@ -494,6 +497,18 @@ public class Order {
 	}
 	public void setMemberIdx2(long memberIdx2) {
 		this.memberIdx2 = memberIdx2;
+	}
+	public List<Integer> getDisMoney() {
+		return disMoney;
+	}
+	public void setDisMoney(List<Integer> disMoney) {
+		this.disMoney = disMoney;
+	}
+	public int getDismon() {
+		return dismon;
+	}
+	public void setDismon(int dismon) {
+		this.dismon = dismon;
 	}
 	
 	

@@ -426,12 +426,10 @@ $(function(){
 		out += "  <div class='row border-bottom mt-1 pb-2'>";
 		out += "    <div class='col'>";
 		out += "      <div class='input-group'>";
-		out += "        <i class='bi bi-dash input-group-text bg-white qty-minus'></i>";
 		out += "        <input type='text' name='buyQtys' class='form-control' value='1' style='flex:none; width: 60px; text-align: center;' readonly>";
 		out += "        <input type='hidden' name='productNums' value='"+productNum+"'>";
 		out += "        <input type='hidden' name='detailNums' value='"+detailNum+"'>";
 		out += "        <input type='hidden' name='detailNums2' value='"+detailNum2+"'>";
-		out += "        <i class='bi bi-plus input-group-text bg-white qty-plus'></i>";
 		out += "      </div>";
 		out += "    </div>";
 		out += "    <div class='col text-end product-salePrice' data-salePrice='"+salePrice+"';>";

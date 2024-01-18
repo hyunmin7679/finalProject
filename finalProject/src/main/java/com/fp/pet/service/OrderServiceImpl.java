@@ -93,6 +93,7 @@ public class OrderServiceImpl implements OrderService{
 				dto.setPrice(dto.getPrices().get(i));
 				dto.setSalePrice(dto.getSalePrices().get(i));
 				dto.setSavedMoney(dto.getSavedMoneys().get(i));
+				dto.setDismon(dto.getDisMoney().get(i));
 				if(dto.getCouponNums().get(i)==0) {
 					mapper.insertOrderDetail(dto);
 				} else {

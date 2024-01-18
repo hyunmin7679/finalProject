@@ -84,6 +84,30 @@ function sendOk() {
 
 $(function(){
 	$(".requiredOption").change(function(){
+		let $opt = $(this);
+		let num = $opt.children("option:selected").attr('data-couponNum');
+		let idx = $(".requiredOption").index($opt);
+
+		b = false;
+		if(num != '0') {
+			$('.requiredOption').each(function(){
+				let num2 = $(this).children("option:selected").attr('data-couponNum');
+				let $opt2 = $(this);
+				let idx2 = $(".requiredOption").index( $opt2);
+				if(idx != idx2 && num == num2) {
+					b = true;
+					return false;
+				}
+			});
+		}
+		
+		if( b ) {
+			alert('쿠폰은 한번만 적용 가능합니다.');
+			$opt.val("0");
+			return false;
+		}
+		
+		
 		const f = document.paymentForm;
 		let disCount = parseInt($(this).val());
 		let buyQtys = parseInt($(this).closest(".text-center").find("input[name=buyQtys]").val());
@@ -93,9 +117,8 @@ $(function(){
 		let salePrices = parseInt($(this).closest(".text-center").find("input[name=salePrices12]").val());
 		let discountPrices = parseInt($(this).closest(".text-center").find("input[name=discountPrices]").val());
 		var disMoney = parseInt($(this).closest(".text-center").find("input[name=disMoney]").val());
-		let couponNUm = parseInt($(this).closest(".text-center").find("input[name=couponNum]").val());
+		let couponNUm = $(this).children("option:selected").attr('data-couponNum');
 		let deliveryCharge =  parseInt(f.deliveryCharge.value);
-		alert(couponNUm);
 		if(discountPrices !=0){
 			discountPrices = discountPrices + salePrices / disCount;
 		} else{
@@ -199,10 +222,9 @@ $(function(){
 							<td>
 								<div>
 									<select class="form-select requiredOption" >
-										<option value="0">미적용</option>
+										<option value="0" data-couponNum="0">미적용</option>
 										<c:forEach var="vo" items="${dto.categoryNums}" varStatus="status">
-											<option value="${dto.couponDiscounts[status.index]}" data-optionNum="${dto.couponNums[status.index]}">${dto.couponNames[status.index]}  ${dto.couponDiscounts[status.index]}% 할인</option>
-											<input type="hidden" name="couponNum" value="${dto.couponNums[status.index]}">
+											<option value="${dto.couponDiscounts[status.index]}" data-couponNum="${dto.couponNums[status.index]}">${dto.couponNames[status.index]}  ${dto.couponDiscounts[status.index]}% 할인</option>
 										</c:forEach>
 									</select>
 								</div>
