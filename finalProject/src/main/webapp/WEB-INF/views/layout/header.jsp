@@ -49,7 +49,7 @@ li {
 }
 
 nav {
-	background:  #3385ff;
+	background:  #023047;
 	height: 100px;
 }
 
@@ -99,7 +99,7 @@ nav ul li ul li:first-child {
 }
 
 nav ul li ul li a {
-	background: #99c2ff;
+	background: #03547c;
 	padding: 10px 14px;
 	text-decoration: none;
 	width: 100%;
@@ -108,7 +108,7 @@ nav ul li ul li a {
 
 nav ul li ul li a:hover {
 	text-decoration: none;
-	background: #668cff;
+	background: #219ebc;
 }
 
 nav .fa.fa-angle-down {
@@ -139,8 +139,8 @@ nav .fa.fa-angle-down {
 	});
 </script>
 
-<nav>
-	<div class="container" style="margin: 0;">
+<nav style="width: 100%;">
+	<div class="container" style="margin: 0; width: auto;">
 
 		<ul>
 			<li><a class="pt-3 pb-3 ps-5 logo"
@@ -228,12 +228,11 @@ nav .fa.fa-angle-down {
 					<li><a
 						href="${pageContext.request.contextPath}/myPage/couponPoint">포인트/쿠폰</a></li>
 				</ul></li>
-			<li class='sub-menu' style="display: hidden; width: 40px;"></li>
 			<c:choose>
 				<c:when test="${empty sessionScope.member}">
-					<li><a href="${pageContext.request.contextPath}/member/login"
+					<li style="padding: 0;"><a style="padding: 0;" href="${pageContext.request.contextPath}/member/login"
 						title="로그인"><i class="bi bi-lock p-2"></i></a></li>
-					<li><a href="${pageContext.request.contextPath}/member/member"
+					<li style="padding: 0; "><a href="${pageContext.request.contextPath}/member/member" style="padding: 0;"
 						title="회원가입"><i class="bi bi-person-plus p-2"></i></a></li>
 				</c:when>
 				<c:otherwise>
@@ -242,13 +241,13 @@ nav .fa.fa-angle-down {
 						title="로그아웃"><i class="bi bi-unlock p-2"></i></a></li>
 					<li><a style="padding: 0;" href="${pageContext.request.contextPath}/myPage/cart"
 						title="장바구니"><i class="bi bi-cart"></i></a></li>
-					<li><a style="padding: 0;" href="#" title="쪽지" ><i
+					<li style="padding: 0;"><a style="padding: 0;" href="#" title="쪽지" ><i
 							class="bi bi-bell p-2"></i> <span
 							class="new-noteCount position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary"
 							style="font-size: 6px;"></span>
 					</a></li>
 					<c:if test="${sessionScope.member.membership>50}">
-					<li><a style="padding: 0;" href="${pageContext.request.contextPath}/admin"
+					<li style="padding: 0;"><a style="padding: 0;" href="${pageContext.request.contextPath}/admin"
 							title="관리자"><i class="bi bi-gear p-2"></i></a></li>
 					</c:if>
 
