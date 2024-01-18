@@ -1,5 +1,6 @@
 package com.fp.pet.service;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -9,7 +10,9 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fp.pet.domain.Member;
 import com.fp.pet.domain.Order;
+import com.fp.pet.mapper.MemberMapper;
 import com.fp.pet.mapper.MyPageMapper;
 import com.fp.pet.mapper.OrderMapper;
 
@@ -17,6 +20,9 @@ import com.fp.pet.mapper.OrderMapper;
 public class OrderServiceImpl implements OrderService{
 	@Autowired
 	private OrderMapper mapper;
+	
+	@Autowired
+	private MemberMapper membermapper;
 	
 	@Autowired 
 	private MyPageMapper myPageMapper;
@@ -66,6 +72,13 @@ public class OrderServiceImpl implements OrderService{
 	@Override
 	public void insertOrder(Order dto) throws Exception {
 		try {
+			dto.setOrdersort(0);
+			Member dto1 = null;
+			if(dto.getFriendname()!=null) {
+				dto.setOrdersort(1);
+				dto1 = membermapper.findById(dto.getFriendname());
+				dto.setMemberIdx2(dto1.getMemberIdx());    
+			}
 			mapper.insertOrder(dto);
 			
 			dto.setUsePoint(-dto.getUsePoint());
@@ -80,8 +93,13 @@ public class OrderServiceImpl implements OrderService{
 				dto.setPrice(dto.getPrices().get(i));
 				dto.setSalePrice(dto.getSalePrices().get(i));
 				dto.setSavedMoney(dto.getSavedMoneys().get(i));
-				
-				mapper.insertOrderDetail(dto);
+				if(dto.getCouponNums().get(i)==0) {
+					mapper.insertOrderDetail(dto);
+				} else {
+					dto.setCouponNum(dto.getCouponNums().get(i));
+					mapper.insertOrderDetail2(dto);
+					mapper.useCoupon(dto);
+				}
 				for(int k = 0; k<dto.getBuyQtys().get(i); k++) {
 					mapper.stockReduction(dto);
 				}
@@ -92,7 +110,14 @@ public class OrderServiceImpl implements OrderService{
 			if(dto.getUsePoint()!=0) {
 				mapper.usePoints(dto);
 			}
-			mapper.insertOrderDelivery(dto);
+			if (dto.getTel1().length() != 0 && dto.getTel2().length() != 0 && dto.getTel3().length() != 0) {
+				dto.setTel(dto.getTel1() + "-" + dto.getTel2() + "-" + dto.getTel3());
+			}
+			if(dto.getFriendname()==null) {
+				mapper.insertOrderDelivery(dto);
+			} else {
+				mapper.insertPresent(dto);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -143,7 +168,7 @@ public class OrderServiceImpl implements OrderService{
 					if(dto.getCategoryNum() == cp.getCategoryNum()) {
 						if(dto.getCouponNums() == null) {
 							dto.setCategoryNums(new ArrayList<Integer>());
-							dto.setCouponNums(new ArrayList<Integer>());
+							dto.setCouponNums(new ArrayList<Long>());
 							dto.setCouponNames(new ArrayList<String>());
 							dto.setCouponDiscounts(new ArrayList<Integer>());
 							
@@ -209,6 +234,32 @@ public class OrderServiceImpl implements OrderService{
 			e.printStackTrace();
 		}
 		return dto;
+	}
+
+	@Override
+	public Order findByOrderNum(String orderNum) {
+		Order dto = null;
+		try {
+			dto = mapper.findByOrderNum(orderNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
+	}
+
+	@Override
+	public void updateOrderDetail(Order dto) throws SQLException {
+		try {
+			if (dto.getTel1().length() != 0 && dto.getTel2().length() != 0 && dto.getTel3().length() != 0) {
+				dto.setTel(dto.getTel1() + "-" + dto.getTel2() + "-" + dto.getTel3());
+			}
+			mapper.updateOrderDetail(dto);
+			mapper.insertOrderDelivery(dto);
+			mapper.usePresent(dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 }

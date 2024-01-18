@@ -42,20 +42,12 @@ function searchList() {
 	const f = document.searchForm;
 	f.submit();
 }
-function searchinsert() {
+function presentOk(orderNum) {
 	const f = document.insertForm;
 	
-	
-	f.action = "${pageContext.request.contextPath}/friend/accept"
-	f.submit();
-}
-
-function presentOk(userName) {
-	const f = document.insertForm;
-	
-	f.friendname.value = userName;
-	alert(userName);
-	f.action = "${pageContext.request.contextPath}/wishlist/"
+	f.orderNum.value = orderNum;
+	alert(orderNum);
+	f.action = "${pageContext.request.contextPath}/friend/acceptpresent"
 	f.submit();
 	
 }
@@ -64,28 +56,12 @@ function presentOk(userName) {
 <div class="container">
 	<div class="body-container">	
 		<div class="body-title">
-			<h3><i class="bi bi-app"></i> 친구목록 </h3>
+			<h3><i class="bi bi-app"></i> 선물목록 </h3>
 		</div>
 		
 	<form name="SearchForm" method="post">
 	    <input type="hidden" name="kwd" value="">
 	</form>
-	<!-- 
-		<div class="nav-align-top mb-4">
-		  <ul class="nav nav-pills mb-3" role="tablist">   
-	        <li class="nav-item" role="presentation">
-				<button class="nav-link active" id="tab-0" data-bs-toggle="tab" data-bs-target="#nav-content" 
-					type="button" role="tab" aria-controls="0" aria-selected="true" data-categoryNum="0">전체</button>
-			</li>		
-			<c:forEach var="dto" items="${listCategory}" varStatus="status">
-				<li class="nav-item" role="presentation">
-					<button class="nav-link" id="tab-${status.count}" data-bs-toggle="tab" 
-						data-bs-target="#nav-content" type="button" role="tab" aria-controls="${status.count}" 
-						aria-selected="true" data-categoryNum="${dto.categoryNum}">${dto.categoryName}</button>
-				</li>
-			</c:forEach>
-	   </ul>
-		</div> -->
 		
 		<div class="body-main">
 			
@@ -97,31 +73,26 @@ function presentOk(userName) {
 			<table class="table table-hover board-list">
 				<thead class="table-light">
 					<tr>
-						<th width="100">작성자z</th>
-						<th width="100"></th>
-						<th width="100"></th>
+						<th width="100">보낸사람</th>
+						<th width="100">보낸물품</th>
+						<th width="100">수량</th>
 					</tr>
 				</thead>
 				
 				<tbody>
-					<c:forEach var="dto" items="${receivedlist}" varStatus="status">
-						<tr>
-							<td>${dto.to_Friend}</td>
-							<td><button type="button" class="btn btn-light" onclick="searchinsert()"><i class="fa-solid fa-check"></i></button></td>
-							<td><input type="hidden" name="userName" value="${dto.to_Friend}"></td>
-						</tr>
-					</c:forEach>
-					
-					<c:forEach var="dto" items="${list}" varStatus="status">
+					<c:forEach var="dto1" items="${list}" varStatus="status">
 						<tr >
-							<td>${dto.to_Friend}</td>
-							<td><button type="button" onclick="presentOk('${dto.to_Friend}')" class="btn btn-light"><i class="fa-solid fa-gift"></i></button></td>
-							<td><button type="button" class="btn btn-light ff " data-to_Friend="${dto.to_Friend}"><i class="fa-solid fa-trash"></i></button></td>
-							
+							<td>${dto1.from_Friend}</td>
+							<td>${dto1.productNum }</td>
+							<td>${dto1.qty}</td>
+							<td>
+								<button type="button" onclick="presentOk('${dto1.orderNum}')" class="btn btn-light"><i class="fa-solid fa-gift"></i></button>
+							</td>
 						</tr>
 					</c:forEach>
 					<tr>
 						<td>
+							<input type="hidden" name="orderNum" value="${dto.orderNum}">
 							<input type="hidden" name="friendname" value="${dto.to_Friend}">
 						</td>
 					</tr>

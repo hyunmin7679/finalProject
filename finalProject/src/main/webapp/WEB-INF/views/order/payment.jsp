@@ -13,6 +13,7 @@
 </style>
 
 <script type="text/javascript">
+
 function pointOk() {
 	const f = document.paymentForm;
 	
@@ -81,19 +82,68 @@ function sendOk() {
 	f.submit();
 }
 
-$(function()){
+$(function(){
 	$(".requiredOption").change(function(){
+		const f = document.paymentForm;
+		let disCount = parseInt($(this).val());
+		let buyQtys = parseInt($(this).closest(".text-center").find("input[name=buyQtys]").val());
+		let totalMoneys = parseInt(f.totalMoney.value);
+		let totalvalue = parseInt(f.payment.value);
+		let prices = parseInt($(this).closest(".text-center").find("input[name=prices]").val());
+		let salePrices = parseInt($(this).closest(".text-center").find("input[name=salePrices12]").val());
+		let discountPrices = parseInt($(this).closest(".text-center").find("input[name=discountPrices]").val());
+		var disMoney = parseInt($(this).closest(".text-center").find("input[name=disMoney]").val());
+		let couponNUm = parseInt($(this).closest(".text-center").find("input[name=couponNum]").val());
+		let deliveryCharge =  parseInt(f.deliveryCharge.value);
+		alert(couponNUm);
+		if(discountPrices !=0){
+			discountPrices = discountPrices + salePrices / disCount;
+		} else{
+			discountPrices = salePrices / disCount;
+		} 
+		if(disCount==0){
+			discountPrices = parseInt($(this).closest(".text-center").find("input[name=discountPrices]").val());
+			$(this).closest(".text-center").find(".sapri").remove();
+			$(this).closest(".text-center").find("input[name=couponNums]").val(0);
+		} else{
+			$(this).closest(".text-center").find("input[name=couponNums]").val(couponNUm);
+		}
+		totalMoneys += disMoney;
+		salePrices = salePrices - discountPrices;
+		let saleproductMoneys = salePrices * buyQtys;
+		loprices = prices.toLocaleString();
 		
-		let disCount = $(".requiredOption").attr("data-optionNum");
-		
-	})
-}
+		$(this).closest(".text-center").find(".discountPrice").text(discountPrices.toLocaleString() + "원");
+		$(this).closest(".text-center").find(".salePrice").html('<label class="fw-semibold">'+salePrices.toLocaleString() + '원</label>');
+		$(this).closest(".text-center").find(".productMoney").text(saleproductMoneys.toLocaleString() + "원");
+		if(discountPrices!=0) {
+			let out = "";
+			out += "<div class = 'sapri'>";
+			out += 		"<label class='fw-light text-decoration-line-through'>"+loprices+"원</label>";
+			out += "</div>";
+			
+			$(this).closest(".text-center").find(".price").append(out);
+		}
+		totalMoneys = totalMoneys - discountPrices * buyQtys;
+		totalvalue = totalMoneys + deliveryCharge;
+		$(".totalMoney").text(totalMoneys.toLocaleString() + "원");
+		$(".payment").text(totalvalue.toLocaleString() + "원");
+		disMoney = parseInt($(this).closest(".text-center").find("input[name=disMoney]").val(discountPrices * buyQtys));
+		$(this).closest(".text-center").find("input[name=salePrices]").val(salePrices);
+		$(this).closest(".text-center").find("input[name=productMoneys]").val(saleproductMoneys);
+		f.totalMoney.value = totalMoneys;
+		f.payment.value = totalvalue;
+	});
+});
 
 </script>
 
 <div class="container">
 	<div class="body-container">	
 		<div class="body-title">
+		<c:if test="${not empty friendname}">
+			<h3>${friendname}에게 선물하기</h3>
+		</c:if>
 			<h3><i class="bi bi-credit-card"></i> 주문 / 결제 </h3>
 		</div>
 		
@@ -106,6 +156,7 @@ $(function()){
 						<th width="80">구매적립</th>
 						<th width="60">수량</th>
 						<th width="120">할인금액</th>
+						<th width="120">쿠폰</th>
 						<th width="120">상품금액</th>
 						<th width="120">총금액</th>
 					</tr>
@@ -128,55 +179,65 @@ $(function()){
 								<input type="hidden" name="buyQtys" value="${dto.qty}">
 								<input type="hidden" name="productMoneys" value="${dto.productMoney}">
 								<input type="hidden" name="prices" value="${dto.price}">
+								<input type="hidden" name="discountPrices" value="${dto.discountPrice}">
 								<input type="hidden" name="salePrices" value="${dto.salePrice}">
+								<input type="hidden" name="salePrices12" value="${dto.salePrice}">
 								<input type="hidden" name="savedMoneys" value="${dto.savedMoney}">
+								<input type="hidden" name="disMoney" value="${0}">
+								<input type="hidden" name="categoryNums" value="${0}">
+								<input type="hidden" name="couponNums" value="${0}">
 							</td>
 							<td>
 								<fmt:formatNumber value="${dto.savedMoney}"/>
 							</td>
-							<td>
+							<td class = "qty">
 								${dto.qty}
 							</td>
-							<td>
+							<td class = "discountPrice">
 								<fmt:formatNumber value="${dto.discountPrice}"/>원
 							</td>
-							<td >
+							<td>
 								<div>
-									<label class="fw-light text-decoration-line-through">
-										<fmt:formatNumber value="${dto.price}"/>원
-									</label>
+									<select class="form-select requiredOption" >
+										<option value="0">미적용</option>
+										<c:forEach var="vo" items="${dto.categoryNums}" varStatus="status">
+											<option value="${dto.couponDiscounts[status.index]}" data-optionNum="${dto.couponNums[status.index]}">${dto.couponNames[status.index]}  ${dto.couponDiscounts[status.index]}% 할인</option>
+											<input type="hidden" name="couponNum" value="${dto.couponNums[status.index]}">
+										</c:forEach>
+									</select>
 								</div>
-								<div>
+							</td>
+							<td class = "price">
+								<c:if test="${dto.discountPrice} != 0">
+									<div>
+										<label class="fw-light text-decoration-line-through">
+											<fmt:formatNumber value="${dto.price}"/>원
+										</label>
+									</div>
+								</c:if>
+								<div class = "salePrice">
 									<label class="fw-semibold">
 										<fmt:formatNumber value="${dto.salePrice}"/>원
 									</label>								
 								</div>
 							</td>
 							<td>
-								<label class="fw-semibold">
+								<label class="fw-semibold productMoney">
 									<fmt:formatNumber value="${dto.productMoney}"/>원
 								</label>
 							</td>
 						</tr>
-						<tr>
-							<td>
-								<div>
-									<select class="form-select requiredOption" data-optionNum="0">
-										<option value="0">미적용</option>
-										<c:forEach var="vo" items="${dto.categoryNums}" varStatus="status">
-											<option value="${dto.couponDiscounts[status.index]}">${dto.couponNames[status.index]}  ${dto.couponDiscounts[status.index]}% 할인</option>
-										</c:forEach>
-									</select>
-								</div>
-							</td>
-						</tr>
+							
+
 					</c:forEach>
 				</table>
 				
 				<input type="hidden" name="orderNum" value="${productOrderNumber}">
 				<input type="hidden" name="totalMoney" value="${totalMoney}">
+				<input type="hidden" name="totmon" value="${totalMoney}">
 				<input type="hidden" name="deliveryCharge" value="${deliveryCharge}">
 				<input type="hidden" name="payment" value="${payment}">
+				<input type="hidden" name="friendname" value="${friendname}"> <!-- 도메인에 넣고 하가 -->
 				
 				<input type="hidden" name="mode" value="${mode}">
 
@@ -198,26 +259,65 @@ $(function()){
 						</tr>
 					</table>
 				</div>
+				<c:if test="${not empty friendname}"></c:if>
 				<div class="p-3 bg-light">
 					<div class="fs-5 fw-semibold border-bottom pb-1">배송지 정보</div>
-					<div class="row pt-2">
-						<div class="col-auto pe-2 mt-2">
-							<label class="fw-semibold fs-6">김자바</label> <label class="text-primary">기본배송지</label>
-						</div>
-						<div class="col-auto">
-							<button type="button" class="btn border"> 배송지변경 </button>
-						</div>
-					</div>
 					<div class="pt-2">
 						<div class="pt-2">서울특별시 마포구 월드컵북로 21 풍성빌딩 2층</div>
 						<div class="pt-2">010-1111-1111</div>
 						<div class="pt-2 w-50">
-							<input type="hidden" name="recipientName" value="김자바">
-							<input type="hidden" name="tel" value="010-1111-2222">
-							<input type="hidden" name="zip" value="111-111">
-							<input type="hidden" name="addr1" value="서울특별시 마포구 월드컵북로">
-							<input type="hidden" name="addr2" value="21 풍성빌딩 2층">
-							<input type="text" name="destMeno" class="form-control" placeholder="요청사항을 입력합니다.">
+							<input type="text" name="recipientName" value="${orderUser.userName}">
+							<input type="text" name="destMemo" class="form-control" placeholder="요청사항을 입력합니다.">
+						</div>
+					</div>
+					
+				</div>
+				<div class="row mb-3">
+					<label class="col-sm-2 col-form-label" for="tel1">전화번호</label>
+					<div class="col-sm-10 row">
+						<div class="col-sm-3 pe-1">
+							<input type="text" name="tel1" id="tel1" class="form-control"
+								value="${dto.tel1}" maxlength="3">
+						</div>
+						<div class="col-sm-1 px-1" style="width: 2%;">
+							<p class="form-control-plaintext text-center">-</p>
+						</div>
+						<div class="col-sm-3 px-1">
+							<input type="text" name="tel2" id="tel2" class="form-control"
+								value="${dto.tel2}" maxlength="4">
+						</div>
+						<div class="col-sm-1 px-1" style="width: 2%;">
+							<p class="form-control-plaintext text-center">-</p>
+						</div>
+						<div class="col-sm-3 ps-1">
+							<input type="text" name="tel3" id="tel3" class="form-control"
+								value="${dto.tel3}" maxlength="4">
+						</div>
+					</div>
+				</div>
+				<div class="row mb-3">
+					<label class="col-sm-2 col-form-label" for="zip">우편번호</label>
+					<div class="col-sm-5">
+						<div class="input-group">
+							<input type="text" name="zip" id="zip" class="form-control"
+								placeholder="우편번호" value="${orderUser.zip}" readonly>
+							<button class="btn btn-light" type="button"
+								style="margin-left: 3px;" onclick="daumPostcode();">우편번호
+								검색</button>
+						</div>
+					</div>
+				</div>
+
+				<div class="row mb-3">
+					<label class="col-sm-2 col-form-label" for="addr1">주소</label>
+					<div class="col-sm-10">
+						<div>
+							<input type="text" name="addr1" id="addr1" class="form-control"
+								placeholder="기본 주소" value="${orderUser.addr1}" readonly>
+						</div>
+						<div style="margin-top: 5px;">
+							<input type="text" name="addr2" id="addr2" class="form-control"
+								placeholder="상세 주소" value="${orderUser.addr2}">
 						</div>
 					</div>
 				</div>
@@ -225,13 +325,13 @@ $(function()){
 				<div class="pt-3">
 					<div class="text-end">
 						<label class="fs-6 fw-semibold">총 결제금액 : </label>
-						<label class="product-totalAmount fs-4 fw-bold text-primary">
+						<label class="product-totalAmount fs-4 fw-bold text-primary payment">
 							<fmt:formatNumber value="${payment}"/>원
 						</label>
 					</div>
-					<div class="ps-2 pt-2 text-end">
+					<div class="ps-2 pt-2 text-end totalMoneys">
 						<label>상품금액 : </label>
-						<label>
+						<label class="totalMoney">
 							<fmt:formatNumber value="${totalMoney}"/>원
 						</label>
 					</div>
@@ -266,4 +366,49 @@ $(function()){
 			</form>
 		</div>
 	</div>
-</div>
+</div>	
+	
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script>
+function daumPostcode() {
+    new daum.Postcode({
+        oncomplete: function(data) {
+            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+            // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+            var fullAddr = ''; // 최종 주소 변수
+            var extraAddr = ''; // 조합형 주소 변수
+
+            // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+            if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                fullAddr = data.roadAddress;
+
+            } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                fullAddr = data.jibunAddress;
+            }
+
+            // 사용자가 선택한 주소가 도로명 타입일때 조합한다.
+            if(data.userSelectedType === 'R'){
+                //법정동명이 있을 경우 추가한다.
+                if(data.bname !== ''){
+                    extraAddr += data.bname;
+                }
+                // 건물명이 있을 경우 추가한다.
+                if(data.buildingName !== ''){
+                    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+                fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+            }
+
+            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+            document.getElementById('zip').value = data.zonecode; //5자리 새우편번호 사용
+            document.getElementById('addr1').value = fullAddr;
+
+            // 커서를 상세주소 필드로 이동한다.
+            document.getElementById('addr2').focus();
+        }
+    }).open();
+}
+</script>

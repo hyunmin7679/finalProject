@@ -9,6 +9,7 @@ public interface WishlistService {
 	
 	public int dataCount(Map<String, Object>map);
 	public List<Wishlist> listwishlist(Map<String, Object>map);
+	public List<Wishlist> listwishlist2(Map<String, Object>map);
 	
 	public void addorremove(Map<String, Object>map);
 

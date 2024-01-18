@@ -99,4 +99,27 @@ public class FriendServiceImpl implements FriendService {
 		
 	}
 
+	@Override
+	public List<Friend> listPresent(Map<String, Object> map) {
+		List<Friend> list = null;
+		
+		try {
+			list = mapper.listPresent(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public void present(Map<String, Object> map) throws SQLException {
+		
+		try {
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+	}
+
 }

@@ -9,6 +9,13 @@
 		where is_friend = 2 and FROM_FRIEND = #{userId}
 	</select>
 	
+	<select id="listPresent" parameterType="map" resultType="com.fp.pet.domain.Friend">
+		select p.ordernum, FROM_FRIEND,TO_FRIEND, reg_date, productnum, detailnum, detailnum2, qty,ORDERDETAILNUM
+		from present p 
+		left outer join orderdetail o on p.ordernum = o.ordernum
+		where usestate = 0 and FROM_FRIEND = #{memberIdx}
+	</select>
+	
 	<select id="receivedlist" parameterType="map" resultType="com.fp.pet.domain.Friend">
 		select FRIENDNUM,FROM_FRIEND,TO_FRIEND,IS_FRIEND,REG_DATE,FRIEND_DATE,IDENTIFYDAY
 		from friendlist
@@ -60,4 +67,5 @@
 		delete from friendlist 
 			where FROM_FRIEND = #{userName2} and TO_FRIEND = #{userId} 
 	</delete>
+	
 </mapper>

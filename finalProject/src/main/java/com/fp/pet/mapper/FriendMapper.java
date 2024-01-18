@@ -22,5 +22,6 @@ public interface FriendMapper {
 	public void deleteFriend2(Friend dto) throws SQLException;
 	
 	public List<Friend>searchMember(Map<String, Object> map);
-
+	
+	public List<Friend> listPresent(Map<String, Object>map);
 }

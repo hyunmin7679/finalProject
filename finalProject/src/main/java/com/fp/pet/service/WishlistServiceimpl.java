@@ -58,6 +58,18 @@ public class WishlistServiceimpl implements WishlistService{
 		}
 			
 	}
+
+	@Override
+	public List<Wishlist> listwishlist2(Map<String, Object> map) {
+		List<Wishlist> list = null;
+		
+		try {
+			list= mapper.listwishlist2(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 	
 
 }

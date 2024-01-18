@@ -39,6 +39,7 @@ public class OrderController {
 			@RequestParam List<Long> detailNums2,
 			@RequestParam List<Integer> buyQtys,
 			@RequestParam(defaultValue = "buy") String mode,
+			String friendname,
 			HttpSession session,
 			Model model) throws Exception {
 		
@@ -132,6 +133,7 @@ public class OrderController {
 			model.addAttribute("deliveryCharge", deliveryCharge); // 배송비
 			
 			model.addAttribute("mode", mode); // 바로구매인지 장바구니 구매인지를 가지고 있음
+			model.addAttribute("friendname",friendname);
 			
 			return ".order.payment";
 		} catch (Exception e) {

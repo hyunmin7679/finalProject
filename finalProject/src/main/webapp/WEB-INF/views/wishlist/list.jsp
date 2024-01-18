@@ -205,6 +205,12 @@
         </div>
         <div class="pb-1">${dto.price}원</div>
     </div>
+    <c:if test="${not empty friendname}">
+	    <div>
+	    	<a href="${pageContext.request.contextPath}/product/buy/${dto.productNum}?friendname=${friendname}">선물하기</a>
+	    	<input type="hidden" name="friendname" value="${friendname}">
+	    </div>
+    </c:if>
 </div>
 	</div>
 </c:forEach>

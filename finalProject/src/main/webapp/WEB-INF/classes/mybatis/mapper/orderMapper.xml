@@ -11,8 +11,8 @@
 	
 	<insert id="insertOrder" parameterType="com.fp.pet.domain.Order"> 
 		insert into productOrder(orderNum, memberIdx, orderDate, totalMoney, usedSaved, deliveryCharge,
-			payment, cancelAmount, orderState) values(#{orderNum}, #{memberIdx}, sysdate,
-			#{totalMoney}, #{usePoint}, #{deliveryCharge}, #{payment}, 0, 1)
+			payment, cancelAmount, orderState, ordersort) values(#{orderNum}, #{memberIdx}, sysdate,
+			#{totalMoney}, #{usePoint}, #{deliveryCharge}, #{payment}, 0, 1, #{ordersort})
 	</insert>
 	
 	<insert id="insertPayDetail" parameterType="com.fp.pet.domain.Order">
@@ -25,6 +25,13 @@
 			detailNum, detailNum2, productNum, productMoney, savedMoney, userDelete, detailState) VALUES (orderDetail_seq.NEXTVAL,
 			#{orderNum}, #{qty}, #{price}, #{salePrice}, 
 			#{detailNum}, #{detailNum2}, #{productNum}, #{productMoney}, #{savedMoney}, 0, 0)
+	</insert>
+	
+	<insert id="insertOrderDetail2" parameterType="com.fp.pet.domain.Order">
+		INSERT INTO orderDetail(orderDetailNum, orderNum, qty, price, salePrice, 
+			detailNum, detailNum2, productNum, productMoney, savedMoney, userDelete, detailState, couponNum) VALUES (orderDetail_seq.NEXTVAL,
+			#{orderNum}, #{qty}, #{price}, #{salePrice}, 
+			#{detailNum}, #{detailNum2}, #{productNum}, #{productMoney}, #{savedMoney}, 0, 0, #{couponNum})
 	</insert>
 
 	<insert id="insertOrderDelivery" parameterType="com.fp.pet.domain.Order">
@@ -100,4 +107,30 @@
 		left outer join coupon cp on mp.couponNum = cp.couponNum
 		where use = 0 and couponstate = 0 and memberIdx = #{memberIdx} and categoryNum = #{categoryNum}
 	</select>
+	
+	<update id="useCoupon" parameterType="com.fp.pet.domain.Order"> 
+		update membercoupon set use = 1
+		where couponNum = #{couponNum} and memberidx = #{memberIdx}
+	</update>
+	
+	<insert id="insertPresent"  parameterType="com.fp.pet.domain.Order">
+		insert into present(prenum, ordernum, to_friend, from_friend, reg_date) 
+			values(pre_seq.nextval,#{orderNum},#{memberIdx}, #{memberIdx2}, sysdate)
+	</insert>
+	
+	<select id="findByOrderNum" parameterType="String" resultType="com.fp.pet.domain.Order">
+		SELECT productNum, qty, orderNum
+		FROM orderdetail
+		WHERE orderNum = #{orderNum}
+	</select>
+	
+	<update id="updateOrderDetail" parameterType="com.fp.pet.domain.Order">
+		update orderdetail set detailNum = #{detailNum}, detailNum2 = #{detailNum2}
+		where orderNum = #{orderNum}
+	</update>
+	
+	<update id="usePresent" parameterType="com.fp.pet.domain.Order">
+		update present set usestate = 1
+		where orderNum = #{orderNum}
+	</update>
 </mapper>

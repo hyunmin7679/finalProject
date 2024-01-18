@@ -15,6 +15,7 @@ public void insertMember(Member dto) throws Exception;
 	
 	public Member findById(String userId);
 	public Member findById(long memberIdx);
+	public Member findByName(String userName);
 	
 	public void deleteMember(Map<String, Object> map) throws Exception;
 	

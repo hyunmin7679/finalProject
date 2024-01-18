@@ -57,6 +57,17 @@
 		LEFT OUTER JOIN member2 m2 ON m1.userId = m2.userId
 		WHERE m1.userId = #{userId}
 	</select>
+	
+	<select id="findByName" parameterType="String" resultType="com.fp.pet.domain.Member">
+		SELECT m.memberIdx, membership, m1.userId, userName, userPwd, enabled,
+			register_date, modify_date, last_login,
+			TO_CHAR(birth, 'YYYY-MM-DD') birth, email, tel, 
+			zip, addr1, addr2
+		FROM member m 
+		JOIN member1 m1 ON m.memberIdx = m1.memberIdx 
+		LEFT OUTER JOIN member2 m2 ON m1.userId = m2.userId
+		WHERE m1.userName = #{userName}
+	</select>
 
 	<select id="findByMemberIdx" parameterType="Long" resultType="com.fp.pet.domain.Member">
 		SELECT m.memberIdx, membership, enabled, 

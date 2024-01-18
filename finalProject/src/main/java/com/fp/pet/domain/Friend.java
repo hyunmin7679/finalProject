@@ -18,6 +18,13 @@ public class Friend{
 	private String userId;
 	private String userName;
 	
+	private long productNum;
+	private String orderNum;
+	private long detailNum;
+	private long detailNum2;
+	private long qty;
+	private long orderDetail;
+	
 	
 	public int getFriendCount() {
 		return friendCount;
@@ -113,6 +120,54 @@ public class Friend{
 
 	public void setUserName2(String userName2) {
 		this.userName2 = userName2;
+	}
+
+	public long getProductNum() {
+		return productNum;
+	}
+
+	public void setProductNum(long productNum) {
+		this.productNum = productNum;
+	}
+
+	public String getOrderNum() {
+		return orderNum;
+	}
+
+	public void setOrderNum(String orderNum) {
+		this.orderNum = orderNum;
+	}
+
+	public long getDetailNum() {
+		return detailNum;
+	}
+
+	public void setDetailNum(long detailNum) {
+		this.detailNum = detailNum;
+	}
+
+	public long getDetailNum2() {
+		return detailNum2;
+	}
+
+	public void setDetailNum2(long detailNum2) {
+		this.detailNum2 = detailNum2;
+	}
+
+	public long getQty() {
+		return qty;
+	}
+
+	public void setQty(long qty) {
+		this.qty = qty;
+	}
+
+	public long getOrderDetail() {
+		return orderDetail;
+	}
+
+	public void setOrderDetail(long orderDetail) {
+		this.orderDetail = orderDetail;
 	}
 	
 	

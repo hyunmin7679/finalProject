@@ -1,5 +1,6 @@
 package com.fp.pet.service;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -16,4 +17,7 @@ public interface OrderService {
 	public List<Order> listOptionDetail(List<Long> detailNums);
 
 	public void deleteCart(Map<String, Object> map) throws Exception;
+	
+	public Order findByOrderNum(String orderNum);
+	public void updateOrderDetail(Order dto) throws SQLException;
 }

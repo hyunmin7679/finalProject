@@ -11,6 +11,7 @@ import com.fp.pet.domain.Wishlist;
 public interface WishlistMapper {
 	public int dataCount(Map<String, Object>map);
 	public List<Wishlist> listwishlist(Map<String, Object>map);
+	public List<Wishlist> listwishlist2(Map<String, Object>map);
 	public List<Wishlist> findwishlist(Map<String, Object>map);
 	public void addorremove(Map<String, Object>map);
 	

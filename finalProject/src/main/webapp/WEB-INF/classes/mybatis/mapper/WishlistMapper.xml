@@ -15,6 +15,14 @@
 		w.productNum=p.productNum where
 		userId=#{userId}
 	</select>
+	
+	<select id="listwishlist2" parameterType="map"
+		resultType="com.fp.pet.domain.Wishlist">
+		select p.thumbnail, p.productName, p.price, w.secret,
+		w.productNum from wishlist w join product p on
+		w.productNum=p.productNum where
+		userId=#{userId} and secret = 1
+	</select>
 
 	<select id="findwishlist" parameterType="map"
 		resultType="com.fp.pet.domain.Wishlist">

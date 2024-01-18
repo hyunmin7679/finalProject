@@ -17,6 +17,7 @@ public class Order {
 
 	private long memberIdx;
 	private String userId;
+	private long memberIdx2;
 
 	private String orderNum;
 	private long orderDetailNum;
@@ -52,6 +53,9 @@ public class Order {
 
 	// 배송지 정보
 	private String recipientName;
+	private String tel1;
+	private String tel2;
+	private String tel3;
 	private String tel;
 	private String zip;
 	private String addr1;
@@ -71,33 +75,18 @@ public class Order {
 	private int usePoint;
 	
 	private List<Integer> categoryNums;
-	private List<Integer> couponNums;
+	private List<Long> couponNums;
 	private List<String> couponNames;
 	private List<Integer> couponDiscounts;
 	
 	private int categoryNum;
-	private int couponNum;
+	private Long couponNum;
 	private String couponName;
 	private int couponDiscount;
 	
-	public int getChangeSort() {
-		return changeSort;
-	}
-	public void setChangeSort(int changeSort) {
-		this.changeSort = changeSort;
-	}
-	public int getDetailState() {
-		return detailState;
-	}
-	public void setDetailState(int detailState) {
-		this.detailState = detailState;
-	}
-	public int getChangeState() {
-		return changeState;
-	}
-	public void setChangeState(int changeState) {
-		this.changeState = changeState;
-	}
+	private String friendname;
+	private int ordersort;
+	
 	public long getProductNum() {
 		return productNum;
 	}
@@ -145,6 +134,24 @@ public class Order {
 	}
 	public void setDelivery(int delivery) {
 		this.delivery = delivery;
+	}
+	public int getChangeSort() {
+		return changeSort;
+	}
+	public void setChangeSort(int changeSort) {
+		this.changeSort = changeSort;
+	}
+	public int getDetailState() {
+		return detailState;
+	}
+	public void setDetailState(int detailState) {
+		this.detailState = detailState;
+	}
+	public int getChangeState() {
+		return changeState;
+	}
+	public void setChangeState(int changeState) {
+		this.changeState = changeState;
 	}
 	public long getMemberIdx() {
 		return memberIdx;
@@ -326,6 +333,24 @@ public class Order {
 	public void setRecipientName(String recipientName) {
 		this.recipientName = recipientName;
 	}
+	public String getTel1() {
+		return tel1;
+	}
+	public void setTel1(String tel1) {
+		this.tel1 = tel1;
+	}
+	public String getTel2() {
+		return tel2;
+	}
+	public void setTel2(String tel2) {
+		this.tel2 = tel2;
+	}
+	public String getTel3() {
+		return tel3;
+	}
+	public void setTel3(String tel3) {
+		this.tel3 = tel3;
+	}
 	public String getTel() {
 		return tel;
 	}
@@ -410,10 +435,10 @@ public class Order {
 	public void setCategoryNums(List<Integer> categoryNums) {
 		this.categoryNums = categoryNums;
 	}
-	public List<Integer> getCouponNums() {
+	public List<Long> getCouponNums() {
 		return couponNums;
 	}
-	public void setCouponNums(List<Integer> couponNums) {
+	public void setCouponNums(List<Long> couponNums) {
 		this.couponNums = couponNums;
 	}
 	public List<String> getCouponNames() {
@@ -434,10 +459,10 @@ public class Order {
 	public void setCategoryNum(int categoryNum) {
 		this.categoryNum = categoryNum;
 	}
-	public int getCouponNum() {
+	public Long getCouponNum() {
 		return couponNum;
 	}
-	public void setCouponNum(int couponNum) {
+	public void setCouponNum(Long couponNum) {
 		this.couponNum = couponNum;
 	}
 	public String getCouponName() {
@@ -451,5 +476,27 @@ public class Order {
 	}
 	public void setCouponDiscount(int couponDiscount) {
 		this.couponDiscount = couponDiscount;
-	}	
+	}
+	public String getFriendname() {
+		return friendname;
+	}
+	public void setFriendname(String friendname) {
+		this.friendname = friendname;
+	}
+	public int getOrdersort() {
+		return ordersort;
+	}
+	public void setOrdersort(int ordersort) {
+		this.ordersort = ordersort;
+	}
+	public long getMemberIdx2() {
+		return memberIdx2;
+	}
+	public void setMemberIdx2(long memberIdx2) {
+		this.memberIdx2 = memberIdx2;
+	}
+	
+	
+
+	
 }

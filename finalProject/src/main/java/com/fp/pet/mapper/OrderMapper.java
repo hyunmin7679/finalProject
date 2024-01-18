@@ -13,6 +13,7 @@ public interface OrderMapper {
 	public void insertOrder(Order dto) throws SQLException;
 	public void insertPayDetail(Order dto) throws SQLException;
 	public void insertOrderDetail(Order dto) throws SQLException;
+	public void insertOrderDetail2(Order dto) throws SQLException;
 	public void insertOrderDelivery(Order dto) throws SQLException;
 	public void stockReduction(Order dto) throws SQLException;
 	
@@ -26,4 +27,12 @@ public interface OrderMapper {
 	public Order findByDetailId(long detailNum);
 	
 	public List<Order> findByCoupon(Order dto);
+	public void useCoupon(Order dto) throws SQLException;
+	
+	public void insertPresent(Order dto) throws SQLException;
+	public Order findByOrderNum(String orderNum);
+	public void updateOrderDetail(Order dto) throws SQLException;
+	
+	public void usePresent(Order dto) throws SQLException;
+	
 }
