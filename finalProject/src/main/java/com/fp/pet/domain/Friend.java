@@ -19,6 +19,7 @@ public class Friend{
 	private String userName;
 	
 	private long productNum;
+	private String productName;
 	private String orderNum;
 	private long detailNum;
 	private long detailNum2;
@@ -168,6 +169,14 @@ public class Friend{
 
 	public void setOrderDetail(long orderDetail) {
 		this.orderDetail = orderDetail;
+	}
+
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
 	
 	

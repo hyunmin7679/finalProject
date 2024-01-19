@@ -30,12 +30,6 @@ window.addEventListener('load', function(){
 	let total_page = pageCount(dataCount, pageSize);
 	let paging = pagingUrl(page, total_page, url);
 
-	
-	document.querySelector('.dataCount').innerHTML = dataCount + '개 ('
-			+ page + '/' + total_page + '페이지)';
-
-	document.querySelector('.page-navigation').innerHTML = 
-		dataCount === 0 ? '등록된 게시물이 없습니다.' : paging;
 });
 
 function searchList() {
@@ -126,6 +120,7 @@ function presentOk(userName) {
 						</td>
 					</tr>
 				</tbody>
+				
 			</table>
 			</form>
 			<div class="page-navigation"></div>

@@ -77,8 +77,8 @@ function presentOk(orderNum) {
 				<tbody>
 					<c:forEach var="dto1" items="${list}" varStatus="status">
 						<tr >
-							<td>${dto1.from_Friend}</td>
-							<td>${dto1.productNum }</td>
+							<td>${dto1.userName}</td>
+							<td>${dto1.productName }</td>
 							<td>${dto1.qty}</td>
 							<td>
 								<button type="button" onclick="presentOk('${dto1.orderNum}')" class="btn btn-light"><i class="fa-solid fa-gift"></i></button>

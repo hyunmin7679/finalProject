@@ -10,9 +10,12 @@
 	</select>
 	
 	<select id="listPresent" parameterType="map" resultType="com.fp.pet.domain.Friend">
-		select p.ordernum, FROM_FRIEND,TO_FRIEND, reg_date, productnum, detailnum, detailnum2, qty,ORDERDETAILNUM
+		select p.ordernum, FROM_FRIEND,TO_FRIEND, p.reg_date, pr.productnum, detailnum, detailnum2, qty,ORDERDETAILNUM,
+    		pr.productname, username
 		from present p 
 		left outer join orderdetail o on p.ordernum = o.ordernum
+		left outer join product pr on o.productnum = pr.productnum
+		left outer join member1 m on p.to_friend = m.memberidx
 		where usestate = 0 and FROM_FRIEND = #{memberIdx}
 	</select>
 	
