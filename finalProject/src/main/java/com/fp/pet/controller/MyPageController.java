@@ -295,22 +295,45 @@ public class MyPageController {
 		return "redirect:/myPage/paymentList?page=" + page;
 	}
 
-	// 주문취소/반품/교환요청
+	// 주문취소요청
 	@PostMapping("orderDetailUpdate")
 	public String orderDetailUpdate(@RequestParam Map<String, Object> map, @RequestParam String page,
-			HttpSession session) throws Exception {
+			HttpSession session, Model model) throws Exception {
 
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
-
+		
 		try {
 			map.put("memberIdx", info.getMemberIdx());
+			
 
 			service.updateorderChange(map);
 
 		} catch (Exception e) {
 		}
-
 		return "redirect:/myPage/paymentList?page=" + page;
+	}
+	
+	
+	// 반품요청
+	@RequestMapping(value = "orderReturnUpdate")
+	@ResponseBody
+	public Map<String, Object> orderReturnUpdate(Payment dto, HttpSession session) throws Exception {
+		
+		Map<String, Object> model = new HashMap<String, Object>();
+		
+		try {
+			String root = session.getServletContext().getRealPath("/");
+			String pathname = root + "uploads" + File.separator + "img";
+
+			service.updateorderReturn(dto, pathname); 
+			
+			model.put("state", "true");
+			
+		} catch (Exception e) {
+			model.put("state", "false");
+		}
+		
+		return model;
 	}
 
 	// 회원탈퇴여부
@@ -389,8 +412,6 @@ public class MyPageController {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("orderDetailNum", orderDetailNum);
 			dto = service.findByDetail(map);
-			System.out.println(dto.getProductNum()+"@@@@@@@@@@@@@@@@@");
-			
 			
 			Product dto1 = service.findById(dto.getProductNum());
 			List<Product> listOption = service.listProductOption(dto.getProductNum());
@@ -398,7 +419,6 @@ public class MyPageController {
 			if(listOption.size() > 0) {
 				listOptionDetail = service.listOptionDetail(listOption.get(0).getOptionNum());
 			}
-			
 			
 			model.put("dto1", dto1);
 			model.put("listOption",listOption);
@@ -419,8 +439,7 @@ public class MyPageController {
 			@RequestParam long optionNum2, @RequestParam long detailNum) {
 		// 상세 옵션 및 재고량 -----
 		Map<String, Object> map = new HashMap<String, Object>();
-		System.out.println(optionNum2+"optionNum2optionNum2optionNum2optionNum2optionNum2");
-		System.out.println(detailNum+"detailNumdetailNumdetailNumdetailNum");
+		
 		map.put("optionNum2", optionNum2);
 		map.put("detailNum", detailNum);
 		List<Product> list = service.listOptionDetailStock(map);

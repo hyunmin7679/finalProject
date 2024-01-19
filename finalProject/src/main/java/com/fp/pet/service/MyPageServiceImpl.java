@@ -134,8 +134,6 @@ public class MyPageServiceImpl implements MyPageService {
 			int sum1 = mapper.sumPoint(map);
 			int sum2 = mapper.sumPoint2(map);
 
-			System.out.println(sum1 + "@@@@@@@@@@@@@@@@@@@@@@@");
-			System.out.println(sum2 + "@@@@@@@@@@@@@@@@@@@@@@@");
 			result = sum1 + sum2;
 
 		} catch (Exception e) {
@@ -162,7 +160,7 @@ public class MyPageServiceImpl implements MyPageService {
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 			for (Payment dto : list) {
-				// dto.setOrderDate(dto.getOrderDate().replaceAll("-", ".").substring(5,10));
+			    dto.setOrderDate(dto.getOrderDate().replaceAll("-", ".").substring(5,10));
 				dto.setOrderStateInfo(OrderState.ORDERSTATEINFO[dto.getOrderState()]); // 주문상태 정보들
 				dto.setDetailStateInfo(OrderState.DETAILSTATEINFO[dto.getDetailState()]); // 주문상세상태 정보들
 
@@ -353,7 +351,6 @@ public class MyPageServiceImpl implements MyPageService {
 			insertStateInfo2(map);
 
 			updatedetailStateInfo(map);
-			updateproductOrder(map);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -361,6 +358,36 @@ public class MyPageServiceImpl implements MyPageService {
 		}
 
 	}
+	
+	// 반품 요청 처리
+	@Override
+	public void updateorderReturn(Payment dto, String pathname) throws Exception {
+		try {
+			
+			mapper.insertorderChange2(dto); 
+			mapper.insertStateInfo4(dto);
+			mapper.updatedetailStateInfo2(dto);
+			
+			// 파일 업로드
+			if (!dto.getSelectFile().isEmpty()) {
+				for (MultipartFile mf : dto.getSelectFile()) {
+					String saveFilename = fileManager.doFileUpload(mf, pathname);
+					if (saveFilename == null) {
+						continue;
+					}
+
+					dto.setFilename(saveFilename);
+					mapper.insertReturnImg(dto);
+				}
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+
+	}
+	
 
 	@Override
 	public void addwishlist(Map<String, Object> map) throws Exception {
@@ -449,9 +476,7 @@ public class MyPageServiceImpl implements MyPageService {
 	public void updateExchange(Exchange dto) throws Exception {
 		
 		try {
-			System.out.println(dto.getOrderDetailNum()+"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2");
-			System.out.println(dto.getDetailNum3()+"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-			System.out.println(dto.getDetailNum4()+"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+
 			mapper.insertOrderChange(dto);
 			mapper.updateOrderState(dto);
 			

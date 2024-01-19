@@ -73,6 +73,7 @@ public class Exchange {
 		private long detailNum3;
 		private long detailNum4;
 		
+		
 		private List<MultipartFile> selectFile;
 		private String imageFilename;
 
@@ -80,7 +81,6 @@ public class Exchange {
 		private int reviewWrite; // 리뷰 유무
 		
 
-		
 		public List<MultipartFile> getSelectFile() {
 			return selectFile;
 		}

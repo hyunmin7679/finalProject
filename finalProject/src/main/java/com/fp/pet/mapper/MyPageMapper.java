@@ -57,6 +57,14 @@ public interface MyPageMapper {
 	public void insertorderChange (Map<String, Object> map) throws SQLException;
 	public void insertStateInfo2 (Map<String, Object> map) throws SQLException;
 	
+	// ---------------------------------------------
+	public void insertorderChange2 (Payment dto) throws SQLException;
+	public void insertStateInfo4 (Payment dto) throws SQLException;
+	public void updatedetailStateInfo2 (Payment dto) throws SQLException;
+	
+	public void insertReturnImg (Payment dto) throws SQLException;
+	// ---------------------------------------------
+	
 	public void updateproductOrder (Map<String, Object> map) throws SQLException;
 	public void updatedetailStateInfo (Map<String, Object> map) throws SQLException;
 	

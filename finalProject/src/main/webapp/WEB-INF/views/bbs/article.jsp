@@ -11,9 +11,14 @@
 
 	<tbody>
 		<tr>
-			<td width="50%">이름 : ${dto.userName} | <a class="frind-add"
-				data-userName="${dto.userName}"><i class="fa-solid fa-user-plus"></i></a>
+			<td width="50%">이름 : ${dto.userName}
 			</td>
+			<c:if test="${sessionScope.member.userId != dto.userId }">
+			<td align="right">
+				 <a class="frind-add"
+				data-userName="${dto.userName}"> | <i class="fa-solid fa-user-plus"></i></a>
+			</td>
+			</c:if>
 
 			<td align="right">${dto.reg_date} | 조회 ${dto.hitCount}</td>
 		</tr>

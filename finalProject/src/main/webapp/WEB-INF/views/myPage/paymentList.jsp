@@ -234,6 +234,7 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 	const settings = {
 			type: method, 
 			data: formData,
+			dataType: dataType,
 			success:function(data) {
 				fn(data);
 			},
@@ -262,6 +263,7 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 	
 	$.ajax(url, settings);
 }
+
 
 // 주문상세, 주문취소, 반품, 교환 메뉴
 $(function(){
@@ -363,6 +365,23 @@ $(function(){
 	});
 });
 
+
+$(function(){
+	$(".order-return").click(function(){
+		// 반품요청
+		let orderDetailNum = $(this).attr("data-orderDetailNum");
+		let memberIdx = $(this).attr("data-memberIdx");
+	
+		const f = document.returnForm;
+		f.orderDetailNum.value = orderDetailNum;
+		f.memberIdx.value = memberIdx;
+
+		$("#orderDetailReturnModalLabel").html("반품신청");
+		$("#orderDetailReturnModal").modal("show");
+		
+	});
+});
+
 // 교환 신청 btnUserOrderDetailExchangegOk
 $(function(){
 	$('body').on('click', '.btnUserOrderDetailExchangegOk', function() {
@@ -372,7 +391,7 @@ $(function(){
 		let query = new FormData(f);
 		
 		const fn = function(data) {
-			alert('성공');
+			alert('교환신청 처리되었습니다.');
 			$("#orderDetailExchangeDialogModal").modal("hide");
 		};
 		ajaxFun(url, "post", query, "json", fn, true);		
@@ -491,20 +510,40 @@ $(function(){
 
 $(function(){
 	$('.btnUserOrderDetailUpdateOk').click(function(){
-		// 주문취소/교환요청/반품요청
+		// 주문취소요청
 		const f = document.userOrderDetailForm;
-
-	/*	if(f.changeSort.value.trim() == 0) {
-			alert('취소구분을 선택해주세요.');
-			f.changeSort.focus();
-			return false;
-		}  */
 		
 		f.action = '${pageContext.request.contextPath}/myPage/orderDetailUpdate';
 		f.submit();
 	});
 });
 
+
+$(function(){
+	$('body').on('click', '.btnUserOrderReturnUpdateOk', function(){
+		const f= document.returnForm;
+
+		let url = '${pageContext.request.contextPath}/myPage/orderReturnUpdate';
+
+		let query = new FormData(f); 
+		
+		
+		const fn = function(data){
+			let state = data.state;
+			if(state === 'true') {
+				alert('반품신청 처리되었습니다');
+				$("#orderDetailReturnModal").modal('hide');
+				location.reload();
+				
+			} else {
+				alert('반품신청 처리실패 되었습니다.');
+			}
+		};
+		
+		ajaxFun(url, "post", query, "json", fn, true);		
+		
+	});
+});
 // **************************************************
 $(function(){
 	$('#tab-1').click(function(){
@@ -650,18 +689,33 @@ $(function(){
 							<div class="payment-menu">
 								<div class="payment-menu-item order-details-view"
 									data-orderDetailNum="${dto.orderDetailNum}">주문상세</div>
-								<c:if
-									test="${dto.detailState==0 && dto.orderState==1 || dto.orderState == 5}">
-									<div class="payment-menu-item order-cancel"
-										data-orderDetailNum="${dto.orderDetailNum}"
-										data-payment="${dto.productMoney}"
-										data-orderNum="${dto.orderNum}">주문취소</div>
-									<div class="payment-menu-item order-exchange"
-										data-productNum="${dto.productNum }"
-										data-orderDetailNum="${dto.orderDetailNum}"
-										data-payment="${dto.productMoney}"
-										data-orderNum="${dto.orderNum}">교환신청</div>
-								</c:if>
+								<c:choose>
+									<c:when test="${dto.detailState==0 && dto.orderState==1}">
+										<div class="payment-menu-item order-cancel"
+											data-orderDetailNum="${dto.orderDetailNum}"
+											data-payment="${dto.productMoney}"
+											data-orderNum="${dto.orderNum}">주문취소</div>
+										<div class="payment-menu-item order-exchange"
+											data-productNum="${dto.productNum }"
+											data-orderDetailNum="${dto.orderDetailNum}"
+											data-payment="${dto.productMoney}"
+											data-orderNum="${dto.orderNum}">교환신청</div>
+									</c:when>
+									<c:when test="${dto.orderState >= 2 && dto.orderState <= 5 && dto.detailState==0}">
+										<div class="payment-menu-item order-return"
+											data-orderDetailNum="${dto.orderDetailNum}"
+											data-payment="${dto.productMoney}"
+											data-orderNum="${dto.orderNum}" data-memberIdx="${dto.memberIdx}">반품신청</div>
+										<div class="payment-menu-item order-exchange"
+											data-productNum="${dto.productNum }"
+											data-orderDetailNum="${dto.orderDetailNum}"
+											data-payment="${dto.productMoney}"
+											data-orderNum="${dto.orderNum}">교환신청</div>
+									</c:when>
+									<c:otherwise>
+									</c:otherwise>
+								</c:choose>	
+									
 								<div class="payment-menu-item product-qna"
 									data-productNum="${dto.productNum}">1:1 문의</div>
 							</div>
@@ -848,19 +902,13 @@ $(function(){
 						<div>
 							<div class="col-8 p-1">
 								<select name="changeSort" class="form-select">
-									<option>::취소구분을 선택해주세요::</option>
-									<option value="0">물건하자로 인한 교환</option>
-									<option value="1">옵션변경을 위한 교환</option>
-									<option value="2">단순변심에 의한 반품</option>
-									<option value="3">귀책사유에 의한 반품</option>
-									<option value="4">단순변심으로 인한 환불</option>
-									<option value="5">귀책사유에 의한 환불</option>
+									<option value="">::취소구분을 선택해주세요::</option>
 									<option value="6">단순 변심에 의한 주문취소</option>
 									<option value="7">옵션 선택 실수로 주문 취소</option>
 								</select>
 							</div>
 							<div class="col p-1">
-								<input type="text" name="stateMemo" class="form-control"
+								<input type="text" name="userMemo" class="form-control"
 									placeholder="사유를 입력 하세요">
 							</div>
 						</div>
@@ -870,9 +918,60 @@ $(function(){
 								type="hidden" name="orderDetailNum"> <input
 								type="hidden" name="orderNum"> <input type="hidden"
 								name="payment"> <input type="hidden" name="changeSort">
-							<input type="hidden" name="stateMemo">
+							<input type="hidden" name="userMemo">
 							<button type="button"
 								class="btn btn-light btnUserOrderDetailUpdateOk">요청하기</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- 반품신청 입니다 -->
+<div class="modal fade" id="orderDetailReturnModal"
+	tabindex="-1" aria-labelledby="orderDetailReturnModalLabel"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="orderDetailReturnModalLabel">교환신청</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal"
+					aria-label="Close"></button>
+			</div>
+			<div class="modal-body pt-1">
+				<div class="p-1">
+					<form name="returnForm" method="post" enctype="multipart/form-data"
+						class="row justify-content-center">
+						<div>
+							<div id="returnProduct"></div>
+							<div class="col-8 p-1">
+								<select name="changeSort" class="form-select">
+									<option>::반품신청 사유를 선택해주세요::</option>
+									<option value="2">단순변심에 의한 반품</option>
+									<option value="3">귀책사유에 의한 반품</option>
+								</select>
+							</div>
+
+							<div class="col p-1">
+								<input type="text" name="userMemo" class="form-control"
+									placeholder="사유를 입력 하세요">
+							</div>
+							<div class="col p-1">
+								<input type="file" name="selectFile" accept="image/*" multiple class="form-control">
+							</div>	
+							<div class="col p-1">
+								<p>반품배송비 : 4,000원</p>
+							</div>
+						</div>
+
+						<div class="col-auto p-1">
+							<input type="hidden" name="page" value="${page}"> 
+							<input type="hidden" name="orderDetailNum">
+							<input type="hidden" name="memberIdx">
+							<button type="button"
+								class="btn btn-light btnUserOrderReturnUpdateOk">요청하기</button>
 						</div>
 					</form>
 				</div>
@@ -917,7 +1016,7 @@ $(function(){
 								<input type="file" name="selectFile" accept="image/*" multiple class="form-control">
 							</div>
 							<div class="col p-1">
-								<p>교환배송비 : 4000원</p>
+								<p>교환배송비 : 4,000원</p>
 							</div>
 						</div>
 

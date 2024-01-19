@@ -72,7 +72,7 @@
 	
 	<!-- 주문내역 리스트  -->
 	<select id="listPayment" parameterType="map" resultType="com.fp.pet.domain.Payment">
-		SELECT po.orderNum, po.memberIdx, to_char(orderDate,'YYYY-MM-DD') orderDate, totalMoney, od.savedMoney, 
+		SELECT po.orderNum, po.memberIdx, orderDate, totalMoney, od.savedMoney, 
 			usedSaved, deliveryCharge, payment, qty, salePrice, 
 			od.orderDetailNum, 
 			op.detailNum, op.optionValue, detailNum2, op2.optionValue optionValue2,
@@ -92,6 +92,7 @@
 		) r ON od.orderDetailNum = r.num
 		WHERE po.memberIdx = #{memberIdx}
 		AND userDelete = 0
+		AND NOT EXISTS (select orderNum from present where po.orderNum = orderNum and usestate =0)
 		ORDER BY orderDate DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
@@ -134,7 +135,7 @@
 	<insert id="insertDetailStateInfo" parameterType="map">
 		INSERT INTO detailStateInfo(stateNum, orderDetailNum, memberIdx, detailState, stateMemo, detailStateDate) 
     		VALUES (detailState_seq.NEXTVAL, #{orderDetailNum}, #{memberIdx}, #{detailState}, 
-                     	 #{stateMemo,jdbcType=VARCHAR}, SYSDATE)
+                     	 #{userMemo,jdbcType=VARCHAR}, SYSDATE)
 	</insert>
 	
 	<!-- 주문상세 테이블의 주문상태 변경 (구매확정) -->
@@ -199,14 +200,15 @@
 	 
 	 <!-- orderChange 주문상태 변경 테이블 인서트 -->
 	 <insert id="insertorderChange" parameterType="map">
-	 	INSERT INTO orderChange (changeNum, orderDetailNum, reg_date, changeSort, changeState, cancelCost, cancelMet)
-       		 VALUES (change_seq.NEXTVAL, #{orderDetailNum}, SYSDATE,  #{changeSort}, #{changeState}, #{payment}, 1)
+	 	INSERT INTO orderChange (changeNum, orderDetailNum, reg_date, changeSort, changeState, cancelCost, cancelMet, userMemo)
+       		 VALUES (change_seq.NEXTVAL, #{orderDetailNum}, SYSDATE,  #{changeSort}, #{changeState}, #{payment}, 1, #{userMemo})
 	 </insert>
 	 
+	
 	 <!-- 주문상세상태 인서트 -->
 	 <insert id="insertStateInfo2" parameterType="map">
         INSERT INTO detailStateInfo (stateNum, orderDetailNum, memberIdx, detailState, stateMemo, detailStateDate)
-            VALUES (detailState_seq.NEXTVAL, #{orderDetailNum}, #{memberIdx}, #{changeState}, #{stateMemo}, SYSDATE )	
+            VALUES (detailState_seq.NEXTVAL, #{orderDetailNum}, #{memberIdx}, #{changeState}, #{userMemo}, SYSDATE )	
 	 </insert>
 	 
 	 <!-- productOrder 테이블 상태변경 -->
@@ -220,6 +222,28 @@
 	    UPDATE orderDetail SET detailState = #{changeState}
     	WHERE orderDetailNum = #{orderDetailNum}
 	 </update>
+	 
+	<!-- ***** 반품 ***** -->
+	 <insert id="insertorderChange2" parameterType="com.fp.pet.domain.Payment">
+	 	INSERT INTO orderChange (changeNum, orderDetailNum, reg_date, changeSort, changeState, shipCost,cancelMet,userMemo)
+       		 VALUES (change_seq.NEXTVAL, #{orderDetailNum}, SYSDATE,  #{changeSort}, 10, 4000, 1, #{userMemo})
+	 </insert>
+	 
+	  <insert id="insertStateInfo4" parameterType="com.fp.pet.domain.Payment">
+        INSERT INTO detailStateInfo (stateNum, orderDetailNum, memberIdx, detailState, stateMemo, detailStateDate)
+            VALUES (detailState_seq.NEXTVAL, #{orderDetailNum}, #{memberIdx}, 10, #{userMemo}, SYSDATE )	
+	 </insert>
+	 
+	  <update id="updatedetailStateInfo2" parameterType="com.fp.pet.domain.Payment">
+	    UPDATE orderDetail SET detailState = 10
+    	WHERE orderDetailNum = #{orderDetailNum}
+	 </update>
+	 
+	 <insert id="insertReturnImg" parameterType="com.fp.pet.domain.Payment">
+	 	insert into cancelFile(fileNum,changeNum,fileName) values (changelFile_seq.NEXTVAL, change_seq.CURRVAL,#{filename})
+	 </insert>
+	 
+	<!-- ********** -->
 	 
 	 <insert id="addwishlist" parameterType="map">
 	  INSERT INTO wishlist (wishNum, userId, productNum, secret) 
@@ -237,7 +261,6 @@
 			discountRate, delivery, thumbnail, p.content, p.reg_date, totalStock,
 			NVL(score, 0) score, NVL(reviewCount, 0) reviewCount,
 			NVL(questionCount, 0) questionCount,
-			
 			NVL(saleCount, 0) saleCount
 		FROM product p
 		JOIN productCategory c ON p.categoryNum = c.categoryNum
@@ -265,6 +288,7 @@
 		) pc ON p.productNum = pc.productNum
 		WHERE p.productShow = 1 AND p.productNum = #{productNum}
 	 </select>
+	 
 	 <select id="listProductOption" parameterType="Long" resultType="com.fp.pet.domain.Product">
 		SELECT optionNum, optionName, parent, productNum
 		FROM productOption
@@ -302,11 +326,9 @@
 	</select>
 	
 	
-	
-	
 	<insert id="insertOrderChange" parameterType="map">
 	 	INSERT INTO orderChange (changeNum, orderDetailNum, reg_date, changeSort, changeState, shipCost,cancelMet,userMemo)
-       		 VALUES (change_seq.NEXTVAL, #{orderDetailNum}, SYSDATE,  #{changeSort}, 6,4000, 1,#{userMemo})
+       		 VALUES (change_seq.NEXTVAL, #{orderDetailNum}, SYSDATE,  #{changeSort}, 6, 4000, 1, #{userMemo})
 	 </insert>
 	 
 	 <update id="updateOrderState" parameterType="map">

@@ -319,13 +319,12 @@
 	
 	<!-- 친구정보 -->
 	<select id="friendWhether" parameterType="map" resultType="com.fp.pet.domain.Friend">
-		select nvl(count(*),0) friendCount , is_friend 
+		select is_friend 
 	       from friendlist fl, member1 m, member1 m2
-	       where fl.from_friend(+) = m.userName
-	       and fl.to_friend(+) = m2.userName
+	       where fl.from_friend = m.userName
+	       and fl.to_friend = m2.userName
 	       and m.userName= #{userId}
 	       and m2.userName = #{userName}
-	       group by is_friend
 	</select>
 	
 	<select id="findName" parameterType="map" resultType="com.fp.pet.domain.Community">

@@ -12,27 +12,27 @@
 			<img class="border rounded md-img mx-auto" width="250px;" style="display: flex;" src="${pageContext.request.contextPath}/uploads/photo/${dto.iconImage}">
 		</div>
 		
-		<!-- 친구신청도x, 친구도x 때 -->
-		<c:if test="${friend.friendCount == 0 }">
-		<div class="d-grid gap-5 m-3">
-  			<button type="button" class="btn btn-dark friend-add" data-userName="${dto.userName }"> 친구추가 <i class="fa-solid fa-star"></i></button>
-			<input type="hidden" name = "userName" value="${dto.userName}">
-		</div>
-		</c:if>
+		<c:choose>
+			<c:when test="${empty friend.is_friend }">
+				<div class="d-grid gap-5 m-3">
+		  			<button type="button" class="btn btn-dark friend-add" data-userName="${dto.userName }"> 친구추가 <i class="fa-solid fa-star"></i></button>
+					<input type="hidden" name = "userName" value="${dto.userName}">
+				</div>
+			</c:when>
+			<c:when test="${friend.is_friend == 0 || friend.is_friend == 1 }">
+				<div class="d-grid gap-5 m-3">
+		  			<button type="button" class="btn btn-dark friend-add" data-userName="${dto.userName }" disabled='disabled'> 친구수락 대기중.. <i class="fa-solid fa-star"></i></button>
+				</div>
+			</c:when>
+			<c:otherwise>
+				<div class="d-grid gap-5 m-3">
+		  			<button type="button" class="btn btn-dark friend-add" data-userName="${dto.userName }" disabled='disabled'> 이미 친구입니다! <i class="fa-solid fa-star"></i></button>
+				</div>
+			</c:otherwise>
+		</c:choose>
 		
-		<!-- 친구신청 중일 때 -->
-		<c:if test="${friend.friendCount > 0 && friend.is_friend != 2 }">
-		<div class="d-grid gap-5 m-3">
-  			<button type="button" class="btn btn-dark friend-add" data-userName="${dto.userName }" disabled='disabled'> 친구수락 대기중.. <i class="fa-solid fa-star"></i></button>
-		</div>
-		</c:if>
 		
-		<!-- 이미 친구일 때 -->
-		<c:if test="${friend.friendCount > 0 && friend.is_friend == 2 }">
-		<div class="d-grid gap-5 m-3">
-  			<button type="button" class="btn btn-dark friend-add" data-userName="${dto.userName }" disabled='disabled'> 이미 친구입니다! <i class="fa-solid fa-star"></i></button>
-		</div>
-		</c:if>
+		
 	</div>	
 	</form>	
 </div>				

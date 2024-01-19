@@ -38,6 +38,8 @@ public interface MyPageService {
 	
 	// 주문취소 요청
 	public void updateorderChange (Map<String, Object> map) throws Exception;  // 요청처리
+	public void updateorderReturn (Payment dto, String pathname) throws Exception;  // 요청처리
+	
 	public void insertStateInfo2 (Map<String, Object> map) throws Exception;
 	
 	public void insertorderChange (Map<String, Object> map) throws Exception;	// 상태변경 테이블 
