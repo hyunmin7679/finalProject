@@ -588,5 +588,19 @@ public class CommunityServiceImpl implements CommunityService {
 		return list;
 	}
 
+	@Override
+	public List<Community> listHomeCommunity() {
+		List<Community> list = null;
+
+		try {
+			list = mapper.listHomeCommunity();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return list;
+	}
+
 
 }

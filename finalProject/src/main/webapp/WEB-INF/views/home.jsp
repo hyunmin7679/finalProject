@@ -2,6 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@600&display=swap');
+
 button {
   border: 0;
   background: none;
@@ -97,12 +99,96 @@ position: relative;
     }
   }
 }
+/* 커뮤니티글 */  
+
+.card {
+  --border-radius: 0.75rem;
+  --primary-color: #0A174E;
+  --secondary-color: #F5D042;
+  width: 300px;
+  font-family: "Noto Sans Korean";
+  padding: 1rem;
+  margin: 30px auto;
+  cursor: pointer;
+  border-radius: var(--border-radius);
+  background: #f1f1f3;
+  box-shadow: 0px 8px 16px 0px rgb(0 0 0 / 3%);
+  position: relative;
+}
+
+.card > * + * {
+  margin-top: 1.1em;
+}
+
+.card .card__content {
+  font-size: 0.86rem;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  -webkit-box-lines: multiple;
+  -moz-box-lines: multiple;
+  flex-direction: column;
+  max-height: calc(0.86rem * 3); /* (font-size * line-height) * line-clamp */
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.card .card__title {
+  padding: 0;
+  font-size: 1.3rem;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card .card__date {
+  color: #6e6b80;
+  font-size: 0.8rem;
+}
+
+.card .card__arrow {
+  position: absolute;
+  background: var(--primary-color);
+  padding: 0.4rem;
+  border-top-left-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+  bottom: 0;
+  right: 0;
+  transition: 0.2s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card svg {
+  transition: 0.2s;
+}
+
+/* hover */
+.card:hover .card__title {
+  color: var(--primary-color);
+  text-decoration: underline;
+}
+
+.card:hover .card__arrow {
+  background: var(--secondary-color);
+}
+
+.card:hover .card__arrow svg {
+  transform: translateX(3px);
+}
+
 </style>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="description" content="Colo Shop Template">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/bootstrap4/bootstrap.min.css">
+	href="${pageContext.request.contextPath}/resources/styles/bootstrap4/bootstrap.min.css">
 <link
 	href="${pageContext.request.contextPath}/resources/plugins/font-awesome-4.7.0/css/font-awesome.min.css"
 	rel="stylesheet" type="text/css">
@@ -121,48 +207,7 @@ position: relative;
 
 
 	<div class="fs_menu_overlay"></div>
-	<div class="hamburger_menu">
-		<div class="hamburger_close">
-			<i class="fa fa-times" aria-hidden="true"></i>
-		</div>
-		<div class="hamburger_menu_content text-right">
-			<ul class="menu_top_nav">
-				<li class="menu_item has-children"><a href="#"> usd <i
-						class="fa fa-angle-down"></i>
-				</a>
-					<ul class="menu_selection">
-						<li><a href="#">cad</a></li>
-						<li><a href="#">aud</a></li>
-						<li><a href="#">eur</a></li>
-						<li><a href="#">gbp</a></li>
-					</ul></li>
-				<li class="menu_item has-children"><a href="#"> English <i
-						class="fa fa-angle-down"></i>
-				</a>
-					<ul class="menu_selection">
-						<li><a href="#">French</a></li>
-						<li><a href="#">Italian</a></li>
-						<li><a href="#">German</a></li>
-						<li><a href="#">Spanish</a></li>
-					</ul></li>
-				<li class="menu_item has-children"><a href="#"> My Account
-						<i class="fa fa-angle-down"></i>
-				</a>
-					<ul class="menu_selection">
-						<li><a href="#"><i class="fa fa-sign-in"
-								aria-hidden="true"></i>Sign In</a></li>
-						<li><a href="#"><i class="fa fa-user-plus"
-								aria-hidden="true"></i>Register</a></li>
-					</ul></li>
-				<li class="menu_item"><a href="#">home</a></li>
-				<li class="menu_item"><a href="#">shop</a></li>
-				<li class="menu_item"><a href="#">promotion</a></li>
-				<li class="menu_item"><a href="#">pages</a></li>
-				<li class="menu_item"><a href="#">blog</a></li>
-				<li class="menu_item"><a href="#">contact</a></li>
-			</ul>
-		</div>
-	</div>
+	
 
 	<!-- Slider -->
 
@@ -899,55 +944,36 @@ position: relative;
 			<div class="row">
 				<div class="col text-center">
 					<div class="section_title">
-						<h2>Latest Blogs</h2>
+						<h2>최신 커뮤니티 글</h2>
 					</div>
 				</div>
 			</div>
-			<div class="row blogs_container">
-				<div class="col-lg-4 blog_item_col">
-					<div class="blog_item">
-						<div class="blog_background"
-							style="background-image:url(${pageContext.request.contextPath}/resources/images/상품배너1.jpg)"></div>
-						<div
-							class="blog_content d-flex flex-column align-items-center justify-content-center text-center">
-							<h4 class="blog_title">Here are the trends I see coming this
-								fall</h4>
-							<span class="blog_meta">by admin | dec 01, 2017</span> <a
-								class="blog_more" href="#">Read more</a>
-						</div>
+			<div class="row">
+				<c:forEach var="dto" items="${list}" varStatus="status">
+					<div class="card" onclick="location.href='${pageContext.request.contextPath}/bbs/main?communityNum=${dto.communityNum}&pageNo=1&categoryNum=${dto.categoryNum}'">
+					    <h3 class="card__title">${dto.subject}</h3>
+					    <div class="card__content" style="font-size: 0.86rem;">
+				            <script>
+				                var content = "${dto.content}";
+				                var maxLength = 200; // 최대 길이 설정
+				                var truncated = content.length > maxLength ? content.substring(0, maxLength) + "..." : content;
+				                document.write(truncated);
+				            </script>
+				        </div>
+					    <div class="card__date">${dto.reg_date}</div>
+					    <div class="card__arrow">
+					        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="15" width="15">
+					            <path fill="#fff" d="M13.4697 17.9697C13.1768 18.2626 13.1768 18.7374 13.4697 19.0303C13.7626 19.3232 14.2374 19.3232 14.5303 19.0303L20.3232 13.2374C21.0066 12.554 21.0066 11.446 20.3232 10.7626L14.5303 4.96967C14.2374 4.67678 13.7626 4.67678 13.4697 4.96967C13.1768 5.26256 13.1768 5.73744 13.4697 6.03033L18.6893 11.25H4C3.58579 11.25 3.25 11.5858 3.25 12C3.25 12.4142 3.58579 12.75 4 12.75H18.6893L13.4697 17.9697Z"></path>
+					        </svg>
+					    </div>
 					</div>
-				</div>
-				<div class="col-lg-4 blog_item_col">
-					<div class="blog_item">
-						<div class="blog_background"
-							style="background-image:url(${pageContext.request.contextPath}/resources/images/상품배너2.jpg)"></div>
-						<div
-							class="blog_content d-flex flex-column align-items-center justify-content-center text-center">
-							<h4 class="blog_title">Here are the trends I see coming this
-								fall</h4>
-							<span class="blog_meta">by admin | dec 01, 2017</span> <a
-								class="blog_more" href="#">Read more</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 blog_item_col">
-					<div class="blog_item">
-						<div class="blog_background"
-							style="background-image:url(${pageContext.request.contextPath}/resources/images/상품배너3.jpg)"></div>
-						<div
-							class="blog_content d-flex flex-column align-items-center justify-content-center text-center">
-							<h4 class="blog_title">Here are the trends I see coming this
-								fall</h4>
-							<span class="blog_meta">by admin | dec 01, 2017</span> <a
-								class="blog_more" href="#">Read more</a>
-						</div>
-					</div>
-				</div>
+				</c:forEach>
 			</div>
 		</div>
 	</div>
-
 </div>
+	
+
 <div class="main_popup">
 	<div class="layer_cont">
 		<div class="img_wrap"><div>
@@ -965,13 +991,6 @@ position: relative;
 	</div>
 </div>
 
-<script src="js/jquery-3.2.1.min.js"></script>
-<script src="styles/bootstrap4/popper.js"></script>
-<script src="styles/bootstrap4/bootstrap.min.js"></script>
-<script src="plugins/Isotope/isotope.pkgd.min.js"></script>
-<script src="plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
-<script src="plugins/easing/easing.js"></script>
-<script src="js/custom.js"></script>
 </body>
 
 

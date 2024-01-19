@@ -69,39 +69,37 @@ h3{font-weight: 900;}
 <div class="container">
 	<div class="category-bar">
 		<div class="mem_info">
-			<div style="display: flex; justify-content :center;">
-			<a href="${pageContext.request.contextPath}/"><img class="icon" src="${pageContext.request.contextPath}/uploads/photo/${vo.iconImage}"></a>
-			<div style="align-items: center; display: flex;">
-				<p><strong>${sessionScope.member.userName} </strong>님 &nbsp;|</p>
-				<p>&nbsp;VIP등급</p>
+			<div style="display: flex; justify-content: center;">
+				<a href="${pageContext.request.contextPath}/"><img class="icon" 
+					src="${pageContext.request.contextPath}/uploads/photo/${vo.iconImage}"></a>
+				<div style="align-items: center; display: flex;">
+					<p><strong>${sessionScope.member.userName} </strong>님&nbsp;|</p>
+					<p>&nbsp;${userPoint} P</p>
+				</div>
 			</div>
-			</div> 
 		</div>
-		
+
 		<div class="itembox">
-		<div class="bar-item p-3">
-			<a href="${pageContext.request.contextPath}/faq/main"><i class="fa-solid fa-heart"></i><br>위시리스트</a>
-		</div>
-		<div class="point-item">
-			<i class="fa-solid fa-angle-right"></i>
-		</div>
-		<div class="bar-item p-3">
-			<a href="${pageContext.request.contextPath}/notice/list" ><i class="fa-solid fa-user-group"></i><br>친구목록</a>
-		</div>
-		<div class="point-item">
-			<i class="fa-solid fa-angle-right"></i>
-		</div>
-		<div class="bar-item p-3">
-			<a href="#"><i class="fa-solid fa-piggy-bank"></i><br>포인트</a>
-		</div>
-		<div class="point-item">
-			<i class="fa-solid fa-angle-right"></i>
-		</div>
-		<div class="bar-item p-3">
-			<a href="${pageContext.request.contextPath}/iconStore/list"><i class="fa-brands fa-shopify"></i></i><br>아이콘 상점</a>
-		</div>
+			<div class="bar-item p-3">
+				<a href="#"><i class="fa-solid fa-heart"></i><br>위시리스트</a>
+			</div>
+			<div class="point-item">
+				<i class="fa-solid fa-angle-right"></i>
+			</div>
+			<div class="bar-item p-3">
+				<a href="${pageContext.request.contextPath}/friend/list"><i
+					class="fa-solid fa-user-group"></i><br>친구목록</a>
+			</div>
+			<div class="point-item">
+				<i class="fa-solid fa-angle-right"></i>
+			</div>
+			<div class="bar-item p-3">
+				<a href="${pageContext.request.contextPath}/iconStore/list"><i
+					class="fa-brands fa-shopify"></i><br>아이콘 상점</a>
+			</div>
 		</div>
 	</div>
+
 
 	<div class="row" style="height: 50px; ">
 		<div class="d-flex justify-content-start mx-auto gap-3 float-end">

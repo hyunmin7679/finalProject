@@ -77,4 +77,9 @@ public interface CommunityMapper {
 	
 	public void insertMap(Map<String,Object>map);
 	public List<Community> findByMap(long communityNum);
+	
+	// ----------------------------------------------------------
+	
+	// 메인화면 리스트
+	public List<Community> listHomeCommunity();
 }

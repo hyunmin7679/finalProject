@@ -67,6 +67,10 @@ public interface CommunityService {
 	public List<Community>listLike2(Map<String, Object>map);
 	public List<Community> finByMap(long communityNum);
 	
+	// -----------------------------------------------------------
+	// 메인화면 리스트
+	public List<Community> listHomeCommunity();
+	
 	
 
 }
