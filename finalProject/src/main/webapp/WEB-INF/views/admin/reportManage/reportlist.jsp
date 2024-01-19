@@ -4,10 +4,6 @@
 
 
 <div class="card">
-	<div class="card-title m-0 pb-3">
-		<h5 class="m-0 me-2">검색결과(1)</h5>
-	</div>
-
 	<div class="card" style="border: 1px solid lightgray;">
 
 		<div class="card-datatable">
@@ -27,16 +23,16 @@
 									aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
 									style="width: 60px;"
 									aria-label="location: activate to sort column descending"
-									aria-sort="ascending">게시글등록일</th>
+									aria-sort="ascending">등록일</th>
 								<th class="sorting sorting_asc" tabindex="0"
 									aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
 									style="width: 80px;"
 									aria-label="location: activate to sort column descending"
-									aria-sort="ascending">게시글작성자</th>
+									aria-sort="ascending">작성자</th>
 								<th class="sorting" tabindex="0"
 									aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
 									style="width: 300px;"
-									aria-label="starting route: activate to sort column ascending">게시글제목
+									aria-label="starting route: activate to sort column ascending">내용
 								</th>
 								<th class="w-20 sorting" tabindex="0"
 									aria-controls="DataTables_Table_0" rowspan="1" colspan="1"

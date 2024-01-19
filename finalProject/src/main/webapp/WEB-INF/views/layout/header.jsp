@@ -320,9 +320,11 @@ nav li.sub-menu:hover .extra-space {
 				</ul></li>
 
 			<li class='sub-menu exclude'><a href="#"> | </a></li>
+		
 
-			<li class='sub-menu'><a
-				href="${pageContext.request.contextPath}/bbs/main"> Community<i
+			<li class='sub-menu'>
+			
+			<a href="#" onclick="showOverlayAndRedirect()"> Community<i
 					class='fa fa-angle-down'></i>
 			</a>
 			<div class="extra-space dogwalk">	
@@ -330,14 +332,14 @@ nav li.sub-menu:hover .extra-space {
 				src="${pageContext.request.contextPath}/bootstrapTemp/assets/img/avatars/dogwalk.gif"
 				alt="Moving GIF"></div>
 				<ul>
-					<li class="exclude"><a
+					<%-- <li class="exclude"><a
 						href="${pageContext.request.contextPath}/bbs/main">나눔</a></li>
 					<li class="exclude"><a
 						href="${pageContext.request.contextPath}/bbs/main">상담</a></li>
 					<li class="exclude"><a
 						href="${pageContext.request.contextPath}/bbs/main">자유</a></li>
 					<li class="exclude"><a
-						href="${pageContext.request.contextPath}/bbs/main">산책메이트</a></li>
+						href="${pageContext.request.contextPath}/bbs/main">산책메이트</a></li> --%>
 				</ul></li>
 
 			<li class='sub-menu'><a href="#"> Event<i

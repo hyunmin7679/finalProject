@@ -23,14 +23,25 @@ public class ReportServiceImpl implements ReportService{
 		
 		try {
 			
-			list = mapper.listReport(map);
+			String state = (String) map.get("state");
+			if(state.equals("community")) {
+				list = mapper.listReport(map);
+				
+				for (Report  report : list) {
+					List<Report> Reports = mapper.listCommunity(report.getCommunityNum());
+					list2.addAll(Reports);
+					System.out.println("Community Number: " + report.getCommunityNum());
+			    }
+			}else {
+				list = mapper.listReport2(map);
+				for (Report  report : list) {
+					List<Report> Reports = mapper.listCommunity2(report.getNum());
+					list2.addAll(Reports);
+					System.out.println("Community Number: " + report.getCommunityNum());
+			    }
+			}
 			
-			for (Report  report : list) {
-				List<Report> communityReports = mapper.listCommunity(report.getCommunityNum());
-				list2.addAll(communityReports);
-				System.out.println("Community Number: " + report.getCommunityNum());
-		    }
-			System.out.println(list2+"list2list2list2");
+			
 			
 			
 		} catch (Exception e) {
@@ -54,8 +65,14 @@ public class ReportServiceImpl implements ReportService{
 	public List<Report> findReporyList(Map<String, Object> map) {
 		List<Report> list = null;
 		try {
-			list = mapper.findReporyList(map);
-			System.out.println(list+"listlistlistlist");
+			
+			String state = (String) map.get("state");
+			if(state.equals("community")) {	
+				list = mapper.findReporyList(map);
+			}else {
+				list = mapper.findReporyList2(map);
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			

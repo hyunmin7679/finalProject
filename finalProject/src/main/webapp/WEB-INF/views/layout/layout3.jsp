@@ -8,6 +8,29 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title><tiles:insertAttribute name="title"/></title>
+	<style>
+ 
+    .gif-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #F5D042; /* Gif나 디자인에 맞는 배경 색을 설정하세요 */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999; /* 오버레이가 모든 것 위에 있도록 설정 */
+      opacity: 1;
+      transition: opacity 3s ease-in-out; /* 트랜지션 지속 시간을 설정하세요 */
+    }
+
+    .gif-overlay img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* Gif를 화면에 맞게 조절 */
+    }
+  </style>
 	
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrapTemp/assets/vendor/fonts/boxicons.css" />
 	<link rel="icon" href="data:;base64,iVBORw0KGgo=">
@@ -24,7 +47,6 @@
 </head>
 
 <body>
-
 <header>
     <tiles:insertAttribute name="header"/>
 </header>
@@ -36,12 +58,27 @@
 <footer>
     <tiles:insertAttribute name="footer"/>
 </footer>
-
+<div class="gif-overlay" id="overlay" style="display: none;">
+    <!-- 여기에 사용할 Gif를 넣어주세요 -->
+    <img src="${pageContext.request.contextPath}/resources/images/catspopping.gif" alt="오버레이 Gif">
+ </div>
 <div id="loadingLayout" style="display:none; position: absolute; left: 0; top:0; width: 100%; height: 100%; z-index: 9000; background: #eee;">
 	<div class="loader"></div>
 </div>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/bootstrap5/js/bootstrap.bundle.min.js"></script>
 
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/bootstrap5/js/bootstrap.bundle.min.js"></script>
+  <script type="text/javascript">
+    function showOverlayAndRedirect() {
+      // 오버레이를 표시
+      document.getElementById('overlay').style.display = 'flex';
+
+      // 3초 후에 페이지 이동
+      setTimeout(function() {
+        // 페이지 이동 코드
+        window.location.href = "${pageContext.request.contextPath}/bbs/main";
+      }, 2670);
+    }
+  </script>
 <!-- Login Modal -->
 <script type="text/javascript">
 	function dialogLogin() {

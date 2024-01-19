@@ -13,7 +13,22 @@
 }
 </style>
 <!-- / Navbar -->
-
+<script type="text/javascript">
+// 탭
+$(function(){
+	$("button[role='tab']").on('click', function(){
+		const tab = $(this).attr("aria-controls");
+	
+		if(tab === "1") { // 판매취소
+			let state = 'community';
+			location.href = "${pageContext.request.contextPath}/admin/reportManage/list?state="+state;
+		} else if( tab === "2") { // 주문취소
+			let state = 'review';
+			location.href = "${pageContext.request.contextPath}/admin/reportManage/list?state="+state;
+		}
+	});
+});
+</script>
 
 
 <!-- Content wrapper -->
@@ -37,18 +52,24 @@
 					<ul class="nav nav-pills mb-3 nav-fill" role="tablist"
 						style="width: 500px;">
 						<li class="nav-item" role="presentation">
-							<button type="button" class="nav-link active" role="tab"
+							<button type="button" class="nav-link ${state == 'community' ? 'active' : ''}" role="tab"
 								data-bs-toggle="tab" data-bs-target="#navs-pills-justified-home"
-								aria-controls="navs-pills-justified-home" aria-selected="false"
+								aria-controls="1" aria-selected="false"
 								tabindex="-1">
-								<i class="tf-icons bx bx-home me-1"></i> 신고 당한 게시물
+								<i class="tf-icons bx bx-home me-1"></i> 커뮤니티 신고
 							</button>
 						</li>
-						<!-- 
-        <li class="nav-item" role="presentation">
-          <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-justified-messages" aria-controls="navs-pills-justified-messages" aria-selected="false" tabindex="-1"><i class="tf-icons bx bx-message-square me-1"></i></button>
-        </li>
-         -->
+
+						<li class="nav-item" role="presentation">
+							<button type="button" class="nav-link ${state == 'review' ? 'active' : ''}" role="tab"
+								data-bs-toggle="tab"
+								data-bs-target="#navs-pills-justified-home"
+								aria-controls="2"
+								aria-selected="false" tabindex="-1">
+								<i class="tf-icons bx bx-message-square me-1">리뷰 신고</i>
+							</button>
+						</li>
+
 					</ul>
 					<div class="tab-content" style="width: 1380px;">
 
@@ -158,7 +179,8 @@
 			<!--/ User Content -->
 		</div>
 	</div>
-</div>S
+</div>
+S
 
 
 <!-- Modal -->
@@ -279,14 +301,16 @@ $(function(){
 //글리스트 및 페이징 처리
 function listPage(page) {
 	
+	let state = '${state}';
 	let url = "${pageContext.request.contextPath}/admin/reportManage/reportList";
+	
 	
 	// let schType = $('#ProductStatus').val();
     // let kwd = $('input[name="kwd"]').val();
     // console.log(schType);
     // console.log(kwd);
 	
-	let query = "page="+page
+	let query = "page="+page+"&state="+state;
 	
 	
 	let selector = "#reportlist";
@@ -301,10 +325,11 @@ function listPage(page) {
 // modalOn
 $('body').on('click', '.modalOn', function () {
 
+	let state = '${state}';
     let communityNum = $(this).attr("data-communityNum");
     let showNo = $(this).attr("data-showNo");
-	console.log(showNo);
-    let query = "communityNum=" + communityNum;
+	console.log(state+'statestatestate');
+    let query = "communityNum=" + communityNum+"&state="+state;
     let url = "${pageContext.request.contextPath}/admin/reportManage/findReporyList";
 
     const fn = function (data) {

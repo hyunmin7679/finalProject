@@ -288,9 +288,11 @@
 
 	<select id="findOrder"
 		resultType="com.fp.pet.admin.domain.OrderDetailManage">
-		SELECT od.orderDetailNum,od.orderNum
+		SELECT od.orderDetailNum,od.orderNum,
+		od.savedMoney,po.memberIdx
 		FROM orderDetail od
-		JOIN productOrder po ON od.orderNum = po.orderNum
+		JOIN productOrder po ON
+		od.orderNum = po.orderNum
 		WHERE od.detailState
 		= 0
 		AND po.orderState = 5
@@ -300,7 +302,8 @@
 
 	<update id="automaticOrder" parameterType="long">
 		UPDATE
-		orderDetail SET detailState = 2
+		orderDetail SET
+		detailState = 2
 		WHERE orderDetailNum =
 		#{orderDetailNum}
 	</update>
@@ -312,6 +315,11 @@
 		자동구매확정', SYSDATE)
 	</insert>
 
+	<insert id="automaticInsertPoint" parameterType="map">
+		insert into
+		point(pointNum, orderNum ,memberIdx,reg_date,memo,p_qyt,p_sort)
+		values(point_seq.NEXTVAL,#{orderNum},#{memberIdx},sysdate,'자동구매확정으로 인한 포인트 적립',#{usedSaved},1)
+	</insert>
 
 
 </mapper>

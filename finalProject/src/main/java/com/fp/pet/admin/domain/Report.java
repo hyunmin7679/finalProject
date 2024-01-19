@@ -18,7 +18,23 @@ public class Report {
 	private int categoryNum;
 	private int showNo;
 	
+	private long num ; // 
+	private long showReview;
 	
+	
+	
+	public long getShowReview() {
+		return showReview;
+	}
+	public void setShowReview(long showReview) {
+		this.showReview = showReview;
+	}
+	public long getNum() {
+		return num;
+	}
+	public void setNum(long num) {
+		this.num = num;
+	}
 	public int getShowNo() {
 		return showNo;
 	}

@@ -33,9 +33,10 @@ public class ReportManageController {
 	
 	
 	@RequestMapping(value = "list")
-	public String list(Model model) throws Exception{
+	public String list(Model model,@RequestParam(defaultValue = "community") String state) throws Exception{
 		 model.addAttribute("left","reportManage");
          model.addAttribute("sub","reportManage");
+         model.addAttribute("state",state);
 		return ".admin.reportManage.list";
 	}
 	
@@ -45,6 +46,7 @@ public class ReportManageController {
 			@RequestParam(defaultValue = "all") String schType,
 			@RequestParam(defaultValue = "") String kwd,
 			HttpServletRequest req,
+			@RequestParam String state,
 			HttpSession session) throws Exception {
 		
 		int size = 10;
@@ -54,7 +56,6 @@ public class ReportManageController {
 		if (req.getMethod().equalsIgnoreCase("GET")) { // GET 방식인 경우
 		kwd = URLDecoder.decode(kwd, "utf-8");
 		}
-
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("schType", schType);
@@ -72,12 +73,12 @@ public class ReportManageController {
 
 		map.put("offset", offset);
 		map.put("size", size);
-
+		map.put("state", state);
 		List<Report> list = service.listReport(map);
 		
 		String paging = myUtil.pagingMethod(current_page, total_page, "listPage");
 		
-		
+		model.addAttribute("state",state);
 		model.addAttribute("list", list);
 		model.addAttribute("page", current_page);
 		model.addAttribute("dataCount", dataCount);
@@ -97,19 +98,20 @@ public class ReportManageController {
 		// 상세주문별 상태 변경
 		Map<String, Object> model = new HashMap<String, Object>();
 		
-		String state = "true";
-		
+		String state1 = "true";
+		String state = (String) paramMap.get("state");
 		
 		try {
-		
+			 
 			 List<Report> list = service.findReporyList(paramMap);
 			
 			model.put("list", list);
 		} catch (Exception e) {
-			state = "false";
+			state1 = "false";
 		}
 		
-		model.put("state", state);
+		model.put("s", state);
+		model.put("state", state1);
 		return model;
 	}
 	

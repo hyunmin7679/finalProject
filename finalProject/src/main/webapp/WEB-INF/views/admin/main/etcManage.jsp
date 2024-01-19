@@ -34,7 +34,7 @@
 										<h6 class="mb-0">선물 수입액</h6>
 									</div>
 									<div class="user-progress d-flex align-items-center gap-1">
-										<h6 class="mb-0">+0</h6>
+										<h6 class="mb-0">+<fmt:formatNumber value="${giftProduct}"/></h6>
 										<span class="text-muted">원</span>
 									</div>
 								</div>

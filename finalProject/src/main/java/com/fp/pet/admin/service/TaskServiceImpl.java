@@ -1,7 +1,10 @@
 package com.fp.pet.admin.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -36,12 +39,18 @@ public class TaskServiceImpl  implements TaskService{
 	@Override
 	public void automaticOrderState() {
 		try {
+			Map<String, Object> map = new HashMap<String, Object>();
 			
 			List<OrderDetailManage> list = orderMapper.findOrder();
 			
 			for(OrderDetailManage dto : list) {
 				orderMapper.automaticOrder(dto.getOrderDetailNum());
 				orderMapper.automaticOrderDetail(dto.getOrderDetailNum());
+				
+				map.put("savedMoney", dto.getSavedMoney());
+				map.put("memberIdx", dto.getMemberIdx());
+				map.put("orderNum", dto.getOrderNum());
+				orderMapper.automaticInsertPoint(map);
 			}
 			
 			

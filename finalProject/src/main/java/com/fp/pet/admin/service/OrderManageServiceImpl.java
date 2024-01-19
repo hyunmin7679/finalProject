@@ -176,48 +176,6 @@ public class OrderManageServiceImpl implements OrderManageService {
 						 // 이미 주문취소 상품이 있으면
 						 if (++index == list.size()) {
 							 System.out.println("이미 있는상품 ==============================");
-							 /*
-				                productMoney += deliveryCharge;
-				                System.out.println("여기?");
-								map.put("productMoney", productMoney);
-								map.put("orderDetailNum", dto.getOrderDetailNum());
-								mapper.updateProductCancleAmount(map);
-								
-								// 쿠폰 
-								long couponNum = dto.getCouponNum();
-								
-								if(couponNum != 0) {
-									map.put("couponNum",couponNum);
-									mapper.updateCoupon(map);
-								}
-								
-								int DTOsavedMoney = dto.getSavedMoney();
-								int savedMoney = -DTOsavedMoney;
-								
-								map.put("savedMoney",savedMoney);
-								mapper.updatePoint(map);
-								
-								
-								
-								map.put("productNum", dto.getProductNum());
-								map.put("detailNum", dto.getDetailNum());
-								map.put("detailNum2", dto.getDetailNum2());
-								Map<Integer,Object> list2 = mapper.findByStock(map); 
-								int qty = dto.getQty();
-								
-								BigDecimal stockNumBigDecimal = (BigDecimal) list2.get("STOCKNUM");
-							 	int stockNum = stockNumBigDecimal.intValue();
-
-								BigDecimal fuck = (BigDecimal) list2.get("TOTALSTOCK");
-							 	int totalStock = fuck.intValue();
-							 	
-							 	totalStock = totalStock + qty;
-							 	map.put("stockNum",stockNum);
-								map.put("totalStock",totalStock);
-								
-								mapper.updateStock(map); 
-								*/
-							 
 								
 				           }else {
 				        	   
@@ -241,7 +199,7 @@ public class OrderManageServiceImpl implements OrderManageService {
 										
 										map.put("savedMoney",savedMoney);
 										
-										mapper.updatePoint(map);
+										// mapper.updatePoint(map);
 										mapper.updateUsedSaved(map);
 										
 										map.put("productNum", dto.getProductNum());
@@ -279,7 +237,7 @@ public class OrderManageServiceImpl implements OrderManageService {
 										int savedMoney = -DTOsavedMoney;
 										
 										map.put("savedMoney",savedMoney);
-										mapper.updatePoint(map);
+										// mapper.updatePoint(map);
 										
 										map.put("productNum", dto.getProductNum());
 										map.put("detailNum", dto.getDetailNum());
@@ -427,7 +385,7 @@ public class OrderManageServiceImpl implements OrderManageService {
 				int savedMoney = -savedMoney1;
 				map.put("savedMoney", savedMoney);
 				map.put("memberIdx", memberIdx); 
-				mapper.updatePoint(map);
+				//mapper.updatePoint(map);
 				
 				// 필요한값 orderNum,memberIdx(주문자),usedSaved
 				// 만약에 마지막 전체 주문에서 마지막 주문 취소일경우 memberIdx가 사용한 적립금 만큼 memberIdx에게 돌려줘야한다

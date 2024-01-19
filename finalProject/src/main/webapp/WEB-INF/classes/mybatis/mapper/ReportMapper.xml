@@ -33,6 +33,23 @@
 		) WHERE rn =
 		1
 	</select>
+	
+	<select id="listReport2"
+		resultType="com.fp.pet.admin.domain.Report">
+		SELECT num
+		FROM (
+		SELECT
+		TO_NUMBER(REGEXP_SUBSTR(declUrl, '\d+')) as num,
+		ROW_NUMBER()
+		OVER (PARTITION BY TO_NUMBER(REGEXP_SUBSTR(declUrl, '\d+')) ORDER BY
+		r.reg_date) AS rn
+		FROM report r
+		JOIN productReview p ON
+		TO_NUMBER(REGEXP_SUBSTR(r.declUrl, '\d+')) =
+		p.num
+		) WHERE rn =
+		1
+	</select>
 
 	<select id="listCommunity" parameterType="long"
 		resultType="com.fp.pet.admin.domain.Report">
@@ -46,6 +63,19 @@
 		c.userId
 		where communityNum =
 		#{communityNum}
+	</select>
+	
+	<select id="listCommunity2" parameterType="long"
+		resultType="com.fp.pet.admin.domain.Report">
+		select num, m.userName as
+		postName, productNum  , showReview as showNo,
+		review as subject,
+		review_date as preg_date
+		From
+		productreview c
+		join member1 m on m.memberIdx =c.memberIdx
+		where num =
+		#{num}
 	</select>
 
 	<select id="findReporyList" parameterType="map"
@@ -67,6 +97,27 @@
 		TO_NUMBER(REGEXP_SUBSTR(r.declUrl, '\d+')) = p.communitynum
 		where
 		communityNum = #{communityNum}
+	</select>
+	
+	<select id="findReporyList2" parameterType="map"
+		resultType="com.fp.pet.admin.domain.Report">
+		 SELECT DISTINCT
+		r.reasonNum,
+		m.userid,
+		r.reason,
+		r.content,
+		r.reg_date,
+		m.userName as reportUser
+		FROM
+		report r
+		JOIN
+		member1 m ON
+		r.memberIdx = m.memberIdx
+		JOIN
+		productReview p ON
+		TO_NUMBER(REGEXP_SUBSTR(r.declUrl, '\d+')) = p.num
+		where
+		num = #{communityNum}
 	</select>
 
 	<update id="changeShow" parameterType="map">

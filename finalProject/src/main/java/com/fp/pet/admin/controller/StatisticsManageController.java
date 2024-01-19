@@ -34,14 +34,14 @@ public class StatisticsManageController {
 
 		int todayreg = service.todayregcount();
 		int returnProduct = service.returnProduct();
-		// int giftProduct = service.giftProduct();
+		int giftProduct = service.giftProduct();
 		int allCommunity = service.allCommunity();
 		int yestCommunity = service.yestCommunity();
 
 		model.addAttribute("allCommunity", allCommunity); // 전체 커뮤니티 수
 		model.addAttribute("yestCommunity", yestCommunity); // 오늘 커뮤니티수
 		model.addAttribute("returnProduct", returnProduct); // 반품액
-		// model.addAttribute("giftProduct",giftProduct); // 선물수입액
+		model.addAttribute("giftProduct",giftProduct); // 선물수입액
 		model.addAttribute("dailyresult", todayreg); // 신규 가입자수
 		return "/admin/main/etcManage";
 	}

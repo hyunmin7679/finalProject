@@ -6,8 +6,8 @@
 .card {
 	width: 300px;
 	height: 200px;
-	background-color: #4158D0;
-	background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+	background-color: #F5D042;
+	background-image: linear-gradient(43deg, #F5D042 0%, #466093 46%, #FFCC70 100%);
 	border-radius: 8px;
 	color: white;
 	overflow: hidden;
@@ -125,7 +125,7 @@ h1 span {
 	display: inline-block;
 	animation: bounce .3s ease infinite alternate;
 	font-family: 'Titan One', cursive;
-	font-size: 80px;
+	font-size: 50px;
 	color: #000000;
 	text-shadow: 0 1px 0 #CCC, 0 2px 0 #CCC, 0 3px 0 #CCC, 0 4px 0 #CCC, 0
 		5px 0 #CCC, 0 6px 0 transparent, 0 7px 0 transparent, 0 8px 0
