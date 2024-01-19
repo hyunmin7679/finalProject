@@ -9,6 +9,7 @@ import com.fp.pet.domain.Wishlist;
 public interface ProductService {
 	public int dataCount(Map<String, Object> map);
 	public List<Product> listProduct(Map<String, Object> map);
+	public List<Product> listProduct2(Map<String, Object> map);
 	
 	public Product findByProduct(long ProductNum);
 	public List<Product> listProductFile(long productNum);

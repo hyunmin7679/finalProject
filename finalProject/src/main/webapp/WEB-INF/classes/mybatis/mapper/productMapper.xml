@@ -18,6 +18,16 @@
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
 	
+	<select id="listProduct2" parameterType="map" resultType="com.fp.pet.domain.Product">
+		SELECT productNum, p.categoryNum, productName, price, discountRate, reg_date, 
+			thumbnail
+		FROM product p
+		JOIN productCategory c ON p.categoryNum = c.categoryNum
+		WHERE productShow=1
+		ORDER BY reg_date DESC
+        FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
 	<select id="findByProduct" parameterType="long" resultType="com.fp.pet.domain.Product">
 		SELECT p.productNum, p.categoryNum, p.special, p.productShow, categoryName, 
 		    productName, price, savedMoney, 

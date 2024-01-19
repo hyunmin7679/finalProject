@@ -279,16 +279,16 @@ position: relative;
 							class="arrivals_grid_sorting clearfix button-group filters-button-group">
 							<li
 								class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center active is-checked"
-								data-filter="*">all</li>
+								data-filter="*">ALL</li>
 							<li
 								class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center"
-								data-filter=".women">feed</li>
+								data-filter=".women">사료</li>
 							<li
 								class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center"
-								data-filter=".accessories">Supplies</li>
+								data-filter=".accessories">간식</li>
 							<li
 								class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center"
-								data-filter=".men">snack</li>
+								data-filter=".men">용품</li>
 						</ul>
 					</div>
 				</div>
@@ -297,269 +297,45 @@ position: relative;
 				<div class="col">
 					<div class="product-grid"
 						data-isotope="{ &quot;itemSelector&quot;: &quot;.product-item&quot;, &quot;layoutMode&quot;: &quot;fitRows&quot; }"
-						style="position: relative; height: 800px;">
+						style="position: relative; height: 300px;">
 
 						<!-- Product 1 -->
-
-						<div class="product-item men"
-							style="position: absolute; left: 0px; top: 0px;">
+						<c:forEach var="vo" items="${productList}" varStatus="status">
+						<div class="product-item * ${vo.categoryNum <= 4 ? 'women' : vo.categoryNum <= 10 ? 'accessories' : 'men'}"
+							style="position: absolute; left: 0px; top: 0px; ">
 							<div class="product discount product_filter"
-								style="border-right: 1px solid rgb(233, 233, 233);">
+								style="border-right: 1px solid rgb(233, 233, 233); height: 300px;">
 								<div class="product_image">
-									<img
-										src="${pageContext.request.contextPath}/resources/images/불독전용사이즈2_001.jpg">
+									<img style="height: 150px;"
+										src="${pageContext.request.contextPath}/uploads/product/${vo.thumbnail}">
 								</div>
-								<div class="favorite favorite_left"></div>
+								<c:if test="${vo.discountRate > 0 }">
 								<div
 									class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center">
-									<span>-$20</span>
+									<span>${vo.discountRate}%</span>
 								</div>
+								</c:if>
 								<div class="product_info">
 									<h6 class="product_name">
-										<a href="single.html">Fujifilm X100T 16 MP Digital Camera
-											(Silver)</a>
+										<a href="${pageContext.request.contextPath}/product/buy/${vo.productNum}">${vo.productName }</a>
 									</h6>
+									<c:if test="${vo.discountRate > 0}">
 									<div class="product_price">
-										$520.00<span>$590.00</span>
+									<span class="me-2">₩${vo.price}</span><br>₩${vo.salePrice}
 									</div>
-								</div>
-							</div>
-							<div class="red_button add_to_cart_button">
-								<a href="#">add to cart</a>
-							</div>
-						</div>
-
-						<!-- Product 2 -->
-
-						<div class="product-item women"
-							style="position: absolute; left: 222px; top: 0px;">
-							<div class="product product_filter"
-								style="border-right: 1px solid rgb(233, 233, 233);">
-								<div class="product_image">
-									<img
-										src="${pageContext.request.contextPath}/resources/images/사료1.png">
-								</div>
-								<div class="favorite"></div>
-								<div
-									class="product_bubble product_bubble_left product_bubble_green d-flex flex-column align-items-center">
-									<span>new</span>
-								</div>
-								<div class="product_info">
-									<h6 class="product_name">
-										<a href="single.html">Samsung CF591 Series Curved 27-Inch
-											FHD Monitor</a>
-									</h6>
-									<div class="product_price">$610.00</div>
-								</div>
-							</div>
-							<div class="red_button add_to_cart_button">
-								<a href="#">add to cart</a>
-							</div>
-						</div>
-
-						<!-- Product 3 -->
-
-						<div class="product-item women"
-							style="position: absolute; left: 444px; top: 0px;">
-							<div class="product product_filter"
-								style="border-right: 1px solid rgb(233, 233, 233);">
-								<div class="product_image">
-									<img
-										src="${pageContext.request.contextPath}/resources/images/불독전용사이즈2_001.jpg">
-								</div>
-								<div class="favorite"></div>
-								<div class="product_info">
-									<h6 class="product_name">
-										<a href="single.html">Blue Yeti USB Microphone Blackout
-											Edition</a>
-									</h6>
-									<div class="product_price">$120.00</div>
-								</div>
-							</div>
-							<div class="red_button add_to_cart_button">
-								<a href="#">add to cart</a>
-							</div>
-						</div>
-
-						<!-- Product 4 -->
-
-						<div class="product-item accessories"
-							style="position: absolute; left: 666px; top: 0px;">
-							<div class="product product_filter"
-								style="border-right: 1px solid rgb(233, 233, 233);">
-								<div class="product_image">
-									<img
-										src="${pageContext.request.contextPath}/resources/images/사료1.png">
-								</div>
-								<div
-									class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center">
-									<span>sale</span>
-								</div>
-								<div class="favorite favorite_left"></div>
-								<div class="product_info">
-									<h6 class="product_name">
-										<a href="single.html">DYMO LabelWriter 450 Turbo Thermal
-											Label Printer</a>
-									</h6>
-									<div class="product_price">$410.00</div>
-								</div>
-							</div>
-							<div class="red_button add_to_cart_button">
-								<a href="#">add to cart</a>
-							</div>
-						</div>
-
-						<!-- Product 5 -->
-
-						<div class="product-item women men"
-							style="position: absolute; left: 888px; top: 0px;">
-							<div class="product product_filter" style="border-right: none;">
-								<div class="product_image">
-									<img
-										src="${pageContext.request.contextPath}/resources/images/불독전용사이즈2_001.jpg">
-								</div>
-								<div class="favorite"></div>
-								<div class="product_info">
-									<h6 class="product_name">
-										<a href="single.html">Pryma Headphones, Rose Gold &amp;
-											Grey</a>
-									</h6>
-									<div class="product_price">$180.00</div>
-								</div>
-							</div>
-							<div class="red_button add_to_cart_button">
-								<a href="#">add to cart</a>
-							</div>
-						</div>
-
-						<!-- Product 6 -->
-
-						<div class="product-item accessories"
-							style="position: absolute; left: 0px; top: 379px;">
-							<div class="product discount product_filter"
-								style="border-right: 1px solid rgb(233, 233, 233);">
-								<div class="product_image">
-									<img
-										src="${pageContext.request.contextPath}/resources/images/사료1.png">
-								</div>
-								<div class="favorite favorite_left"></div>
-								<div
-									class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center">
-									<span>-$20</span>
-								</div>
-								<div class="product_info">
-									<h6 class="product_name">
-										<a href="#single.html">Fujifilm X100T 16 MP Digital Camera
-											(Silver)</a>
-									</h6>
+									</c:if>
+									<c:if test="${vo.discountRate==0}">
 									<div class="product_price">
-										$520.00<span>$590.00</span>
+										₩${vo.price}
 									</div>
+									</c:if>
 								</div>
 							</div>
-							<div class="red_button add_to_cart_button">
-								<a href="#">add to cart</a>
-							</div>
-						</div>
-
-						<!-- Product 7 -->
-
-						<div class="product-item women"
-							style="position: absolute; left: 222px; top: 379px;">
-							<div class="product product_filter"
-								style="border-right: 1px solid rgb(233, 233, 233);">
-								<div class="product_image">
-									<img
-										src="${pageContext.request.contextPath}/resources/images/불독전용사이즈2_001.jpg">
-								</div>
-								<div class="favorite"></div>
-								<div class="product_info">
-									<h6 class="product_name">
-										<a href="single.html">Samsung CF591 Series Curved 27-Inch
-											FHD Monitor</a>
-									</h6>
-									<div class="product_price">$610.00</div>
-								</div>
-							</div>
-							<div class="red_button add_to_cart_button">
-								<a href="#">add to cart</a>
+							<div class="red_button add_to_cart_button mt-3">
+								<a href="${pageContext.request.contextPath}/product/buy/${vo.productNum}">add to cart</a>
 							</div>
 						</div>
-
-						<!-- Product 8 -->
-
-						<div class="product-item accessories"
-							style="position: absolute; left: 444px; top: 379px;">
-							<div class="product product_filter"
-								style="border-right: 1px solid rgb(233, 233, 233);">
-								<div class="product_image">
-									<img
-										src="${pageContext.request.contextPath}/resources/images/사료1.png">
-								</div>
-								<div class="favorite"></div>
-								<div class="product_info">
-									<h6 class="product_name">
-										<a href="single.html">Blue Yeti USB Microphone Blackout
-											Edition</a>
-									</h6>
-									<div class="product_price">$120.00</div>
-								</div>
-							</div>
-							<div class="red_button add_to_cart_button">
-								<a href="#">add to cart</a>
-							</div>
-						</div>
-
-						<!-- Product 9 -->
-
-						<div class="product-item men"
-							style="position: absolute; left: 666px; top: 379px;">
-							<div class="product product_filter"
-								style="border-right: 1px solid rgb(233, 233, 233);">
-								<div class="product_image">
-									<img
-										src="${pageContext.request.contextPath}/resources/images/불독전용사이즈2_001.jpg">
-								</div>
-								<div
-									class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center">
-									<span>sale</span>
-								</div>
-								<div class="favorite favorite_left"></div>
-								<div class="product_info">
-									<h6 class="product_name">
-										<a href="single.html">DYMO LabelWriter 450 Turbo Thermal
-											Label Printer</a>
-									</h6>
-									<div class="product_price">$410.00</div>
-								</div>
-							</div>
-							<div class="red_button add_to_cart_button">
-								<a href="#">add to cart</a>
-							</div>
-						</div>
-
-						<!-- Product 10 -->
-
-						<div class="product-item men"
-							style="position: absolute; left: 888px; top: 379px;">
-							<div class="product product_filter" style="border-right: none;">
-								<div class="product_image">
-									<img
-										src="${pageContext.request.contextPath}/resources/images/사료1.png">
-								</div>
-								<div class="favorite"></div>
-								<div class="product_info">
-									<h6 class="product_name">
-										<a href="single.html">Pryma Headphones, Rose Gold &amp;
-											Grey</a>
-									</h6>
-									<div class="product_price">$180.00</div>
-								</div>
-							</div>
-							<div class="red_button add_to_cart_button">
-								<a href="#">add to cart</a>
-							</div>
-						</div>
+						</c:forEach>						
 					</div>
 				</div>
 			</div>
