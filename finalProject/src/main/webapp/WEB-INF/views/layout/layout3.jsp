@@ -76,7 +76,7 @@
       setTimeout(function() {
         // 페이지 이동 코드
         window.location.href = "${pageContext.request.contextPath}/bbs/main";
-      }, 2670);
+      }, 2400);
     }
   </script>
 <!-- Login Modal -->
