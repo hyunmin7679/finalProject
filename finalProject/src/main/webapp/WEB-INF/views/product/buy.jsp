@@ -367,14 +367,15 @@ $(function(){
       $.get(url, {optionNum:optionNum, optionNum2:optionNum2, detailNum:detailNum}, function(data){
          $(data).each(function(index, item){
             let detailNum = item.detailNum;
-            let optionValue2 = item.optionValue2;
+            let optionValue = item.optionValue2;
             let totalStock = item.totalStock;
+			let stockNum = item.stockNum;
             
             if(totalStock > 0){
-               $(".requiredOption2").append("<option value='"+detailNum+"'>"+optionValue2+"   -재고 "+totalStock+"개-</option>");
+               $(".requiredOption2").append("<option value='"+detailNum+"'data-optionValue='"+optionValue+"' data-stockNum='"+stockNum+"' data-totalStock='"+totalStock+"'>"+optionValue+"   -재고 "+totalStock+"개-</option>");
             }
             else {
-               $(".requiredOption2").append("<option value='"+detailNum+"' disabled='disabled'>"+optionValue2+" -품절-</option>");
+               $(".requiredOption2").append("<option value='"+detailNum+"' disabled='disabled' data-optionValue='"+optionValue+"' data-stockNum='"+stockNum+"' data-totalStock='"+totalStock+"'>"+optionValue+" -품절-</option>");
             }
          });
       });
@@ -410,7 +411,8 @@ $(function(){
       }
       
       let optionValue = $(".requiredOption :selected").text();
-      let optionValue2 = $(".requiredOption2 :selected").text();
+      let optionValue2 = $(".requiredOption2 :selected").attr("data-optionValue");
+      let stockNum = $(".requiredOption2 :selected").attr("data-stockNum");
       
       let salePrice = ${dto.salePrice};
       let totalPrice = salePrice.toLocaleString();
@@ -429,6 +431,7 @@ $(function(){
       out += "        <input type='hidden' name='productNums' value='"+productNum+"'>";
       out += "        <input type='hidden' name='detailNums' value='"+detailNum+"'>";
       out += "        <input type='hidden' name='detailNums2' value='"+detailNum2+"'>";
+      out += "        <input type='hidden' name='stockNums' value='"+stockNum+"'>";
       out += "        <i class='bi bi-plus input-group-text bg-white qty-plus'></i>";
       out += "      </div>";
       out += "    </div>";
@@ -446,15 +449,23 @@ $(function(){
 
    // 수량 더하기
    $(".order-area").on("click", ".qty-plus", function() {
-      let $order = $(this).closest(".order-qty");
-      let qty = parseInt($order.find("input[name=buyQtys]").val()) + 1;
-      $order.find("input[name=buyQtys]").val(qty);
-      let salePrice = $order.find(".product-salePrice").attr("data-salePrice");
-      let item = qty * salePrice;
-      let totalPrice = item.toLocaleString();
-      $order.find(".item-totalPrice").text(totalPrice+"원");
-      
-      totalProductPrice();
+		let totalStock = parseInt($(".requiredOption2 :selected").attr("data-totalStock"));
+		let $order = $(this).closest(".order-qty");
+		let qty = parseInt($order.find("input[name=buyQtys]").val());
+		
+		if(qty >= totalStock) {
+			alert("재고가 부족합니다.");
+			return false;
+		}
+		
+		qty++;
+		$order.find("input[name=buyQtys]").val(qty);
+		let salePrice = $order.find(".product-salePrice").attr("data-salePrice");
+		let item = qty * salePrice;
+		let totalPrice = item.toLocaleString();
+		$order.find(".item-totalPrice").text(totalPrice+"원");
+		
+		totalProductPrice();
    });
 
    // 수량 빼기
