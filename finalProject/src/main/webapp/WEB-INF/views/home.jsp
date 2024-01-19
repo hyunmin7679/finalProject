@@ -202,7 +202,6 @@ position: relative;
 	href="${pageContext.request.contextPath}/resources/styles/main_styles.css">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/styles/responsive.css">
-
 <div class="super_container">
 
 
@@ -990,6 +989,13 @@ position: relative;
 		</div>
 	</div>
 </div>
+<script src="${pageContext.request.contextPath}/resources/js/jquery-3.2.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/styles/bootstrap4/popper.js"></script>
+<script src="${pageContext.request.contextPath}/resources/styles/bootstrap4/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/plugins/Isotope/isotope.pkgd.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+<script src="${pageContext.request.contextPath}/resources/plugins/easing/easing.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
 
 </body>
 
