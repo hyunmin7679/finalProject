@@ -30,6 +30,7 @@ public interface MyPageMapper {
 	
 	
  // -------------------------------------------------------------------------------	
+	public Payment findIcon (Map<String, Object>map);
 	
 	// 주문건수, 주문리스트
 	public int countPayment (Map<String, Object> map);
@@ -47,7 +48,9 @@ public interface MyPageMapper {
 	public void insertDetailStateInfo(Map<String, Object> map);
 	
 	// 주문 상세상태 수정, 주문완료 후 수정될 사항
-	public void updateOrderDetailState(Map<String, Object> map) throws SQLException;
+	public void updateOrderDetailState(Map<String, Object> map) throws SQLException;  // 구매확정
+	public void insertPoint(Map<String, Object> map) throws SQLException;
+	
 	public void updateOrderDetailState2(Map<String, Object> map) throws SQLException;
 	public void updateOrderHistory(long orderDetailNum) throws SQLException;
 	

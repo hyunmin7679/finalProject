@@ -61,6 +61,14 @@
 
  <!-- _____________________________________________________________________________________________ -->
 
+	<select id="findIcon" parameterType="map" resultType="com.fp.pet.domain.Community">
+		SELECT iconImage
+		FROM member1 m, iconlist il, icon i
+		WHERE m.memberIdx = il.memberIdx
+		AND il.iconNum = i.iconNum
+		AND m.userId = #{userId}
+	</select>
+	
 	<!-- 주문건수 -->
 	<select id="countPayment" parameterType="map" resultType="Integer"> 
 		SELECT NVL(COUNT(*), 0)
@@ -143,6 +151,11 @@
 		UPDATE orderDetail SET detailState = #{detailState}
 		WHERE orderDetailNum = #{orderDetailNum}
 	</update>
+	
+	<insert id="insertPoint" parameterType="map">
+		insert into point (pointNum, orderNum, memberIdx, REG_DATE, MEMO, P_QYT,P_SORT)
+			values(point_seq.nextval, #{orderNum}, #{memberIdx}, SYSDATE, '적립' , #{savedMoney}, 1)
+	</insert>
 	
 	<!-- 주문상세 테이블의 주문상태 변경 (자동구매확정) -->
 	<update id="updateOrderDetailState2" parameterType="map">

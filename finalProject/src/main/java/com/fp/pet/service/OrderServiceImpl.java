@@ -108,7 +108,8 @@ public class OrderServiceImpl implements OrderService{
 				
 			}
 			
-			mapper.earnPoints(dto);
+			// mapper.earnPoints(dto);  => 구매확정 시 포인트 적립하기~
+			
 			if(dto.getUsePoint()!=0) {
 				mapper.usePoints(dto);
 			}

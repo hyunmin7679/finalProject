@@ -19,6 +19,8 @@ public interface MyPageService {
 	public void deleteExpiration() throws Exception;
 	
 	// 주문건수, 주문리스트, 주문취소 리스트
+	public Payment findIcon (Map<String, Object>map);
+	
 	public int countPayment(Map<String, Object> map);
 	public List<Payment> listPayment(Map<String, Object> map);
 	public List<Payment> listCancel(Map<String, Object> map);
@@ -39,6 +41,7 @@ public interface MyPageService {
 	// 주문취소 요청
 	public void updateorderChange (Map<String, Object> map) throws Exception;  // 요청처리
 	public void updateorderReturn (Payment dto, String pathname) throws Exception;  // 요청처리
+	public void insertPoint(Map<String, Object> map) throws Exception;
 	
 	public void insertStateInfo2 (Map<String, Object> map) throws Exception;
 	

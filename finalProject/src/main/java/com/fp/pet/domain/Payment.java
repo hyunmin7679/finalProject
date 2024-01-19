@@ -9,6 +9,7 @@ public class Payment {
 	// 주문
 	private String userId;
 	private long memberIdx;
+	private String iconImage;
 
 	private String thumbnail;
 	private int price;
@@ -80,6 +81,16 @@ public class Payment {
 
 	// 리뷰 유무
 	private int reviewWrite; // 리뷰 유무
+	
+	
+
+	public String getIconImage() {
+		return iconImage;
+	}
+
+	public void setIconImage(String iconImage) {
+		this.iconImage = iconImage;
+	}
 
 	public String getUserId() {
 		return userId;

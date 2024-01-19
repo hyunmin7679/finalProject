@@ -309,7 +309,11 @@ $(function(){
 		}
 		
 		let orderDetailNum = $(this).attr("data-orderDetailNum");
-		let url = "${pageContext.request.contextPath}/myPage/confirmation?orderDetailNum="+orderDetailNum+"&page=${page}";
+		let savedMoney = $(this).attr("data-savedMoney");
+		let orderNum = $(this).attr("data-orderNum");
+		//console.log(orderNum);
+		
+		let url = "${pageContext.request.contextPath}/myPage/confirmation?orderDetailNum="+orderDetailNum+"&savedMoney="+savedMoney+"&orderNum="+orderNum+"&page=${page}";
 		location.href = url;
 	});
 });
@@ -568,11 +572,11 @@ $(function(){
 	<div class="category-bar">
 		<div class="mem_info">
 			<div style="display: flex; justify-content: center;">
-				<a href="${pageContext.request.contextPath}/"><img class="icon"
-					src="${pageContext.request.contextPath}/resources/images/아이콘1.gif"></a>
+				<a href="${pageContext.request.contextPath}/member/pwd"><img class="icon"
+					src="${pageContext.request.contextPath}/uploads/photo/${dto.iconImage}"></a>
 				<div style="align-items: center; display: flex;">
-					<p>${sessionScope.member.userName}님&nbsp;|</p>
-					<p>&nbsp;${userPoint} P</p>
+					<p>${sessionScope.member.userName}님&nbsp;|&nbsp;</p>
+					<fmt:formatNumber value="${userPoint}"/> P
 				</div>
 			</div>
 		</div>
@@ -675,7 +679,9 @@ $(function(){
 							<c:if test="${dto.detailState==0}">
 								<button type="button" class="btn border payment-confirmation"
 									style="width: 130px;"
-									data-orderDetailNum="${dto.orderDetailNum}">구매확정</button>
+									data-orderDetailNum="${dto.orderDetailNum}" 
+									data-savedMoney="${dto.savedMoney}"
+									data-orderNum="${dto.orderNum}">구매확정</button>
 							</c:if>
 							<button type="button" class="btn btn-warning"
 								style="width: 130px;"

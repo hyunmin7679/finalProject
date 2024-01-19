@@ -111,6 +111,20 @@ public class MyPageServiceImpl implements MyPageService {
 
 // ---------------------------------------------------------------------------------	
 
+	@Override
+	public Payment findIcon(Map<String, Object> map) {
+		Payment dto = null;
+		
+		try {
+			dto = mapper.findIcon(map);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
+	}
+
+	
 	// 주문건수
 	@Override
 	public int countPayment(Map<String, Object> map) {
@@ -209,6 +223,7 @@ public class MyPageServiceImpl implements MyPageService {
 
 			// 주문상세 상태 정보 테이블에 상태 변경 내용 및 날짜 저장
 			mapper.insertDetailStateInfo(map);
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -216,6 +231,19 @@ public class MyPageServiceImpl implements MyPageService {
 		}
 
 	}
+	
+	@Override
+	public void insertPoint(Map<String, Object> map) throws Exception {
+		try {
+			mapper.insertPoint(map);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
+
 
 	// 자동구매확정
 	@Override
@@ -509,4 +537,6 @@ public class MyPageServiceImpl implements MyPageService {
 		
 	}
 
+
+	
 }
