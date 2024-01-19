@@ -40,6 +40,7 @@ public class Product {
 	private long noOption;
 	
 	private String proDetail;
+	private long stockNum;
 	private long totalStock;
 	
 	private String product_category;
@@ -48,44 +49,6 @@ public class Product {
 	private int one_week_ago;
 	private int this_week;
 	
-	
-	
-	public long getDetailNum2() {
-		return detailNum2;
-	}
-	public void setDetailNum2(long detailNum2) {
-		this.detailNum2 = detailNum2;
-	}
-	public String getProduct_category() {
-		return product_category;
-	}
-	public void setProduct_category(String product_category) {
-		this.product_category = product_category;
-	}
-	public int getThree_weeks_ago() {
-		return three_weeks_ago;
-	}
-	public void setThree_weeks_ago(int three_weeks_ago) {
-		this.three_weeks_ago = three_weeks_ago;
-	}
-	public int getTwo_weeks_ago() {
-		return two_weeks_ago;
-	}
-	public void setTwo_weeks_ago(int two_weeks_ago) {
-		this.two_weeks_ago = two_weeks_ago;
-	}
-	public int getOne_week_ago() {
-		return one_week_ago;
-	}
-	public void setOne_week_ago(int one_week_ago) {
-		this.one_week_ago = one_week_ago;
-	}
-	public int getThis_week() {
-		return this_week;
-	}
-	public void setThis_week(int this_week) {
-		this.this_week = this_week;
-	}
 	public long getProductNum() {
 		return productNum;
 	}
@@ -254,6 +217,12 @@ public class Product {
 	public void setDetailNum(long detailNum) {
 		this.detailNum = detailNum;
 	}
+	public long getDetailNum2() {
+		return detailNum2;
+	}
+	public void setDetailNum2(long detailNum2) {
+		this.detailNum2 = detailNum2;
+	}
 	public String getOptionValue() {
 		return optionValue;
 	}
@@ -278,13 +247,47 @@ public class Product {
 	public void setProDetail(String proDetail) {
 		this.proDetail = proDetail;
 	}
+	public long getStockNum() {
+		return stockNum;
+	}
+	public void setStockNum(long stockNum) {
+		this.stockNum = stockNum;
+	}
 	public long getTotalStock() {
 		return totalStock;
 	}
 	public void setTotalStock(long totalStock) {
 		this.totalStock = totalStock;
 	}
-	
-
+	public String getProduct_category() {
+		return product_category;
+	}
+	public void setProduct_category(String product_category) {
+		this.product_category = product_category;
+	}
+	public int getThree_weeks_ago() {
+		return three_weeks_ago;
+	}
+	public void setThree_weeks_ago(int three_weeks_ago) {
+		this.three_weeks_ago = three_weeks_ago;
+	}
+	public int getTwo_weeks_ago() {
+		return two_weeks_ago;
+	}
+	public void setTwo_weeks_ago(int two_weeks_ago) {
+		this.two_weeks_ago = two_weeks_ago;
+	}
+	public int getOne_week_ago() {
+		return one_week_ago;
+	}
+	public void setOne_week_ago(int one_week_ago) {
+		this.one_week_ago = one_week_ago;
+	}
+	public int getThis_week() {
+		return this_week;
+	}
+	public void setThis_week(int this_week) {
+		this.this_week = this_week;
+	}
 
 }

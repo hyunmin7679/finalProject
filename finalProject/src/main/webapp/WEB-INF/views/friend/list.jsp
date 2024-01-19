@@ -151,6 +151,7 @@ function presentOk(userName) {
 				</div>
 				<div class="col text-end">
 					<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/friend/addfriendlist';">친구추가하기!</button>
+					<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/friend/present';">선물받은 목록보기!</button>
 				</div>
 			</div>
 

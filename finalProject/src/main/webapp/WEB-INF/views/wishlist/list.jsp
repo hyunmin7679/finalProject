@@ -150,6 +150,7 @@
   checked="checked"
   type="checkbox"
 />
+<c:if test="${empty friendname}">
 <label class="containers" for="favorite-${dto.productNum}">
   <svg
     class="feather feather-heart"
@@ -167,16 +168,17 @@
       d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
     ></path>
   </svg>
-  <c:if test="${not empty friendname}">
+  
 	  <div class="action">
 	    <span class="option-1 wish-action" onclick="addwish(${dto.productNum})"  >위시리스트 담기</span>
 	    <span class="option-2 wish-action" onclick="removewish(${dto.productNum})">위시리스트 취소</span>
 	  </div>
-  </c:if>
+ 
 </label>
-
+ </c:if>
 <div class="border rounded product-item" data-productNum="${dto.productNum}">
     <!-- Lock checkbox and label inside the product item -->
+    <c:if test="${empty friendname}">
     <input name="openorclose" type="checkbox" id="lock-${dto.productNum}" ${dto.secret == 1 ? 'checked="checked"' : ''}/>
     <label for="lock-${dto.productNum}" class="lock-label" data-secret="${dto.secret }" onclick="addorremove(${dto.productNum})">
         <span class="lock-wrapper">
@@ -197,7 +199,7 @@
             </svg>
         </span>
     </label>
-
+	</c:if>
     <img class="thumbnail-img"
         src="${pageContext.request.contextPath}/uploads/product/${dto.thumbnail}">
     <div class="p-2">

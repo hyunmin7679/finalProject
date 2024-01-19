@@ -59,7 +59,6 @@ public class FriendController {
 		}
 		map.put("kwd", kwd);
 
-		dataCount = service.dataCount(map);
 		if (dataCount != 0) {
 			total_page = dataCount / size + (dataCount % size > 0 ? 1 : 0);
 		}
@@ -165,10 +164,6 @@ public class FriendController {
 		
 		map.put("memberIdx", info.getMemberIdx());
 
-		dataCount = service.dataCount(map);
-		if (dataCount != 0) {
-			total_page = dataCount / size + (dataCount % size > 0 ? 1 : 0);
-		}
 		
 		if (total_page < current_page) {
 			current_page = total_page;

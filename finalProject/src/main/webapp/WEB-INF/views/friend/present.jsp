@@ -644,6 +644,7 @@ document.getElementById('wishButton').addEventListener('click', function() {
 	
 						<div class="mt-2">
 							<input type="hidden" name="mode" value="buy">
+							<input type="hidden" name="friendname" value="${friendname}">
 							<input type="hidden" name="orderNum" value="${dto2.orderNum}">
 							<button type="button" class="btn btn-primary w-100 btn-buySend" onclick="sendOk('buy');">받기</button>
 						</div>

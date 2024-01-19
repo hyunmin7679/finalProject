@@ -30,12 +30,6 @@ window.addEventListener('load', function(){
 	let total_page = pageCount(dataCount, pageSize);
 	let paging = pagingUrl(page, total_page, url);
 
-	
-	document.querySelector('.dataCount').innerHTML = dataCount + '개 ('
-			+ page + '/' + total_page + '페이지)';
-
-	document.querySelector('.page-navigation').innerHTML = 
-		dataCount === 0 ? '등록된 게시물이 없습니다.' : paging;
 });
 
 function searchList() {
@@ -76,6 +70,7 @@ function presentOk(orderNum) {
 						<th width="100">보낸사람</th>
 						<th width="100">보낸물품</th>
 						<th width="100">수량</th>
+						<th width="100">선물받기</th>
 					</tr>
 				</thead>
 				

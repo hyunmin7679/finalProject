@@ -97,7 +97,8 @@ public class ProductController {
 	}
 	
 	@GetMapping("/buy/{productNum}")
-	public String buyRequest(@PathVariable String productNum, Model model,HttpSession session) throws Exception{
+	public String buyRequest(@PathVariable String productNum, String friendname
+			, Model model,HttpSession session) throws Exception{
 		Map<String, Object> map = new HashMap<String, Object>();
 		try {
 			long longNum = Long.parseLong(productNum);
@@ -128,6 +129,7 @@ public class ProductController {
 			map.put("userId", userId);
 			List<Wishlist> wishlist = service.findwishlist(map);
 			
+			model.addAttribute("friendname",friendname);
 			model.addAttribute("wishlist",wishlist);
 			
 		} catch (Exception e) {
