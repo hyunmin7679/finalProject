@@ -243,7 +243,7 @@ nav li.sub-menu:hover .extra-space {
 </script>
 
 <nav style="width: 100%;">
-	<div class="container" style="margin: 0; width: auto;">
+	<div class="container" style="margin: 0; width: 100%; min-width: 100%;">
 		<ul>
 			<li class="exclude logo"><a class="pt-3 pb-3 ps-5 logo"
 				href="${pageContext.request.contextPath}/"><img
