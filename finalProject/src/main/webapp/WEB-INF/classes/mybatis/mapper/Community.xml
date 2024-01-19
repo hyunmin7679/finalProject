@@ -319,12 +319,13 @@
 	
 	<!-- 친구정보 -->
 	<select id="friendWhether" parameterType="map" resultType="com.fp.pet.domain.Friend">
-		select is_friend 
+		select nvl(count(*),0) friendCount , is_friend 
 	       from friendlist fl, member1 m, member1 m2
-	       where fl.from_friend = m.userName
-	       and fl.to_friend = m2.userName
+	       where fl.from_friend(+) = m.userName
+	       and fl.to_friend(+) = m2.userName
 	       and m.userName= #{userId}
 	       and m2.userName = #{userName}
+	       group by is_friend
 	</select>
 	
 	<select id="findName" parameterType="map" resultType="com.fp.pet.domain.Community">
@@ -403,4 +404,14 @@
 		order by mapNum
 	</select>
 	
+<!-- *************************************************************************************** -->   
+<!-- 메인화면용 -->   
+   <select id="listHomeCommunity" resultType="com.fp.pet.domain.Community">
+       SELECT communityNum, categoryNum, userId, subject, content, TO_CHAR(reg_date, 'YYYY-MM-DD') reg_date, hitCount, categoryNum 
+       FROM community 
+      WHERE showNo = 1
+      ORDER BY reg_date DESC
+      FETCH FIRST 3 ROWS ONLY
+   </select>
+   
 </mapper>
