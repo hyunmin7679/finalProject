@@ -92,7 +92,7 @@
 				dsi.changeState = 13
 			</if>
 		</where>
-		ORDER BY od.orderNum DESC
+		ORDER BY reg_date DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{size}
 		ROWS ONLY
 	</select>

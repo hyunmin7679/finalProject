@@ -197,7 +197,7 @@ public class OrderManageServiceImpl implements OrderManageService {
 								map.put("savedMoney",savedMoney);
 								mapper.updatePoint(map);
 								
-								mapper.updateUsedSaved(map);
+								
 								
 								map.put("productNum", dto.getProductNum());
 								map.put("detailNum", dto.getDetailNum());
@@ -240,7 +240,9 @@ public class OrderManageServiceImpl implements OrderManageService {
 										int savedMoney = -DTOsavedMoney;
 										
 										map.put("savedMoney",savedMoney);
+										
 										mapper.updatePoint(map);
+										mapper.updateUsedSaved(map);
 										
 										map.put("productNum", dto.getProductNum());
 										map.put("detailNum", dto.getDetailNum());

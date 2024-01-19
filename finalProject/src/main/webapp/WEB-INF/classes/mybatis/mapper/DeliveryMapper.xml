@@ -43,7 +43,7 @@
 				po.orderState = 5
 			</if>
 		</where>  
-        ORDER BY po.orderNum DESC
+        ORDER BY orderDate DESC
         OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
 	

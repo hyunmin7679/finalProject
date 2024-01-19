@@ -103,7 +103,7 @@
 				dsi.changeState = 5
 			</if>
 		</where>
-		ORDER BY od.orderNum DESC
+		ORDER BY reg_date DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{size}
 		ROWS ONLY
 	</select>
@@ -161,7 +161,7 @@
 		point(pointNum,orderNum,memberIdx,reg_date,memo,p_qyt,p_sort)
 		values(point_seq.NEXTVAL,#{orderNum},#{memberIdx},sysdate,'주문
 		취소로 인한
-		포인트 회수',#{savedMoney},NULL)
+		포인트 회수',#{savedMoney},0)
 	</insert>
 
 	<insert id="updateUsedSaved" parameterType="map">
@@ -169,7 +169,7 @@
 		point(pointNum, orderNum ,memberIdx,reg_date,memo,p_qyt,p_sort)
 		values(point_seq.NEXTVAL,#{orderNum},#{memberIdx},sysdate,'주문
 		취소로 인한
-		포인트 복구',#{usedSaved},NULL)
+		포인트 복구',#{usedSaved},1)
 	</insert>
 
 	<select id="findByStock" parameterType="map" resultType="map">

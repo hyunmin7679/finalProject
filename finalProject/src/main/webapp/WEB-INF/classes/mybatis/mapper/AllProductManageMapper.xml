@@ -142,7 +142,7 @@
 		insert into
 		point(pointNum,orderNum,memberIdx,reg_date,memo,p_qyt,p_sort)
 		values(point_seq.NEXTVAL,#{orderNum},#{memberIdx},
-		sysdate,'판매취소로 인한 포인트 회수',#{savedMoney},NULL)
+		sysdate,'판매취소로 인한 포인트 회수',#{savedMoney},0)
 	</insert>
 	
 	
@@ -162,7 +162,7 @@
 		insert into
 		point(pointNum, orderNum ,memberIdx,reg_date,memo,p_qyt,p_sort)
 		values(point_seq.NEXTVAL,#{orderNum},#{memberIdx},sysdate,
-		'판매취소로 인한 포인트 복구',#{usedSaved},NULL)
+		'판매취소로 인한 포인트 복구',#{usedSaved},1)
 	</insert>
 	
 	
