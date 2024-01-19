@@ -23,3 +23,4 @@ public interface ProductService {
 
 	public List<Wishlist> findwishlist(Map<String, Object> map);
 }
+

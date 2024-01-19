@@ -27,3 +27,4 @@ public interface ProductMapper {
 	public List<Wishlist> findwishlist(Map<String, Object> map);
 
 }
+

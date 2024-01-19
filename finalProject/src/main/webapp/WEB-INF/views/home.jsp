@@ -670,8 +670,8 @@ position: relative;
 							<i class="fa fa-truck" aria-hidden="true"></i>
 						</div>
 						<div class="benefit_content">
-							<h6>free shipping</h6>
-							<p>Suffered Alteration in Some Form</p>
+							<h6>무료 배송</h6>
+							<p>20만원 이상 구매시</p>
 						</div>
 					</div>
 				</div>
@@ -692,8 +692,8 @@ position: relative;
 							<i class="fa fa-undo" aria-hidden="true"></i>
 						</div>
 						<div class="benefit_content">
-							<h6>45 days return</h6>
-							<p>Making it Look Like Readable</p>
+							<h6>7일내 반품 가능</h6>
+							<p>배송 완료 후 1주일이<br> 지나면 자동 구매확정 됩니다</p>
 						</div>
 					</div>
 				</div>
@@ -711,6 +711,7 @@ position: relative;
 			</div>
 		</div>
 	</div>
+
 
 	<!-- Blogs -->
 
