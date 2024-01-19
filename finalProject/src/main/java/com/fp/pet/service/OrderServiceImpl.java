@@ -78,7 +78,6 @@ public class OrderServiceImpl implements OrderService{
 				dto.setOrdersort(1);
 				dto1 = membermapper.findById(dto.getFriendname());
 				dto.setMemberIdx2(dto1.getMemberIdx());  
-				dto.setMemberIdx(dto1.getMemberIdx());
 			}
 			mapper.insertOrder(dto);
 			
