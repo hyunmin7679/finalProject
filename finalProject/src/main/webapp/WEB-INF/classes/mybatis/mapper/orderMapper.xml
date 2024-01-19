@@ -41,15 +41,17 @@
 	</insert>
 
 	<select id="listProduct" parameterType="java.util.List" resultType="com.fp.pet.domain.Order">
-		SELECT p.productNum, productName,price, savedMoney, discountRate, delivery, thumbnail,
+		SELECT p.productNum, productName, price, savedMoney, discountRate, delivery, thumbnail,
     		po.optionNum, po.optionName, od.detailNum, od.optionValue,
     		po2.optionNum optionNum2, po2.optionName optionName2,
-    		od2.detailNum detailNum2, od2.optionValue optionValue2, p.CATEGORYNUM,stockNum
+    		od2.detailNum detailNum2, od2.optionValue optionValue2,
+    		stockNum
 		FROM product p
 		JOIN productOption po ON p.productNum = po.productNum
 		JOIN productOption po2 ON po.optionNum = po2.parent
 		JOIN optionDetail od ON po.optionNum = od.optionNum
-		JOIN optionDetail od2 ON po2.optionNum = od2.optionNum
+		LEFT OUTER JOIN optionDetail od2 ON po2.optionNum = od2.optionNum
+		LEFT OUTER JOIN productStock ps ON od.detailNum = ps.detailNum AND od2.detailNum = ps.detailNum2
 		WHERE (od.detailNum, od2.detailNum) IN
 		<foreach collection="list" item="item" index="index"
 			open="(" separator="," close=")">
