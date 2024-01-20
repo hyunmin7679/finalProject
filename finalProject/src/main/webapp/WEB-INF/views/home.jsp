@@ -9,9 +9,7 @@
 .testimonials {
 	background-color: #fffff;
 	position: relative;
-	border: 2px solid grey ;
-	border-radius:20px;
-	padding-bottom:50px;
+	padding-bottom: 50px;
 	padding-top: 80px; &: after { content : '';
 	position: absolute;
 	bottom: 0;
@@ -20,7 +18,6 @@
 	width: 100%;
 	height: 30%;
 	background-color: #fffff;
-	
 }
 
 }
@@ -41,10 +38,10 @@ p {
 
 }
 .item {
-	text-align: center;	
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
 }
 
 }
@@ -261,29 +258,86 @@ button {
 }
 
 .cardg {
- width:225px;
- height: 350px;
- background-image: linear-gradient(163deg, #F5D042  0%, #0A174E 100%);
- border-radius: 20px;
- transition: all .3s;
- 
+	width: 225px;
+	height: 350px;
+	background-image: linear-gradient(163deg, #F5D042 0%, #0A174E 100%);
+	border-radius: 20px;
+	transition: all .3s;
 }
 
 .cardg2 {
- width: 225px;
- height: 350px;
- background-color: white;
- transition: all .2s;
- border:3px #0A174E ;
+	width: 225px;
+	height: 350px;
+	background-color: white;
+	transition: all .2s;
+	border: 3px #0A174E;
 }
 
 .cardg2:hover {
- transform: scale(0.98);
- border-radius: 20px;
+	transform: scale(0.98);
+	border-radius: 20px;
 }
 
 .cardg:hover {
- box-shadow: 0px 0px 30px 1px #baa245;
+	box-shadow: 0px 0px 30px 1px #baa245;
+}
+
+.bookmarkBtn {
+	width: 100%;
+	height: 40px;
+	background-color:#0A174E;
+	display: flex;
+	align-items: left;
+	justify-content: left;
+	cursor: pointer;
+	transition-duration: 0.3s;
+	overflow: hidden;
+}
+
+.IconContainer {
+	width: 30px;
+	height: 40px;
+	background: #F5D042;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+	z-index: 2;
+	transition-duration: 0.3s;
+}
+
+.icon {
+	border-radius: 1px;
+}
+
+.text {
+	height: 100%;
+	width: 90px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: white;
+	z-index: 1;
+	transition-duration: 0.3s;
+	font-size: 1.04em;
+	margin-left: 10px;
+}
+
+.bookmarkBtn:hover .IconContainer {
+	width: 100%;
+	transition-duration: 0.3s;
+}
+
+.bookmarkBtn:hover .text {
+	transform: translate(10px);
+	width: 0;
+	font-size: 0;
+	transition-duration: 0.3s;
+}
+
+.bookmarkBtn:active {
+	transform: scale(0.95);
+	transition-duration: 0.3s;
 }
 </style>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -404,7 +458,7 @@ button {
 						<!-- Product 1 -->
 						<c:forEach var="vo" items="${productList}" varStatus="status">
 							<div
-								class="product-item * ${vo.categoryNum <= 4 ? 'women' : vo.categoryNum <= 10 ? 'accessories' : 'men'}"
+								class="mb-2 product-item * ${vo.categoryNum <= 4 ? 'women' : vo.categoryNum <= 10 ? 'accessories' : 'men'}"
 								style="position: absolute; left: 0px; top: 0px;">
 								<div class="product discount product_filter"
 									style="border-right: 1px solid rgb(233, 233, 233); height: 300px;">
@@ -433,11 +487,19 @@ button {
 										</c:if>
 									</div>
 								</div>
-								<div class="red_button add_to_cart_button mt-3">
-									<a
-										href="${pageContext.request.contextPath}/product/buy/${vo.productNum}">add
-										to cart</a>
-								</div>
+								<button class="bookmarkBtn"
+									onclick="location.href='${pageContext.request.contextPath}/product/buy/${vo.productNum}'">
+									<span class="IconContainer"><svg
+											xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+											viewBox="0 0 24 24"
+											style="fill: rgba(0, 0, 0, 1); transform:; msFilter:;">
+											<circle cx="10.5" cy="19.5" r="1.5"></circle>
+											<circle cx="17.5" cy="19.5" r="1.5"></circle>
+											<path
+												d="M21 7H7.334L6.18 4.23A1.995 1.995 0 0 0 4.333 3H2v2h2.334l4.743 11.385c.155.372.52.615.923.615h8c.417 0 .79-.259.937-.648l3-8A1.003 1.003 0 0 0 21 7zm-4 6h-2v2h-2v-2h-2v-2h2V9h2v2h2v2z"></path></svg>
+									</span>
+									<p class="text">Add to Cart</p>
+								</button>
 							</div>
 						</c:forEach>
 					</div>
@@ -513,11 +575,12 @@ button {
 							<c:forEach var="to" items="${bestList}" varStatus="status">
 								<div class="cardg" style="margin-left: 70px;">
 									<div class="cardg2">
-										<div class="item" style="width: 220px; margin-left: 5px; " >
+										<div class="item" style="width: 220px; margin-left: 5px;">
 											<div class="shadow-effect">
-											<div style="color: white;">gap</div>
+												<div style="color: white;">gap</div>
 												<div class="product_image" style="align-items: center">
-													<img style="width: 200px; height: 200px; border-radius: 20px; border: 2px solid black; align-self: center; margin: auto; margin-top: 20px;"
+													<img
+														style="width: 200px; height: 200px; border-radius: 20px; border: 2px solid black; align-self: center; margin: auto; margin-top: 20px;"
 														class="img-responsive"
 														src="${pageContext.request.contextPath}/uploads/product/${to.thumbnail}">
 												</div>
