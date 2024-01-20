@@ -33,9 +33,10 @@ public class HomeController {
 		
 		List<Community> list = service.listHomeCommunity();
 		List<Product> productList = service2.listProduct2(map);
-		
+		List<Product> bestList = service2.listProduct3(map);
 		model.addAttribute("productList", productList);
 		model.addAttribute("list", list);
+		model.addAttribute("bestList",bestList);
 		
 		return ".home";
 	}
