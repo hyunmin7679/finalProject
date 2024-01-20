@@ -37,10 +37,15 @@ ul, li, p { list-style:none; padding:0; margin:0; }
 i { color:#848484; width: 15px;}
 a { color:#848484; font-size: 15px;}
 a:hover {color: black; text-decoration: none;}
-.category-bar { margin-top: 40px; margin-bottom:20px; display: flex; justify-content: center; border:1px solid #D8D8D8; border-radius: 30px;}
+.category-bar { margin-top: 40px; margin-bottom:20px; display: flex; justify-content: center;}
 .bar-item{ width:100px; height:70px; text-align:center;  margin: 10px;}
 .title {display: flex; justify-content: center; }
 h3{font-weight: 900;}
+
+.point-item{height:auto; text-align:center; margin: 10px; display: flex; align-items: center;}
+
+.category-bar .active{ border-bottom : 2px solid #ee964b;}
+
 </style>
 
 <div class="container body-container ">
@@ -49,16 +54,23 @@ h3{font-weight: 900;}
     </div>
    
 	<div class="category-bar">
-		<div class="bar-item p-3">
+		<div class="bar-item p-3 active">
 			<a href="${pageContext.request.contextPath}/faq/main"><i class="fa-regular fa-circle-question fa-lg"></i><br>FAQ</a>
+		</div>
+		<div class="point-item">
+			<i class="fa-solid fa-angle-right"></i>
 		</div>
 		<div class="bar-item p-3">
 			<a href="${pageContext.request.contextPath}/notice/list" ><i class="fa-regular fa-file-lines fa-lg"></i><br>공지사항</a>
+		</div>
+		<div class="point-item">
+			<i class="fa-solid fa-angle-right"></i>
 		</div>
 		<div class="bar-item p-3">
 			<a href="${pageContext.request.contextPath}/qna/list"><i class="fa-solid fa-file-pen fa-lg"></i><br>문의사항</a>
 		</div>
     </div>
+    
 	<form name="faqSearchForm" method="post">
 		<input type="hidden" name="schType" value="all">
 	    <input type="hidden" name="kwd" value="">

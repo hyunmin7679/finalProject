@@ -112,7 +112,7 @@ public class UserIconServiceImpl implements UserIconService{
 		try {
 			point = mapper.userPoint(memberIdx);
 		} catch (Exception e) {
-			System.out.println(e.toString());
+			e.printStackTrace();
 		}
 		
 		return point;

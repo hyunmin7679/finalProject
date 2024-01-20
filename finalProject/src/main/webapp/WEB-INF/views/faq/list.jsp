@@ -62,7 +62,7 @@ a:hover {color: black; text-decoration: none;}
 	</ul>
    </c:forEach>
 </c:if>
-<div class="page-navigation">
+<div class="page-navigation d-flex justify-content-center">
 	${dataCount == 0 ? "등록된 게시물이 없습니다." : paging}
 </div>
 

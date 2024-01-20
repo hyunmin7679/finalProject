@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -271,6 +272,19 @@ public class MemberController {
 		
 		return ".member.member";
 	}
+	
+	@PostMapping("/checkPassword")
+    public ResponseEntity<Map<String, Boolean>> checkPassword(@RequestParam String userPwd, @RequestParam String userPwd2) {
+        // 실제 서비스에서는 회원 아이디 등을 사용하여 비밀번호를 확인해야 합니다.
+        // 여기서는 예시로 간단히 비밀번호만 확인하겠습니다.
+        boolean result = userPwd.equals(userPwd2);
+
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("result", result);
+
+        return ResponseEntity.ok(response);
+    }
+	
 	
 	@PostMapping("update")
 	public String updateSubmit(Member dto,

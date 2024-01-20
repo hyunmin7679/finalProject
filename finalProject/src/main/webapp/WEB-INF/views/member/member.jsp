@@ -92,7 +92,14 @@ function memberOk() {
 		return;
 	}
 	
-	str=f.userPwd.value;
+	str = f.userPwd.value;
+	if( !/^(?=.*[a-z])(?=.*[!@#$%^*+=-]|.*[0-9]).{5,10}$/i.test(str) ) { 
+		alert("패스워드를 다시 입력 하세요. ");
+		f.userPwd.focus();
+		return;
+	}
+	
+	
 	if( str !== f.userPwd2.value ) {
         alert("패스워드가 일치하지 않습니다. ");
         f.userPwd.focus();

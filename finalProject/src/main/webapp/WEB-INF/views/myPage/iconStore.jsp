@@ -74,7 +74,7 @@ h3{font-weight: 900;}
 					src="${pageContext.request.contextPath}/uploads/photo/${vo.iconImage}"></a>
 				<div style="align-items: center; display: flex;">
 					<p><strong>${sessionScope.member.userName} </strong>님&nbsp;|</p>
-					<p>&nbsp;${userPoint} P</p>
+					<p>&nbsp;${point} P</p>
 				</div>
 			</div>
 		</div>
