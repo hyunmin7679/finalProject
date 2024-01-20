@@ -13,6 +13,7 @@ public interface ProductMapper {
 	public int dataCount(Map<String, Object> map);
 	public List<Product> listProduct(Map<String, Object> map);
 	public List<Product> listProduct2(Map<String, Object> map);
+	public List<Product> listProduct3(Map<String, Object> map);
 	
 	public Product findByProduct(long num);
 	public Product findByCategoryName(long num);

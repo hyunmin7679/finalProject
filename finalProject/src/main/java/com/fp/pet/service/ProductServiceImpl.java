@@ -77,6 +77,30 @@ public class ProductServiceImpl implements ProductService{
 		return list;
 	}
 	
+	@Override
+	public List<Product> listProduct3(Map<String, Object> map) {
+		List<Product> list = null;
+		try {
+			list = mapper.listProduct3(map);
+			
+			int discountPrice;
+			for(Product dto : list) {
+				discountPrice = 0;
+				if(dto.getDiscountRate() > 0) {
+					discountPrice = (int)(dto.getPrice() * (dto.getDiscountRate()/100.0));
+				}
+				
+				dto.setSalePrice(dto.getPrice() - discountPrice);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+	
 	
 	@Override
 	public Product findByProduct(long ProductNum) {
@@ -179,6 +203,8 @@ public class ProductServiceImpl implements ProductService{
 		return wishlist;
 	}
 
+
+	
 
 	
 }

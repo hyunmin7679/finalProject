@@ -115,7 +115,7 @@ public class MyUtilBootstrap extends MyUtil {
 		if (total_page > numPerBlock && currentPageSetUp > 0) {
 			sb.append("<li class='page-item'><a class='page-link' onclick='" 
 					+ methodName + "(" + n + ");' aria-label='Previous'><i class='bx bx-chevrons-left'></i></a></li>");
-		} else {
+		} else if(current_page !=1) {
 			sb.append("<li class='page-item enabled'><a class='page-link' onclick='"+ methodName+"("+m+");'  aria-disabled='true'><i class='bx bx-chevron-left' ></i></a></li>");
 		}
 
@@ -139,7 +139,7 @@ public class MyUtilBootstrap extends MyUtil {
 		if (total_page - currentPageSetUp > numPerBlock) {
 			sb.append("<li class='page-item'><a class='page-link' onclick='" 
 					+ methodName + "(" + n + "); aria-label='Next'><i class='bx bx-chevron-right'></i></a></li>");
-		} else {
+		} else if(current_page<total_page) {
 			sb.append("<li class='page-item enabled'><a class='page-link' onclick='"+ methodName+"("+ s +");' aria-disabled='true'><i class='bx bx-chevron-right'></i></a></li>");
 		}
 		// 마지막 페이지

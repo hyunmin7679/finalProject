@@ -4,114 +4,159 @@
 <mapper namespace="com.fp.pet.mapper.ProductMapper">
 
 	<select id="dataCount" parameterType="map" resultType="Integer">
-		SELECT NVL(COUNT(*), 0) FROM product
-		WHERE productShow=1 AND categoryNum = #{categoryNum}
+		SELECT
+		NVL(COUNT(*), 0) FROM product
+		WHERE productShow=1 AND categoryNum =
+		#{categoryNum}
 	</select>
-	
-	<select id="listProduct" parameterType="map" resultType="com.fp.pet.domain.Product">
-		SELECT productNum, p.categoryNum, categoryName, productName, price, savedMoney, discountRate, 
-			delivery, thumbnail
+
+	<select id="listProduct" parameterType="map"
+		resultType="com.fp.pet.domain.Product">
+		SELECT productNum, p.categoryNum, categoryName,
+		productName, price, savedMoney, discountRate,
+		delivery, thumbnail
 		FROM product p
-		JOIN productCategory c ON p.categoryNum = c.categoryNum
+		JOIN productCategory c ON p.categoryNum =
+		c.categoryNum
 		WHERE productShow=1 AND p.categoryNum = #{categoryNum}
 		ORDER BY productNum DESC
-		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS
+		ONLY
 	</select>
-	
-	<select id="listProduct2" parameterType="map" resultType="com.fp.pet.domain.Product">
-		SELECT productNum, p.categoryNum, productName, price, discountRate, reg_date, 
-			thumbnail
+
+	<select id="listProduct2" parameterType="map"
+		resultType="com.fp.pet.domain.Product">
+		SELECT productNum, p.categoryNum, productName, price,
+		discountRate, reg_date,
+		thumbnail
 		FROM product p
 		JOIN productCategory c ON p.categoryNum = c.categoryNum
 		WHERE productShow=1
 		ORDER BY reg_date DESC
-        FETCH FIRST #{size} ROWS ONLY
-	</select>
-	
-	<select id="findByProduct" parameterType="long" resultType="com.fp.pet.domain.Product">
-		SELECT p.productNum, p.categoryNum, p.special, p.productShow, categoryName, 
-		    productName, price, savedMoney, 
-			discountRate, delivery, thumbnail, p.content, p.reg_date,
-			NVL(score, 0) score, NVL(reviewCount, 0) reviewCount,
-			NVL(questionCount, 0) questionCount,
-			TO_CHAR(startDate, 'YYYY-MM-DD HH24:MI') startDate,
-			TO_CHAR(endDate, 'YYYY-MM-DD HH24:MI') endDate,
-			NVL(showSpecial, -1) showSpecial, 
-			NVL(saleCount, 0) saleCount
-		FROM product p
-		JOIN productCategory c ON p.categoryNum = c.categoryNum
-		LEFT OUTER JOIN specialsDetail d ON p.productNum = d.productNum
-		LEFT OUTER JOIN specials s ON d.num = s.SPECIALNUM
-		LEFT OUTER JOIN (
-			SELECT productNum, ROUND(AVG(score), 1) score, COUNT(*) reviewCount
-			FROM productReview
-			WHERE showReview = 1
-			GROUP BY productNum
-		) t ON p.productNum = t.productNum
-		LEFT OUTER JOIN (
-			SELECT productNum, COUNT(*) questionCount
-			FROM productQna
-			WHERE showQuestion = 1
-			GROUP BY productNum
-		) q ON p.productNum = q.productNum
-		LEFT OUTER JOIN (
-			SELECT productNum, COUNT(*) saleCount
-			FROM orderDetail
-			GROUP BY productNum
-		) pc ON p.productNum = pc.productNum
-		WHERE p.productShow = 1 AND p.productNum = #{productNum}
-	</select>
-	
-	<select id="listProductFile" parameterType="Long" resultType="com.fp.pet.domain.Product">
-		SELECT fileNum, productNum, filename
-		FROM productFile
-		WHERE productNum = #{productNum}
+		FETCH FIRST #{size} ROWS ONLY
 	</select>
 
-	<select id="findByCategoryName" parameterType="long" resultType="com.fp.pet.domain.Product" >
+	<select id="listProduct3" parameterType="map"
+		resultType="com.fp.pet.domain.Product">
+		SELECT
+		od.productNum, p.productName,
+		SUM(qty) AS totalQuantity, p.thumbnail, od.price,p.discountRate
+		FROM
+		orderDetail od
+		join product p on od.productNum=p.productNum
+		GROUP BY
+		od.productNum,p.thumbnail,od.price,p.productName,p.discountRate
+		ORDER BY
+		totalQuantity desc
+		FETCH FIRST 5 ROWS ONLY
+	</select>
+
+	<select id="findByProduct" parameterType="long"
+		resultType="com.fp.pet.domain.Product">
+		SELECT p.productNum, p.categoryNum, p.special,
+		p.productShow, categoryName,
+		productName, price, savedMoney,
+		discountRate, delivery, thumbnail, p.content, p.reg_date,
+		NVL(score, 0) score, NVL(reviewCount, 0) reviewCount,
+		NVL(questionCount, 0) questionCount,
+		TO_CHAR(startDate, 'YYYY-MM-DD HH24:MI') startDate,
+		TO_CHAR(endDate, 'YYYY-MM-DD HH24:MI') endDate,
+		NVL(showSpecial, -1) showSpecial,
+		NVL(saleCount, 0) saleCount
+		FROM product p
+		JOIN productCategory c ON p.categoryNum =
+		c.categoryNum
+		LEFT OUTER JOIN specialsDetail d ON p.productNum =
+		d.productNum
+		LEFT OUTER JOIN specials s ON d.num = s.SPECIALNUM
+		LEFT
+		OUTER JOIN (
+		SELECT productNum, ROUND(AVG(score), 1) score, COUNT(*) reviewCount
+		FROM productReview
+		WHERE showReview = 1
+		GROUP BY productNum
+		) t ON p.productNum = t.productNum
+		LEFT OUTER JOIN (
+		SELECT productNum, COUNT(*) questionCount
+		FROM productQna
+		WHERE showQuestion = 1
+		GROUP BY productNum
+		) q ON p.productNum = q.productNum
+		LEFT OUTER JOIN (
+		SELECT productNum, COUNT(*) saleCount
+		FROM orderDetail
+		GROUP BY productNum
+		) pc ON p.productNum = pc.productNum
+		WHERE p.productShow
+		= 1 AND p.productNum = #{productNum}
+	</select>
+
+	<select id="listProductFile" parameterType="Long"
+		resultType="com.fp.pet.domain.Product">
+		SELECT fileNum, productNum, filename
+		FROM productFile
+		WHERE
+		productNum = #{productNum}
+	</select>
+
+	<select id="findByCategoryName" parameterType="long"
+		resultType="com.fp.pet.domain.Product">
 		select categoryname
-		from productcategory
+		from
+		productcategory
 		where categorynum=#{categoryNum}
 	</select>
-	
-	<select id="listProductOption" parameterType="Long" resultType="com.fp.pet.domain.Product">
+
+	<select id="listProductOption" parameterType="Long"
+		resultType="com.fp.pet.domain.Product">
 		SELECT optionNum, optionName, parent, productNum, nooption
 		FROM productOption
 		WHERE productNum = #{productNum}
-		ORDER BY parent NULLS FIRST, parent
+		ORDER BY parent
+		NULLS FIRST, parent
 	</select>
-	
-	<select id="listOptionDetail" parameterType="Long" resultType="com.fp.pet.domain.Product">
-		SELECT detailNum, optionNum, optionValue    
-		FROM optionDetail 
+
+	<select id="listOptionDetail" parameterType="Long"
+		resultType="com.fp.pet.domain.Product">
+		SELECT detailNum, optionNum, optionValue
+		FROM optionDetail
 		WHERE optionNum = #{optionNum}
 		ORDER BY detailNum
 	</select>
-	
-	<select id="listOptionDetailStock" parameterType="map" resultType="com.fp.pet.domain.Product">
-		select op.optionNum, op.optionName, dp.detailNum detailNum2, dp.optionValue,
-		    NVL(os.optionNum, 0) optionNum2, os.optionName optionName2,
-		    NVL(ds.detailNum, 0) detailNum, ds.optionValue optionValue2,
-		    NVL(ps.stockNum, 0) stockNum, NVL(ps.totalStock, 0) totalStock
+
+	<select id="listOptionDetailStock" parameterType="map"
+		resultType="com.fp.pet.domain.Product">
+		select op.optionNum, op.optionName, dp.detailNum
+		detailNum2, dp.optionValue,
+		NVL(os.optionNum, 0) optionNum2, os.optionName optionName2,
+		NVL(ds.detailNum, 0) detailNum, ds.optionValue optionValue2,
+		NVL(ps.stockNum, 0) stockNum, NVL(ps.totalStock, 0) totalStock
 		from(
-		    select productNum, optionNum, optionName, parent
-		    from productOption
-		    where parent is null
+		select productNum, optionNum, optionName, parent
+		from productOption
+		where parent is null
 		) op
 		left outer join (
-		    select optionNum, optionName, parent
-		    from productOption
-		    where parent is not null
+		select optionNum, optionName, parent
+		from productOption
+		where parent is not null
 		) os on op.optionNum = os.parent
-		join optionDetail dp on op.optionNum = dp.optionNum
-		left outer join optionDetail ds on os.optionNum = ds.optionNum
-		left outer join productStock ps on dp.detailNum = ps.detailNum and ds.detailNum = ps.detailNum2
-		where os.optionNum = #{optionNum2}  and dp.detailNum = #{detailNum}
-		order by detailNum, detailNum2
+		join optionDetail
+		dp on op.optionNum = dp.optionNum
+		left outer join optionDetail ds on
+		os.optionNum = ds.optionNum
+		left outer join productStock ps on
+		dp.detailNum = ps.detailNum and ds.detailNum = ps.detailNum2
+		where
+		os.optionNum = #{optionNum2} and dp.detailNum = #{detailNum}
+		order by
+		detailNum, detailNum2
 	</select>
-	
-	<select id="findwishlist" parameterType="map" resultType="com.fp.pet.domain.Wishlist">
-		select * from wishlist where productNum=#{productNum} and userId=#{userId}
+
+	<select id="findwishlist" parameterType="map"
+		resultType="com.fp.pet.domain.Wishlist">
+		select * from wishlist where productNum=#{productNum} and
+		userId=#{userId}
 	</select>
 
 </mapper>
