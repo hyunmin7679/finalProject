@@ -44,9 +44,10 @@
 	</select>
 	
 	<!-- 구매 시 포인트 사용 -->
-	<update id="updateUserPoint" parameterType="com.fp.pet.domain.Icon">
-		UPDATE member1 SET userPoint=userPoint-#{iconPrice}  WHERE memberIdx = #{memberIdx}
-	</update>
+	<select id="updateUserPoint" parameterType="com.fp.pet.domain.Icon">
+		insert into point (pointNum,orderNum,memberIdx,reg_date,memo,p_qyt,p_sort) 
+			values(point_seq.nextval,iconPoint_seq.nextval,#{memberIdx},sysdate,'아이콘 구매',-#{iconPrice},0)
+	</select>
 	
 	<select id="insertIconList" parameterType="com.fp.pet.domain.Icon">
 		INSERT into iconList (iconSeq,iconNum,memberIdx,iconUse) values(iconlist_seq.nextval,#{iconNum},#{memberIdx},1)

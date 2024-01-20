@@ -197,10 +197,8 @@ h3 {
 	padding: 30px;
 }
 
-.icon {
-	width: 100px;
-	height: auto;
-}
+.icon { width: 70px; height:auto; margin: 12px; border-radius: 22px; padding: 5px;}
+
 
 .itembox {
 	display: flex;
@@ -573,9 +571,9 @@ $(function(){
 		<div class="mem_info">
 			<div style="display: flex; justify-content: center;">
 				<a href="${pageContext.request.contextPath}/member/pwd"><img class="icon"
-					src="${pageContext.request.contextPath}/uploads/photo/${dto.iconImage}"></a>
+					src="${pageContext.request.contextPath}/uploads/photo/${vo.iconImage}"></a>
 				<div style="align-items: center; display: flex;">
-					<p>${sessionScope.member.userName}님&nbsp;|&nbsp;</p>
+					<p><strong>${sessionScope.member.userName}</strong>님&nbsp;|&nbsp;</p>
 					<fmt:formatNumber value="${userPoint}"/> P
 				</div>
 			</div>
@@ -583,7 +581,7 @@ $(function(){
 
 		<div class="itembox">
 			<div class="bar-item p-3">
-				<a href="#"><i class="fa-solid fa-heart"></i><br>위시리스트</a>
+				<a href="${pageContext.request.contextPath}/wishlist/"><i class="fa-solid fa-heart"></i><br>위시리스트</a>
 			</div>
 			<div class="point-item">
 				<i class="fa-solid fa-angle-right"></i>

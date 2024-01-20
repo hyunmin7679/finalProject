@@ -19,12 +19,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fp.pet.common.MyUtil;
 import com.fp.pet.domain.Exchange;
+import com.fp.pet.domain.Icon;
 import com.fp.pet.domain.Order;
 import com.fp.pet.domain.Payment;
 import com.fp.pet.domain.Product;
 import com.fp.pet.domain.SessionInfo;
 import com.fp.pet.service.MyPageService;
 import com.fp.pet.service.ProductService;
+import com.fp.pet.service.UserIconService;
 import com.fp.pet.state.OrderState;
 
 @Controller
@@ -36,7 +38,10 @@ public class MyPageController {
 
 	@Autowired
 	private ProductService productservice;
-
+	
+	@Autowired
+	private UserIconService iconService;
+	
 	@Autowired
 	private MyUtil myUtil;
 
@@ -165,6 +170,7 @@ public class MyPageController {
 		List<Payment> list = service.listPayment(map);
 		List<Payment> cancelList = service.listCancel(map);
 		int userPoint = service.userPoint(map);
+		Icon vo = iconService.findByIcon(info.getMemberIdx());
 
 		String listUrl = cp + "/myPage/paymentList";
 		String paging = myUtil.pagingUrl(current_page, total_page, listUrl);
@@ -187,6 +193,8 @@ public class MyPageController {
 		model.addAttribute("changeSate", changeSate); // OrderState
 		model.addAttribute("userPoint", userPoint);
 		model.addAttribute("mode", "order");
+		
+		model.addAttribute("vo", vo);
 
 		return ".myPage.paymentList";
 	}
@@ -221,6 +229,7 @@ public class MyPageController {
 		List<Payment> list = service.listCancel(map);
 		int userPoint = service.userPoint(map);
 
+		
 		String listUrl = cp + "/myPage/paymentList";
 		String paging = myUtil.pagingUrl(current_page, total_page, listUrl);
 
@@ -242,7 +251,9 @@ public class MyPageController {
 
 		model.addAttribute("userPoint", userPoint);
 		model.addAttribute("mode", "cancel");
-
+		
+		
+		
 		return ".myPage.paymentList";
 	}
 

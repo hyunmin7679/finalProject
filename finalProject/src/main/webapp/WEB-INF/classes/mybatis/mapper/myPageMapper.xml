@@ -106,17 +106,12 @@
 	</select>
 	
 	
-	<select id="userPoint" parameterType="map" resultType="Integer">
-		SELECT NVL(userPoint, 0)
-		FROM member1
-		WHERE memberIdx = #{memberIdx}
-	</select>
 	
 	<select id="sumPoint" parameterType="map" resultType="Integer">
-		select  sum(p_qyt) from point where memberIdx = 1 and p_sort = 1
+		select  sum(p_qyt) from point where memberIdx = #{memberIdx} and p_sort = 1
 	</select>
 	<select id="sumPoint2" parameterType="map" resultType="Integer">
-		select  sum(p_qyt) from point where memberIdx = 1 and p_sort = 0
+		select  sum(p_qyt) from point where memberIdx = #{memberIdx} and p_sort = 0
 	</select>
 	
 	 <!-- ________________________ 주문상세 ________________________ -->

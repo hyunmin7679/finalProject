@@ -70,18 +70,18 @@ h3{font-weight: 900;}
 	<div class="category-bar">
 		<div class="mem_info">
 			<div style="display: flex; justify-content: center;">
-				<a href="${pageContext.request.contextPath}/"><img class="icon" 
+				<a href="${pageContext.request.contextPath}/member/pwd"><img class="icon" 
 					src="${pageContext.request.contextPath}/uploads/photo/${vo.iconImage}"></a>
 				<div style="align-items: center; display: flex;">
-					<p><strong>${sessionScope.member.userName} </strong>님&nbsp;|</p>
-					<p>&nbsp;${point} P</p>
+					<p><strong>${sessionScope.member.userName} </strong>님&nbsp;|&nbsp;</p>
+					<fmt:formatNumber value="${point}"/> P
 				</div>
 			</div>
 		</div>
 
 		<div class="itembox">
 			<div class="bar-item p-3">
-				<a href="#"><i class="fa-solid fa-heart"></i><br>위시리스트</a>
+				<a href="${pageContext.request.contextPath}/wishlist/"><i class="fa-solid fa-heart"></i><br>위시리스트</a>
 			</div>
 			<div class="point-item">
 				<i class="fa-solid fa-angle-right"></i>

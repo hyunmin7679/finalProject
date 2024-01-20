@@ -569,7 +569,6 @@ function userIdCheck() {
     		let iconPrice = $(this).data("icon-price");
     		let iconName = $(this).data("icon-name");
     		
-    		console.log(iconNum);
     		
     		let imageSrc = "${pageContext.request.contextPath}/uploads/photo/"+iconImage;
     		$("#icon-image").attr("src",imageSrc);
