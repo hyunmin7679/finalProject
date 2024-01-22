@@ -1,5 +1,7 @@
 package com.fp.pet.admin.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -10,11 +12,11 @@ import com.fp.pet.admin.domain.Coupon;
 import com.fp.pet.admin.mapper.CouponMapper;
 
 @Service
-public class CouponServiceImpl implements CouponService{
+public class CouponServiceImpl implements CouponService {
 
 	@Autowired
 	private CouponMapper mapper;
-	
+
 	@Override
 	public int dataCount(Map<String, Object> map) throws Exception {
 		int result = 0;
@@ -41,7 +43,39 @@ public class CouponServiceImpl implements CouponService{
 	@Override
 	public void insertCoupon(Coupon dto) throws Exception {
 		try {
+			Date currentDate = new Date();
+
+			// SimpleDateFormat을 사용하여 String을 Date로 변환
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			Date startCouponDate = dateFormat.parse(dto.getStartCouponDate());
+			Date endCouponDate = dateFormat.parse(dto.getEndCouponDate());
+			
+			// 쿠폰의 시작일 > 현재날짜
+			// 3 
+			
+			// 쿠폰 종료일 < 현재날짜 
+			// 2
+			
+			// 쿠폰 시작일<현재날짜<종료일
+			// 0 	
+			
+			System.out.println(startCouponDate);
+			System.out.println(endCouponDate);
+			
+			// 쿠폰의 시작일과 현재 날짜를 비교
+			if (startCouponDate.compareTo(currentDate) > 0) {
+				System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+				dto.setCouponState(3);
+			}else if(endCouponDate.compareTo(currentDate) < 0){
+				System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+				dto.setCouponState(2);
+			}else {
+				System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+				dto.setCouponState(0);
+			}
+			
 			mapper.insertCoupon(dto);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -66,22 +100,22 @@ public class CouponServiceImpl implements CouponService{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	@Override
-	public void updateCoupon(Map<String,Object>map) throws Exception {
+	public void updateCoupon(Map<String, Object> map) throws Exception {
 		try {
 			mapper.updataCoupon(map);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	@Override
-	public Coupon findByCoupon(Map<String, Object> map){
+	public Coupon findByCoupon(Map<String, Object> map) {
 		Coupon dto = null;
 		try {
 			dto = mapper.findByCoupon(map);

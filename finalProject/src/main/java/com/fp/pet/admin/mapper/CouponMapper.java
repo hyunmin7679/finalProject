@@ -19,6 +19,7 @@ public interface CouponMapper {
 
 	public void updataCoupon(Map<String,Object>map) throws SQLException;
 	public void updateCouponState() throws SQLException;
+	public void updateCouponState1() throws SQLException;
 	
 	public Coupon findByCoupon(Map<String,Object>map);
 }

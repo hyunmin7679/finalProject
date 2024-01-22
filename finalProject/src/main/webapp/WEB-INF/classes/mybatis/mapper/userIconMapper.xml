@@ -46,7 +46,7 @@
 	<!-- 구매 시 포인트 사용 -->
 	<select id="updateUserPoint" parameterType="com.fp.pet.domain.Icon">
 		insert into point (pointNum,orderNum,memberIdx,reg_date,memo,p_qyt,p_sort) 
-			values(point_seq.nextval,iconPoint_seq.nextval,#{memberIdx},sysdate,'아이콘 구매',-#{iconPrice},0)
+			values(point_seq.nextval,null,#{memberIdx},sysdate,'아이콘 구매',-#{iconPrice},0)
 	</select>
 	
 	<select id="insertIconList" parameterType="com.fp.pet.domain.Icon">
@@ -54,8 +54,7 @@
 	</select>
 	
 	<select id="dataCount" parameterType="map" resultType="Integer">
-		SELECT NVL(COUNT(*), 0) from icon
-		
+		SELECT NVL(COUNT(*), 0) from icon	
 	</select>
 
 	<!--아이콘 리스트 -->

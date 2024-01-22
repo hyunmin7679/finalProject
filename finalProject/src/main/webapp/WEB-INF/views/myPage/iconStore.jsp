@@ -47,7 +47,7 @@ h3{font-weight: 900;}
 .point-item{height:auto; text-align:center; margin: 10px; display: flex; align-items: center;}
 
 .category-bar .mem_info { float: left; width: 50%; height: 100%;
-  							  background:#ffffff; border-radius: 0 141px 141px 0;}
+  							  background:#ffffff; border-radius: 85px 141px 141px 85px;}
 
 
 .img-wrap {
@@ -60,6 +60,56 @@ h3{font-weight: 900;}
 	vertical-align: middle;
 }
 
+.check__line input[type="checkbox"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+.check__line input[type="checkbox"] + label {
+  display: inline-block;
+  position: relative;
+  padding-left: 26px;
+  cursor: pointer;
+}
+.check__line input[type="checkbox"] + label:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 3px;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  background: url(${pageContext.request.contextPath}/resources/images/check_off.png)no-repeat;  
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+
+/* 보여질 부분의 스타일을 추가하면 된다. */
+.check__line input[type="checkbox"]:checked + label:after {
+  content: "";
+  position: absolute;
+  top: 7px;
+  left: 4.5px;
+  width: 20px;
+  height: 20px;  
+  background: url(${pageContext.request.contextPath}/resources/images/check_on.png)no-repeat;  
+  background-position: center center;
+  border-radius: 5px;
+}
+
+.check__line input[type="checkbox"] + label span {
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 26px;  
+  letter-spacing: -1px;
+  color: rgba(0, 0, 0, 0.5);
+}
 </style>
 
 <script>
@@ -104,7 +154,7 @@ h3{font-weight: 900;}
 
 	<div class="row" style="height: 50px; ">
 		<div class="d-flex justify-content-start mx-auto gap-3 float-end">
-			<div class="col" style="font-size: 19px;">
+			<div class="col check__line" style="font-size: 19px;">
 					<input type="checkbox" name="except" value="1" id="except">
 					<label for="except">
 						<span>보유아이콘 제외</span>
@@ -244,7 +294,7 @@ $('#modalCenter').on( 'show.bs.modal',
 		let iconCategory = button.data('icon-category');
 		let iconNum = button.data('icon-num');
 		let iconImage = button.data('icon-iconimage');
-		
+
 
 		// 버튼의 데이터 속성에서 이미지 소스 가져오기
 		let imageSrc = button.find('img').attr('src');
@@ -332,5 +382,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
 
 </script>
