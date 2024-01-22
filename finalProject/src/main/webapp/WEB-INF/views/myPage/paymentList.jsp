@@ -3,6 +3,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <style type="text/css">
+ .btn {
+ 	color: white;
+ 	background-color: #0A174E     
+ } 
+  
 .padss{
 	padding-left: 5px;
 }
@@ -174,7 +179,7 @@ a:hover {
 	align-items: center;
 	border: 1px solid #D8D8D8;
 	border-radius: 30px;
-	background: #ffc303;
+	background: #F5D042;
 	position: relative;
 }
 
@@ -624,7 +629,7 @@ $(function(){
 		<div class="tab-pane fade show active" id="tab-pane-1" role="tabpanel"
 			aria-labelledby="tab-1" tabindex="0">
 			<div class="mt-3 pt-3 border-bottom">
-				<p class="fs-4 fw-semibold">주문 내역</p>
+				<p class="fs-4 fw-semibold">내역</p>
 			</div>
 			<div class="mt-3">
 				<c:forEach var="dto" items="${list }">
@@ -670,7 +675,7 @@ $(function(){
 								<button type="button" class="btn border btnReviewWriteForm"
 									style="width: 130px;">리뷰쓰기</button>
 							</c:if>
-							<button type="button" class="btn btn-warning deliveryTracking"
+							<button type="button" class="btn border deliveryTracking"
 								style="width: 130px;"
 								data-orderDetailNum="${dto.orderDetailNum}">배송조회</button>
 
@@ -681,12 +686,12 @@ $(function(){
 									data-savedMoney="${dto.savedMoney}"
 									data-orderNum="${dto.orderNum}">구매확정</button>
 							</c:if>
-							<button type="button" class="btn btn-warning"
+							<button type="button" class="btn border"
 								style="width: 130px;"
 								onclick="location.href='${pageContext.request.contextPath}/product/buy/${dto.productNum}';">
 								재구매</button>
 
-							<button type="button" class="btn btn-warning payment-dropdown"
+							<button type="button" class="btn border payment-dropdown"
 								title="주문상세">
 								<i class="bi bi-three-dots"></i>
 							</button>

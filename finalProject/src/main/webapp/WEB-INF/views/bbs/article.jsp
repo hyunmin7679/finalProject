@@ -108,15 +108,21 @@
 					
 				</c:otherwise>
 			</c:choose></td>
-			
-			<c:if test="${sessionScope.member.userId!=dto.userId}">
-			<td><button type="button" class="btn btn-light btnUserReportSubmit" data-num="${dto.communityNum}" data-reportUrl="${reportUrl}">신고</button></td>
-			</c:if>
-			
-		<td class="text-end">
-			<button type="button" class="btn btn-light"
-				onclick="listPage('${pageNo}');">리스트</button>
-		</td>
+		
+			<c:choose>
+				<c:when test="${sessionScope.member.userId!=dto.userId}">
+					<td class="text-end">
+					<button type="button" class="btn btn-light" onclick="listPage('${pageNo}');">리스트</button>
+					<button type="button" class="btn btn-light btnUserReportSubmit" 
+						data-num="${dto.communityNum}" data-reportUrl="${reportUrl}"><img width="23px;" src="${pageContext.request.contextPath}/resources/images/report.png"></button>
+					</td>
+				</c:when>
+				<c:otherwise>
+				<td class="text-end">
+					<button type="button" class="btn btn-light" onclick="listPage('${pageNo}');">리스트</button>
+				</td>
+				</c:otherwise>
+			</c:choose>
 	</tr>
 </table>
 

@@ -32,7 +32,7 @@ $(document).ready(function(){
 
 @import url('http://fonts.googleapis.com/earlyaccess/notosanskr.css');
 ul, li, p { list-style:none; padding:0; margin:0; }
-.faq { font-family:'Noto Sans KR', sans-serif; margin-bottom:20px; }
+
 .faq .qa_li { position:relative; display:block; padding:0; border-bottom:1px solid #ededed; cursor:pointer; }
 .faq .qa_li .question { color:#222; font-size:16px; transition:color 0.3s ease-out; }
 .faq .qa_li:hover .tit { color:#0a7ac8; }

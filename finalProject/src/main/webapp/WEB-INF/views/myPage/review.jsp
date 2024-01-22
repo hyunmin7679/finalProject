@@ -3,6 +3,13 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <style type="text/css">
+.body-title2 {
+    color: #424951;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    margin: 0 0 25px 0;
+  }
+
 .body-container {
 	max-width: 1000px;
 }
@@ -106,7 +113,11 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 </script>
 
 <div class="container">
-	<div class="body-container">	
+	<div class="body-container">
+			<div class="body-title2">
+		  	 	<p style="font-size: 22px;"><span style="border-bottom: 12px solid #dcf1fb; padding: 0 0 0 0.2em; width: 100%"> <i class="fa-regular fa-comment-dots"></i> 내 활동</span></p>
+			</div>
+			
 		<div class="body-main">
 
 			<ul class="nav nav-tabs mt-5" id="myTab" role="tablist">
@@ -282,6 +293,8 @@ function printQna(data) {
 	let total_page = data.total_page;
 	let size = data.size;
 	let paging = data.paging;
+	
+	console.log(dataCount);
 	
 	let out = '';
 	for(let item of data.list) {

@@ -229,6 +229,7 @@ public class MyPageController {
 		List<Payment> list = service.listCancel(map);
 		int userPoint = service.userPoint(map);
 
+		Icon vo = iconService.findByIcon(info.getMemberIdx());
 		
 		String listUrl = cp + "/myPage/paymentList";
 		String paging = myUtil.pagingUrl(current_page, total_page, listUrl);
@@ -251,6 +252,8 @@ public class MyPageController {
 
 		model.addAttribute("userPoint", userPoint);
 		model.addAttribute("mode", "cancel");
+		
+		model.addAttribute("vo", vo);
 		
 		
 		

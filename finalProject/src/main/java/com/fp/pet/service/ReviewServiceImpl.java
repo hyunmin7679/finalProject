@@ -25,17 +25,18 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public void insertReview(Review dto, String pathname) throws Exception {
 		try {
-			mapper.insertReview(dto);  // 리뷰글 등록
+			mapper.insertReview(dto);
 			
-			// 이미지 첨부 시
-			if(! dto.getSelectFile().isEmpty()) {
+			// 이미지 첨부
+			if( ! dto.getSelectFile().isEmpty() ) {
 				for(MultipartFile mf : dto.getSelectFile()) {
 					String filename = fileManager.doFileUpload(mf, pathname);
-					dto.setFilename(filename);
-					
-					mapper.insertReviewFile(dto);
+					if(filename != null) {
+						dto.setFilename(filename);
+						
+						mapper.insertReviewFile(dto);
+					}
 				}
-					
 			}
 			
 		} catch (Exception e) {

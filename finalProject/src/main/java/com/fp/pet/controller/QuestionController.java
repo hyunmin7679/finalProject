@@ -129,7 +129,7 @@ public class QuestionController {
 			
 			map.put("memberIdx", info.getMemberIdx());
 			
-			dataCount = qnaservice.dataCount2(map);
+			dataCount = qnaservice.dataCount3(map);
 			int total_page = myUtil.pageCount(dataCount, size);
 			if (current_page > total_page) {
 				current_page = total_page;
