@@ -674,13 +674,6 @@ $(function(){
                      <img class="w-100 h-100" src="${pageContext.request.contextPath}/uploads/product/${dto.thumbnail}">
                   </div>
                </div>
-               <div class="row gx-1 mt-2 p-1">
-                  <c:forEach var="vo" items="${listFile}">
-                     <div class="col-md-auto sm-img">
-                        <img class="border rounded" src="${pageContext.request.contextPath}/uploads/product/${vo.filename}">
-                     </div>
-                  </c:forEach>
-               </div>
             </div>
             
             <div class="col-md-6 border">
@@ -876,11 +869,16 @@ $(function(){
          
          <div class="tab-content pt-2" id="myTabContent">
             <div class="tab-pane fade show active" id="tab-pane-1" role="tabpanel" aria-labelledby="tab-1" tabindex="0">
-               <div class="mt-3 pt-3 border-bottom">
+               <div class="mt-3 pt-3 border-bottom" >
                   <p class="fs-4 fw-semibold">${dto.productName}</p> 
                </div>
                <div class="mt-3">
                   ${dto.content}
+                  <c:forEach var="vo" items="${listFile}">
+                     <div class="col-md-auto d-flex justify-content-center" >
+                        <img class="border rounded" src="${pageContext.request.contextPath}/uploads/product/${vo.filename}">
+                     </div>
+                  </c:forEach>
                </div>
             </div>
             <div class="tab-pane fade" id="tab-pane-2" role="tabpanel" aria-labelledby="tab-2" tabindex="0">

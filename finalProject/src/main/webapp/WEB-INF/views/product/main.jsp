@@ -93,9 +93,7 @@ $(function(){
 			</c:forEach>
 		</div>
 		
-		<div class="page-navigation mt-5">
-			0 1 2
-		</div>
+		<div class="page-navigation">${paging}</div>
 		
     </div>
 </div>
