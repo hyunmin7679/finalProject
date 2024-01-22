@@ -211,14 +211,14 @@ function printReview(data) {
 		out += '  <div class="p-2 fw-semibold">';
 		out +=        productName+'('+ optionValue+'/'+optionValue2+')';
 		out += '  </div>';
+		out += '    <div class="col text-end"><span>'+review_date+'</span>';
+		out += '       <span class="deleteReview" data-num="'+num+'" data-page="' +pageNo+'"><i class="fa-solid fa-circle-xmark" style="color: #db0000;"></i></div>';	
 		out += '  <div class="row p-2">';
 		out += '    <div class="col-auto pt-0 ps-2 pe-1 score-star">';
 		for(let i=1; i<=5; i++) {
 			out += '  <span class="item fs-6 ' + (score>=i ? 'on' : '') + '"><i class="bi bi-star-fill"></i></span>';
 		}
 		out += '    </div>';
-		out += '    <div class="col text-end"><span>'+review_date+'</span>';
-		out += '       |<span class="deleteReview" data-num="'+num+'" data-page="' +pageNo+'">삭제</span></div>';	
 		out += '  </div>';
 		out += '  <div class="mt-2 p-2">' + review + '</div>';
 
@@ -321,11 +321,10 @@ function printQna(data) {
 				}
 			out += '</div>';
 		}
-		out += '  <div class="row p-2">';
-		out += '     <div class="col-auto pt-2 pe-0">' + answerState + '</div>';
-		// out += '     <div class="col-auto pt-2 px-0">&nbsp;|&nbsp;'+userName+'</div>';
-		out += '     <div class="col-auto pt-2 px-0">&nbsp;|&nbsp;<span>'+question_date+'</span>';
-		out += '       |<span class="deleteQuestion" data-num="'+num+'" data-page="' +pageNo+'">삭제</span></div>';	
+		out += '  <div class= p-2 text-end">';
+		out += '     <div class="col-auto pt-2 pe-0 text-end">' + answerState + '</div>';
+		out += '     <div class="col-auto pt-2 px-0 text-end ">&nbsp;&nbsp;<span>'+question_date+'</span>';
+		out += '       <span class="deleteQuestion" data-num="'+num+'" data-page="' +pageNo+'"><i class="fa-solid fa-circle-xmark" style="color: #db0000;"></i></span></div>';	
 		out += '      </div>';
 		if(answer) {
 			out += '  <div class="col pt-2 text-end"><button class="btn btnAnswerView"> <i class="bi bi-chevron-down"></i> </button></div>';
