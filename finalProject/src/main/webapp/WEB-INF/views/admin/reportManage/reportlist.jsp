@@ -55,7 +55,9 @@
 
 										<div class="text-body article"
 											data-communityNum="${dto.communityNum }"
-											data-categoryNum="${dto.categoryNum}">${dto.subject }</div>
+											data-categoryNum="${dto.categoryNum}"
+											data-productNum="${dto.productNum}"
+											>${dto.subject }</div>
 
 									</td>
 									<td><div class="text-body">
@@ -103,23 +105,27 @@
 <script>
 	$(function() {
 		// 글 제목을 클릭할 때의 동작
-		$('.article')
-				.on(
-						'click',
-						function() {
-							let communityNum = $(this).data("communitynum");
-							let categoryNum = $(this).data("categorynum");
-
-							// 이동할 URL 생성
-							let url = "${pageContext.request.contextPath}/bbs/main?communityNum="
-									+ communityNum
-									+ "&categoryNum="
-									+ categoryNum;
-
-							// 페이지 이동
-							window.location.href = url;
-						});
+		$('.article').on('click',function() {
+				let state = '${state}';
+				
+				let communityNum = $(this).data("communitynum");
+				let categoryNum = $(this).data("categorynum");
+				let url;
+				if(state ==='community'){
+					url = "${pageContext.request.contextPath}/bbs/main?communityNum="+ communityNum+ "&categoryNum="+ categoryNum;
+				}else{
+					let productNum =$(this).data("productnum");
+					url = '${pageContext.request.contextPath}/product/buy/'+productNum;
+				}
+				
+				
+				
+				// 페이지 이동
+				window.location.href = url;
+		});
 	});
+	
+	
 </script>
 
 

@@ -35,7 +35,7 @@ public class ReportServiceImpl implements ReportService{
 			}else {
 				list = mapper.listReport2(map);
 				for (Report  report : list) {
-					List<Report> Reports = mapper.listCommunity2(report.getNum());
+					List<Report> Reports = mapper.listCommunity2(report.getCommunityNum());
 					list2.addAll(Reports);
 					System.out.println("Community Number: " + report.getCommunityNum());
 			    }
@@ -83,7 +83,16 @@ public class ReportServiceImpl implements ReportService{
 	@Override
 	public void changeShow(Map<String, Object> map) throws Exception {
 		try {
-			mapper.changeShow(map);
+			
+			
+			String state = (String) map.get("state");
+			if(state.equals("community")) {	
+				mapper.changeShow(map);
+			}else {
+				mapper.changeShow2(map);
+			}
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;

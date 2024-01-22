@@ -23,5 +23,6 @@ public interface ReportMapper {
 	
 	
 	public void changeShow(Map<String,Object> map) throws SQLException;
+	public void changeShow2(Map<String,Object> map) throws SQLException;
 
 }

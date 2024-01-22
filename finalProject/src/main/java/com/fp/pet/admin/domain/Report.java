@@ -12,17 +12,26 @@ public class Report {
 	private String reportUser;
 
 	private String preg_date; // 게시글 등록일자
+	
 	private String postName; // 게시글 등록user 이름
 	private String subject; // 게시글 제목
 	private long communityNum; // 게시글 번호
 	private int categoryNum;
 	private int showNo;
+	private int productNum;
+	
 	
 	private long num ; // 
 	private long showReview;
 	
 	
 	
+	public int getProductNum() {
+		return productNum;
+	}
+	public void setProductNum(int productNum) {
+		this.productNum = productNum;
+	}
 	public long getShowReview() {
 		return showReview;
 	}

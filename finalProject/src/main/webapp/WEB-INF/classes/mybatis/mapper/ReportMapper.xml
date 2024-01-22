@@ -36,7 +36,7 @@
 	
 	<select id="listReport2"
 		resultType="com.fp.pet.admin.domain.Report">
-		SELECT num
+		SELECT num as communitynum
 		FROM (
 		SELECT
 		TO_NUMBER(REGEXP_SUBSTR(declUrl, '\d+')) as num,
@@ -67,7 +67,7 @@
 	
 	<select id="listCommunity2" parameterType="long"
 		resultType="com.fp.pet.admin.domain.Report">
-		select num, m.userName as
+		select num as communityNum, m.userName as
 		postName, productNum  , showReview as showNo,
 		review as subject,
 		review_date as preg_date
@@ -123,6 +123,12 @@
 	<update id="changeShow" parameterType="map">
 		update community set
 		showNo = #{showNo} where communityNum = #{communityNum}
+	</update>
+	
+	
+	<update id="changeShow2" parameterType="map">
+		update productReview set
+		showReview = #{showNo} where num = #{communityNum}
 	</update>
 
 </mapper>

@@ -6,7 +6,6 @@
   $(function(){
     let url = "${pageContext.request.contextPath}/admin/statistics/chart"; 
     $.getJSON(url, function(data){
-      console.log(data);
       chartsCate(data);   
     });
     

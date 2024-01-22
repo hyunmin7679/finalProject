@@ -162,11 +162,11 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 
 
 $(function(){
+	daySale();
 	salesPage();
 	etcPage();
 	iconPage();
 	revenue();
-	daySale();
 	yearlysta();
 	catesta();
 });
@@ -238,8 +238,6 @@ function daySale(selectedDate) {
 		let year = today.getFullYear(); // 년도
 		let month = today.getMonth() + 1;  // 월
 		gogo = year+'-0'+month
-		console.log(gogo);
-		
 		 // input 요소 찾기
 	    let inputElement = document.querySelector('input[name="glance"]');
 	    
@@ -252,7 +250,6 @@ function daySale(selectedDate) {
 		gogo = selectedDate;
 	}
 	
-	console.log(gogo+'gogogogogogo');
 	
 	let url = "${pageContext.request.contextPath}/admin/statistics/daysalelist";
 	let query = 'gogo='+gogo;

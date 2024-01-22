@@ -330,7 +330,11 @@ $('body').on('click', '.modalOn', function () {
     let showNo = $(this).attr("data-showNo");
 	console.log(state+'statestatestate');
     let query = "communityNum=" + communityNum+"&state="+state;
+    
     let url = "${pageContext.request.contextPath}/admin/reportManage/findReporyList";
+    
+   
+    
 
     const fn = function (data) {
         console.log(data);
@@ -342,7 +346,26 @@ $('body').on('click', '.modalOn', function () {
             rowHtml += '<tr valign="middle" >';
             rowHtml += '<td>' + data.list[i].reg_date + '</td>';
             rowHtml += '<td>' + data.list[i].reportUser + '</td>';
-            rowHtml += '<td>' + data.list[i].reason + '</td>';
+            
+            if(data.list[i].reason ==1){
+            	rowHtml += '<td> 광고 </td>';	
+            }else if(data.list[i].reason ==2){
+            	rowHtml += '<td> 도배 </td>';	
+            }else if(data.list[i].reason ==3){
+            	rowHtml += '<td> 음란물 </td>';	
+            }else if(data.list[i].reason ==4){
+            	rowHtml += '<td> 지나친 욕설 </td>';	
+            }else if(data.list[i].reason ==5){
+            	rowHtml += '<td> 개인정보침해 </td>';	
+            }else if(data.list[i].reason ==6){
+            	rowHtml += '<td> 저작권침해 </td>';	
+            }else if(data.list[i].reason ==7){
+            	rowHtml += '<td> 기타 </td>';	
+            }
+            
+            
+            
+            
             rowHtml += '<td>' + data.list[i].content + '</td>';
             rowHtml += '</tr>';
         }
@@ -370,6 +393,9 @@ $('body').on('click', '.modalOn', function () {
 });
 
 $('body').on('click', '.hiddenComu', function () {
+	
+	let state = '${state}';
+	
     let communityNum = $(this).attr("data-communityNum");
     let showNo = $(this).attr("data-showNo");
     
@@ -379,8 +405,10 @@ $('body').on('click', '.hiddenComu', function () {
     	showNo = 1
     }
     
-    let query = "communityNum="+communityNum+"&showNo="+showNo;
-    let url = "${pageContext.request.contextPath}/admin/reportManage/changeShow";
+    let query = "communityNum="+communityNum+"&showNo="+showNo+"&state="+state;
+
+	let url = "${pageContext.request.contextPath}/admin/reportManage/changeShow";
+    
     
     const fn = function (data) {
     		

@@ -9,13 +9,9 @@
 
 <script type="text/javascript">
 
-	
-		
-
 	$(function() {
 		
 		let gogo = '${gogo}';
-		console.log(gogo);
 		let url = "${pageContext.request.contextPath}/admin/statistics/dayChart?gogo="+gogo;
 		
 		$.getJSON(url, function(data1) {
@@ -97,8 +93,7 @@
 		
 		const chartData = generateChartData(data);
 
-		Highcharts
-				.chart(
+		Highcharts.chart(
 						'daychart',
 						{
 							chart : {

@@ -1107,7 +1107,7 @@ function printReview(data) {
    let size = data.size;
    let paging = data.paging;
    let productNum = data.productNum;
-   rnum = 0;
+   let rnum;
    if(dataCount > 0) {
       $('.reviewSort-area').show();
    } else {
@@ -1129,6 +1129,7 @@ function printReview(data) {
       let listFilename = item.listFilename;
       let reportUrl = data.reportUrl;
       rnum = num
+      
       // let deletePermit = item.deletePermit;
 
       out += '<div class="mt-3 border-bottom">';
@@ -1188,7 +1189,7 @@ function printReview(data) {
    out += '   <option value="6" >저작권침해</option> <option value="7" >기타</option> </select> </div>';
    out += '  <div class="col p-1"> <input type="text" name="content" class="form-control" placeholder="사유를 입력 하세요"> </div> </div>';
    out += '  <div class="col-auto p-1">';
-   out += '   <input type="hidden" name="reportUrl" value="/product/review/'+rnum+'">';
+   out += '   <input type="hidden" id="reportUrlInput" name="reportUrl" value="/product/review/'+rnum+'">';
    out += '                         <button type="button" class="btn btn-light btnUserReportOk"> 신고하기 </button> </div> </form>';
    out += '               </div></div> </div> </div> </div>';
    
@@ -1198,6 +1199,10 @@ function printReview(data) {
 //신고창 모달띄우기
 $(function(){ 
    $('body').on('click', '.notifyReview', function(){
+	  let rnum = $(this).data("num");
+	  
+	  document.getElementById('reportUrlInput').value = '/product/review/' + rnum;
+	  
       $("#userReportModalLabel").html("신고하기");
       $("#userReportModal").modal("show");
       
