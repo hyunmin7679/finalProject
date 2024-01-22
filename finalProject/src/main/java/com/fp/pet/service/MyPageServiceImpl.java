@@ -224,6 +224,9 @@ public class MyPageServiceImpl implements MyPageService {
 			// 주문상세 상태 정보 테이블에 상태 변경 내용 및 날짜 저장
 			mapper.insertDetailStateInfo(map);
 			
+			// 포인트 적립
+			mapper.insertPoint(map);
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();
