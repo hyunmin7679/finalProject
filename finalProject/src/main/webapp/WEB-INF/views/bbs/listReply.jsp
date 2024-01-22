@@ -12,7 +12,7 @@
 		<tr class='border table-light'>
 			<td width='50%'>
 				<div class='row reply-writer'>
-					<div class='col-1'><i class='bi bi-person-circle text-muted icon'></i></div>
+					<div class='col-1'><img class="align-self-center" style="padding: 4px; width: 37px;" src="${pageContext.request.contextPath}/uploads/photo/${vo.iconImage}"></div>
 					<div class='col-auto align-self-center'>
 						<div class='name'>${vo.userName}</div>
 						<div class='date'>${vo.reg_date}</div>
@@ -68,6 +68,6 @@
 	</c:forEach>
 </table>
 
-<div class="page-navigation">
+<div class="page-navigation d-flex justify-content-center">
 	${paging}
 </div>			

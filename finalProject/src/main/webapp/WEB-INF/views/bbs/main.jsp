@@ -10,8 +10,15 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/boot-board.css" type="text/css">
 
 <style type="text/css">
+.body-title2 {
+    color: #424951;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    margin: 0 0 25px 0;
+  }
+
 .body-container {
-	max-width: 850px;
+	max-width: 800px;
 }
 
 .board-article img { max-width: 650px; }
@@ -47,8 +54,8 @@ img, svg {
 
 <div class="container">
 	<div class="body-container">	
-		<div class="body-title">
-			<h3><i class="bi bi-app"></i> 게시판 </h3>
+		<div class="body-title2">
+		   <p style="font-size: 22px;"><span style="border-bottom: 12px solid #dcf1fb; padding: 0 0 0 0.2em; width: 100%"> <i class="fa-regular fa-comment-dots"></i> 게시판</span></p>
 		</div>
 		
 	<form name="bbsSearchForm" method="post">
@@ -278,7 +285,7 @@ function deleteOk(communityNum, page) {
 $(function (){
 	$('.content-frame').on('click', '.btnSendBoardLike', function(){
 		const $i = $(this).find('i');
-		let userLiked = $i.hasClass('bi-hand-thumbs-up-fill');
+		let userLiked = $i.hasClass('fa-solid fa-thumbs-up');
 		let msg = userLiked ? '게시글 공감을 취소하시겠습니까 ? ' : '게시글에 공감하십니까 ? ';
 		
 		if(! confirm( msg )) {
@@ -293,9 +300,9 @@ $(function (){
 			let state = data.state;
 			if(state === 'true') {
 				if( userLiked ) {
-					$i.removeClass('bi-hand-thumbs-up-fill').addClass('bi-hand-thumbs-up');
+					$i.removeClass('fa-solid fa-thumbs-up').addClass('fa-regular fa-thumbs-up');
 				} else {
-					$i.removeClass('bi-hand-thumbs-up').addClass('bi-hand-thumbs-up-fill');
+					$i.removeClass('fa-regular fa-thumbs-up').addClass('fa-solid fa-thumbs-up');
 				}
 				
 				let count = data.boardLikeCount;

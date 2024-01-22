@@ -2,30 +2,36 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+
 <table class="table mt-5 mb-0 board-article">
 	<thead>
 		<tr>
-			<td colspan="2" align="center">${dto.subject}</td>
+			<td colspan="3" align="center">${dto.subject}</td>
 		</tr>
 	</thead>
 
 	<tbody>
 		<tr>
-			<td width="50%">이름 : ${dto.userName}
-			</td>
-			<c:if test="${sessionScope.member.userId != dto.userId }">
-			<td align="right">
-				 <a class="frind-add"
-				data-userName="${dto.userName}"> | <i class="fa-solid fa-user-plus"></i></a>
-			</td>
-			</c:if>
-
-			<td align="right">${dto.reg_date} | 조회 ${dto.hitCount}</td>
+			<td><img class="align-self-center" style="padding: 4px; width: 37px;" src="${pageContext.request.contextPath}/uploads/photo/${dto.iconImage}"> 
+			     ${dto.userName}</td>
+			
+			<c:choose>
+				<c:when test="${sessionScope.member.userId != dto.userId }">
+					<td align="right" style="vertical-align: middle;"><i class="fa-regular fa-eye"></i> ${dto.hitCount}
+					 <a class="frind-add"
+						data-userName="${dto.userName}"> | <img width="23px;" src="${pageContext.request.contextPath}/resources/images/friendAdd.png"></a>
+					</td>
+				</c:when>
+				<c:otherwise>
+					<td align="right" style="vertical-align: middle;"><i class="fa-regular fa-eye"></i> ${dto.hitCount}</td>
+				</c:otherwise>
+			</c:choose>
 		</tr>
 
 		<tr>
 			<td colspan="2" style="border-bottom: none;">
 				<div class="row row-cols-6 img-box">
+					<div style="text-align: right; width: 100%">${dto.reg_date}</div>
 					<c:forEach var="vo" items="${listFile}">
 						<div class="col p-1">
 							<img
@@ -41,14 +47,15 @@
 		
 		<tr>
 			<td colspan="2" valign="top" height="200"
-				style="border-bottom: none;">${dto.content}</td>
+				style="border-bottom: none; font-family: Orbit-Regular;">${dto.content}</td>
 		</tr>
+		<c:if test="${dto.park != ' '}">
 		<tr>
 			<td colspan="2" id= "map1"style="width:100%;height:350px;">
 				
 			</td>
 		</tr>
-		<c:if test="${dto.park != ' '}">
+	
 			<tr>
 				<td style="border: none;">산책주소 : ${dto.park}, 총 거리 : ${mapList[0].distance }m</td>
 			</tr>
@@ -60,13 +67,11 @@
 					class="btn btn-outline-secondary btnSendBoardLike"
 					data-communityNum="${dto.communityNum}" title="좋아요">
 					<i
-						class="bi ${userBoardLiked ? 'bi-hand-thumbs-up-fill':'bi-hand-thumbs-up' }"></i>&nbsp;&nbsp;<span
+						class="${userBoardLiked ? 'fa-solid fa-thumbs-up':'fa-regular fa-thumbs-up' }"></i>&nbsp;&nbsp;<span
 						id="boardLikeCount">${dto.boardLikeCount}</span>
 				</button>
 			</td>
 		</tr>
-		
-		
 
 		<tr>
 			<td colspan="2">이전글 : <c:if test="${not empty prevDto}">

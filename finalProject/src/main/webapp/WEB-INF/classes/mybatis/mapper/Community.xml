@@ -103,16 +103,19 @@
 	<!-- 글보기 -->
 	<select id="findById" parameterType="Long" resultType="com.fp.pet.domain.Community">
 		SELECT c.communityNum, c.categoryNum, c.userId, m.userName, subject, content, NVL(park, ' ') park, parkname, 
-        	cg.categoryName, TO_CHAR(reg_date, 'YYYY-MM-DD') reg_date, hitCount,
-        	NVL(boardLikeCount, 0) boardLikeCount
+        	cg.categoryName, TO_CHAR(reg_date, 'YYYY-MM-DD') reg_date, hitCount, i.iconImage,
+        	NVL(boardLikeCount, 0) boardLikeCount, iconUse
 		FROM community c   
 		JOIN member1 m ON c.userId = m.userId    
 		JOIN communityCategory cg ON cg.categoryNum = c.categoryNum
+        JOIN iconlist il ON m.memberIdx = il.memberIdx
+        JOIN icon i ON i.iconNum = il.iconNum
         LEFT OUTER JOIN (
 			SELECT communityNum, COUNT(*) boardLikeCount FROM communityLike
 			GROUP BY communityNum
 		) bc ON c.communityNum = bc.communityNum
 		WHERE c.communityNum = #{communityNum}
+        AND iconUse = 2
 	</select>
 	
 	<!-- 조회수 증가 -->
@@ -241,9 +244,11 @@
 	<!-- 댓글리스트 -->
 	<select id="listReply" parameterType="map" resultType="com.fp.pet.domain.Reply">
     	SELECT r.replyNum, r.userId, userName, r.communityNum, content, r.reg_date, NVL(showReply, 1) showReply, 
-			   NVL(answerCount, 0) answerCount
+			   NVL(answerCount, 0) answerCount, i.iconImage
 		FROM communityReply r
 		JOIN member1 m ON r.userId = m.userId
+		JOIN iconlist il ON m.memberIdx = il.memberIdx
+        JOIN icon i ON i.iconNum = il.iconNum
 		LEFT OUTER JOIN (
 			SELECT answer, COUNT(*) answerCount
 			FROM communityReply
@@ -257,6 +262,7 @@
 		<if test="membership lt 51">
 				AND ( showReply=1 OR ( showReply=0 AND m.userId=#{userId} ) )
 		</if>
+		AND iconUse = 2
 		ORDER BY r.replyNum DESC
 	</select>
 	
@@ -272,13 +278,16 @@
 	<!-- 댓글의 답글 리스트 -->
 	<select id="listReplyAnswer" parameterType="map" resultType="com.fp.pet.domain.Reply">
 		SELECT replyNum, communityNum, r.userId, userName, content, 
-		       reg_date, answer, NVL(showReply, 1) showReply
+		       reg_date, answer, NVL(showReply, 1) showReply, i.iconImage
 		FROM communityReply r
 		JOIN member1 m ON r.userId = m.userId
+		JOIN iconlist il ON m.memberIdx = il.memberIdx
+        JOIN icon i ON i.iconNum = il.iconNum
 		WHERE answer = #{answer}
 		<if test="membership lt 51">
 			AND ( showReply=1 OR ( showReply=0 AND r.userId=#{userId} ) )
 		</if>
+		AND iconUse = 2
 		ORDER BY replyNum DESC
 	</select>
 	

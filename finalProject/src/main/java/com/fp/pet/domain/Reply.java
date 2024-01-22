@@ -14,7 +14,17 @@ public class Reply {
 	private int likeCount;
 	private int disLikeCount;
 	
+	// 아이콘
+		private String iconImage;
 	
+	
+	
+	public String getIconImage() {
+			return iconImage;
+		}
+		public void setIconImage(String iconImage) {
+			this.iconImage = iconImage;
+		}
 	public String getUserName() {
 		return userName;
 	}

@@ -7,7 +7,7 @@
 		<div class='row p-1'>
 			<div class='col-auto'>
 				<div class='row reply-writer'>
-					<div class='col-1'><i class='bi bi-person-circle text-muted icon'></i></div>
+					<div class='col-1'><img class="align-self-center" style="padding: 4px; width: 37px;" src="${pageContext.request.contextPath}/uploads/photo/${vo.iconImage}"></div>
 					<div class='col ms-2 align-self-center'>
 						<div class='name'>${vo.userName}</div>
 						<div class='date'>${vo.reg_date}</div>
