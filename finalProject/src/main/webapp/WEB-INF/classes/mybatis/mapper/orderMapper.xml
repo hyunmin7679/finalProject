@@ -45,7 +45,7 @@
     		po.optionNum, po.optionName, od.detailNum, od.optionValue,
     		po2.optionNum optionNum2, po2.optionName optionName2,
     		od2.detailNum detailNum2, od2.optionValue optionValue2,
-    		stockNum
+    		stockNum, p.CATEGORYNUM
 		FROM product p
 		JOIN productOption po ON p.productNum = po.productNum
 		JOIN productOption po2 ON po.optionNum = po2.parent

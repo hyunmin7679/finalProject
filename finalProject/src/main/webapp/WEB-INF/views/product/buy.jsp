@@ -667,7 +667,7 @@ $(function(){
                   
                </div>
             </c:if>
-            <div class="col-md-6 border border-end-0 pt-2">
+            <div class="col-md-6 border-end-0 pt-2">
                
                <div class="row gx-1 border rounded">
                   <div class="col lg-img">
@@ -676,7 +676,7 @@ $(function(){
                </div>
             </div>
             
-            <div class="col-md-6 border">
+            <div class="col-md-6">
                <form name="buyForm">
                   <c:if test="${dto.special != 0}">
                      <div class="border rounded bg-light mt-2 p-2">
@@ -687,7 +687,7 @@ $(function(){
                   </c:if>
                   <div class="row pt-2">
                      <div class="col fs-4 fw-semibold">
-                        ${dto.productName},${friendname}
+                        ${dto.productName}
                      </div>
                   </div>
                   
@@ -720,7 +720,7 @@ $(function(){
                      </div>
                   </div>
                   
-                  <div class="row border p-2 m-1 mt-2">
+                  <div class="row p-2 m-1 mt-2">
                      <div class="col">
                         <div class="border-bottom p-2 fs-6 fw-semibold">회원을 위한 혜택</div>
                         <div class="row p-2">

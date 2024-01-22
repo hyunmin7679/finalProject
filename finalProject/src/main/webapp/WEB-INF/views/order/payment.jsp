@@ -120,9 +120,9 @@ $(function(){
 		let couponNUm = $(this).children("option:selected").attr('data-couponNum');
 		let deliveryCharge =  parseInt(f.deliveryCharge.value);
 		if(discountPrices !=0){
-			discountPrices = discountPrices + salePrices / disCount;
+			discountPrices = parseInt(discountPrices + salePrices / disCount);
 		} else{
-			discountPrices = salePrices / disCount;
+			discountPrices = parseInt(salePrices / disCount);
 		} 
 		if(disCount==0){
 			discountPrices = parseInt($(this).closest(".text-center").find("input[name=discountPrices]").val());
@@ -130,9 +130,10 @@ $(function(){
 			$(this).closest(".text-center").find("input[name=couponNums]").val(0);
 		} else{
 			$(this).closest(".text-center").find("input[name=couponNums]").val(couponNUm);
+			$(this).closest(".text-center").find(".sapri").remove();
 		}
 		totalMoneys += disMoney;
-		salePrices = salePrices - discountPrices;
+		salePrices = parseInt(salePrices - discountPrices);
 		let saleproductMoneys = salePrices * buyQtys;
 		loprices = prices.toLocaleString();
 		
@@ -147,8 +148,8 @@ $(function(){
 			
 			$(this).closest(".text-center").find(".price").append(out);
 		}
-		totalMoneys = totalMoneys - discountPrices * buyQtys;
-		totalvalue = totalMoneys + deliveryCharge;
+		totalMoneys = parseInt(totalMoneys - discountPrices * buyQtys);
+		totalvalue = parseInt(totalMoneys + deliveryCharge);
 		$(".totalMoney").text(totalMoneys.toLocaleString() + "원");
 		$(".payment").text(totalvalue.toLocaleString() + "원");
 		disMoney = parseInt($(this).closest(".text-center").find("input[name=disMoney]").val(discountPrices * buyQtys));
