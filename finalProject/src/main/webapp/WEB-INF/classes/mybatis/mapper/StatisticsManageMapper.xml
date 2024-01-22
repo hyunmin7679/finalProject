@@ -47,6 +47,7 @@
 		FROM iconlist il
 		JOIN icon i
 		ON il.iconNum = i.iconNum
+		where il.iconNum != 51
 		GROUP BY il.iconNum, i.iconName, i.iconImage
 		ORDER BY iconCount DESC
 		FETCH FIRST 5 ROWS ONLY
