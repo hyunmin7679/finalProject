@@ -167,6 +167,16 @@
 									<i class='bx bx-info-circle'></i>
 								</button>
 							</c:when>
+							
+							<c:when test="${dto.couponState == 3 }">
+							예정
+							<button type="button" class="updateCoupon"
+									style="background-color: transparent; border: none;"
+									data-bs-toggle="modal" data-bs-target="#modalToggle"
+									data-couponNum="${dto.couponNum}">
+									<i class='bx bx-info-circle'></i>
+								</button>
+							</c:when>
 
 
 

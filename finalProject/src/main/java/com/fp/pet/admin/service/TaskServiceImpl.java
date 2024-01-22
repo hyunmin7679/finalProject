@@ -17,6 +17,7 @@ import com.fp.pet.admin.mapper.OrderManageMapper;
 public class TaskServiceImpl  implements TaskService{
 	@Autowired
 	private CouponMapper mapper;
+	
 	@Autowired
 	private OrderManageMapper orderMapper;
 	
@@ -26,6 +27,7 @@ public class TaskServiceImpl  implements TaskService{
 	public void automaticRepeatOperation() {
 		try {
 			mapper.updateCouponState();
+			mapper.updateCouponState1();
 		} catch (Exception e) {
 			e.printStackTrace();
 			
