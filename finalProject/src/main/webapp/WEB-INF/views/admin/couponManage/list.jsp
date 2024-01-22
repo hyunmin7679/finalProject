@@ -78,6 +78,12 @@
 							<button type="button" class="nav-link" role="tab"
 								data-bs-toggle="tab" data-bs-target="#navs-top-home"
 								aria-controls="navs-top-profile" aria-selected="false"
+								data-category="ready">발급예정 쿠폰</button>
+						</li>
+						<li class="nav-item" role="presentation">
+							<button type="button" class="nav-link" role="tab"
+								data-bs-toggle="tab" data-bs-target="#navs-top-home"
+								aria-controls="navs-top-profile" aria-selected="false"
 								data-category="open">발급중 쿠폰</button>
 						</li>
 						
@@ -435,16 +441,6 @@ $(function () {
 			$(this).remove();
         });
 		
-		
-		
-		/* 	if(! detailNum) {
-			return false;
-		} */
-		
-		// let optionNum = $(".requiredOption").attr("data-optionNum");
-		// let optionNum2 = $(".requiredOption2").attr("data-optionNum2");
-		
-		
 		let url = "${pageContext.request.contextPath}/admin/couponManage/couponDetail";
 		$.get(url, {sort:sort}, function(data){
 			$(data).each(function(index, item){
@@ -460,9 +456,12 @@ $(function () {
 	});
 });
 
+
+
 $(function(){
 	$('.container').on('click', '.updateCoupon', function() {
 		// 쿠폰 상태 모달
+		$("select[name=couponState] option[value='0']").show();
 		$("select[name=couponState]").val('');
 		$('input[name=couponMemo]').val('');
 		
@@ -478,9 +477,13 @@ $(function(){
 			
 			let couponState = data.dto.couponState;
 			let couponMemo = data.dto.couponMemo;
-			console.log(couponState);
-			console.log(couponMemo);
-			$("select[name=couponState]").val(couponState);
+			if(couponState === 3){
+				$("select[name=couponState] option[value='0']").hide();
+				$("select[name=couponState]").val(1);
+			}else{
+				$("select[name=couponState]").val(couponState);	
+			}
+			
 			
 			if (couponMemo !== null) {
 				$('input[name=couponMemo]').attr('placeholder', couponMemo);
@@ -498,10 +501,6 @@ $(function(){
 		let couponNum = $(this).attr('data-couponNum');
 		let couponState = $("select[name=couponState]").val();
 		let couponMemo = $('input[name=couponMemo]').val();
-		
-		console.log(couponNum);
-		console.log(couponState);
-		console.log(couponMemo);
 		
 		let url = '${pageContext.request.contextPath}/admin/couponManage/stateCoupon';
 		let query = 'couponNum=' + couponNum + '&couponState=' + couponState+'&couponMemo='+couponMemo;

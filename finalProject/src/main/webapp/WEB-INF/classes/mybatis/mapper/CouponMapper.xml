@@ -13,13 +13,17 @@
 		<if test="category== 'end' ">
 			TRUNC(endCouponDate) &lt; TRUNC(SYSDATE) OR couponState = 2
 		</if>
+		<if test="category== 'ready' ">
+			couponState = 3
+		</if>
 	</sql>
+
 
 	<insert id="insertCoupon" parameterType="com.fp.pet.admin.domain.Coupon">
 		insert into coupon
-		(couponNum,categoryNum,couponCode,couponName,couponDiscount,startCouponDate,endCouponDate)
+		(couponNum,categoryNum,couponCode,couponName,couponState,couponDiscount,startCouponDate,endCouponDate)
 		values 
-		(coupon_seq.NEXTVAL,#{categoryNum},#{couponCode},#{couponName},#{couponDiscount},TO_DATE(#{startCouponDate}, 'YYYY-MM-DD HH24:MI:SS'), TO_DATE(#{endCouponDate}, 'YYYY-MM-DD HH24:MI:SS'))
+		(coupon_seq.NEXTVAL,#{categoryNum},#{couponCode},#{couponName},#{couponState},#{couponDiscount},TO_DATE(#{startCouponDate}, 'YYYY-MM-DD HH24:MI:SS'), TO_DATE(#{endCouponDate}, 'YYYY-MM-DD HH24:MI:SS'))
 	</insert>
 	
 	<select id="dataCount" parameterType="map" resultType="Integer" >
@@ -98,6 +102,12 @@
 		UPDATE coupon
 		SET couponState = 2
 		WHERE TRUNC(endCouponDate) &lt; TRUNC(SYSDATE)
+	</update>
+	
+	<update id="updateCouponState1">
+		UPDATE coupon
+		SET couponState = 0
+		WHERE TRUNC(startCouponDate ) &gt; TRUNC(SYSDATE)
 	</update>
 	
 	<select id="findByCoupon" parameterType="map" resultType="com.fp.pet.admin.domain.Coupon">
