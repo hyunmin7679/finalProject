@@ -251,7 +251,7 @@ function printReview(data) {
 	}
 	
 	$('.list-review').html(out);	
-}
+}  
 
 $(function(){
 	$('.list-review').on('click', '.deleteReview', function(){
