@@ -115,7 +115,7 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 <div class="container">
 	<div class="body-container">
 			<div class="body-title2">
-		  	 	<p style="font-size: 22px;"><span style="border-bottom: 12px solid #dcf1fb; padding: 0 0 0 0.2em; width: 100%"> <i class="fa-regular fa-comment-dots"></i> 내 활동</span></p>
+		  	 	<p style="font-size: 22px;"><span style="border-bottom: 12px solid #dcf1fb; padding: 0 0 0 0.2em; width: 100%"><i class="fa-regular fa-rectangle-list"></i> 내 활동</span></p>
 			</div>
 			
 		<div class="body-main">
@@ -403,12 +403,13 @@ function printCommunity(data) {
 		let reg_date = item.reg_date;
 		let hitCount = item.hitCount;
 		let replyCount = item.replyCount;
-		//let answerState = answer_date ? '<span class="text-primary">답변완료</span>' : '<span class="text-secondary">답변대기</span>';
 		let listFilename = item.listFilename;
-	//	let productName = item.productName; 
 
 		out += '<div class="mt-1 border-bottom">';
 		out += '  <div class="mt-2 p-2 fw-semibold">' + subject + '</div>';
+		out += '     <div class="col-auto pt-2 px-0 text-end">&nbsp;&nbsp;<span>'+reg_date+'</span>';
+		out += '        <span class="deleteCommunity" data-communityNum="' + communityNum + '" data-page="' +pageNo+'"><i class="fa-solid fa-circle-xmark" style="color: #db0000;"></i></span>';
+		out += '      </div>';
 		out += '  <div class="p-2">' + content + '</div>';
 
 		if(listFilename && listFilename.length > 0) {
@@ -420,11 +421,8 @@ function printCommunity(data) {
 				}
 			out += '</div>';
 		}
-		out += '  <div class="row p-2">';
-		out += '     <div class="col-auto pt-2 pe-0"> 조회수: ' + hitCount + '</div>';
-		out += '     <div class="col-auto pt-2 px-0">&nbsp;|&nbsp;<span>'+reg_date+'</span>';
-		out += '        |<span class="deleteCommunity" data-communityNum="' + communityNum + '" data-page="' +pageNo+'">삭제</span>';
-		out += '      </div>';
+		out += '  <div class="p-2 text-end">';
+		out += '     <div class="col-auto pt-2 pe-0"><i class="fa-regular fa-eye"></i> ' + hitCount + '</div>';
 		out += '  </div>';
 		out += '</div>';
 	}
@@ -503,10 +501,8 @@ function printLike(data) {
 				}
 			out += '</div>';
 		}
-		out += '  <div class="row p-2">';
-		out += '     <div class="col-auto pt-2 pe-0"> 조회수: ' + hitCount + '</div>';
-		// out += '     <div class="col-auto pt-2 px-0">&nbsp;|&nbsp;'+userName+'</div>';
-		out += '     <div class="col-auto pt-2 px-0">&nbsp;|&nbsp;<span>'+reg_date+'</span>';
+		out += '  <div class="col p-2 text-end">';
+		out += '     <div class="col-auto pt-2 px-0"><i class="fa-regular fa-eye"></i>'+hitCount+'&nbsp;&nbsp;|&nbsp;&nbsp;<span>'+reg_date+'</span>';
 		out += '      </div>';
 		out += '  </div>';
 		out += '</div>';
