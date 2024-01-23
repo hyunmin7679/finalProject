@@ -42,6 +42,7 @@ public interface MyPageMapper {
 	
 	// 주문상세
 	public Payment findByDetail (Map<String, Object> map);
+	public Payment findByDelivery (Map<String, Object> map);
 	
 
 	// 주문 상세 상태 등록

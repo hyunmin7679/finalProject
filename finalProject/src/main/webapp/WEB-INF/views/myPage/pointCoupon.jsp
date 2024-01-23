@@ -3,6 +3,13 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <style type="text/css">
+.body-title2 {
+    color: #424951;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    margin: 0 0 25px 0;
+  }
+  
 .body-container {
 	max-width: 1000px;
 }
@@ -98,6 +105,10 @@ function ajaxFun(url, method, formData, dataType, fn, file = false) {
 
 <div class="container">
 	<div class="body-container">	
+		<div class="body-title2">
+         <p style="font-size: 22px;"><span style="border-bottom: 12px solid #dcf1fb; padding: 0 0 0 0.2em; width: 100%"><i class="fa-regular fa-rectangle-list"></i> 내 쿠폰 및 포인트</span></p>
+        </div>
+        
 		<div class="body-main">
 
 			<ul class="nav nav-tabs mt-5" id="myTab" role="tablist">
@@ -217,15 +228,14 @@ function printPoint(data) {
 	
 	
 	let out = '';
-	
-	out += '  <p class ="box">총 보유포인트: '+userPoint+' P</p>'
+	out += '  <p class ="box">총 보유포인트: &nbsp;&nbsp;'+userPoint+' P</p>';
 	
 	if(dataCount > 0) {
 		
 	out += ' <div><table class="table">';
 	out += '	<thead> <tr class="bg-light text-center">'
-	out += ' 	<th >일자</th>';
-	out += ' 	<th  colspan="2">구분</th>';
+	out += ' 	<th width="200">일자</th>';
+	out += ' 	<th colspan="2">구분</th>';
 	out += ' 	<th width="120">포인트</th>';
 	out += ' 	</tr> </thead> <tbody>';
 	
@@ -239,9 +249,9 @@ function printPoint(data) {
 		
 		out += '   <tr class="text-center" valign="middle">';
 		if(p_sort == 0){
-			out += ' <td><img src="${pageContext.request.contextPath}/resources/images/pointAdd.png"> &nbsp;'+reg_date+'</td>';
+			out += ' <td><img src="${pageContext.request.contextPath}/resources/images/pointSubtract.png"> &nbsp;'+reg_date+'</td>';
 		} else {
-			out += '  <td><img src="${pageContext.request.contextPath}/resources/images/pointSubtract.png"> &nbsp;'+reg_date+'</td>';
+			out += '  <td><img src="${pageContext.request.contextPath}/resources/images/pointAdd.png"> &nbsp;'+reg_date+'</td>';
 		}
 		out += '  <td colspan="2">'+memo+'</td>';
 		out += '  <td width="120">'+p_qyt+'</td>';

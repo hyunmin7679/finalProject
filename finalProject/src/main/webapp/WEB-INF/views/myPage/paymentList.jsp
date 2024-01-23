@@ -1,4 +1,4 @@
-`<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
@@ -629,9 +629,19 @@ $(function(){
                <div class="mt-3 p-2 border-bottom payment-list">
                   <div class="row pb-2">
                      <div class="col-6">
-                        <div class="fs-6 fw-semibold text-black-50">
+                     	<c:if test="${empty dto.from_friend }">
+                     		<div class="fs-6 fw-semibold text-black-50">
+                     		   <img style="width: 50px;" src="${pageContext.request.contextPath}/resources/images/shopping2.png">
+                          	   <label>${detailState[dto.detailState]}</label><label></label>
+                       	    </div>
+                     	</c:if>
+                     	<c:if test="${not empty dto.from_friend }">
+                     		<div class="fs-6 fw-semibold text-black-50">
+                        		<img style="width: 50px;"  src="${pageContext.request.contextPath}/resources/images/present2.png">
                            <label>${detailState[dto.detailState]}</label><label></label>
                         </div>
+                     	</c:if>
+                        
                      </div>
 
                      <div class="col-6 text-end payment">
@@ -852,39 +862,23 @@ $(function(){
 </div>
 
 <!-- 배송조회  -->
-<c:forEach var="dto" items="${list }">
-   <div class="modal fade" id="deliveryTrackingModal" tabindex="-1"
-      aria-labelledby="deliveryTrackingModalLabel" aria-hidden="true"
-      data-bs-backdrop="static" data-bs-keyboard="false">
-      <div class="modal-dialog modal-dialog-centered">
-         <div class="modal-content">
-            <div class="modal-header">
-               <h5 class="modal-title" id="deliveryTrackingModalLabel">배송조회</h5>
-               <button type="button" class="btn-close" data-bs-dismiss="modal"
-                  aria-label="Close"></button>
-            </div>
-            <c:if test="${empty dto.deliveryName }">
-               <p class="delivery-dox">배송정보가 없습니다.</p>
-            </c:if>
-            <c:if test="${not empty dto.deliveryName} ">
-               <div class="modal-body">
-                  <div class="row search-form">
-                     <div class="col-4 pe-1">
-                        <h3>${dto.deliveryName}|</h3>
-                     </div>
-                     <div class="col-auto ps-0 pe-2">
-                        <p>${orderState[dto.orderState]}</p>
-                     </div>
-                     <div class="col ps-0 pe-1">
-                        <span>${dto.invoiceNumber}</span>
-                     </div>
-                  </div>
-               </div>
-            </c:if>
+
+<div class="modal fade" id="deliveryTrackingModal" tabindex="-1"
+   aria-labelledby="deliveryTrackingModalLabel" aria-hidden="true"
+   data-bs-backdrop="static" data-bs-keyboard="false">
+   <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+
+         <div class="modal-header">
+            <h5 class="modal-title" id="deliveryTrackingModalLabel">배송조회</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"
+               aria-label="Close"></button>
          </div>
+
+         <div class="modal-delivery"></div>
       </div>
    </div>
-</c:forEach>
+</div>
 
 
 <!-- 구매취소/교환요청/반품요청 처리 -->
@@ -1063,8 +1057,15 @@ $(function(){
 
 // 배송조회 모달 
 $(".deliveryTracking").click(function(){
+	
+	let orderDetailNum = $(this).attr("data-orderDetailNum");
 
-   $("#deliveryTrackingModal").modal("show");
+    let url = '${pageContext.request.contextPath}/myPage/delivery?orderDetailNum='+orderDetailNum;
+    
+   $("#deliveryTrackingModal").modal("show"); 
+   $("#deliveryTrackingModal .modal-delivery").load(url);
+   
+   
 });
 
 

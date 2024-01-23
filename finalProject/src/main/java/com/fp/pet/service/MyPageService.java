@@ -30,6 +30,7 @@ public interface MyPageService {
 	
 	// 주문상세 
 	public Payment findByDetail(Map<String, Object> map);
+	public Payment findByDelivery (Map<String, Object> map);
 	
 	
 	// 주문상세상태 수정, 주문 회원탈퇴여부 수정

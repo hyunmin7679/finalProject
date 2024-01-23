@@ -3,6 +3,13 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <style type="text/css">
+.body-title2 {
+    color: #424951;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    margin: 0 0 25px 0;
+  }
+  
 .body-container {
 	max-width: 1000px;
 }
@@ -130,9 +137,9 @@ $(function(){
 
 <div class="container">
 	<div class="body-container">	
-		<div class="body-title">
-			<h3><i class="bi bi-cart"></i> 장바구니 </h3>
-		</div>
+		<div class="body-title2">
+         <p style="font-size: 22px;"><span style="border-bottom: 12px solid #dcf1fb; padding: 0 0 0 0.2em; width: 100%"><i class="bi bi-cart"></i> 장바구니</span></p>
+        </div>
 		
 		<div class="body-main pt-3">
 			
