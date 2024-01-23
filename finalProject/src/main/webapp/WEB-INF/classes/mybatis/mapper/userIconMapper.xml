@@ -15,7 +15,7 @@
 	
 	<!-- 회원가입 시 기본이미지 설정 -->
 	<select id="insertIcon" parameterType="long">
-		INSERT into iconList (iconSeq,iconNum,memberIdx,iconUse) values(iconlist_seq.nextval,32,#{memberIdx},2)
+		INSERT into iconList (iconSeq,iconNum,memberIdx,iconUse) values(iconlist_seq.nextval,51,#{memberIdx},2)
 	</select>
 	
 	<!-- 수정 전 기존 아이콘들 사용여부 1으로 설정 -->

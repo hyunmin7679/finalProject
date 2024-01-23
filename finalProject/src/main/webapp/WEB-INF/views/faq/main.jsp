@@ -101,7 +101,7 @@ h3{font-weight: 900;}
 				</div>
 				<div class="col-6 text-center">
 					<form class="row" name="searchForm" method="post">
-						<div class="col-auto p-1">
+						<div class="col p-1">
 							<select name="schType" id="schType" class="form-select">
 								<option value="all" ${schType=="all"?"selected":""}>제목+내용</option>
 								<option value="subject" ${schType=="subject"?"selected":""}>제목</option>
@@ -111,7 +111,7 @@ h3{font-weight: 900;}
 						<div class="col-auto p-1">
 							<input type="text" name="kwd" id="kwd" value="${kwd}" class="form-control">
 						</div>
-						<div class="col-auto p-1">
+						<div class="col p-1">
 							<button type="button" class="btn btn-light" onclick="searchList()"> <i class="bi bi-search"></i> </button>
 						</div>
 					</form>
