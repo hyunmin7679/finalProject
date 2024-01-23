@@ -220,7 +220,7 @@ function printReview(data) {
 		}
 		out += '    </div>';
 		out += '  </div>';
-		out += '  <div class="mt-2 p-2">' + review + '</div>';
+		out += '  <div class="mt-2 p-2">' + review + '</div>'; 
 
 		if(listFilename && listFilename.length > 0) {
 			out += '<div class="row gx-1 mt-2 mb-1 p-1">';
