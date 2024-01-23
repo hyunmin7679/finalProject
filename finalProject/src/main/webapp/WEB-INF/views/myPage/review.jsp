@@ -231,7 +231,7 @@ function printReview(data) {
 				}
 			out += '</div>';
 		}
-		
+		  
 		if(answer) {
 			out += '  <div class="p-3 pt-0">';
 			out += '    <div class="bg-light">';
