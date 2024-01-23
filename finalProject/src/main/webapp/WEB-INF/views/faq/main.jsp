@@ -37,9 +37,13 @@ ul, li, p { list-style:none; padding:0; margin:0; }
 i { color:#848484; width: 15px;}
 a { color:#848484; font-size: 15px;}
 a:hover {color: black; text-decoration: none;}
-.category-bar { margin-top: 40px; margin-bottom:20px; display: flex; justify-content: center;}
+.category-bar { margin-bottom:20px; display: flex; justify-content: center;}
 .bar-item{ width:100px; height:70px; text-align:center;  margin: 10px;}
-.title {display: flex; justify-content: center; }
+.body-title2 {
+    color: #424951;
+    padding-top: 10px;
+    padding-bottom: 5px;
+  }
 h3{font-weight: 900;}
 
 .point-item{height:auto; text-align:center; margin: 10px; display: flex; align-items: center;}
@@ -49,9 +53,9 @@ h3{font-weight: 900;}
 </style>
 
 <div class="container body-container ">
-    <div class="title">
-       <h3>FAQ</h3>
-    </div>
+    <div class="body-title2">
+	   <p style="font-size: 22px;"><span style="border-bottom: 12px solid #dcf1fb; padding: 0 0 0 0.2em; width: 100%"> <i class="fa-regular fa-comment-dots"></i> FAQ</span></p>
+	</div>
    
 	<div class="category-bar">
 		<div class="bar-item p-3 active">
@@ -101,14 +105,14 @@ h3{font-weight: 900;}
 				</div>
 				<div class="col-6 text-center">
 					<form class="row" name="searchForm" method="post">
-						<div class="col p-1">
+						<div class="col-4 p-1">
 							<select name="schType" id="schType" class="form-select">
 								<option value="all" ${schType=="all"?"selected":""}>제목+내용</option>
 								<option value="subject" ${schType=="subject"?"selected":""}>제목</option>
 								<option value="content" ${schType=="content"?"selected":""}>내용</option>
 							</select>
 						</div>
-						<div class="col-auto p-1">
+						<div class="col-6 p-1">
 							<input type="text" name="kwd" id="kwd" value="${kwd}" class="form-control">
 						</div>
 						<div class="col p-1">

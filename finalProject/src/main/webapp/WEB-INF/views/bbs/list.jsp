@@ -62,7 +62,7 @@
 	</div>
 	<div class="col-6 text-center">
     <div class="row d-flex justify-content-center" > 
-		<div class="col-auto p-1">
+		<div class="col-4 p-1">
 			<select name="schType" id="schType" class="form-select">
 				<option value="all" ${schType=="all"?"selected":""}>제목+내용</option>
 				<option value="userName" ${schType=="userName"?"selected":""}>작성자</option>
@@ -71,10 +71,10 @@
 				<option value="content" ${schType=="content"?"selected":""}>내용</option>
 			</select>
 		</div>
-		<div class="col-auto p-1">
+		<div class="col-6 p-1">
 			<input type="text" name="kwd" id="kwd" value="${kwd}" class="form-control">
 		</div>
-		<div class="col-auto p-1">
+		<div class="col p-1">
 			<button type="button" class="btn btn-light" onclick="searchList()"> <i class="bi bi-search"></i> </button>
 		</div>
 		  </div>
