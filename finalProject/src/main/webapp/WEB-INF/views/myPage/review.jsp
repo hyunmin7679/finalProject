@@ -230,7 +230,7 @@ function printReview(data) {
 					out += '</div>';
 				}
 			out += '</div>';
-		}
+		}  
 		    
 		if(answer) {
 			out += '  <div class="p-3 pt-0">';
