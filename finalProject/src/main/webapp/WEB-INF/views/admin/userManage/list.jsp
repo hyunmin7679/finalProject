@@ -122,10 +122,7 @@
 				</div>
 			</div>
 		</div>
-
-<div class="page-navigation" >
-	${paging}
-<div class="row mx-2">
 ${dataCount}개(${page}/${total_page}페이지)
-</div>		
+<div class="page-navigation" >
+	${paging}		
 </div>

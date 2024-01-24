@@ -5,7 +5,7 @@
 
 <c:forEach var="dto" items="${list}" varStatus="status">
 	<tr class="odd">
-		<td class="" style="width: 20px; max-width: 30px;"><c:if
+		<td ><c:if
 				test="${dto.showreview==0}">
 				<button id="showtrigger" data-bs-target="#uneditUser"
 					data-bs-toggle="modal" data-num="${dto.num}"
@@ -22,7 +22,7 @@
 				</button>
 			</c:if></td>
 			
-		<td class="sorting_1" width="300px">
+		<td class="sorting_1">
 			<div
 				class="d-flex justify-content-start align-items-center customer-name">
 				<div class="avatar-wrapper">
@@ -134,7 +134,8 @@
 
 				</span>
 			</div>
-			<p class="fw-medium mb-1 text-truncate text-capitalize">${dto.review}</p>
+			<p class="fw-medium mb-1 text-truncate text-capitalize" style="white-space: nowrap; overflow: hidden;text-overflow: ellipsis;">
+			${dto.review}</p>
 
 		</td>
 		<td><span class="text-nowrap">${dto.review_date}</span></td>
@@ -162,12 +163,14 @@
 	</tr>
 </c:forEach>
 <tr>
-<td>
-<div class="row mx-2">
-    <div class="page-navigation">
-        ${paging}
-    </div>
-    ${dataCount}개(${page}/${total_page}페이지)
-</div>
-</td>
+	<td colspan="2">
+	    <div>
+	        ${dataCount}개(${page}/${total_page}페이지)
+	    </div>    
+	</td>
+	<td colspan="4">
+	    <div class="page-navigation">
+	        ${paging}
+	    </div>
+	</td>
 </tr>

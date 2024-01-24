@@ -42,7 +42,7 @@ function searchList() {
 <div class="container">
 	<div class="body-container">
 		<div class="body-title2">
-		   <p style="font-size: 22px;"><span style="border-bottom: 12px solid #dcf1fb; padding: 0 0 0 0.2em; width: 100%"> <i class="fa-regular fa-comment-dots"></i> 공지사항</span></p>
+		   <p style="font-size: 22px;"><span style="border-bottom: 12px solid #dcf1fb; padding: 0 0 0 0.2em; width: 100%"> <i class="fa-regular fa-file-lines fa" style="margin-right: 5px;"></i> 공지사항</span></p>
 		</div>
 		<div class="category-bar">
 			<div class="bar-item p-3">

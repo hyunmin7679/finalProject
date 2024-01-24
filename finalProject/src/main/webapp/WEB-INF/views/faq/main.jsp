@@ -54,7 +54,7 @@ h3{font-weight: 900;}
 
 <div class="container body-container ">
     <div class="body-title2">
-	   <p style="font-size: 22px;"><span style="border-bottom: 12px solid #dcf1fb; padding: 0 0 0 0.2em; width: 100%"> <i class="fa-regular fa-comment-dots"></i> FAQ</span></p>
+	   <p style="font-size: 22px;"><span style="border-bottom: 12px solid #dcf1fb; padding: 0 0 0 0.2em; width: 100%"><i class="fa-regular fa-circle-question fa" style="margin-right: 5px;"></i> FAQ</span></p>
 	</div>
    
 	<div class="category-bar">

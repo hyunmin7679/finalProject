@@ -99,14 +99,14 @@
 						</div>
 					</div>
 					<table
-						class="sort datatables-review table dataTable no-footer dtr-column collapsed"
+						class="sort datatables-review table dataTableno-footer  dtr-columncollapsed "
 						id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info"
-						style="width: 100%;">
+						style="width: 100%; table-layout: fixed;">
 						<thead>
 							<tr>
 								<th
 									class=""
-									rowspan="1" colspan="1" width="5%;" 	
+									rowspan="1" colspan="1" width="10%;" 	
 									aria-label="">공개 여부</th>
 								<th class="sorting sorting_asc" tabindex="0"
 									aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
@@ -119,7 +119,7 @@
 									aria-label="Reviewer: activate to sort column ascending">작성자</th>
 								<th class="sorting" tabindex="0"
 									aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-									width="25%"
+									width="20%"
 									aria-label="Review: activate to sort column ascending">별점
 									<i class='that bx bx-chevron-up' data-sorter="1" style="cursor: pointer;"></i>
 									<i class='that bx bx-chevron-down' data-sorter="2" style="cursor: pointer;"></i></th>
