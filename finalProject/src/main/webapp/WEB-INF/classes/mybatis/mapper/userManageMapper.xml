@@ -258,6 +258,7 @@
 		m.memberIdx=n.memberIdx
 		left outer join member2 o on n.userId=o.userId
 		left outer join productOrder p on m.memberIdx=p.memberIdx AND p.cancelamount = 0
+		where m.membership &lt; 30
 		<if test="kwd != null and kwd != ''">
 			WHERE INSTR(n.userName, #{kwd}) &gt; 0
 		</if>

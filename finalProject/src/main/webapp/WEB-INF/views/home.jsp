@@ -757,6 +757,7 @@ button {
 
 
 <script>
+
 	var toggleMainPopup = function() {
 
 		/* 쿠키 제어 함수 정의 */
