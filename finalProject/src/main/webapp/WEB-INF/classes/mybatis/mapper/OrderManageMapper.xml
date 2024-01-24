@@ -260,6 +260,10 @@
 		sysdate,'판매취소로 인한
 		포인트 회수',#{savedMoney},0)
 	</insert>
+	<insert id="insertPoint" parameterType="map">
+		insert into point (pointNum,orderNum,memberIdx,reg_date,memo,p_qyt,p_sort)
+		values(point_seq.NEXTVAL,#{orderNum},#{memberIdx},sysdate,'자동구매확정으로 인한 포인트 적립',#{savedMoney},1)
+	</insert>
 
 
 	<select id="findByStock" parameterType="map" resultType="map">

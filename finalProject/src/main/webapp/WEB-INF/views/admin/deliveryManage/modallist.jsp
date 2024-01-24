@@ -160,7 +160,9 @@
 														data-orderNum="${order.orderNum}" 
 														data-orderState="${order.orderState}"
 														data-productMoney="${dto.productMoney}"
-														data-orderDetailNum="${dto.orderDetailNum}" 
+														data-orderDetailNum="${dto.orderDetailNum}"
+														data-memberIdx = "${order.memberIdx}"
+														data-savedMoney = "${dto.savedMoney}" 
 														data-detailState="${dto.detailState}">수정</span></td>
 												<td>
 												

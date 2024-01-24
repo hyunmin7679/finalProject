@@ -42,5 +42,6 @@ public interface OrderManageMapper {
 	public void automaticOrder(long orderDetailNum);
 	public void automaticOrderDetail(long orderDetailNum);
 	public void automaticInsertPoint(Map<String, Object> map);
+	public void insertPoint(Map<String, Object> map);
 
 }
