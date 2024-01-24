@@ -86,13 +86,14 @@
 			op.detailNum, op.optionValue, detailNum2, op2.optionValue optionValue2,
 			od.productNum, productMoney, productName, thumbnail, 
 			orderState, od.detailState,
-			orderStateDate, deliveryName, invoiceNumber,
+			orderStateDate, deliveryName, invoiceNumber, from_friend,
 			NVL(reviewWrite, 0) reviewWrite
 		FROM productOrder po
 		JOIN orderDetail od ON po.orderNum = od.orderNum
 		JOIN product p ON od.productNum = p.productNum
 		JOIN optionDetail op ON od.detailNum = op.detailNum
 		JOIN optionDetail op2 ON od.detailNum2 = op2.detailNum
+		LEFT OUTER JOIN present pt ON po.orderNum = pt.orderNum
 		LEFT OUTER JOIN (
 			SELECT num, 1 reviewWrite
 			FROM productReview
@@ -130,6 +131,14 @@
 		AND od.detailNum = op.detailNum
 		AND od.detailNum2 = op2.detailNum
 		AND od.orderNum = pd.orderNum 
+		AND od.orderDetailNum = #{orderDetailNum}
+	 </select>
+	 
+	 <!-- 배송지 조회 -->
+	 <select id="findByDelivery" parameterType="map">
+	 	SELECT po.orderNum, od.orderDetailNum, deliveryName, invoiceNumber, orderState
+		FROM   orderDetail od, productOrder po
+		WHERE od.orderNum = po.orderNum
 		AND od.orderDetailNum = #{orderDetailNum}
 	 </select>
 	

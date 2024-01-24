@@ -4,12 +4,12 @@
 
 <style type="text/css">
 .body-container {
-	width: 1000px;
+	width: 800px;
 	height: 100%;
 	position: center;
 	padding: 70px 50px 50px 70px;
 	border-radius: 40px 80px;
-	background: #fffff0;
+	background: none;
 }
 
 .jss1 {
@@ -256,8 +256,8 @@ function userIdCheck() {
 							</div>
 							<div class="col-3 ps-1">
 								<c:if test="${mode=='member'}">
-									<button type="button" class="btn btn-light"
-										onclick="userIdCheck();">아이디중복검사</button>
+									<button type="button" class="btn btn-light" style="width:180px;"
+										onclick="userIdCheck();">아이디 중복검사</button>
 								</c:if>
 							</div>
 						</div>

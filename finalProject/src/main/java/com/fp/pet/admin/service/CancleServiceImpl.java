@@ -156,7 +156,7 @@ public class CancleServiceImpl implements CancleService{
 			 map.put("qty",qty);
 			 
 			 
-			mapper.updatePoint(map); 
+			// mapper.updatePoint(map); 
 			// insert into point(pointNum,orderDetailNum,memberIdx,reg_date,memo,p_qty,p_sort)
 			// 	values(point_seq.NEXTVAL,#{orderDetailNum},#{memberIdx},sysdate,'주문 취소로 인한 포인트 회수',#{savedMoney},NULL)							
 			

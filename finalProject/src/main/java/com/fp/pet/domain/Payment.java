@@ -18,6 +18,7 @@ public class Payment {
 	private int delivery;
 	private String productName;
 	private long productNum;
+	private String from_friend;
 	
 	// 주문상세
 	private long orderDetailNum;
@@ -83,6 +84,14 @@ public class Payment {
 	private int reviewWrite; // 리뷰 유무
 	
 	
+
+	public String getFrom_friend() {
+		return from_friend;
+	}
+
+	public void setFrom_friend(String from_friend) {
+		this.from_friend = from_friend;
+	}
 
 	public String getIconImage() {
 		return iconImage;

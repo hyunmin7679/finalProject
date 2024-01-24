@@ -70,23 +70,6 @@ public class ExchangeServiceImpl implements ExchangeService{
 
 				int qty = Integer.parseInt((String) map.get("qty"));
 				
-				System.out.println(usedSaved+"usedSavedusedSavedusedSavedusedSaved");
-				System.out.println(cancelCost+"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-				System.out.println(orderNum+"orderNumorderNumorderNumorderNumorderNum");
-				System.out.println(changeNum+"changeNumchangeNumchangeNumchangeNum");
-				System.out.println(orderDetailNum+"orderDetailNumorderDetailNumorderDetailNumorderDetailNumorderDetailNum");
-				System.out.println(changeState+"changeStatechangeStatechangeStatechangeState");
-				System.out.println(PchangeState+"PchangeStatePchangeStatePchangeStatePchangeState");
-				System.out.println(deliveryCharge+"deliveryChargedeliveryChargedeliveryChargedeliveryChargedeliveryCharge");
-				
-				
-				System.out.println(productNum+"productNumproductNumproductNumproductNumproductNum");
-				System.out.println(detailNum+"detailNumdetailNumdetailNumdetailNumdetailNum");
-				System.out.println(detailNum2+"detailNum2detailNum2detailNum2detailNum2detailNum2");
-				System.out.println(memberIdx+"memberIdxmemberIdxmemberIdxmemberIdxmemberIdx");
-				System.out.println(savedMoney1+"savedMoney1savedMoney1savedMoney1savedMoney1savedMoney1savedMoney1");
-				System.out.println(qty+"qtyqtyqtyqtyqtyqtyqtyqty");
-				
 				map.put("orderNum", orderNum);
 				map.put("changeNum", changeNum);
 				map.put("changeState", changeState);

@@ -192,6 +192,7 @@ public class MyPageController {
 		model.addAttribute("detailState", detailState); // OrderState
 		model.addAttribute("changeSate", changeSate); // OrderState
 		model.addAttribute("userPoint", userPoint);
+		
 		model.addAttribute("mode", "order");
 		
 		model.addAttribute("vo", vo);
@@ -255,9 +256,23 @@ public class MyPageController {
 		
 		model.addAttribute("vo", vo);
 		
-		
-		
 		return ".myPage.paymentList";
+	}
+	
+	
+	@RequestMapping("delivery")
+	public String deilvery(@RequestParam long orderDetailNum, Model model) throws Exception{
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("orderDetailNum", orderDetailNum);
+		
+		Payment dto = service.findByDelivery(map);
+		
+		String orderState[] = OrderState.ORDERSTATEINFO; // 주문상태
+		model.addAttribute("orderState", orderState);
+		model.addAttribute("dto", dto);
+		
+		return "myPage/delivery"; 
 	}
 
 	@GetMapping("qna2")

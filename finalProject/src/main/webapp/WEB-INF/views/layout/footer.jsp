@@ -9,7 +9,7 @@
 	margin-top: 200px;
 	padding: 70px;
 	background: #fff;
-	height: 300px;
+	height: auto;
 	background-color: #003166;
 }
 

@@ -301,8 +301,10 @@ public class OrderManageServiceImpl implements OrderManageService {
 	public void updateOrderDetailState(Map<String, Object> map) throws Exception {
 		try {
 			if(map.get("deliveryCharge") == null) {
+				// 자동구매확정 ? 
 				mapper.updateOrderDetailState(map);
 				mapper.insertDetailStateInfo(map);
+				mapper.insertPoint(map);
 			}else {
 			
 			System.out.println("일로오긴함 ? ");

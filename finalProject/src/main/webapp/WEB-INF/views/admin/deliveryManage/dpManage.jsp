@@ -96,26 +96,7 @@
 									</td>
 
 								</tr>
-								<tr>
-									<td style="text-align: center;"><span class="fw-medium">상품</span></td>
-									<td colspan="4">
-
-										<div
-											class="d-flex justify-content-between align-items-center row gap-md-0">
-
-											<div class="col-4 product_status" style="width: 300px;">
-												<select id="ProductStatus"
-													class="form-select text-capitalize">
-													<option value="">상품명</option>
-												</select>
-											</div>
-											<div class="col product_category">
-												<input class="form-control" type="text" name="#" value="">
-											</div>
-										</div>
-									</td>
-
-								</tr>
+								
 							</tbody>
 						</table>
 						<div class="text-center pb-0 pt-3">
@@ -231,8 +212,10 @@
 						<div class="col-auto p-1">
 							<input type="hidden" name="orderNum"> <input
 								type="hidden" name="orderDetailNum"> <input
-								type="hidden" name="productMoney"> <input type="hidden"
-								name="cancelAmount">
+								type="hidden" name="productMoney"> 
+								<input type="hidden" name="cancelAmount">
+							<input type="hidden" name ="memberIdx">	
+							<input type="hidden" name ="savedMoney">	
 							<button class="btn btn-secondary p-6 m-0 btnDetailStateUpdateOk"
 								type="button">변경</button>
 
@@ -348,9 +331,13 @@
 		let orderState = $(this).attr("data-orderState");
 		let orderDetailNum = $(this).attr("data-orderDetailNum");
 		let detailState = $(this).attr("data-detailState");
-		let productMoney = $(this).attr("data-productMoney");
 		let cancelAmount = $(".order-cancelAmount").attr("data-cancelAmount");
-		
+		let productMoney = $(this).attr("data-productMoney");
+		let memberIdx = $(this).attr("data-memberidx");
+		let savedMoney = $(this).attr("data-savedmoney");
+	
+		f.savedMoney.value= savedMoney;
+		f.memberIdx.value = memberIdx;	
 		f.orderNum.value = orderNum;
 		f.orderDetailNum.value = orderDetailNum;
 		f.productMoney.value = productMoney;

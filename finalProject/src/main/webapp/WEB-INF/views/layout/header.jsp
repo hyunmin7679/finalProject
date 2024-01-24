@@ -410,28 +410,27 @@ nav li.sub-menu:hover .extra-space {
 				</ul></li>
 			<c:choose>
 				<c:when test="${empty sessionScope.member}">
-					<li class="exclude" style="padding: 0;"><a style="padding: 0;"
+					<li class="exclude " style="padding: 10; position:absolute; right:100px; top: 30px;">
+					<a style="  padding: 0;"
 						href="${pageContext.request.contextPath}/member/login" title="로그인"><i
 							class="bi bi-lock p-2"></i></a></li>
-					<li class="exclude" style="padding: 0;"><a
+					<li class="exclude " style="padding: 0; position:absolute; right:80px; top: 30px;"><a
 						href="${pageContext.request.contextPath}/member/member"
 						style="padding: 0;" title="회원가입"><i
 							class="bi bi-person-plus p-2"></i></a></li>
 				</c:when>
 				<c:otherwise>
-					<li class="exclude"><a style="padding: 0;"
+					<li class="exclude"
+					style="padding: 10; position:absolute; right:120px; top: 20px; margin-right: 15px;" ><a style=""
 						href="${pageContext.request.contextPath}/member/logout"
-						title="로그아웃"><i class="bi bi-unlock p-2"></i></a></li>
-					<li class="exclude"><a style="padding: 0;"
+						title="로그아웃"><i class="bi bi-unlock p-2" ></i></a></li>
+					<li class="exclude" 
+					style="padding: 10; position:absolute; right:100px; top: 20px; margin-right: 15px;"><a style=""
 						href="${pageContext.request.contextPath}/myPage/cart" title="장바구니"><i
 							class="bi bi-cart"></i></a></li>
-					<li class="exclude" style="padding: 0;"><a style="padding: 0;"
-						href="#" title="쪽지"><i class="bi bi-bell p-2"></i> <span
-							class="new-noteCount position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary"
-							style="font-size: 6px;"></span> </a></li>
 					<c:if test="${sessionScope.member.membership>50}">
-						<li class="exclude" style="padding: 0;"><a
-							style="padding: 0;"
+						<li class="exclude" style=" position:absolute; right:80px; top: 20px; padding: 10;"><a
+							style=""
 							href="${pageContext.request.contextPath}/admin" title="관리자"><i
 								class="bi bi-gear p-2"></i></a></li>
 					</c:if>

@@ -198,6 +198,19 @@ public class MyPageServiceImpl implements MyPageService {
 
 		return list;
 	}
+	
+	// 배송정보조회
+	@Override
+	public Payment findByDelivery(Map<String, Object> map) {
+		Payment dto = null;
+		
+		try {
+			dto = mapper.findByDelivery(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
+	}
 
 	// 주문상세
 	@Override
@@ -539,7 +552,6 @@ public class MyPageServiceImpl implements MyPageService {
 		}
 		
 	}
-
 
 	
 }
