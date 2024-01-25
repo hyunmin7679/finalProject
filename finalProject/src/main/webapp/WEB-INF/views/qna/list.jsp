@@ -79,7 +79,7 @@ function searchList() {
 						<th>상품명</th>
 						<th width="240">제목</th>
 						<th width="100">작성자</th>
-						<th width="90">문의일자</th>
+						<th width="100">문의일자</th>
 						<th width="90">처리결과</th>
 					</tr>
 				</thead>
