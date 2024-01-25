@@ -356,8 +356,8 @@ $(function(){
 			
 			let state = data.state;
 			if(state === 'true') {
-				//listPage(1);
 				replyListPage(1);
+				
 			} else if(state === 'false') {
 				alert('댓글을 추가 하지 못했습니다.');
 			}
@@ -628,9 +628,13 @@ $(function(){
 		
 		
 		const fn = function(data){
-			
-			$("#questionDialogModal").hide();
-			location.reload();
+			if(data.state === 'true') {
+			alert('친구요청이 완료되었습니다.');
+			//$("#frindModal").hide();
+			replyListPage(1);
+			} else {
+			 alert('친구요청에 실패했습니다.');
+			}
 			
 		};
 		

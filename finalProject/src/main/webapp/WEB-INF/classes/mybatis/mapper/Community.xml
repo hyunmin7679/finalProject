@@ -330,8 +330,8 @@
 	<select id="friendWhether" parameterType="map" resultType="com.fp.pet.domain.Friend">
 		select nvl(count(*),0) friendCount , is_friend 
 	       from friendlist fl, member1 m, member1 m2
-	       where fl.from_friend(+) = m.userName
-	       and fl.to_friend(+) = m2.userName
+	       where fl.from_friend = m.userName
+	       and fl.to_friend = m2.userName
 	       and m.userName= #{userId}
 	       and m2.userName = #{userName}
 	       group by is_friend
@@ -343,6 +343,7 @@
 		WHERE m.memberIdx = il.memberIdx
 		AND il.iconNum = i.iconNum
 		AND m.userName = #{userName}
+		AND il.iconuse = 2
 	</select>
 
 	
