@@ -34,8 +34,8 @@ function searchinsert() {
 
 <div class="container">
 	<div class="body-container">	
-		<div class="body-title">
-			<h3><i class="bi bi-app"></i> 친구추가 </h3>
+		<div class="body-title2">
+		   <p style="font-size: 22px;"><span style="border-bottom: 12px solid #dcf1fb; padding: 0 0 0 0.2em; width: 100%"> <i class="fa-regular fa-comment-dots"></i> 친구추가</span></p>
 		</div>
 		
 	<form name="SearchForm" method="post">
@@ -80,8 +80,8 @@ function searchinsert() {
 			<table class="table table-hover board-list">
 				<thead class="table-light">
 					<tr>
-						<th width="100">작성자12</th>
-						<th width="100">작성일</th>
+						<th width="100">작성자</th>
+						<th width="100"></th>
 						
 					</tr>
 				</thead>

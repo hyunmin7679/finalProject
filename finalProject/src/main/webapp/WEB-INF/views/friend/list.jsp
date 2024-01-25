@@ -57,8 +57,8 @@ function presentOk(userName) {
 
 <div class="container">
 	<div class="body-container">	
-		<div class="body-title">
-			<h3><i class="bi bi-app"></i> 친구목록 </h3>
+		<div class="body-title2">
+		   <p style="font-size: 22px;"><span style="border-bottom: 12px solid #dcf1fb; padding: 0 0 0 0.2em; width: 100%"> <i class="fa-regular fa-comment-dots"></i> 친구목록</span></p>
 		</div>
 		
 	<form name="SearchForm" method="post">
@@ -91,7 +91,7 @@ function presentOk(userName) {
 			<table class="table table-hover board-list">
 				<thead class="table-light">
 					<tr>
-						<th width="100">작성자z</th>
+						<th width="100">작성자</th>
 						<th width="100"></th>
 						<th width="100"></th>
 					</tr>
@@ -103,6 +103,7 @@ function presentOk(userName) {
 							<td>${dto.to_Friend}</td>
 							<td><button type="button" class="btn btn-light" onclick="searchinsert()"><i class="fa-solid fa-check"></i></button></td>
 							<td><input type="hidden" name="userName" value="${dto.to_Friend}"></td>
+							<td><button type="button" class="btn btn-light"><i class="fa-solid fa-trash"></i></button></td>
 						</tr>
 					</c:forEach>
 					
@@ -118,6 +119,8 @@ function presentOk(userName) {
 						<td>
 							<input type="hidden" name="friendname" value="${dto.to_Friend}">
 						</td>
+						<td></td>
+						<td></td>
 					</tr>
 				</tbody>
 				

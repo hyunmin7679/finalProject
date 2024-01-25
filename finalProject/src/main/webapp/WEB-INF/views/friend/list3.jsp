@@ -49,8 +49,8 @@ function presentOk(orderNum) {
 
 <div class="container">
 	<div class="body-container">	
-		<div class="body-title">
-			<h3><i class="bi bi-app"></i> 선물목록 </h3>
+		<div class="body-title2">
+		   <p style="font-size: 22px;"><span style="border-bottom: 12px solid #dcf1fb; padding: 0 0 0 0.2em; width: 100%"> <i class="fa-regular fa-comment-dots"></i> 선물목록</span></p>
 		</div>
 		
 	<form name="SearchForm" method="post">
