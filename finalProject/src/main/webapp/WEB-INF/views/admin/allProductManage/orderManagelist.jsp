@@ -40,7 +40,7 @@
 			<!-- Bordered Table -->
 			<div class="card">
 				<div class="card-body">
-					<div class="table-responsive text-nowrap">
+					<div class=" text-nowrap">
 						<table class="table table-bordered" style="width: 1330px;">
 							<thead>
 								<tr class="text-center" style="background-color: gray;">
@@ -97,26 +97,6 @@
 									</td>
 
 								</tr>
-								<!-- <tr>
-									<td style="text-align: center;"><span class="fw-medium">상품</span></td>
-									<td colspan="4">
-
-										<div
-											class="d-flex justify-content-between align-items-center row gap-md-0">
-
-											<div class="col-4 product_status" style="width: 300px;">
-												<select id="ProductStatus"
-													class="form-select text-capitalize">
-													<option value="">상품명</option>
-												</select>
-											</div>
-											<div class="col product_category">
-												<input class="form-control" type="text" name="#" value="">
-											</div>
-										</div>
-									</td>
-
-								</tr> -->
 
 
 							</tbody>

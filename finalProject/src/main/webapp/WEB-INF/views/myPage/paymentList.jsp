@@ -371,10 +371,12 @@ $(function(){
       // 반품요청
       let orderDetailNum = $(this).attr("data-orderDetailNum");
       let memberIdx = $(this).attr("data-memberIdx");
+      let payment = $(this).attr("data-payment");
    
       const f = document.returnForm;
       f.orderDetailNum.value = orderDetailNum;
       f.memberIdx.value = memberIdx;
+      f.payment.value = payment;
 
       $("#orderDetailReturnModalLabel").html("반품신청");
       $("#orderDetailReturnModal").modal("show");
@@ -966,6 +968,8 @@ $(function(){
                      <input type="hidden" name="page" value="${page}"> 
                      <input type="hidden" name="orderDetailNum">
                      <input type="hidden" name="memberIdx">
+                      <input type="hidden"
+                        name="payment"> <input type="hidden" name="changeSort">
                      <button type="button"
                         class="btn btn-light btnUserOrderReturnUpdateOk">요청하기</button>
                   </div>

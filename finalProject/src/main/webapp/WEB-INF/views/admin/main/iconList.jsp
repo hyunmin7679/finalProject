@@ -9,7 +9,6 @@
 							<button class="btn p-0" type="button" id="transactionID"
 								data-bs-toggle="dropdown" aria-haspopup="true"
 								aria-expanded="false">
-								<i class="bx bx-dots-vertical-rounded"></i>
 							</button>
 							<div class="dropdown-menu dropdown-menu-end mt-2"
 								aria-labelledby="transactionID">

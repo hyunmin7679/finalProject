@@ -12,7 +12,7 @@
 					</div>
 				</div>
 				<span class="fw-semibold d-block mb-1">${curryear} 매출액</span>
-				<h3 class="card-title mb-2">₩${currsalesdf}</h3>
+				<h4 class="card-title mb-2">₩${currsalesdf}</h4>
 				<small class="text-${dfsalesdiff.contains('-') ? 'danger' : 'success'} fw-semibold"><i
 					class="bx bx-${dfsalesdiff.contains('-') ? 'down' : 'up'}-arrow-alt"></i> ${dfsalesdiff}%</small>
 			</div>
@@ -28,7 +28,7 @@
 					</div>
 				</div>
 				<span class="fw-semibold d-block mb-1">${curryear} 수익</span>
-				<h3 class="card-title text-nowrap mb-1">₩${currprofitdf }</h3>
+				<h4 class="card-title text-nowrap mb-1">₩${currprofitdf }</h4>
 				<small class="text-${dfsalesdiff.contains('-') ? 'danger' : 'success'} fw-semibold"><i
 					class="bx bx-${dfsalesdiff.contains('-') ? 'down' : 'up'}-arrow-alt"></i> ${dfprofitdiff }%</small>
 			</div>
@@ -44,7 +44,7 @@
 					</div>
 				</div>
 				<span class="fw-semibold d-block mb-1">${curryear} 지출액</span>
-				<h3 class="card-title text-nowrap mb-2">₩${currexpensedf }</h3>
+				<h4 class="card-title text-nowrap mb-2">₩${currexpensedf }</h4>
 				<small class="text-${dfsalesdiff.contains('-') ? 'success' : 'danger'} fw-semibold"><i
 					class="bx bx-${dfsalesdiff.contains('-') ? 'down' : 'up'}-arrow-alt"></i> ${dfexpensediff }%</small>
 			</div>
@@ -60,7 +60,7 @@
 					</div>
 				</div>
 				<span class="fw-semibold d-block mb-1">${curryear} 주문수량</span>
-				<h3 class="card-title mb-2">${currordersdf}&nbsp;건</h3>
+				<h4 class="card-title mb-2">${currordersdf}&nbsp;건</h4>
 				<small class="text-${dforderdiff.contains('-') ? 'danger' : 'success'} fw-semibold"><i
 					class="bx bx-${dforderdiff.contains('-') ? 'down' : 'up'}-arrow-alt"></i> ${dforderdiff }%</small>
 			</div>

@@ -242,8 +242,8 @@
 	 
 	<!-- ***** 반품 ***** -->
 	 <insert id="insertorderChange2" parameterType="com.fp.pet.domain.Payment">
-	 	INSERT INTO orderChange (changeNum, orderDetailNum, reg_date, changeSort, changeState, shipCost,cancelMet,userMemo)
-       		 VALUES (change_seq.NEXTVAL, #{orderDetailNum}, SYSDATE,  #{changeSort}, 10, 4000, 1, #{userMemo})
+	 	INSERT INTO orderChange (changeNum, orderDetailNum, reg_date, changeSort, changeState,cancelCost, shipCost,cancelMet,userMemo)
+       		 VALUES (change_seq.NEXTVAL, #{orderDetailNum}, SYSDATE,  #{changeSort}, 10,#{payment} ,4000, 1, #{userMemo})
 	 </insert>
 	 
 	  <insert id="insertStateInfo4" parameterType="com.fp.pet.domain.Payment">
