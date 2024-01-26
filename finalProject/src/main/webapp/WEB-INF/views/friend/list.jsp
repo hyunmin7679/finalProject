@@ -90,10 +90,10 @@ function presentOk(userName) {
 			<form name="insertForm" method="post">
 			<table class="table table-hover board-list">
 				<thead class="table-light">
-					<tr>
-						<th width="100">작성자</th>
-						<th width="100"></th>
-						<th width="100"></th>
+					<tr>    
+						<th>이름</th>
+						<th>선택</th>
+						<th>삭제</th>
 					</tr>
 				</thead>
 				
@@ -101,27 +101,20 @@ function presentOk(userName) {
 					<c:forEach var="dto" items="${receivedlist}" varStatus="status">
 						<tr>
 							<td>${dto.to_Friend}</td>
-							<td><button type="button" class="btn btn-light" onclick="searchinsert()"><i class="fa-solid fa-check"></i></button></td>
-							<td><input type="hidden" name="userName" value="${dto.to_Friend}"></td>
-							<td><button type="button" class="btn btn-light"><i class="fa-solid fa-trash"></i></button></td>
+							<td><button type="button" class="btn btn-light" onclick="searchinsert()"><i class="fa-solid fa-check"></i></button>
+							<input type="hidden" name="userName" value="${dto.to_Friend}">
+							<input type="hidden" name="friendname" value="${dto.to_Friend}"></td></td>
+							<td><button type="button" class="btn btn-light ff"><i class="fa-solid fa-trash"></i></button></td>
 						</tr>
 					</c:forEach>
 					
 					<c:forEach var="dto" items="${list}" varStatus="status">
-						<tr >
+						<tr>
 							<td>${dto.to_Friend}</td>
 							<td><button type="button" onclick="presentOk('${dto.to_Friend}')" class="btn btn-light"><i class="fa-solid fa-gift"></i></button></td>
 							<td><button type="button" class="btn btn-light ff " data-to_Friend="${dto.to_Friend}"><i class="fa-solid fa-trash"></i></button></td>
-							
 						</tr>
 					</c:forEach>
-					<tr>
-						<td>
-							<input type="hidden" name="friendname" value="${dto.to_Friend}">
-						</td>
-						<td></td>
-						<td></td>
-					</tr>
 				</tbody>
 				
 			</table>
@@ -129,14 +122,14 @@ function presentOk(userName) {
 			<div class="page-navigation"></div>
 
 			<div class="row board-list-footer">
-				<div class="col">
+				<div class="col-2">
 					<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/friend/list';" title="새로고침"><i class="bi bi-arrow-counterclockwise"></i></button>
 				</div>
 				<div class="col-6 text-center">
 					<form class="row" name="searchForm" action="${pageContext.request.contextPath}/friend/list" method="post">
 						<div class="col-auto p-1">
 							<select name="schType" class="form-select">
-								<option value="all" ${schType=="all"?"selected":""}>제목+내용</option>
+								<option value="all" ${schType=="all"?"selected":""}>이름</option>
 							</select>
 						</div>
 						<div class="col-auto p-1">
@@ -147,15 +140,20 @@ function presentOk(userName) {
 						</div>
 					</form>
 				</div>
-				<div class="col text-end">
-					<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/friend/addfriendlist';">친구추가하기!</button>
-					<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/friend/present';">선물받은 목록보기!</button>
+				<div class="col text-end" style="display: flex;">
+					<div>
+					<button type="button" class="btn btn-light w-5 m-1" onclick="location.href='${pageContext.request.contextPath}/friend/addfriendlist';">친구추가&nbsp;<i class="fa-solid fa-user-plus"></i></button>
+					<button type="button" class="btn btn-light w-3 m-1" onclick="location.href='${pageContext.request.contextPath}/friend/present';">받은선물&nbsp; <i class="fa-solid fa-gift"></i></button>
+					</div>
+					<div>
+				</div>
 				</div>
 			</div>
 
 		</div>
 	</div>
 </div>
+
 
 <script>
 function login() {

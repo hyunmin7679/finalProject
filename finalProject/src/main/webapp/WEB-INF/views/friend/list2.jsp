@@ -35,13 +35,13 @@ function searchinsert() {
 <div class="container">
 	<div class="body-container">	
 		<div class="body-title2">
-		   <p style="font-size: 22px;"><span style="border-bottom: 12px solid #dcf1fb; padding: 0 0 0 0.2em; width: 100%"> <i class="fa-regular fa-comment-dots"></i> 친구추가</span></p>
+		   <p style="font-size: 22px;"><span style="border-bottom: 12px solid #dcf1fb; padding: 0 0 0 0.2em; width: 100%"> <i class="fa-solid fa-user-plus"></i> 친구추가</span></p>
 		</div>
 		
 	<form name="SearchForm" method="post">
 	    <input type="hidden" name="kwd" value="">
 	</form>
-	<!-- 
+	<!--  
 		<div class="nav-align-top mb-4">
 		  <ul class="nav nav-pills mb-3" role="tablist">   
 	        <li class="nav-item" role="presentation">

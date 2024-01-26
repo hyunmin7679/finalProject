@@ -50,7 +50,7 @@ function presentOk(orderNum) {
 <div class="container">
 	<div class="body-container">	
 		<div class="body-title2">
-		   <p style="font-size: 22px;"><span style="border-bottom: 12px solid #dcf1fb; padding: 0 0 0 0.2em; width: 100%"> <i class="fa-regular fa-comment-dots"></i> 선물목록</span></p>
+		   <p style="font-size: 22px;"><span style="border-bottom: 12px solid #dcf1fb; padding: 0 0 0 0.2em; width: 100%"><i class="fa-solid fa-gift"></i> 선물목록</span></p>
 		</div>
 		
 	<form name="SearchForm" method="post">
@@ -82,15 +82,11 @@ function presentOk(orderNum) {
 							<td>${dto1.qty}</td>
 							<td>
 								<button type="button" onclick="presentOk('${dto1.orderNum}')" class="btn btn-light"><i class="fa-solid fa-gift"></i></button>
+								<input type="hidden" name="orderNum" value="${dto.orderNum}">
+							<input type="hidden" name="friendname" value="${dto.to_Friend}">
 							</td>
 						</tr>
 					</c:forEach>
-					<tr>
-						<td>
-							<input type="hidden" name="orderNum" value="${dto.orderNum}">
-							<input type="hidden" name="friendname" value="${dto.to_Friend}">
-						</td>
-					</tr>
 				</tbody>
 			</table>
 			</form>
@@ -104,7 +100,7 @@ function presentOk(orderNum) {
 					<form class="row" name="searchForm" action="${pageContext.request.contextPath}/friend/list" method="post">
 						<div class="col-auto p-1">
 							<select name="schType" class="form-select">
-								<option value="all" ${schType=="all"?"selected":""}>제목+내용</option>
+								<option value="all" ${schType=="all"?"selected":""}>이름</option>
 							</select>
 						</div>
 						<div class="col-auto p-1">
@@ -113,10 +109,10 @@ function presentOk(orderNum) {
 						<div class="col-auto p-1">
 							<button type="button" class="btn btn-light" onclick="searchList()"> <i class="bi bi-search"></i> </button>
 						</div>
-					</form>
+					</form> 
 				</div>
 				<div class="col text-end">
-					<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/friend/addfriendlist';">친구추가하기!</button>
+					<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/friend/addfriendlist';">친구추가&nbsp;<i class="fa-solid fa-user-plus"></i></button>
 				</div>
 			</div>
 
