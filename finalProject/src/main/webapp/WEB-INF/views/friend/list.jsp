@@ -48,7 +48,6 @@ function presentOk(userName) {
 	const f = document.insertForm;
 	
 	f.friendname.value = userName;
-	alert(userName);
 	f.action = "${pageContext.request.contextPath}/wishlist/"
 	f.submit();
 	
@@ -103,7 +102,7 @@ function presentOk(userName) {
 							<td>${dto.to_Friend}</td>
 							<td><button type="button" class="btn btn-light" onclick="searchinsert()"><i class="fa-solid fa-check"></i></button>
 							<input type="hidden" name="userName" value="${dto.to_Friend}">
-							<input type="hidden" name="friendname" value="${dto.to_Friend}"></td></td>
+							<input type="hidden" name="friendname" value="${dto.to_Friend}"></td>
 							<td><button type="button" class="btn btn-light ff"><i class="fa-solid fa-trash"></i></button></td>
 						</tr>
 					</c:forEach>
@@ -116,7 +115,11 @@ function presentOk(userName) {
 						</tr>
 					</c:forEach>
 				</tbody>
-				
+					<tr>
+						<td><input type="hidden" name="friendname" value="${dto.to_Friend}"></td></td>
+						<td></td>
+						<td></td>
+					</tr>
 			</table>
 			</form>
 			<div class="page-navigation"></div>
