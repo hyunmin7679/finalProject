@@ -1488,8 +1488,7 @@ $(function(){
                $(this).remove();
             });
             sel_files.length = 0;
-            
-            
+           
             listQuestion(1);
          }
       };
