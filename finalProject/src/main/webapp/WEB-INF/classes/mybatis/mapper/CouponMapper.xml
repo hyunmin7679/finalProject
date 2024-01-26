@@ -5,13 +5,13 @@
 
 	<sql id="where-list">
 		<if test="category== 'open' ">
-			TRUNC(startCouponDate) &lt;= TRUNC(SYSDATE) AND couponState = 0
+			couponState = 0
 		</if>
 		<if test="category== 'stop' ">
-			TRUNC(startCouponDate) &lt;= TRUNC(SYSDATE) AND couponState = 1
+			 couponState = 1
 		</if>
 		<if test="category== 'end' ">
-			TRUNC(endCouponDate) &lt; TRUNC(SYSDATE) OR couponState = 2
+			couponState = 2
 		</if>
 		<if test="category== 'ready' ">
 			couponState = 3

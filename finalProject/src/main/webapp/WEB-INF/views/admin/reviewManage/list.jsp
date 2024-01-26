@@ -44,7 +44,7 @@
 				class="d-flex justify-content-start align-items-center customer-name">
 				<div class="avatar-wrapper">
 					<div class="avatar me-2">
-						<img src="../../bootstrapTemp/assets/img/avatars/robot.jpg"
+						<img src="../../bootstrapTemp/assets/img/avatars/person.png"
 							alt="Avatar" class="rounded-circle">
 					</div>
 				</div>
