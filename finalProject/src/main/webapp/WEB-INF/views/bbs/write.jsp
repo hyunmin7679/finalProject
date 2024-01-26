@@ -156,7 +156,8 @@ function toggleAddressInput() {
 
     // 카테고리 값이 4(산책메이트)이면 보이도록, 그 외에는 숨기도록 설정
     if (selectedCategory == 4) {
-    	 let result= '';
+		 
+    	let result= '';
     	 result +='	<hr/>';
     	 result += '<div style="text-align: center; background: skyblue;">';
     	 result += '<h3>산책로 경로 지정해주기 or 장소 정해주기</h3>';

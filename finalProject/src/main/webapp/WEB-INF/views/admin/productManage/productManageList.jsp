@@ -521,12 +521,12 @@ $(function() {
 						<tr>
 							<th class="sorting sorting_asc" tabindex="0"
 								aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-								width="100px;"
+								width="80px;"
 								aria-label="product: activate to sort column descending"
 								aria-sort="ascending">상품명</th>
 							<th class="sorting" tabindex="0"
 								aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-								width="10%"
+								width="8%"
 								aria-label="category: activate to sort column ascending">카테고리</th>
 							<th class="sorting" tabindex="0"
 								aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
@@ -550,7 +550,7 @@ $(function() {
 								aria-label="status: activate to sort column ascending">옵션2</th>
 							<th class="sorting" tabindex="0"
 								aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
-								width="100px;"
+								width="60px;"
 								aria-label="status: activate to sort column ascending">상태</th>
 							<th class="sorting_disabled" rowspan="1" colspan="1"
 								style="width: 0px;" aria-label="Actions"></th>

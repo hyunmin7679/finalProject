@@ -24,7 +24,63 @@
 			</div>
 		</td>
 		<td><span class="text-truncate d-flex align-items-center"
-			style="width: 40px;"> </span>${dto.categoryNum}</td>
+			style="width: 40px;"> </span><c:if test="${dto.categoryNum == 22}">
+						모두
+					</c:if>
+					<c:if test="${dto.categoryNum == 1}">
+						건식사료
+					</c:if>
+					<c:if test="${dto.categoryNum == 2}">
+						습식사료
+					</c:if>
+					<c:if test="${dto.categoryNum == 3}">
+						우유/분유
+					</c:if>
+					<c:if test="${dto.categoryNum == 4}">
+						고양이사료
+					</c:if>
+					<c:if test="${dto.categoryNum == 5}">
+						강아지껌
+					</c:if>
+					<c:if test="${dto.categoryNum == 6}">
+						육포/사시미
+					</c:if>
+					<c:if test="${dto.categoryNum == 7}">
+						수제간식
+					</c:if>
+					<c:if test="${dto.categoryNum == 8}">
+						비스켓/스낵
+					</c:if>
+					<c:if test="${dto.categoryNum == 9}">
+						캔/파우치
+					</c:if>
+					<c:if test="${dto.categoryNum == 10}">
+						고양이간식
+					</c:if>
+					<c:if test="${dto.categoryNum == 11}">
+						위생/배변
+					</c:if>
+					<c:if test="${dto.categoryNum == 12}">
+						건강관리
+					</c:if>
+					<c:if test="${dto.categoryNum == 13}">
+						장난감
+					</c:if>
+					<c:if test="${dto.categoryNum == 14}">
+						미용/목욕
+					</c:if>
+					<c:if test="${dto.categoryNum == 15}">
+						하우스
+					</c:if>
+					<c:if test="${dto.categoryNum == 16}">
+						급식기/급수기
+					</c:if>
+					<c:if test="${dto.categoryNum == 17}">
+						의류/액세서리
+					</c:if>
+					<c:if test="${dto.categoryNum == 18}">
+						목줄/가슴줄
+					</c:if></td>
 		<td><span>${dto.productNum}</span></td>
 		<td><span
 			style="font-size: smaller; display: ${dto.discountRate>0?'':'none'};"
