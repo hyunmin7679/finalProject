@@ -168,9 +168,7 @@
 						<c:if test="${sessionScope.member.memberIdx eq dto.memberIdx || sessionScope.member.membership>50}">
 							<button type="button" class="btn btn-light" onclick="deleteOk('question');">질문삭제</button>
 						</c:if>
-						<c:if test="${not empty dto.answer and sessionScope.member.userId eq dto.answerId}">
-							<button type="button" class="btn btn-light btnUpdateAnswer" data-mode="update">답변수정</button>
-						</c:if>
+						
 						
 					</td>
 					<td class="text-end">
@@ -205,19 +203,6 @@
 			});
 		});
 		
-		$(function(){
-			$(".btnUpdateAnswer").click(function(){
-				let mode = $(this).attr("data-mode");
-				if(mode === "update") {
-					$(".reply").show();
-					$(this).text("답변 수정 취소")
-					$(this).attr("data-mode", "cancel");
-				} else {
-					$(".reply").hide();
-					$(this).attr("data-mode", "update");
-					$(this).text("답변 수정")
-				}
-			});
-		});
+		
 	</script>
 </c:if>
