@@ -1481,6 +1481,7 @@ $(function(){
       const fn = function(data) {
             $("#questionDialogModal").modal("hide");
             location.reload();
+            
          if(data.state === "true") {
             f.reset();
             $(".qna-form .img-item").each(function(){
