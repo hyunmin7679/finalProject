@@ -94,7 +94,7 @@ function presentOk(userName) {
 						<th>이름</th>
 						<th>선택</th>
 						<th>삭제</th>
-					</tr>
+					</tr> 
 				</thead>
 				
 				<tbody>

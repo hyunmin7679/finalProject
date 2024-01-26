@@ -115,7 +115,7 @@ function presentOk(orderNum) {
 					<button type="button" class="btn btn-light" onclick="location.href='${pageContext.request.contextPath}/friend/addfriendlist';">친구추가&nbsp;<i class="fa-solid fa-user-plus"></i></button>
 				</div>
 			</div>
-
+ 
 		</div>
 	</div>
 </div>

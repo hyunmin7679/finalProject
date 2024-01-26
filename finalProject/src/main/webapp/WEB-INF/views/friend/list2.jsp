@@ -41,23 +41,7 @@ function searchinsert() {
 	<form name="SearchForm" method="post">
 	    <input type="hidden" name="kwd" value="">
 	</form>
-	<!--  
-		<div class="nav-align-top mb-4">
-		  <ul class="nav nav-pills mb-3" role="tablist">   
-	        <li class="nav-item" role="presentation">
-				<button class="nav-link active" id="tab-0" data-bs-toggle="tab" data-bs-target="#nav-content" 
-					type="button" role="tab" aria-controls="0" aria-selected="true" data-categoryNum="0">전체</button>
-			</li>		
-			<c:forEach var="dto" items="${listCategory}" varStatus="status">
-				<li class="nav-item" role="presentation">
-					<button class="nav-link" id="tab-${status.count}" data-bs-toggle="tab" 
-						data-bs-target="#nav-content" type="button" role="tab" aria-controls="${status.count}" 
-						aria-selected="true" data-categoryNum="${dto.categoryNum}">${dto.categoryName}</button>
-				</li>
-			</c:forEach>
-	   </ul>
-		</div> -->
-		
+	
 		<div class="body-main">
 			
 	        <div class="row board-list-header">
