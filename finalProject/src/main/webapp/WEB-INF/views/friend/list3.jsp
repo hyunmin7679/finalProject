@@ -40,7 +40,6 @@ function presentOk(orderNum) {
 	const f = document.insertForm;
 	
 	f.orderNum.value = orderNum;
-	alert(orderNum);
 	f.action = "${pageContext.request.contextPath}/friend/acceptpresent"
 	f.submit();
 	
@@ -82,11 +81,19 @@ function presentOk(orderNum) {
 							<td>${dto1.qty}</td>
 							<td>
 								<button type="button" onclick="presentOk('${dto1.orderNum}')" class="btn btn-light"><i class="fa-solid fa-gift"></i></button>
-								<input type="hidden" name="orderNum" value="${dto.orderNum}">
-							<input type="hidden" name="friendname" value="${dto.to_Friend}">
 							</td>
 						</tr>
+					
 					</c:forEach>
+					<tr>
+						<td>
+							<input type="hidden" name="orderNum" value="${dto.orderNum}">
+							<input type="hidden" name="friendname" value="${dto.to_Friend}">
+						</td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
 				</tbody>
 			</table>
 			</form>
