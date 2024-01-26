@@ -1479,6 +1479,8 @@ $(function(){
       let query = new FormData(f); 
       
       const fn = function(data) {
+            $("#questionDialogModal").modal("hide");
+            location.reload();
          if(data.state === "true") {
             f.reset();
             $(".qna-form .img-item").each(function(){
@@ -1486,7 +1488,6 @@ $(function(){
             });
             sel_files.length = 0;
             
-            $("#questionDialogModal").modal("hide");
             
             listQuestion(1);
          }
@@ -1514,9 +1515,7 @@ $(function(){
 document.getElementById('wishButton').addEventListener('click', function() {
     // data-productNum 속성에서 pnum 값을 가져오기
     let pnum = this.getAttribute('data-productNum');
-    console.log(pnum);
 
-    console.log('aaaaaa')
     $('.wishbody #productNum').val(pnum);
     $('#wishlist-modal').modal('show');
 });
