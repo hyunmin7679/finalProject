@@ -56,7 +56,7 @@
    <sql id="where-list2">
       <if test="schType=='all'">
          productNum = #{kwd}
-         OR INSTR(productName, #{kwd}) &gt; 0 )
+         OR INSTR(productName, #{kwd}) &gt; 0
       </if>
       
       <if test="schType=='productName'">
